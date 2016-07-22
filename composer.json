@@ -1,0 +1,13 @@
+{
+    "name": "virtuvia/sf-doctrine-plugin",
+    "description": "The sfDoctrinePlugin is a symfony1 plugin that handles integration with the Doctrine1 ORM",
+    "type": "symfony1-plugin",
+    "extra": {
+        "installer-name": "sfDoctrinePlugin"
+    },
+    "require": {
+        "composer/installers": "^1.0",
+        "symfony/symfony1": "1.4.*"
+    },
+    "license": "MIT"
+}
