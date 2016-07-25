@@ -126,7 +126,5 @@ EOF;
     $baseFinder = sfFinder::type('file')->name('Base*'.$builderOptions['suffix']);
     $baseDirFinder = sfFinder::type('dir')->name('base');
     $this->getFilesystem()->replaceTokens($baseFinder->in($baseDirFinder->in($config['models_path'])), '', '', $tokens);
-
-    $this->reloadAutoload();
   }
 }
