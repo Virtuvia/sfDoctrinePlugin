@@ -242,7 +242,7 @@ class Doctrine_Relation_Parser
      * getRelations
      * returns an array containing all relation objects
      *
-     * @return array        an array of Doctrine_Relation objects
+     * @return Doctrine_Relation[]        an array of Doctrine_Relation objects
      */
     public function getRelations()
     {

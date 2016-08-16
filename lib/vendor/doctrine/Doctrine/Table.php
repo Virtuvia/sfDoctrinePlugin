@@ -275,6 +275,29 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
         $this->construct();
     }
 
+    public function isFieldRelationIdentifier($fieldName)
+    {
+        try {
+            return $this->getRelationForField($fieldName) instanceof Doctrine_Relation;
+        } catch (\InvalidArgumentException $e) {
+        }
+
+        return false;
+    }
+
+    public function getRelationForField($fieldName)
+    {
+        $relations = $this->getRelations();
+
+        foreach ($relations as $relation) {
+            if ($relation->getLocalColumnName() === $fieldName) {
+                return $relation;
+            }
+        }
+
+        throw new \InvalidArgumentException(sprintf('Could not find a Relation for Field: %s', $fieldName));
+    }
+
     /**
      * Construct template method.
      *
@@ -1004,7 +1027,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     /**
      * Retrieves all relation objects defined on this table.
      *
-     * @return array
+     * @return Doctrine_Relation[]
      */
     public function getRelations()
     {

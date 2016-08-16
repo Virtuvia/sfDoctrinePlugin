@@ -1305,7 +1305,17 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
             return $this->$mutator($value, $load, $fieldName);
         }
 
-        return $this->_set($fieldName, $value, $load);
+        $returnValue = $this->_set($fieldName, $value, $load);
+
+        # This is an attempt to resolve bugs associated to setting a relation's id field manually, but not calling
+        # clearRelated() afterward.
+        if (in_array($fieldName, $this->_modified, true) && $this->_table->isFieldRelationIdentifier($fieldName)) {
+            $relation = $this->_table->getRelationForField($fieldName);
+
+            $this->clearRelated($relation->getAlias());
+        }
+
+        return $returnValue;
     }
 
     protected function _set($fieldName, $value, $load = true)
