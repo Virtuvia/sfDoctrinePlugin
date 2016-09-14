@@ -1317,7 +1317,10 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
             && $relation instanceof Doctrine_Relation_LocalKey
             && $this->hasReference($relation->getAlias())
             && ($relatedObject = $this->obtainReference($relation->getAlias()))
-            && $relatedObject->get($relation->getForeignFieldName()) !== $value
+            && (
+                !$relatedObject instanceof \Doctrine_Record
+                || $relatedObject->get($relation->getForeignFieldName()) !== $value
+            )
         ) {
             $this->clearRelated($relation->getAlias());
         }
