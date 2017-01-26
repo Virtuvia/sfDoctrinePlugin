@@ -1765,11 +1765,11 @@ abstract class Doctrine_Query_Abstract
     }
 
     /**
-     * @param array $params
+     * @param mixed $params
      * @param bool $limitSubquery
      * @return string
      */
-    protected function getSqlQueryWithCaching(array $params, $limitSubquery = true)
+    protected function getSqlQueryWithCaching($params, $limitSubquery = true)
     {
         // Apply boolean conversion in DQL params
         $params = $this->_conn->convertBooleans($params);
