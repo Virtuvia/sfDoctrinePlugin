@@ -181,7 +181,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      *
      * @param Doctrine_Connection $conn  optional connection parameter
      * @param string $class              Query class to instantiate
-     * @return Doctrine_Query
+     * @return static
      */
     public static function create($conn = null, $class = null)
     {
@@ -223,12 +223,11 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      * createSubquery
      * creates a subquery
      *
-     * @return Doctrine_Hydrate
+     * @return static
      */
     public function createSubquery()
     {
-        $class = get_class($this);
-        $obj   = new $class();
+        $obj   = new static();
 
         // copy the aliases to the subquery
         $obj->copySubqueryInfo($this);
@@ -244,7 +243,6 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      *
      * @param string $componentAlias    component alias
      * @param string $joinCondition     dql join condition
-     * @return Doctrine_Query           this object
      */
     public function addPendingJoinCondition($componentAlias, $joinCondition)
     {
@@ -308,7 +306,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      * value of Doctrine_Query::$isSubquery.
      *
      * @param boolean $bool     whether or not this query acts as a subquery
-     * @return Doctrine_Query|bool
+     * @return static|bool
      */
     public function isSubquery($bool = null)
     {
@@ -891,7 +889,6 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      * subqueries can only be processed when the query is fully constructed
      * since some subqueries may be correlated
      *
-     * @return void
      * @todo Better description. i.e. What is a 'pending subquery'? What does 'processed' mean?
      *       (parsed? sql is constructed? some information is gathered?)
      */
@@ -923,7 +920,6 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      * processPendingAggregates
      * processes pending aggregate values for given component alias
      *
-     * @return void
      * @todo Better description. i.e. What is a 'pending aggregate'? What does 'processed' mean?
      */
     public function processPendingAggregates()
@@ -1622,7 +1618,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      * @param string $query                 DQL query
      * @param boolean $clear                whether or not to clear the aliases
      * @throws Doctrine_Query_Exception     if some generic parsing error occurs
-     * @return Doctrine_Query
+     * @return static
      */
     public function parseDqlQuery($query, $clear = true)
     {
@@ -2186,8 +2182,6 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
 
     /**
      * Magic method called after cloning process.
-     *
-     * @return void
      */
     public function __clone()
     {
@@ -2225,7 +2219,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      * This method can therefore be used to reduce memory usage when creating
      * a lot of query objects during a request.
      *
-     * @return Doctrine_Query   this object
+     * @return static
      */
     public function free()
     {
