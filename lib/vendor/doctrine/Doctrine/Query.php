@@ -2042,7 +2042,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
     public function getCountSqlQuery()
     {
         // triggers dql parsing/processing
-        $this->getSqlQuery(array(), false); // this is ugly
+        $this->buildQueryComponents([], false); // this is still ugly
 
         // initialize temporary variables
         $where   = $this->_sqlParts['where'];
@@ -2182,22 +2182,6 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
     {
         $this->parseDqlQuery($query);
         return $this->execute($params, $hydrationMode);
-    }
-
-    /**
-     * Copies a Doctrine_Query object.
-     *
-     * @return Doctrine_Query  Copy of the Doctrine_Query instance.
-     */
-    public function copy(Doctrine_Query $query = null)
-    {
-        if ( ! $query) {
-            $query = $this;
-        }
-
-        $new = clone $query;
-
-        return $new;
     }
 
     /**

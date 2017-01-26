@@ -753,7 +753,7 @@ abstract class Doctrine_Query_Abstract
     public function getRootAlias()
     {
         if ( ! $this->_queryComponents) {
-            $this->getSqlQuery(array(), false);
+            $this->buildQueryComponents([], false);
         }
         
         return $this->_rootAlias;
@@ -858,7 +858,7 @@ abstract class Doctrine_Query_Abstract
         }
 
         // #DC-811 use serialize instead of var_export for cache key creation
-        $hash = md5($dql . serialize($counts) . serialize($this->_pendingJoinConditions) . 'DOCTRINE_QUERY_CACHE_SALT');
+        $hash = md5($dql . serialize($counts) . serialize($this->_pendingJoinConditions) . 'DOCTRINE_QUERY_CACHE_SALT' . Doctrine_Core::VERSION);
 
         return $hash;
     }
@@ -899,54 +899,11 @@ abstract class Doctrine_Query_Abstract
      * _execute
      *
      * @param array $params
-     * @return PDOStatement  The executed PDOStatement.
+     * @return PDOStatement|int  The executed PDOStatement or count of affected rows.
      */
     protected function _execute($params)
     {
-        // Apply boolean conversion in DQL params
-        $params = $this->_conn->convertBooleans($params);
-
-        foreach ($this->_params as $k => $v) {
-            $this->_params[$k] = $this->_conn->convertBooleans($v);
-        }
-
-        $dqlParams = $this->getFlattenedParams($params);
-
-        if ($this->_queryCache !== false && ($this->_queryCache || $this->_conn->getAttribute(Doctrine_Core::ATTR_QUERY_CACHE))) {
-            $queryCacheDriver = $this->getQueryCacheDriver();
-            $hash = $this->calculateQueryCacheHash($dqlParams);
-            $cached = $queryCacheDriver->fetch($hash);
-
-            // If we have a cached query...
-            if ($cached) {
-                // Rebuild query from cache
-                $query = $this->_constructQueryFromCache($cached);
-
-                // Assign building/execution specific params
-                $this->_params['exec'] = $params;
-
-                // Initialize prepared parameters array
-                $this->_execParams = $this->getFlattenedParams();
-
-                // Fix possible array parameter values in SQL params
-                $this->fixArrayParameterValues($this->getInternalParams());
-            } else {
-                // Generate SQL or pick already processed one
-                $query = $this->getSqlQuery($params);
-
-                // Check again because getSqlQuery() above could have flipped the _queryCache flag
-                // if this query contains the limit sub query algorithm we don't need to cache it
-                if ($this->_queryCache !== false && ($this->_queryCache || $this->_conn->getAttribute(Doctrine_Core::ATTR_QUERY_CACHE))) {
-                    // Convert query into a serialized form
-                    $serializedQuery = $this->getCachedForm($query);
-
-                    // Save cached query
-                    $queryCacheDriver->save($hash, $serializedQuery, $this->getQueryCacheLifeSpan());
-                }
-            }
-        } else {
-            $query = $this->getSqlQuery($params);
-        }
+        $query = $this->getSqlQueryWithCaching($params);
 
         // Get prepared SQL params for execution
         $params = $this->getInternalParams();
@@ -1108,6 +1065,20 @@ abstract class Doctrine_Query_Abstract
     }
 
     /**
+     * Copies a Doctrine_Query object.
+     *
+     * @return Doctrine_Query  Copy of the Doctrine_Query instance.
+     */
+    public function copy(Doctrine_Query $query = null)
+    {
+        if ( ! $query) {
+            $query = $this;
+        }
+
+        return clone $query;
+    }
+
+    /**
      * Returns an array of components to execute the query callbacks for
      *
      * @param  array $params
@@ -1121,7 +1092,7 @@ abstract class Doctrine_Query_Abstract
         }
 
         $copy = $this->copy();
-        $copy->getSqlQuery($params, false);
+        $copy->buildQueryComponents($params, false);
         $componentsAfter = $copy->getQueryComponents();
 
         $this->_rootAlias = $copy->getRootAlias();
@@ -1156,6 +1127,9 @@ abstract class Doctrine_Query_Abstract
     {
         $cached = unserialize($cached);
         $this->_tableAliasMap = $cached[2];
+        $this->_rootAlias = $cached[3];
+        $this->_sqlParts = $cached[4];
+        $this->_dqlParts = $cached[5];
         $customComponent = $cached[0];
 
         $queryComponents = array();
@@ -1216,7 +1190,7 @@ abstract class Doctrine_Query_Abstract
             }
         }
 
-        return serialize(array($customComponent, $componentInfo, $this->getTableAliasMap()));
+        return serialize(array($customComponent, $componentInfo, $this->getTableAliasMap(), $this->_rootAlias, $this->_sqlParts, $this->_dqlParts));
     }
 
     /**
@@ -1785,6 +1759,71 @@ abstract class Doctrine_Query_Abstract
     public function getQueryComponents()
     {
         return $this->_queryComponents;
+    }
+
+    /**
+     * @param array $params
+     * @param bool $limitSubquery
+     */
+    protected function buildQueryComponents(array $params, $limitSubquery = true)
+    {
+        // This will implicitly populate _queryComponents through work or cache
+        $this->getSqlQueryWithCaching($params, $limitSubquery);
+    }
+
+    /**
+     * @param array $params
+     * @param bool $limitSubquery
+     * @return string
+     */
+    protected function getSqlQueryWithCaching(array $params, $limitSubquery = true)
+    {
+        // Apply boolean conversion in DQL params
+        $params = $this->_conn->convertBooleans($params);
+
+        foreach ($this->_params as $k => $v) {
+            $this->_params[$k] = $this->_conn->convertBooleans($v);
+        }
+
+        $dqlParams = $this->getFlattenedParams($params);
+
+        if ($this->_queryCache !== false && ($this->_queryCache || $this->_conn->getAttribute(Doctrine_Core::ATTR_QUERY_CACHE))) {
+            $queryCacheDriver = $this->getQueryCacheDriver();
+            $hash = $this->calculateQueryCacheHash($dqlParams);
+            $cached = $queryCacheDriver->fetch($hash);
+
+            // If we have a cached query...
+            if ($cached) {
+                // Rebuild query from cache
+                $query = $this->_constructQueryFromCache($cached);
+
+                // Assign building/execution specific params
+                $this->_params['exec'] = $params;
+
+                // Initialize prepared parameters array
+                $this->_execParams = $this->getFlattenedParams();
+
+                // Fix possible array parameter values in SQL params
+                $this->fixArrayParameterValues($this->getInternalParams());
+            } else {
+                // Generate SQL or pick already processed one
+                $query = $this->getSqlQuery($params);
+
+                // Check again because getSqlQuery() above could have flipped the _queryCache flag
+                // if this query contains the limit sub query algorithm we don't need to cache it
+                if ($this->_queryCache !== false && ($this->_queryCache || $this->_conn->getAttribute(Doctrine_Core::ATTR_QUERY_CACHE))) {
+                    // Convert query into a serialized form
+                    $serializedQuery = $this->getCachedForm($query);
+
+                    // Save cached query
+                    $queryCacheDriver->save($hash, $serializedQuery, $this->getQueryCacheLifeSpan());
+                }
+            }
+        } else {
+            $query = $this->getSqlQuery($params);
+        }
+
+        return $query;
     }
 
     /**
