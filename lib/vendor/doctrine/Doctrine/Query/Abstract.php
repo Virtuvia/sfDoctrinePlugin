@@ -1763,7 +1763,7 @@ abstract class Doctrine_Query_Abstract
     /**
      * @param mixed $executeParams
      */
-    protected function buildQueryComponents(array $executeParams)
+    protected function buildQueryComponents($executeParams)
     {
         // This will implicitly populate _queryComponents through work or cache
         $this->getSqlQueryWithCaching($executeParams, false);
