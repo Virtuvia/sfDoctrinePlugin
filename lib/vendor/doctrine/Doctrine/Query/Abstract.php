@@ -496,13 +496,13 @@ abstract class Doctrine_Query_Abstract
      * Get flattened array of parameters for query.
      * Used internally and used to pass flat array of params to the database.
      *
-     * @param array $params
+     * @param array $executeParams
      * @return array
      */
-    public function getFlattenedParams($params = array())
+    public function getFlattenedParams($executeParams = array())
     {
         return array_merge(
-            (array) $params, (array) $this->_params['exec'], 
+            (array) $executeParams, (array) $this->_params['exec'],
             $this->_params['join'], $this->_params['set'],
             $this->_params['where'], $this->_params['having']
         );
@@ -513,9 +513,9 @@ abstract class Doctrine_Query_Abstract
      *
      * @return array
      */
-    public function getInternalParams($params = array())
+    public function getInternalParams($executeParams = array())
     {
-        return array_merge($params, $this->_execParams);
+        return array_merge($executeParams, $this->_execParams);
     }
 
     /**
@@ -534,13 +534,13 @@ abstract class Doctrine_Query_Abstract
      *
      * @return array Parameters array
      */
-    public function getCountQueryParams($params = array())
+    public function getCountQueryParams($executeParams = array())
     {
-        if ( ! is_array($params)) {
-            $params = array($params);
+        if ( ! is_array($executeParams)) {
+            $executeParams = array($executeParams);
         }
 
-        $this->_params['exec'] = $params;
+        $this->_params['exec'] = $executeParams;
 
         $params = array_merge($this->_params['join'], $this->_params['where'], $this->_params['having'], $this->_params['exec']);
 
@@ -751,7 +751,7 @@ abstract class Doctrine_Query_Abstract
     public function getRootAlias()
     {
         if ( ! $this->_queryComponents) {
-            $this->buildQueryComponents([], $this->getFlattenedParams());
+            $this->buildQueryComponents([]);
         }
         
         return $this->_rootAlias;
@@ -838,16 +838,17 @@ abstract class Doctrine_Query_Abstract
      * calculateQueryCacheHash
      * calculate hash key for query cache
      *
-     * @param array $params
+     * @param array $dqlParams
+     * @param bool $limitSubquery
      * @return string    the hash
      */
-    public function calculateQueryCacheHash($params)
+    public function calculateQueryCacheHash($dqlParams)
     {
         $dql = $this->getDql();
 
         // #DC-600 for where->(".. IN ?") clauses, accommodate variable length params
         $counts = [];
-        foreach ($params as $key => $param) {
+        foreach ($dqlParams as $key => $param) {
             if (is_array($param)) {
                 $counts[$key] = count($param);
             } else {
@@ -865,15 +866,15 @@ abstract class Doctrine_Query_Abstract
      * calculateResultCacheHash
      * calculate hash key for result cache
      *
-     * @param array $params
+     * @param array $executeParams
      * @return string    the hash
      */
-    public function calculateResultCacheHash($params = array())
+    public function calculateResultCacheHash($executeParams = array())
     {
         $dql = $this->getDql();
         $conn = $this->getConnection();
-        $params = $this->getFlattenedParams($params);
-        $hash = md5($this->_hydrator->getHydrationMode() . $conn->getName() . $conn->getOption('dsn') . $dql . var_export($this->_pendingJoinConditions, true) . var_export($params, true));
+        $dqlParams = $this->getFlattenedParams($executeParams);
+        $hash = md5($this->_hydrator->getHydrationMode() . $conn->getName() . $conn->getOption('dsn') . $dql . var_export($this->_pendingJoinConditions, true) . var_export($dqlParams, true));
         return $hash;
     }
 
@@ -881,50 +882,48 @@ abstract class Doctrine_Query_Abstract
      * Get the result cache hash/key. Returns key set with useResultCache()
      * or generates a unique key from the query automatically.
      *
-     * @param array $params
+     * @param array $executeParams
      * @return string $hash
      */
-    public function getResultCacheHash($params = array())
+    public function getResultCacheHash($executeParams = array())
     {
       if ($this->_resultCacheHash) {
           return $this->_resultCacheHash;
       } else {
-          return $this->calculateResultCacheHash($params);
+          return $this->calculateResultCacheHash($executeParams);
       }
     }
 
     /**
      * _execute
      *
-     * @param array $params
+     * @param array $executeParams
      * @return PDOStatement|int  The executed PDOStatement or count of affected rows.
      */
-    protected function _execute($params)
+    protected function _execute($executeParams)
     {
         // Apply boolean conversion in DQL params
-        $params = $this->_conn->convertBooleans($params);
+        $executeParams = $this->_conn->convertBooleans($executeParams);
 
         foreach ($this->_params as $k => $v) {
             $this->_params[$k] = $this->_conn->convertBooleans($v);
         }
 
-        $dqlParams = $this->getFlattenedParams($params);
-
-        $query = $this->getSqlQueryWithCaching($params, $dqlParams);
+        $query = $this->getSqlQueryWithCaching($executeParams);
 
         // Get prepared SQL params for execution
-        $params = $this->getInternalParams();
+        $sqlParams = $this->getInternalParams();
 
         if ($this->isLimitSubqueryUsed() &&
                 $this->_conn->getAttribute(Doctrine_Core::ATTR_DRIVER_NAME) !== 'mysql') {
-            $params = array_merge((array) $params, (array) $params);
+            $sqlParams = array_merge((array) $sqlParams, (array) $sqlParams);
         }
 
         if ($this->_type !== self::SELECT) {
-            return $this->_conn->exec($query, $params);
+            return $this->_conn->exec($query, $sqlParams);
         }
 
-        $stmt = $this->_conn->execute($query, $params);
+        $stmt = $this->_conn->execute($query, $sqlParams);
 
         $this->_params['exec'] = array();
 
@@ -935,10 +934,10 @@ abstract class Doctrine_Query_Abstract
      * execute
      * executes the query and populates the data set
      *
-     * @param array $params
+     * @param array $executeParams
      * @return Doctrine_Collection|array            the root collection
      */
-    public function execute($params = array(), $hydrationMode = null)
+    public function execute($executeParams = array(), $hydrationMode = null)
     {
         // Clean any possible processed params
         $this->_execParams = array();
@@ -947,9 +946,7 @@ abstract class Doctrine_Query_Abstract
             throw new Doctrine_Query_Exception('You must have at least one component specified in your from.');
         }
 
-        $dqlParams = $this->getFlattenedParams($params);
-
-        $this->_preQuery($dqlParams);
+        $this->_preQuery($executeParams);
 
         if ($hydrationMode !== null) {
             $this->_hydrator->setHydrationMode($hydrationMode);
@@ -959,12 +956,12 @@ abstract class Doctrine_Query_Abstract
 
         if ($this->_resultCache && $this->_type == self::SELECT) {
             $cacheDriver = $this->getResultCacheDriver();
-            $hash = $this->getResultCacheHash($params);
+            $hash = $this->getResultCacheHash($executeParams);
             $cached = ($this->_expireResultCache) ? false : $cacheDriver->fetch($hash);
 
             if ($cached === false) {
                 // cache miss
-                $stmt = $this->_execute($params);
+                $stmt = $this->_execute($executeParams);
                 $this->_hydrator->setQueryComponents($this->_queryComponents);
                 $result = $this->_hydrator->hydrateResultSet($stmt, $this->_tableAliasMap);
 
@@ -974,7 +971,7 @@ abstract class Doctrine_Query_Abstract
                 $result = $this->_constructQueryFromCache($cached);
             }
         } else {
-            $stmt = $this->_execute($params);
+            $stmt = $this->_execute($executeParams);
 
             if (is_integer($stmt)) {
                 $result = $stmt;
@@ -1040,7 +1037,7 @@ abstract class Doctrine_Query_Abstract
      * Pre query method which invokes the pre*Query() methods on the model instance or any attached
      * record listeners
      */
-    protected function _preQuery($params = array())
+    protected function _preQuery($executeParams = array())
     {
         if ( ! $this->_preQueried && $this->getConnection()->getAttribute(Doctrine_Core::ATTR_USE_DQL_CALLBACKS)) {
             $this->_preQueried = true;
@@ -1052,7 +1049,7 @@ abstract class Doctrine_Query_Abstract
                 return;
             }
 
-            foreach ($this->_getDqlCallbackComponents($params) as $alias => $component) {
+            foreach ($this->_getDqlCallbackComponents($executeParams) as $alias => $component) {
                 $table = $component['table'];
                 $record = $table->getRecordInstance();
 
@@ -1087,10 +1084,10 @@ abstract class Doctrine_Query_Abstract
     /**
      * Returns an array of components to execute the query callbacks for
      *
-     * @param  array $params
+     * @param  array $executeParams
      * @return array $components
      */
-    protected function _getDqlCallbackComponents($params = array())
+    protected function _getDqlCallbackComponents($executeParams = array())
     {
         $componentsBefore = array();
         if ($this->isSubquery()) {
@@ -1098,7 +1095,7 @@ abstract class Doctrine_Query_Abstract
         }
 
         $copy = $this->copy();
-        $copy->buildQueryComponents($params, $this->getFlattenedParams());
+        $copy->buildQueryComponents($executeParams);
         $componentsAfter = $copy->getQueryComponents();
 
         $this->_rootAlias = $copy->getRootAlias();
@@ -1765,21 +1762,26 @@ abstract class Doctrine_Query_Abstract
 
     /**
      * @param mixed $executeParams
-     * @param array $flattenedParams
      */
-    protected function buildQueryComponents(array $executeParams, array $flattenedParams)
+    protected function buildQueryComponents(array $executeParams)
     {
         // This will implicitly populate _queryComponents through work or cache
-        $this->getSqlQueryWithCaching($executeParams, $flattenedParams);
+        $this->getSqlQueryWithCaching($executeParams, false);
     }
 
     /**
      * @param mixed $executeParams
-     * @param array $flattenedParams
+     * @param bool $limitSubquery
      * @return string
      */
-    protected function getSqlQueryWithCaching($executeParams, array $flattenedParams)
+    protected function getSqlQueryWithCaching($executeParams, $limitSubquery = true)
     {
+        // Assign building/execution specific params
+        $this->_params['exec'] = $executeParams;
+
+        // Initialize prepared parameters array
+        $this->_execParams = $flattenedParams = $this->getFlattenedParams();
+
         if ($this->_queryCache !== false && ($this->_queryCache || $this->_conn->getAttribute(Doctrine_Core::ATTR_QUERY_CACHE))) {
             $queryCacheDriver = $this->getQueryCacheDriver();
             $hash = $this->calculateQueryCacheHash($flattenedParams);
@@ -1790,17 +1792,11 @@ abstract class Doctrine_Query_Abstract
                 // Rebuild query from cache
                 $query = $this->_constructQueryFromCache($cached);
 
-                // Assign building/execution specific params
-                $this->_params['exec'] = $executeParams;
-
-                // Initialize prepared parameters array
-                $this->_execParams = $this->getFlattenedParams();
-
                 // Fix possible array parameter values in SQL params
                 $this->fixArrayParameterValues($this->getInternalParams());
             } else {
                 // Generate SQL or pick already processed one
-                $query = $this->getSqlQuery($executeParams);
+                $query = $this->getSqlQuery($executeParams, $limitSubquery);
 
                 // Check again because getSqlQuery() above could have flipped the _queryCache flag
                 // if this query contains the limit sub query algorithm we don't need to cache it
@@ -1813,7 +1809,7 @@ abstract class Doctrine_Query_Abstract
                 }
             }
         } else {
-            $query = $this->getSqlQuery($executeParams);
+            $query = $this->getSqlQuery($executeParams, $limitSubquery);
         }
 
         return $query;
@@ -2134,10 +2130,10 @@ abstract class Doctrine_Query_Abstract
      * The returned SQL syntax depends on the connection driver that is used
      * by this query object at the time of this method call.
      *
-     * @param array $params
+     * @param array $executeParams
      * @return string
      */
-    abstract public function getSqlQuery($params = array());
+    abstract public function getSqlQuery($executeParams = array());
 
     /**
      * parseDqlQuery

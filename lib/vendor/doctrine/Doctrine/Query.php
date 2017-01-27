@@ -257,12 +257,12 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      * fetchArray
      * Convenience method to execute using array fetching as hydration mode.
      *
-     * @param string $params
+     * @param string $executeParams
      * @return array
      */
-    public function fetchArray($params = array())
+    public function fetchArray($executeParams = array())
     {
-        return $this->execute($params, Doctrine_Core::HYDRATE_ARRAY);
+        return $this->execute($executeParams, Doctrine_Core::HYDRATE_ARRAY);
     }
 
     /**
@@ -270,13 +270,13 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      * Convenience method to execute the query and return the first item
      * of the collection.
      *
-     * @param string $params        Query parameters
+     * @param string $executeParams        Query parameters
      * @param int $hydrationMode    Hydration mode: see Doctrine_Core::HYDRATE_* constants
      * @return mixed                Array or Doctrine_Collection, depending on hydration mode. False if no result.
      */
-    public function fetchOne($params = array(), $hydrationMode = null)
+    public function fetchOne($executeParams = array(), $hydrationMode = null)
     {
-        $collection = $this->execute($params, $hydrationMode);
+        $collection = $this->execute($executeParams, $hydrationMode);
 
         if (is_scalar($collection)) {
             return $collection;
@@ -1123,15 +1123,15 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      * builds the sql query from the given parameters and applies things such as
      * column aggregation inheritance and limit subqueries if needed
      *
-     * @param array $params             an array of prepared statement params (needed only in mysql driver
+     * @param array $executeParams             an array of prepared statement params (needed only in mysql driver
      *                                  when limit subquery algorithm is used)
      * @param bool $limitSubquery Whether or not to try and apply the limit subquery algorithm
      * @return string                   the built sql query
      */
-    public function getSqlQuery($params = array(), $limitSubquery = true)
+    public function getSqlQuery($executeParams = array(), $limitSubquery = true)
     {
         // Assign building/execution specific params
-        $this->_params['exec'] = $params;
+        $this->_params['exec'] = $executeParams;
 
         // Initialize prepared parameters array
         $this->_execParams = $this->getFlattenedParams();
@@ -2123,30 +2123,30 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      *          LEFT JOIN u.Phonenumber p
      *          WHERE p.phonenumber = '123 123'
      *
-     * @param array $params        an array of prepared statement parameters
+     * @param array $executeParams        an array of prepared statement parameters
      * @return integer             the count of this query
      */
-    public function count($params = array())
+    public function count($executeParams = array())
     {
         $q = $this->getCountSqlQuery();
-        $params = $this->getCountQueryParams($params);
-        $params = $this->_conn->convertBooleans($params);
+        $sqlParams = $this->getCountQueryParams($executeParams);
+        $sqlParams = $this->_conn->convertBooleans($sqlParams);
 
         if ($this->_resultCache) {
             $conn = $this->getConnection();
             $cacheDriver = $this->getResultCacheDriver();
-            $hash = $this->getResultCacheHash($params).'_count';
+            $hash = $this->getResultCacheHash($sqlParams).'_count';
             $cached = ($this->_expireResultCache) ? false : $cacheDriver->fetch($hash);
 
             if ($cached === false) {
                 // cache miss
-                $results = $this->getConnection()->fetchAll($q, $params);
+                $results = $this->getConnection()->fetchAll($q, $sqlParams);
                 $cacheDriver->save($hash, serialize($results), $this->getResultCacheLifeSpan());
             } else {
                 $results = unserialize($cached);
             }
         } else {
-            $results = $this->getConnection()->fetchAll($q, $params);
+            $results = $this->getConnection()->fetchAll($q, $sqlParams);
         }
 
         if (count($results) > 1) {
@@ -2169,15 +2169,15 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      * This methods parses a Dql query and builds the query parts.
      *
      * @param string $query      Dql query
-     * @param array $params      prepared statement parameters
+     * @param array $executeParams      prepared statement parameters
      * @param int $hydrationMode Doctrine_Core::HYDRATE_ARRAY or Doctrine_Core::HYDRATE_RECORD
      * @see Doctrine_Core::FETCH_* constants
      * @return mixed
      */
-    public function query($query, $params = array(), $hydrationMode = null)
+    public function query($query, $executeParams = array(), $hydrationMode = null)
     {
         $this->parseDqlQuery($query);
-        return $this->execute($params, $hydrationMode);
+        return $this->execute($executeParams, $hydrationMode);
     }
 
     /**
