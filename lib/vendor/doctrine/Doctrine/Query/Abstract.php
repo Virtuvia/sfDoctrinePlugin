@@ -751,7 +751,7 @@ abstract class Doctrine_Query_Abstract
     public function getRootAlias()
     {
         if ( ! $this->_queryComponents) {
-            $this->buildQueryComponents([], false);
+            $this->buildQueryComponents([], $this->getFlattenedParams());
         }
         
         return $this->_rootAlias;
@@ -901,7 +901,16 @@ abstract class Doctrine_Query_Abstract
      */
     protected function _execute($params)
     {
-        $query = $this->getSqlQueryWithCaching($params);
+        // Apply boolean conversion in DQL params
+        $params = $this->_conn->convertBooleans($params);
+
+        foreach ($this->_params as $k => $v) {
+            $this->_params[$k] = $this->_conn->convertBooleans($v);
+        }
+
+        $dqlParams = $this->getFlattenedParams($params);
+
+        $query = $this->getSqlQueryWithCaching($params, $dqlParams);
 
         // Get prepared SQL params for execution
         $params = $this->getInternalParams();
@@ -1089,7 +1098,7 @@ abstract class Doctrine_Query_Abstract
         }
 
         $copy = $this->copy();
-        $copy->buildQueryComponents($params, false);
+        $copy->buildQueryComponents($params, $this->getFlattenedParams());
         $componentsAfter = $copy->getQueryComponents();
 
         $this->_rootAlias = $copy->getRootAlias();
@@ -1755,34 +1764,25 @@ abstract class Doctrine_Query_Abstract
     }
 
     /**
-     * @param array $params
-     * @param bool $limitSubquery
+     * @param mixed $executeParams
+     * @param array $flattenedParams
      */
-    protected function buildQueryComponents(array $params, $limitSubquery = true)
+    protected function buildQueryComponents(array $executeParams, array $flattenedParams)
     {
         // This will implicitly populate _queryComponents through work or cache
-        $this->getSqlQueryWithCaching($params, $limitSubquery);
+        $this->getSqlQueryWithCaching($executeParams, $flattenedParams);
     }
 
     /**
-     * @param mixed $params
-     * @param bool $limitSubquery
+     * @param mixed $executeParams
+     * @param array $flattenedParams
      * @return string
      */
-    protected function getSqlQueryWithCaching($params, $limitSubquery = true)
+    protected function getSqlQueryWithCaching($executeParams, array $flattenedParams)
     {
-        // Apply boolean conversion in DQL params
-        $params = $this->_conn->convertBooleans($params);
-
-        foreach ($this->_params as $k => $v) {
-            $this->_params[$k] = $this->_conn->convertBooleans($v);
-        }
-
-        $dqlParams = $this->getFlattenedParams($params);
-
         if ($this->_queryCache !== false && ($this->_queryCache || $this->_conn->getAttribute(Doctrine_Core::ATTR_QUERY_CACHE))) {
             $queryCacheDriver = $this->getQueryCacheDriver();
-            $hash = $this->calculateQueryCacheHash($dqlParams);
+            $hash = $this->calculateQueryCacheHash($flattenedParams);
             $cached = $queryCacheDriver->fetch($hash);
 
             // If we have a cached query...
@@ -1791,7 +1791,7 @@ abstract class Doctrine_Query_Abstract
                 $query = $this->_constructQueryFromCache($cached);
 
                 // Assign building/execution specific params
-                $this->_params['exec'] = $params;
+                $this->_params['exec'] = $executeParams;
 
                 // Initialize prepared parameters array
                 $this->_execParams = $this->getFlattenedParams();
@@ -1800,7 +1800,7 @@ abstract class Doctrine_Query_Abstract
                 $this->fixArrayParameterValues($this->getInternalParams());
             } else {
                 // Generate SQL or pick already processed one
-                $query = $this->getSqlQuery($params);
+                $query = $this->getSqlQuery($executeParams);
 
                 // Check again because getSqlQuery() above could have flipped the _queryCache flag
                 // if this query contains the limit sub query algorithm we don't need to cache it
@@ -1813,7 +1813,7 @@ abstract class Doctrine_Query_Abstract
                 }
             }
         } else {
-            $query = $this->getSqlQuery($params);
+            $query = $this->getSqlQuery($executeParams);
         }
 
         return $query;
