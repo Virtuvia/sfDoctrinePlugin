@@ -2038,7 +2038,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
     public function getCountSqlQuery()
     {
         // triggers dql parsing/processing
-        $this->buildQueryComponents([], false); // this is still ugly
+        $this->buildQueryComponents([]); // this is still ugly
 
         // initialize temporary variables
         $where   = $this->_sqlParts['where'];
