@@ -199,7 +199,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
 
     /**
      * @see Doctrine_Record_Filter
-     * @var array $_filters                     an array containing all record filters attached to this table
+     * @var Doctrine_Record_Filter[] $_filters                     an array containing all record filters attached to this table
      */
     protected $_filters     = array();
 
@@ -2714,7 +2714,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     /**
      * getFilters
      *
-     * @return array $filters
+     * @return Doctrine_Record_Filter[] $filters
      */
     public function getFilters()
     {

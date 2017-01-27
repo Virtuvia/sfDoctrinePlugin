@@ -1305,27 +1305,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
             return $this->$mutator($value, $load, $fieldName);
         }
 
-        $returnValue = $this->_set($fieldName, $value, $load);
-
-        # This is an attempt to resolve bugs associated to setting a relation's id field manually, but not calling
-        # clearRelated() afterward.
-        # NOTE: It will only clear the relation if the relation's identifier keys do not match.
-        if (
-            in_array($fieldName, $this->_modified, true)
-            && $this->_table->isFieldRelationIdentifier($fieldName)
-            && ($relation = $this->_table->getRelationForField($fieldName))
-            && $relation instanceof Doctrine_Relation_LocalKey
-            && $this->hasReference($relation->getAlias())
-            && ($relatedObject = $this->obtainReference($relation->getAlias()))
-            && (
-                !$relatedObject instanceof \Doctrine_Record
-                || $relatedObject->get($relation->getForeignFieldName()) !== $value
-            )
-        ) {
-            $this->clearRelated($relation->getAlias());
-        }
-
-        return $returnValue;
+        return $this->_set($fieldName, $value, $load);
     }
 
     protected function _set($fieldName, $value, $load = true)
@@ -1377,12 +1357,28 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
                         $success = true;
                     } catch (Doctrine_Exception $e) {}
                 }
-                if ($success) {
-                    return $value;
-                } else {
+                if (!$success) {
                     throw $e;
                 }
             }
+        }
+
+        # This is an attempt to resolve bugs associated to setting a relation's id field manually, but not calling
+        # clearRelated() afterward.
+        # NOTE: It will only clear the relation if the relation's identifier keys do not match.
+        if (
+            in_array($fieldName, $this->_modified, true)
+            && $this->_table->isFieldRelationIdentifier($fieldName)
+            && ($relation = $this->_table->getRelationForField($fieldName))
+            && $relation instanceof Doctrine_Relation_LocalKey
+            && $this->hasReference($relation->getAlias())
+            && ($relatedObject = $this->obtainReference($relation->getAlias()))
+            && (
+                !$relatedObject instanceof \Doctrine_Record
+                || $relatedObject->get($relation->getForeignFieldName()) !== $value
+            )
+        ) {
+            $this->clearRelated($relation->getAlias());
         }
 
         return $this;
