@@ -35,7 +35,7 @@ class Doctrine_Core
     /**
      * VERSION
      */
-    const VERSION                   = '1.2.4-master';
+    const VERSION                   = '1.2.4.5';
 
     /**
      * ERROR CONSTANTS
