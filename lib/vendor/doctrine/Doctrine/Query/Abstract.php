@@ -959,11 +959,12 @@ abstract class Doctrine_Query_Abstract
             throw new Doctrine_Query_Exception('You must have at least one component specified in your from.');
         }
 
-        $this->_preQuery($executeParams);
-
+        // Hydrator Mode affects the query, so make sure to set it early on.
         if ($hydrationMode !== null) {
             $this->_hydrator->setHydrationMode($hydrationMode);
         }
+
+        $this->_preQuery($executeParams);
 
         $hydrationMode = $this->_hydrator->getHydrationMode();
 
