@@ -85,6 +85,11 @@ abstract class Doctrine_Query_Abstract
     const STATE_LOCKED = 4;
 
     /**
+     * A query object is on FREED state after free() is called.
+     */
+    const STATE_FREED = 5;
+
+    /**
      * @var array  Table alias map. Keys are SQL aliases and values DQL aliases.
      */
     protected $_tableAliasMap = array();
@@ -347,6 +352,10 @@ abstract class Doctrine_Query_Abstract
      */
     public function getDql()
     {
+        if ($this->_state === self::STATE_FREED) {
+            throw new Doctrine_Query_Exception('Query has been freed and cannot be re-used.');
+        }
+
         $q = '';
         if ($this->_type == self::SELECT) {
             $q .= ( ! empty($this->_dqlParts['select'])) ? 'SELECT ' . implode(', ', $this->_dqlParts['select']) : '';
@@ -469,6 +478,10 @@ abstract class Doctrine_Query_Abstract
      */
     public function removeDqlQueryPart($name)
     {
+        if ($this->_state === self::STATE_FREED) {
+            throw new Doctrine_Query_Exception('Query has been freed and cannot be re-used.');
+        }
+
         if ( ! isset($this->_dqlParts[$name])) {
             throw new Doctrine_Query_Exception('Unknown query part ' . $name);
         }
@@ -996,7 +1009,8 @@ abstract class Doctrine_Query_Abstract
      * Blank template method free(). Override to be used to free query object memory
      */
     public function free()
-    { 
+    {
+        $this->_state = self::STATE_FREED;
     }
 
     /**
@@ -2038,6 +2052,10 @@ abstract class Doctrine_Query_Abstract
      */
     protected function _hasDqlQueryPart($queryPartName)
     {
+        if ($this->_state === self::STATE_FREED) {
+            throw new Doctrine_Query_Exception('Query has been freed and cannot be re-used.');
+        }
+
         return count($this->_dqlParts[$queryPartName]) > 0;
     }
 
@@ -2057,6 +2075,10 @@ abstract class Doctrine_Query_Abstract
      */
     protected function _addDqlQueryPart($queryPartName, $queryPart, $append = false)
     {
+        if ($this->_state === self::STATE_FREED) {
+            throw new Doctrine_Query_Exception('Query has been freed and cannot be re-used.');
+        }
+
         // We should prevent nullable query parts
         if ($queryPart === null) {
             throw new Doctrine_Query_Exception('Cannot define NULL as part of query when defining \'' . $queryPartName . '\'.');
@@ -2110,6 +2132,10 @@ abstract class Doctrine_Query_Abstract
      */
     protected function _getParser($name)
     {
+        if ($this->_state === self::STATE_FREED) {
+            throw new Doctrine_Query_Exception('Query has been freed and cannot be re-used.');
+        }
+
         if ( ! isset($this->_parsers[$name])) {
             $class = 'Doctrine_Query_' . ucwords(strtolower($name));
 

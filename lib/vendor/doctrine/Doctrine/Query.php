@@ -402,6 +402,10 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      */
     public function getDqlPart($queryPart)
     {
+        if ($this->_state === self::STATE_FREED) {
+            throw new Doctrine_Query_Exception('Query has been freed and cannot be re-used.');
+        }
+
         if ( ! isset($this->_dqlParts[$queryPart])) {
            throw new Doctrine_Query_Exception('Unknown query part ' . $queryPart);
         }
@@ -1130,6 +1134,10 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      */
     public function getSqlQuery($executeParams = array(), $limitSubquery = true)
     {
+        if ($this->_state === self::STATE_FREED) {
+            throw new Doctrine_Query_Exception('Query has been freed and cannot be re-used.');
+        }
+
         // Assign building/execution specific params
         $this->_params['exec'] = $executeParams;
 
@@ -2223,6 +2231,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      */
     public function free()
     {
+        $this->_state = self::STATE_FREED;
         $this->reset();
         $this->_parsers = array();
         $this->_dqlParts = array();
