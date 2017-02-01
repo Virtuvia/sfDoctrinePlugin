@@ -857,7 +857,7 @@ abstract class Doctrine_Query_Abstract
         }
 
         // #DC-811 use serialize instead of var_export for cache key creation
-        $hash = md5($dql . serialize($counts) . serialize($this->_pendingJoinConditions) . 'DOCTRINE_QUERY_CACHE_SALT' . Doctrine_Core::VERSION);
+        $hash = md5($dql . serialize($counts) . serialize($this->_pendingJoinConditions) . serialize($this->_hydrator->getHydrationMode()) . 'DOCTRINE_QUERY_CACHE_SALT' . Doctrine_Core::VERSION);
 
         return $hash;
     }
