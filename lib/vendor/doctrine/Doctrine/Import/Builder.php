@@ -151,34 +151,6 @@ class Doctrine_Import_Builder extends Doctrine_Builder
     protected $_eolStyle = null;
 
     /**
-     * The package name to use for the generated php docs
-     *
-     * @var string
-     */
-    protected $_phpDocPackage = '##PACKAGE##';
-
-    /**
-     * The subpackage name to use for the generated php docs
-     *
-     * @var string
-     */
-    protected $_phpDocSubpackage = '##SUBPACKAGE##';
-
-    /**
-     * Full name of the author to use for the generated php docs
-     *
-     * @var string
-     */
-    protected $_phpDocName = '##NAME##';
-
-    /**
-     * Email of the author to use for the generated php docs
-     *
-     * @var string
-     */
-    protected $_phpDocEmail = '##EMAIL##';
-
-    /**
      * _tpl
      *
      * Class template used for writing classes
@@ -315,15 +287,21 @@ class Doctrine_Import_Builder extends Doctrine_Builder
             return;
         }
 
-        self::$_tpl = '/**'
-                    . '%s' . PHP_EOL
-                    . ' */' . PHP_EOL
-                    . '%sclass %s extends %s' . PHP_EOL
-                    . '{'
-                    . '%s' . PHP_EOL
-                    . '%s' . PHP_EOL
-                    . '%s'
-                    . '}' . PHP_EOL;
+        self::$_tpl =<<<EOF
+/**
+ * ##COPYRIGHT PLACEHOLDER##
+ */
+
+/**
+ %s
+ */
+%sclass %s extends %s
+{
+%s
+%s
+%s
+}
+EOF;
     }
 
     /*
@@ -747,11 +725,6 @@ class Doctrine_Import_Builder extends Doctrine_Builder
 
             $ret[] = '';
         }
-
-        $ret[] = '@package    ' . $this->_phpDocPackage;
-        $ret[] = '@subpackage ' . $this->_phpDocSubpackage;
-        $ret[] = '@author     ' . $this->_phpDocName . ' <' . $this->_phpDocEmail . '>';
-        $ret[] = '@version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $';
 
         $ret = ' * ' . implode(PHP_EOL . ' * ', $ret);
         $ret = ' ' . trim($ret);
