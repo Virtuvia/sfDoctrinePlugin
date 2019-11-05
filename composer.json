@@ -7,7 +7,8 @@
     },
     "require": {
         "composer/installers": "^1.0",
-        "symfony/symfony1": "1.4.*"
+        "symfony/symfony1": "1.4.*",
+        "symfony/polyfill-php73": "@stable"
     },
     "license": "MIT"
 }
