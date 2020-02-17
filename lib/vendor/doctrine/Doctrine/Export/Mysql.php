@@ -140,9 +140,14 @@ class Doctrine_Export_Mysql extends Doctrine_Export
                         }
                     }
                 }
-                if (isset($options['primary']) && !empty($options['primary']) &&
-                        in_array($local, $options['primary'])) {
-                    // field is part of the PK and therefore already indexed
+
+                if (isset($options['primary'])
+                    && !empty($options['primary'])
+                    && is_array($options['primary'])
+                    && count($options['primary']) === 1
+                    && in_array($local, $options['primary']))
+                {
+                    // field is the PK and therefore already indexed
                     $found = true;
                 }
 
