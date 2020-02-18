@@ -425,14 +425,15 @@ abstract class Doctrine_Record_Generator extends Doctrine_Record_Abstract
      * @param Doctrine_Table $table
      * @return void
      */
-    public function generateClassFromTable(Doctrine_Table $table)
+    public function generateClassFromTable(Doctrine_Table $table): void
     {
         $definition = array();
         $definition['columns'] = $table->getColumns();
+        $definition['indexes'] = $table->getOption('indexes');
         $definition['tableName'] = $table->getTableName();
         $definition['actAs'] = $table->getTemplates();
 
-        return $this->generateClass($definition);
+        $this->generateClass($definition);
     }
 
     /**
@@ -442,7 +443,7 @@ abstract class Doctrine_Record_Generator extends Doctrine_Record_Abstract
      *                           for the model
      * @return void
      */
-    public function generateClass(array $definition = array())
+    public function generateClass(array $definition = array()): void
     {
         $definition['className'] = $this->_options['className'];
         $definition['toString'] = isset($this->_options['toString']) ? $this->_options['toString'] : false;

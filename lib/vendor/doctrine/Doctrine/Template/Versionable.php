@@ -49,7 +49,9 @@ class Doctrine_Template_Versionable extends Doctrine_Template
                                 'generateFiles'     => false,
                                 'auditLog'          => true,
                                 'deleteVersions'    => true,
-                                'listener'          => 'Doctrine_AuditLog_Listener');
+                                'listener'          => 'Doctrine_AuditLog_Listener',
+                                'indexes' => [],
+        );
 
     /**
      * __construct

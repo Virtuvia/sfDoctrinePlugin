@@ -102,6 +102,12 @@ class Doctrine_AuditLog extends Doctrine_Record_Generator
             $this->hasColumn($name, $definition['type'], $definition['length'], $definition);
         }
 
+        $indexes = $this->_options['indexes'] ?? [];
+
+        foreach ($indexes as $indexName => $indexDefinition) {
+            $this->index($indexName, $indexDefinition);
+        }
+
         // the version column should be part of the primary key definition
         $this->hasColumn(
 	        $this->_options['version']['name'],
