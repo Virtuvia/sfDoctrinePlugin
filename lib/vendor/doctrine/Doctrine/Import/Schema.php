@@ -126,7 +126,9 @@ class Doctrine_Import_Schema
                                                           'extra',
                                                           'comment',
                                                           'charset',
-                                                          'collation'),
+                                                          'collation',
+                                                          'nativeTypeDeclaration',
+                                       ),
 
                                    'relation'   =>  array('key',
                                                           'class',

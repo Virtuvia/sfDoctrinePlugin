@@ -137,6 +137,14 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
             throw new Doctrine_DataDict_Exception('Missing column type.');
         }
 
+        if (isset($field['nativeTypeDeclaration'])) {
+            if (!is_string($field['nativeTypeDeclaration'])) {
+                throw new Doctrine_DataDict_Exception('"nativeTypeDeclaration" must be a string.');
+            }
+
+            return $field['nativeTypeDeclaration'];
+        }
+
         switch ($field['type']) {
             case 'char':
                 $length = ( ! empty($field['length'])) ? $field['length'] : false;
