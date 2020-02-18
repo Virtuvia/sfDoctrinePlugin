@@ -70,14 +70,19 @@ EOF;
     $import->setOptions($builderOptions);
     $import->importSchema($schema, 'yml', $config['models_path']);
 
+    $modelPackagePaths = [];
+
     // markup base classes with magic methods
     foreach (sfYaml::load($schema) as $model => $definition)
     {
+      $packagePath = isset($definition['package']) ? '/'.substr($definition['package'], 0, strpos($definition['package'], '.')) : '';
+      $modelPackagePaths[$model] = $packagePath;
+
       if (isset($definition['concrete_accessors']) && $definition['concrete_accessors']) {
         continue;
       }
 
-      $file = sprintf('%s%s/%s/Base%s%s', $config['models_path'], isset($definition['package']) ? '/'.substr($definition['package'], 0, strpos($definition['package'], '.')) : '', $builderOptions['baseClassesDirectory'], $model, $builderOptions['suffix']);
+      $file = sprintf('%s%s/%s/Base%s%s', $config['models_path'], $packagePath, $builderOptions['baseClassesDirectory'], $model, $builderOptions['suffix']);
       $code = file_get_contents($file);
 
       // introspect the model without loading the class
@@ -118,6 +123,9 @@ EOF;
       "{\n\n}"         => "{\n}\n",
     );
 
+    // Force Record Generator for Versionable
+    $this->runVersionableGenerator($modelPackagePaths, $config['models_path'], $builderOptions);
+
     // cleanup new stub classes
     $after = $stubFinder->in($config['models_path']);
     $this->getFilesystem()->replaceTokens(array_diff($after, $before), '', '', $tokens);
@@ -126,5 +134,51 @@ EOF;
     $baseFinder = sfFinder::type('file')->name('Base*'.$builderOptions['suffix']);
     $baseDirFinder = sfFinder::type('dir')->name('base');
     $this->getFilesystem()->replaceTokens($baseFinder->in($baseDirFinder->in($config['models_path'])), '', '', $tokens);
+  }
+
+    /**
+     * Always generate classes for Versionable classes, instead of on-demand with eval. Configure the generator with paths and options.
+     *
+     * @param string[] $modelPackagePaths
+     * @param string $modelsPath
+     * @param array  $builderOptions
+     */
+  protected function runVersionableGenerator(array $modelPackagePaths, string $modelsPath, array $builderOptions): void
+  {
+      sfContext::createInstance($this->configuration);
+      \Doctrine_Core::loadModels($modelsPath);
+
+      $models = \Doctrine_Core::getLoadedModels();
+
+      foreach ($models as $model) {
+          $table = \Doctrine_Core::getTable($model);
+
+          // Versionable uses the AuditLog generator
+          if (!$table->hasGenerator(Doctrine_AuditLog::class) || $table->isGenerator()) {
+              continue;
+          }
+
+          $this->logSection('Versionable', sprintf('Configuring Generator for "%s"', $model));
+
+          if (!isset($modelPackagePaths[$model])) {
+              // for some reason a model exists that is not in the schema
+              throw new \RuntimeException(sprintf('Missing Package Path for "%s"', $model));
+          }
+
+          $generatePath = $modelsPath . $modelPackagePaths[$model];
+
+          $generator = $table->getGenerator(Doctrine_AuditLog::class);
+          $generator->setOption('generateFiles', true);
+          $generator->setOption('generatePath', $generatePath);
+          $generator->setOption('builderOptions', $builderOptions);
+
+          $versionTable = $generator->getTable();
+
+          $this->logSection('Versionable', sprintf('Running Generator for "%s"', $model));
+          $this->logSection('Versionable', sprintf('  to create "%s"', $versionTable->getComponentName()));
+          $this->logSection('Versionable', sprintf('  with path "%s"', $generatePath));
+
+          $generator->generateClassFromTable($versionTable);
+      }
   }
 }
