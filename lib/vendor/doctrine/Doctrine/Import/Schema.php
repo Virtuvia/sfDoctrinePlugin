@@ -146,7 +146,9 @@ class Doctrine_Import_Schema
                                                           'owningSide',
                                                           'refClassRelationAlias',
                                                           'foreignKeyName',
-                                                          'orderBy'),
+                                                          'orderBy',
+                                                          'skipImplicitIndex',
+                                       ),
 
                                    'inheritance'=>  array('type',
                                                           'extends',

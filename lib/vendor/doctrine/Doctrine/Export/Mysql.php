@@ -127,31 +127,9 @@ class Doctrine_Export_Mysql extends Doctrine_Export
         // build indexes for all foreign key fields (needed in MySQL!!)
         if (isset($options['foreignKeys'])) {
             foreach ($options['foreignKeys'] as $fk) {
-                $local = $fk['local'];
-                $found = false;
-                if (isset($options['indexes'])) {
-                    foreach ($options['indexes'] as $definition) {
-                        if (is_string($definition['fields'])) {
-                            // Check if index already exists on the column
-                            $found = $found || ($local == $definition['fields']);
-                        } else if (in_array($local, $definition['fields']) && count($definition['fields']) === 1) {
-                            // Index already exists on the column
-                            $found = true;
-                        }
-                    }
-                }
+                if (($fk['skipImplicitIndex'] ?? false) === false) {
+                    $local = $fk['local'];
 
-                if (isset($options['primary'])
-                    && !empty($options['primary'])
-                    && is_array($options['primary'])
-                    && count($options['primary']) === 1
-                    && in_array($local, $options['primary']))
-                {
-                    // field is the PK and therefore already indexed
-                    $found = true;
-                }
-
-                if ( ! $found) {
                     // use same strategy from \Doctrine_Migration_Diff::_buildChanges
                     $indexName = Doctrine_Manager::connection()->generateUniqueIndexName($name, $local);
                     $options['indexes'][$indexName] = ['fields' => $local];

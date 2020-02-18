@@ -71,7 +71,8 @@ abstract class Doctrine_Relation implements ArrayAccess
                                   'owningSide'  => false, // whether this is the owning side
                                   'refClassRelationAlias' => null,
                                   'foreignKeyName' => null,
-                                  'orderBy' => null
+                                  'orderBy' => null,
+                                  'skipImplicitIndex' => false,
                                   );
 
     protected $_isRefClass = null;
@@ -105,6 +106,8 @@ abstract class Doctrine_Relation implements ArrayAccess
      *          constraint              boolean value, true if the relation has an explicit referential integrity constraint
      *
      *          foreignKeyName          the name of the dbms foreign key to create. Optional, if left blank Doctrine will generate one for you
+     *
+     *          skipImpicitIndex        do not create any indexes automatically, assumes that you will create any indexes required for portability
      *
      * The onDelete and onUpdate keys accept the following values:
      *

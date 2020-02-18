@@ -449,6 +449,10 @@ EOF;
                     $a[] = '\'orderBy\' => ' . $this->varExport($relation['orderBy']);
                 }
 
+                if (isset($relation['skipImplicitIndex']) && $relation['skipImplicitIndex']) {
+                    $a[] = '\'skipImplicitIndex\' => ' . $this->varExport($relation['skipImplicitIndex']);
+                }
+
                 if ( ! empty($a)) {
                     $ret[$i] .= ', ' . 'array(' . PHP_EOL . str_repeat(' ', 13);
                     $length = strlen($ret[$i]);
