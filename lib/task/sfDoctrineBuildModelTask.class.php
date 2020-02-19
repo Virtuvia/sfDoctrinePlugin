@@ -145,7 +145,7 @@ EOF;
      */
   protected function runVersionableGenerator(array $modelPackagePaths, string $modelsPath, array $builderOptions): void
   {
-      sfContext::createInstance($this->configuration);
+      $databaseManager = new sfDatabaseManager($this->configuration);
       \Doctrine_Core::loadModels($modelsPath);
 
       $models = \Doctrine_Core::getLoadedModels();
