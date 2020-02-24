@@ -433,6 +433,11 @@ abstract class Doctrine_Record_Generator extends Doctrine_Record_Abstract
         $definition['tableName'] = $table->getTableName();
         $definition['actAs'] = $table->getTemplates();
 
+        $exportable = $table->getExportableFormat();
+        if (isset($exportable['options']['foreignKeys'])) {
+            $definition['relations'] = $exportable['options']['foreignKeys'];
+        }
+
         $this->generateClass($definition);
     }
 

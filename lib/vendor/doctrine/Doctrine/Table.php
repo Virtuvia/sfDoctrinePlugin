@@ -728,6 +728,8 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
 
                 if ($relation instanceof Doctrine_Relation_LocalKey) {
                     $def = array('name'         => $fkName,
+                                 'class' => $relation->getClass(),
+                                 'alias' => $relation->getAlias(),
                                  'local'        => $relation->getLocalColumnName(),
                                  'foreign'      => $relation->getForeignColumnName(),
                                  'foreignTable' => $relation->getTable()->getTableName(),

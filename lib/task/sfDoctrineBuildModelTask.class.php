@@ -145,7 +145,12 @@ EOF;
      */
   protected function runVersionableGenerator(array $modelPackagePaths, string $modelsPath, array $builderOptions): void
   {
+      // setup connection
       $databaseManager = new sfDatabaseManager($this->configuration);
+
+      // clean out the tables, so we start as fresh as possible.
+      \Doctrine_Manager::connection()->evictTables();
+      // load all models again
       \Doctrine_Core::loadModels($modelsPath);
 
       $models = \Doctrine_Core::getLoadedModels();
@@ -172,13 +177,23 @@ EOF;
           $generator->setOption('generatePath', $generatePath);
           $generator->setOption('builderOptions', $builderOptions);
 
-          $versionTable = $generator->getTable();
-
           $this->logSection('Versionable', sprintf('Running Generator for "%s"', $model));
-          $this->logSection('Versionable', sprintf('  to create "%s"', $versionTable->getComponentName()));
+          $this->logSection('Versionable', sprintf('  to create "%s"', $generator->getTable()->getComponentName()));
           $this->logSection('Versionable', sprintf('  with path "%s"', $generatePath));
 
-          $generator->generateClassFromTable($versionTable);
+          // copied from \Doctrine_Record_Generator::initialize
+          $generator->buildTable();
+
+          $fk = $generator->buildForeignKeys($table);
+
+          $generator->getTable()->setColumns($fk);
+
+          $generator->buildRelation();
+
+          $generator->setTableDefinition();
+          $generator->setUp();
+
+          $generator->generateClassFromTable($generator->getTable());
       }
   }
 }
