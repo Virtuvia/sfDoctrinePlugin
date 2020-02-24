@@ -30,6 +30,7 @@ class sfDoctrineInsertSqlTask extends sfDoctrineBaseTask
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+      new sfCommandOption('create-migration-table', null, sfCommandOption::PARAMETER_NONE, 'Create Migrations Version table.')
     ));
 
     $this->namespace = 'doctrine';
@@ -60,5 +61,11 @@ EOF;
     Doctrine_Core::createTablesFromArray(Doctrine_Core::getLoadedModels());
 
     $this->logSection('doctrine', 'created tables successfully');
+
+    if ($options['create-migration-table'] ?? false === true) {
+        $migration = new Doctrine_Migration($config['migrations_path']);
+        $latestVersion = $migration->getLatestVersion();
+        $migration->setCurrentVersion($latestVersion);
+    }
   }
 }
