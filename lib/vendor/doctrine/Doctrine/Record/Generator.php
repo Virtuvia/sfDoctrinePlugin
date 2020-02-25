@@ -46,7 +46,10 @@ abstract class Doctrine_Record_Generator extends Doctrine_Record_Abstract
         'pluginTable'    => false,
         'children'       => array(),
         'cascadeDelete'  => true,
-        'appLevelDelete' => false
+        'appLevelDelete' => false,
+        'localRelationOptions' => [
+            'foreignKeyName' => null,
+        ],
     );
 
     /**
@@ -315,6 +318,10 @@ abstract class Doctrine_Record_Generator extends Doctrine_Record_Abstract
             $options['onUpdate'] = 'CASCADE';
         }
 
+        if ($foreignKeyName = $this->_options['localRelationOptions']['foreignKeyName']) {
+            $options['foreignKeyName'] = $foreignKeyName;
+        }
+
         $aliasStr = '';
 
         if ($alias !== null) {
@@ -433,7 +440,7 @@ abstract class Doctrine_Record_Generator extends Doctrine_Record_Abstract
         $definition['tableName'] = $table->getTableName();
         $definition['actAs'] = $table->getTemplates();
 
-        $exportable = $table->getExportableFormat();
+        $exportable = $table->getExportableFormat(true, true);
         if (isset($exportable['options']['foreignKeys'])) {
             $definition['relations'] = $exportable['options']['foreignKeys'];
         }

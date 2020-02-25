@@ -51,6 +51,9 @@ class Doctrine_Template_Versionable extends Doctrine_Template
                                 'deleteVersions'    => true,
                                 'listener'          => 'Doctrine_AuditLog_Listener',
                                 'indexes' => [],
+                                'localRelationOptions' => [
+                                    'foreignKeyName' => null,
+                                ],
         );
 
     /**

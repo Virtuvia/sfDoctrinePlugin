@@ -668,9 +668,10 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * The options subarray contains 'primary' and 'foreignKeys'.
      *
      * @param boolean $parseForeignKeys     whether to include foreign keys definition in the options
+     * @param bool $forGenerator include some extra columns used by a Generator/Builder
      * @return array
      */
-    public function getExportableFormat($parseForeignKeys = true)
+    public function getExportableFormat($parseForeignKeys = true, bool $forGenerator = false)
     {
         $columns = array();
         $primary = array();
@@ -739,8 +740,16 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                     if (($key = $this->_checkForeignKeyExists($def, $options['foreignKeys'])) === false) {
                         $options['foreignKeys'][$fkName] = $def;
                         $options['foreignKeys'][$fkName]['skipImplicitIndex'] = $fk['skipImplicitIndex'];
-                        $options['foreignKeys'][$fkName]['class'] = $relation->getClass();
-                        $options['foreignKeys'][$fkName]['alias'] = $relation->getAlias();
+
+                        if ($forGenerator) {
+                            // only include a non-emtpy value
+                            if ($fk['foreignKeyName']) {
+                                $options['foreignKeys'][$fkName]['foreignKeyName'] = $fk['foreignKeyName'];
+                            }
+
+                            $options['foreignKeys'][$fkName]['class'] = $relation->getClass();
+                            $options['foreignKeys'][$fkName]['alias'] = $relation->getAlias();
+                        }
                     } else {
                         unset($def['name']);
                         $options['foreignKeys'][$key] = array_merge($options['foreignKeys'][$key], $def);

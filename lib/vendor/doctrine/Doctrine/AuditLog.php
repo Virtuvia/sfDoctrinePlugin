@@ -38,6 +38,9 @@ class Doctrine_AuditLog extends Doctrine_Record_Generator
      * @var array
      */
     protected $_options = array('className'         => '%CLASS%Version',
+                                'localRelationOptions' => [
+                                    'foreignKeyName' => null,
+                                ],
                                 'version'           => array('name'   => 'version',
                                                              'alias'  => null,
                                                              'type'   => 'integer',
