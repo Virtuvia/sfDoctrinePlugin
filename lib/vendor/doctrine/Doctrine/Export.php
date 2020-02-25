@@ -1195,12 +1195,13 @@ class Doctrine_Export extends Doctrine_Connection_Module
      *
      * FIXME: This function has ugly hacks in it to make sure sql is inserted in the correct order.
      *
-     * @throws Doctrine_Connection_Exception    if some error other than Doctrine_Core::ERR_ALREADY_EXISTS
-     *                                          occurred during the create table operation
+     * @throws Doctrine_Transaction_Exception
+     * @throws Doctrine_Validator_Exception
+     * @throws Doctrine_Manager_Exception
      * @param array $classes
      * @return void
      */
-     public function exportClasses(array $classes)
+     public function exportClasses(array $classes): void
      {
          $queries = $this->exportSortedClassesSql($classes);
 
@@ -1210,15 +1211,7 @@ class Doctrine_Export extends Doctrine_Connection_Module
              $connection->beginTransaction();
 
              foreach ($sql as $query) {
-                 try {
-                     $connection->exec($query);
-                 } catch (Doctrine_Connection_Exception $e) {
-                     // we only want to silence table already exists errors
-                     if ($e->getPortableCode() !== Doctrine_Core::ERR_ALREADY_EXISTS) {
-                         $connection->rollback();
-                         throw new Doctrine_Export_Exception($e->getMessage() . '. Failing Query: ' . $query);
-                     }
-                 }
+                 $connection->exec($query);
              }
 
              $connection->commit();
