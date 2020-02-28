@@ -589,7 +589,7 @@ EOF;
      * @param  string $table
      * @param  array  $columns
      */
-    public function buildAccessors(array $definition)
+    public function buildAccessors(array $definition): string
     {
         $accessorTemplate = function ($accessorName, $valueType) {
             // getters
@@ -722,7 +722,7 @@ EOF;
 
             if(!$definedPrimary) {
                 // @todo Should probably check the default identifier information rather than assuming integer and id
-                $primaryType = 'integer';
+                $primaryType = 'string';
                 $primaryName = 'id';
                 $ret[] = '@property ' . $primaryType . ' $' . $primaryName;
             }
