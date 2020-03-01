@@ -552,8 +552,18 @@ class Doctrine_Migration
 
         $this->_migrationTableCreated = true;
 
+        $options = [];
+
+        if ($charset = $this->_connection->getAttribute(Doctrine_Core::ATTR_DEFAULT_TABLE_CHARSET)) {
+            $options['charset'] = $charset;
+        }
+
+        if ($collate = $this->_connection->getAttribute(Doctrine_Core::ATTR_DEFAULT_TABLE_COLLATE)) {
+            $options['collate'] = $collate;
+        }
+
         try {
-            $this->_connection->export->createTable($this->_migrationTableName, array('version' => array('type' => 'integer', 'size' => 11)));
+            $this->_connection->export->createTable($this->_migrationTableName, array('version' => array('type' => 'integer', 'size' => 11)), $options);
 
             return true;
         } catch(Exception $e) {
