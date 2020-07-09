@@ -31,7 +31,7 @@
  * @since       1.0
  * @version     $Revision: 7653 $
  */
-class Doctrine_Export extends Doctrine_Connection_Module
+abstract class Doctrine_Export extends Doctrine_Connection_Module
 {
     protected $valid_default_values = array(
         'text'      => '',
@@ -1100,7 +1100,7 @@ class Doctrine_Export extends Doctrine_Connection_Module
         $this->exportClasses($models);
     }
 
-    public function exportSortedClassesSql($classes, $groupByConnection = true)
+    protected function exportSortedClassesSql(array $classes, bool $groupByConnection = true): array
     {
          $connections = array();
          foreach ($classes as $class) {
@@ -1186,6 +1186,7 @@ class Doctrine_Export extends Doctrine_Connection_Module
              }
              $build = $new;
          }
+
          return $build;
     }
 
@@ -1201,7 +1202,7 @@ class Doctrine_Export extends Doctrine_Connection_Module
      * @param array $classes
      * @return void
      */
-     public function exportClasses(array $classes): void
+     final public function exportClasses(array $classes): void
      {
          $queries = $this->exportSortedClassesSql($classes);
 
@@ -1227,7 +1228,7 @@ class Doctrine_Export extends Doctrine_Connection_Module
      * @param array $classes
      * @return void
      */
-    public function exportClassesSql(array $classes)
+    private function exportClassesSql(array $classes)
     {
         $models = Doctrine_Core::filterInvalidModels($classes);
 
@@ -1283,7 +1284,7 @@ class Doctrine_Export extends Doctrine_Connection_Module
      * @param Doctrine_Table $table     table object to retrieve the generators from
      * @return array                    an array of Doctrine_Record_Generator objects
      */
-    public function getAllGenerators(Doctrine_Table $table)
+    private function getAllGenerators(Doctrine_Table $table)
     {
         $generators = array();
 
@@ -1311,7 +1312,7 @@ class Doctrine_Export extends Doctrine_Connection_Module
      * @param Doctrine_Table $table     the table in which the generators belong to
      * @return array                    an array of sql strings
      */
-    public function exportGeneratorsSql(Doctrine_Table $table)
+    private function exportGeneratorsSql(Doctrine_Table $table)
     {
     	$sql = array();
 
@@ -1344,9 +1345,8 @@ class Doctrine_Export extends Doctrine_Connection_Module
      * @throws Doctrine_Connection_Exception    if some error other than Doctrine_Core::ERR_ALREADY_EXISTS
      *                                          occurred during the create table operation
      * @param string $directory     optional directory parameter
-     * @return void
      */
-    public function exportSql($directory = null)
+    final public function exportSql(string $directory = null): array
     {
         if ($directory !== null) {
             $models = Doctrine_Core::filterInvalidModels(Doctrine_Core::loadModels($directory));

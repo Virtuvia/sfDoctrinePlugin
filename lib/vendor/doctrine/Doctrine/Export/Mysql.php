@@ -162,6 +162,15 @@ class Doctrine_Export_Mysql extends Doctrine_Export
             $queryFields .= ', PRIMARY KEY(' . implode(', ', $keyColumns) . ')';
         }
 
+        // attach all foreign keys
+        if (isset($options['foreignKeys'])) {
+            foreach ((array) $options['foreignKeys'] as $k => $definition) {
+                if (is_array($definition)) {
+                    $queryFields .= ', ' . $this->getForeignKeyDeclaration($definition);
+                }
+            }
+        }
+
         $query = 'CREATE TABLE ' . $this->conn->quoteIdentifier($name, true) . ' (' . $queryFields . ')';
 
         $optionStrings = array();
@@ -194,14 +203,6 @@ class Doctrine_Export_Mysql extends Doctrine_Export
         }
         $sql[] = $query;
 
-        if (isset($options['foreignKeys'])) {
-
-            foreach ((array) $options['foreignKeys'] as $k => $definition) {
-                if (is_array($definition)) {
-                    $sql[] = $this->createForeignKeySql($name, $definition);
-                }
-            }
-        }
         return $sql;
     }
 
@@ -794,5 +795,33 @@ class Doctrine_Export_Mysql extends Doctrine_Export
         $name  = $this->conn->quoteIdentifier($this->conn->formatter->getForeignKeyName($name));
 
         return $this->conn->exec('ALTER TABLE ' . $table . ' DROP FOREIGN KEY ' . $name);
+    }
+
+    protected function exportSortedClassesSql(array $classes, bool $groupByConnection = true): array
+    {
+        $sortedSql = parent::exportSortedClassesSql($classes, $groupByConnection);
+
+        if ($groupByConnection) {
+            return array_map(function ($connectionSql) {
+                return $this->addDisableForeignKeyCheck($connectionSql);
+            }, $sortedSql);
+        }
+
+        return $this->addDisableForeignKeyCheck($sortedSql);
+    }
+
+    private function addDisableForeignKeyCheck(array $sql): array
+    {
+        if ($this->hasForeignKeyConstraint(implode($sql))) {
+            array_unshift($sql, '/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */');
+            $sql[] = '/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */';
+        }
+
+        return $sql;
+    }
+
+    private function hasForeignKeyConstraint(string $sql): bool
+    {
+        return preg_match('/CONSTRAINT (\S*) FOREIGN KEY/i', $sql) !== false;
     }
 }

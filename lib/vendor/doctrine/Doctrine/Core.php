@@ -912,17 +912,6 @@ class Doctrine_Core
     }
 
     /**
-     * Generate a array of sql for the passed array of models
-     *
-     * @param  array $array
-     * @return array $sql
-     */
-    public static function generateSqlFromArray($array)
-    {
-        return Doctrine_Manager::connection()->export->exportClassesSql($array);
-    }
-
-    /**
      * Generate a sql string to create the tables from all loaded models
      * or the models found in the passed directory.
      *
