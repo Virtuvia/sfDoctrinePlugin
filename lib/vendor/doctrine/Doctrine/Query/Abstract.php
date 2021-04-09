@@ -1338,7 +1338,10 @@ abstract class Doctrine_Query_Abstract
     {
         // if there's no params, return (else we'll get a WHERE IN (), invalid SQL)
         if (isset($params) and (count($params) == 0)) {
-            return $this;
+            // for WHERE NOT IN () just remove the condition, for WHERE IN () add a false condition
+            // WHERE IN (): are you a part of this empty set? NO, always false
+            // WHERE NOT IN (): are you not a part of this empty set? YES, always true
+            return $not ? $this->andWhere('1') : $this->andWhere('0');
         }
 
         if ($this->_hasDqlQueryPart('where')) {
@@ -1365,7 +1368,10 @@ abstract class Doctrine_Query_Abstract
     {
         // if there's no params, return (else we'll get a WHERE IN (), invalid SQL)
         if (isset($params) and (count($params) == 0)) {
-            return $this;
+            // for WHERE NOT IN () just remove the condition, for WHERE IN () add a false condition
+            // WHERE IN (): are you a part of this empty set? NO, always false
+            // WHERE NOT IN (): are you not a part of this empty set? YES, always true
+            return $not ? $this->orWhere('1') : $this->orWhere('0');
         }
 
         if ($this->_hasDqlQueryPart('where')) {
