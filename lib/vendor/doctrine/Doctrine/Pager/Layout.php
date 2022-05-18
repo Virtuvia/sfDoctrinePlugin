@@ -284,7 +284,7 @@ class Doctrine_Pager_Layout
      *
      * Remove a mask replacement
      *
-     * @param $oldMask       Replacement Mask to be removed
+     * @param string $oldMask Replacement Mask to be removed
      * @return void
      */ 
     public function removeMaskReplacement($oldMask)
@@ -317,7 +317,7 @@ class Doctrine_Pager_Layout
      * @param $options    Optional parameters to be applied in template and url mask
      * @param $return     Optional parameter if you want to capture the output of this method call 
      *                    (Default value is false), instead of printing it
-     * @return void       If you would like to capture the output of Doctrine_Pager_Layout::display(),
+     * @return string|void If you would like to capture the output of Doctrine_Pager_Layout::display(),
      *                    use the $return  parameter. If this parameter is set to TRUE, this method 
      *                    will return its output, instead of printing it (which it does by default)
      */

@@ -228,7 +228,7 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
      *                          );
      * @param array $options  An associative array of table options:
      *
-     * @return string
+     * @return string[]
      */
     public function createTableSql($name, array $fields, array $options = array())
     {

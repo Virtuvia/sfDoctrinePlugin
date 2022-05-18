@@ -402,7 +402,7 @@ class Doctrine_Export_Mssql extends Doctrine_Export
      *                          );
      * @param array $options  An associative array of table options:
      *
-     * @return string
+     * @return string[]
      */
     public function createTableSql($name, array $fields, array $options = array())
     {

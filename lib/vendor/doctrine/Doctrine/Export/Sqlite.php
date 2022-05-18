@@ -184,7 +184,7 @@ class Doctrine_Export_Sqlite extends Doctrine_Export
      *                          );
      * @param array $options  An associative array of table options:
      *
-     * @return void
+     * @return string[]
      */
     public function createTableSql($name, array $fields, array $options = array())
     {

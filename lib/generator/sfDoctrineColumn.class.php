@@ -109,7 +109,7 @@ class sfDoctrineColumn implements ArrayAccess
   /**
    * Get the Doctrine type of the column
    *
-   * @return void
+   * @return ?string
    */
   public function getDoctrineType()
   {

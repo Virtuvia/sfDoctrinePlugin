@@ -66,7 +66,7 @@ class Doctrine_Validator_Driver
     /**
      * sets given value to an argument
      *
-     * @param $arg          the name of the option to be changed
+     * @param string $arg   the name of the option to be changed
      * @param $value        the value of the option
      * @return Doctrine_Validator_Driver    this object
      */
@@ -80,7 +80,7 @@ class Doctrine_Validator_Driver
     /**
      * returns the value of an argument
      *
-     * @param $arg          the name of the option to retrieve
+     * @param string $arg   the name of the option to retrieve
      * @return mixed        the value of the option
      */
     public function getArg($arg)
@@ -95,7 +95,7 @@ class Doctrine_Validator_Driver
     /**
      * sets given value to an argument
      *
-     * @param $arg          the name of the option to be changed
+     * @param string $arg   the name of the option to be changed
      * @param $value        the value of the option
      * @return Doctrine_Validator_Driver    this object
      */

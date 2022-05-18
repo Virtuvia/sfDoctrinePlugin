@@ -148,7 +148,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     /**
      * Doctrine_Collection of objects needing to be deleted on save
      *
-     * @var string
+     * @var array
      */
     protected $_pendingDeletes = array();
     

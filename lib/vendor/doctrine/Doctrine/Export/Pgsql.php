@@ -318,7 +318,7 @@ class Doctrine_Export_Pgsql extends Doctrine_Export
      * @param unknown_type $name
      * @param array $fields
      * @param array $options
-     * @return unknown
+     * @return string[]
      */
     public function createTableSql($name, array $fields, array $options = array())
     {

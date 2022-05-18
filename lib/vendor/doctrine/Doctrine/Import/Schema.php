@@ -457,7 +457,7 @@ class Doctrine_Import_Schema
      * Perform some processing on inheritance.
      * Sets the default type and sets some default values for certain types
      *
-     * @param string $array
+     * @param array $array
      * @return void
      */
     protected function _processInheritance($array)
@@ -563,7 +563,7 @@ class Doctrine_Import_Schema
      * Will attempt to auto complete relationships and simplify the amount of information required
      * for defining a relationship
      *
-     * @param  string $array
+     * @param  array $array
      * @return void
      */
     protected function _buildRelationships($array)
