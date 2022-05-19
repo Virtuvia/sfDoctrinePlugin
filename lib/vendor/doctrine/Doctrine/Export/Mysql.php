@@ -112,7 +112,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
      *                              'type'    => 'innodb',
      *                          );
      *
-     * @return void
+     * @return string[]
      */
     public function createTableSql($name, array $fields, array $options = array())
     {
@@ -812,7 +812,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
 
     private function addDisableForeignKeyCheck(array $sql): array
     {
-        if ($this->hasForeignKeyConstraint(implode($sql))) {
+        if ($this->hasForeignKeyConstraint(implode('', $sql))) {
             array_unshift($sql, '/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */');
             $sql[] = '/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */';
         }
