@@ -169,8 +169,6 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
     private static $supportedDrivers    = array(
                                         'Mysql',
                                         'Pgsql',
-                                        'Oracle',
-                                        'Mssql',
                                         'Sqlite',
                                         );
     protected $_count = 0;
@@ -699,15 +697,12 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * Portability is broken by using the following characters inside
      * delimited identifiers:
      *   + backtick (<kbd>`</kbd>) -- due to MySQL
-     *   + double quote (<kbd>"</kbd>) -- due to Oracle
      *   + brackets (<kbd>[</kbd> or <kbd>]</kbd>) -- due to Access
      *
      * Delimited identifiers are known to generally work correctly under
      * the following drivers:
-     *   + mssql
      *   + mysql
      *   + mysqli
-     *   + oci8
      *   + pgsql
      *   + sqlite
      *

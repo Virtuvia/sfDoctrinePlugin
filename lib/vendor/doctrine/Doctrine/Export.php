@@ -1146,9 +1146,8 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
                      continue;
                  }
 
-                 // If alter table statement or oracle anonymous block enclosing alter
-                 if (substr($query, 0, strlen('ALTER TABLE')) == 'ALTER TABLE'
-                       || substr($query, 0, strlen('DECLARE')) == 'DECLARE') {
+                 // If alter table statement
+                 if (substr($query, 0, strlen('ALTER TABLE')) == 'ALTER TABLE') {
                      $connections[$connectionName]['alters'][] = $query;
 
                      unset($sql[$key]);
