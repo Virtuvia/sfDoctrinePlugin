@@ -1118,7 +1118,14 @@ abstract class Doctrine_Query_Abstract
         $copy->free();
 
         if ($componentsBefore !== $componentsAfter) {
-            return array_diff_assoc($componentsAfter, $componentsBefore);
+            return array_udiff_assoc(
+                $componentsAfter,
+                $componentsBefore,
+                function (): int {
+                    // we only want to compare keys, not values
+                    // consider the values always equal
+                    return 0;
+                });
         } else {
             return $componentsAfter;
         }
