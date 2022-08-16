@@ -1100,7 +1100,10 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
         $this->exportClasses($models);
     }
 
-    protected function exportSortedClassesSql(array $classes, bool $groupByConnection = true): array
+    /**
+     * @internal only exposed for test
+     */
+    public function exportSortedClassesSql(array $classes, bool $groupByConnection = true): array
     {
          $connections = array();
          foreach ($classes as $class) {
@@ -1225,9 +1228,10 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
      * @throws Doctrine_Connection_Exception    if some error other than Doctrine_Core::ERR_ALREADY_EXISTS
      *                                          occurred during the create table operation
      * @param array $classes
-     * @return void
+     * @internal only exposed for test
+     * @return string
      */
-    private function exportClassesSql(array $classes)
+    public function exportClassesSql(array $classes)
     {
         $models = Doctrine_Core::filterInvalidModels($classes);
 

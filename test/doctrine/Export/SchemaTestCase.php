@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Export_Schema_TestCase extends Doctrine_UnitTestCase 
+class Doctrine_Export_Schema_TestCase extends Doctrine_UnitTestCase
 {
     public $tables =   array('Entity',
                       'EntityReference',
@@ -43,7 +43,7 @@ class Doctrine_Export_Schema_TestCase extends Doctrine_UnitTestCase
                       'Album',
                       'Song',
                       'Element',
-                      'Error',
+                      'Errormessage',
                       'Description',
                       'Address',
                       'Account',
@@ -52,7 +52,7 @@ class Doctrine_Export_Schema_TestCase extends Doctrine_UnitTestCase
                       'Assignment',
                       'ResourceType',
                       'ResourceReference');
-    
+
     public function testYmlExport()
     {
         $export = new Doctrine_Export_Schema();

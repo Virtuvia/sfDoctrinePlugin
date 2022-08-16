@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1077_TestCase extends Doctrine_UnitTestCase 
+class Doctrine_Ticket_1077_TestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -41,8 +41,8 @@ class Doctrine_Ticket_1077_TestCase extends Doctrine_UnitTestCase
 
     public function testAutomaticAccessorsAndMutators()
     {
-        $orig = Doctrine_Manager::getInstance()->getAttribute(Doctrine_Core::ATTR_AUTO_ACCESSOR_OVERRIDE);
-        Doctrine_Manager::getInstance()->setAttribute(Doctrine_Core::ATTR_AUTO_ACCESSOR_OVERRIDE, true);
+//        $orig = Doctrine_Manager::getInstance()->getAttribute(Doctrine_Core::ATTR_AUTO_ACCESSOR_OVERRIDE);
+//        Doctrine_Manager::getInstance()->setAttribute(Doctrine_Core::ATTR_AUTO_ACCESSOR_OVERRIDE, true);
         $user = new Ticket_1077_User();
         $user->username = 'jwage';
         $user->password = 'changeme';
@@ -60,10 +60,10 @@ class Doctrine_Ticket_1077_TestCase extends Doctrine_UnitTestCase
 
         $numbers = new Doctrine_Collection('Phonenumber');
         $user->Phonenumbers = $numbers;
-        
+
         $this->assertIdentical($user->phonenumbersTest, $numbers);
 
-        Doctrine_Manager::getInstance()->setAttribute(Doctrine_Core::ATTR_AUTO_ACCESSOR_OVERRIDE, $orig);
+//        Doctrine_Manager::getInstance()->setAttribute(Doctrine_Core::ATTR_AUTO_ACCESSOR_OVERRIDE, $orig);
     }
 
     public function testDefiningCustomAccessorsAndMutators()
@@ -71,8 +71,8 @@ class Doctrine_Ticket_1077_TestCase extends Doctrine_UnitTestCase
         $user = new Ticket_1077_User();
         $user->username = 'jwage';
         $user->password = 'changeme';
-        $user->hasAccessor('username', 'usernameAccessor');
-        $user->hasMutator('username', 'usernameMutator');
+//        $user->hasAccessor('username', 'usernameAccessor');
+//        $user->hasMutator('username', 'usernameMutator');
         $username = 'test';
         $user->usernameMutator($username);
         $this->assertEqual($user->usernameAccessor(), $user->username);

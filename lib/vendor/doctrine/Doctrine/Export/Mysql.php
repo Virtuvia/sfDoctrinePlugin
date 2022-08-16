@@ -797,7 +797,10 @@ class Doctrine_Export_Mysql extends Doctrine_Export
         return $this->conn->exec('ALTER TABLE ' . $table . ' DROP FOREIGN KEY ' . $name);
     }
 
-    protected function exportSortedClassesSql(array $classes, bool $groupByConnection = true): array
+    /**
+     * @internal only exposed for test
+     */
+    public function exportSortedClassesSql(array $classes, bool $groupByConnection = true): array
     {
         $sortedSql = parent::exportSortedClassesSql($classes, $groupByConnection);
 

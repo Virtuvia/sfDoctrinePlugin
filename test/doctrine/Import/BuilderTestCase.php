@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Import_Builder_TestCase extends Doctrine_UnitTestCase 
+class Doctrine_Import_Builder_TestCase extends Doctrine_UnitTestCase
 {
     public function testInheritanceGeneration()
     {
@@ -55,10 +55,10 @@ class Doctrine_Import_Builder_TestCase extends Doctrine_UnitTestCase
         $this->assertTrue($schemaTestInheritanceParent->isSubClassOf('PackageSchemaTestInheritanceParent'));
         $this->assertTrue($schemaTestInheritanceChild1->isSubClassOf('BaseSchemaTestInheritanceChild1'));
         $this->assertTrue($schemaTestInheritanceChild2->isSubClassOf('BaseSchemaTestInheritanceChild2'));
-        
+
         $this->assertTrue($schemaTestInheritanceChild1->isSubClassOf('SchemaTestInheritanceParent'));
         $this->assertTrue($schemaTestInheritanceChild1->isSubClassOf('BaseSchemaTestInheritanceParent'));
-        
+
         $this->assertTrue($schemaTestInheritanceChild2->isSubClassOf('SchemaTestInheritanceParent'));
         $this->assertTrue($schemaTestInheritanceChild2->isSubClassOf('BaseSchemaTestInheritanceParent'));
         $this->assertTrue($schemaTestInheritanceChild2->isSubClassOf('SchemaTestInheritanceChild1'));
@@ -93,21 +93,22 @@ class Doctrine_Import_Builder_TestCase extends Doctrine_UnitTestCase
         $schemaTestColumnAggregationInheritanceParent = new ReflectionClass('SchemaTestColumnAggregationInheritanceParent');
         $schemaTestColumnAggregationInheritanceChild = new ReflectionClass('SchemaTestColumnAggregationInheritanceChild');
 
-        $sql = Doctrine_Core::generateSqlFromArray(array('SchemaTestSimpleInheritanceParent', 'SchemaTestSimpleInheritanceChild'));
+        $sql = Doctrine_Manager::connection()->export->exportClassesSql(array('SchemaTestSimpleInheritanceParent', 'SchemaTestSimpleInheritanceChild'));
         $this->assertEqual(count($sql), 1);
         $this->assertEqual($sql[0], 'CREATE TABLE schema_test_simple_inheritance_parent (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), description VARCHAR(255))');
 
-        $sql = Doctrine_Core::generateSqlFromArray(array('SchemaTestClassTableInheritanceParent', 'SchemaTestClassTableInheritanceChild'));
+        $sql = Doctrine_Manager::connection()->export->exportClassesSql(array('SchemaTestClassTableInheritanceParent', 'SchemaTestClassTableInheritanceChild'));
+
         $this->assertEqual(count($sql), 2);
         $this->assertEqual($sql[0], 'CREATE TABLE schema_test_class_table_inheritance_parent (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255))');
         $this->assertEqual($sql[1], 'CREATE TABLE schema_test_class_table_inheritance_child (id INTEGER, title VARCHAR(255), description VARCHAR(255), PRIMARY KEY(id))');
 
-        $sql = Doctrine_Core::generateSqlFromArray(array('SchemaTestConcreteInheritanceParent', 'SchemaTestConcreteInheritanceChild'));
+        $sql = Doctrine_Manager::connection()->export->exportClassesSql(array('SchemaTestConcreteInheritanceParent', 'SchemaTestConcreteInheritanceChild'));
         $this->assertEqual(count($sql), 2);
         $this->assertEqual($sql[0], 'CREATE TABLE schema_test_concrete_inheritance_parent (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255))');
         $this->assertEqual($sql[1], 'CREATE TABLE schema_test_concrete_inheritance_child (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), title VARCHAR(255), description VARCHAR(255))');
 
-        $sql = Doctrine_Core::generateSqlFromArray(array('SchemaTestColumnAggregationInheritanceParent', 'SchemaTestColumnAggregationInheritanceChild'));
+        $sql = Doctrine_Manager::connection()->export->exportClassesSql(array('SchemaTestColumnAggregationInheritanceParent', 'SchemaTestColumnAggregationInheritanceChild'));
         $this->assertEqual(count($sql), 2);
         $this->assertEqual($sql[0], 'CREATE TABLE schema_test_column_aggregation_inheritance_parent (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), type VARCHAR(255), title VARCHAR(255), description VARCHAR(255))');
         $this->assertEqual($sql[1], 'CREATE INDEX schema_test_column_aggregation_inheritance_parent_type_idx ON schema_test_column_aggregation_inheritance_parent (type)');
