@@ -8,9 +8,9 @@ class SearchTest extends Doctrine_Record
     }
     public function setUp()
     {
-    	$options = array('generateFiles' => false,
-                         'fields' => array('title', 'content'));
-
-        $this->actAs('Searchable', $options);
+//    	$options = array('generateFiles' => false,
+//                         'fields' => array('title', 'content'));
+//
+//        $this->actAs('Searchable', $options);
     }
 }

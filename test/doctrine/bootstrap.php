@@ -10,6 +10,8 @@ error_reporting(E_ALL | E_STRICT);
 ini_set('max_execution_time', 900);
 ini_set('date.timezone', 'GMT+0');
 
+require_once(__DIR__ . '/../../../../vendor/autoload.php');
+
 require_once(__DIR__ . '/../../lib/vendor/doctrine/Doctrine.php');
 
 spl_autoload_register(array('Doctrine', 'autoload'));

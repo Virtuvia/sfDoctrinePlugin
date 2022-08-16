@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Plugin_TestCase extends Doctrine_UnitTestCase 
+class Doctrine_Plugin_TestCase extends Doctrine_UnitTestCase
 {
 
     public function prepareData()
@@ -70,7 +70,7 @@ class Doctrine_Plugin_TestCase extends Doctrine_UnitTestCase
 
         $fi->title = 'Micheal Jordan';
         $fi->save();
-        
+
         $this->assertEqual($fi->version, 2);
     }
 
@@ -79,7 +79,7 @@ class Doctrine_Plugin_TestCase extends Doctrine_UnitTestCase
     	$this->conn->clear();
 
         $wiki = Doctrine_Query::create()->from('Wiki w')->where('w.id = 1')->fetchOne();
-        
+
         $wiki->save();
 
         $this->assertEqual($wiki->Translation['FI']->version, 2);
@@ -137,12 +137,12 @@ class Wiki extends Doctrine_Record
     {
         $options = array('fields' => array('title', 'content'));
         $auditLog = new Doctrine_Template_Versionable($options);
-        $search = new Doctrine_Template_Searchable($options);
+//        $search = new Doctrine_Template_Searchable($options);
         $slug = new Doctrine_Template_Sluggable(array('fields' => array('title'), 'indexName' => 'plugin_test_case_sluggable'));
         $i18n = new Doctrine_Template_I18n($options);
 
         $i18n->addChild($auditLog)
-             ->addChild($search)
+//             ->addChild($search)
              ->addChild($slug);
 
         $this->actAs($i18n);

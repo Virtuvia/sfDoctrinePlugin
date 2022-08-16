@@ -30,7 +30,7 @@
  * @version     $Revision$
  */
 class Doctrine_Ticket_1619_TestCase extends Doctrine_UnitTestCase {
-	
+
 	public function prepareTables()
   {
     $this->tables[] = 'Ticket_1619_Article';
@@ -45,7 +45,7 @@ class Doctrine_Ticket_1619_TestCase extends Doctrine_UnitTestCase {
 		$a->Translation['en']->name = 'english article';
 		$a->Translation['en']->description = 'english description';
 		$a->save();
-		
+
 		$b = new Ticket_1619_Article();
 		$a->Translation['fr']->name = 'maison';
 		$a->Translation['fr']->description = 'habitation';
@@ -68,10 +68,10 @@ class Ticket_1619_Article extends Doctrine_Record
   public function setUp()
   {
     $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'name', 1 => 'description')));
-    $searchable1 = new Doctrine_Template_Searchable(array('fields' => array(0 => 'name')));
-    $i18n0->addChild($searchable1);
+//    $searchable1 = new Doctrine_Template_Searchable(array('fields' => array(0 => 'name')));
+//    $i18n0->addChild($searchable1);
     $this->actAs($i18n0);
   }
 }
-	
+
 

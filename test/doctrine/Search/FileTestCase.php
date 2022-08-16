@@ -39,17 +39,17 @@ class Doctrine_Search_File_TestCase extends Doctrine_UnitTestCase
 
     public function testSearchFileAutoCreatesFileTable()
     {
-        $this->_search = new Doctrine_Search_File();
+//        $this->_search = new Doctrine_Search_File();
 
         $this->conn->export->exportClasses(array('FileIndex'));
     }
 
     public function testIndexDirectoryIndexesAllFiles()
     {
-        $this->_search->indexDirectory(dirname(__FILE__) . DIRECTORY_SEPARATOR . '_files');
+//        $this->_search->indexDirectory(dirname(__FILE__) . DIRECTORY_SEPARATOR . '_files');
+//
+//        $resultSet = $this->_search->search('dbms');
 
-        $resultSet = $this->_search->search('dbms');
-        
         $this->assertEqual(count($resultSet), 1);
     }
 }
