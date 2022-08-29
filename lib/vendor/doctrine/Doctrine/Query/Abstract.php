@@ -1118,14 +1118,8 @@ abstract class Doctrine_Query_Abstract
         $copy->free();
 
         if ($componentsBefore !== $componentsAfter) {
-            return array_udiff_assoc(
-                $componentsAfter,
-                $componentsBefore,
-                function (): int {
-                    // we only want to compare keys, not values
-                    // consider the values always equal
-                    return 0;
-                });
+            // only return components that were not processed previously
+            return array_diff_key($componentsAfter, $componentsBefore);
         } else {
             return $componentsAfter;
         }
