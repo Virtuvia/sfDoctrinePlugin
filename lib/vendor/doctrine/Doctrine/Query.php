@@ -1363,9 +1363,17 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
                     $e = explode(',', $orderBy);
                     $e = array_map('trim', $e);
                     foreach ($e as $v) {
-                        if ( ! in_array($v, $this->_sqlParts['orderby'])) {
-                            $this->_sqlParts['orderby'][] = $v;
+                        if ($this->_sqlParts['distinct'] && !in_array($v, $this->_sqlParts['select'], true)) {
+                            // DISTINCT and ORDER BY not in SELECT do not mix
+                            continue;
                         }
+
+                        if (in_array($v, $this->_sqlParts['orderby'])) {
+                            // do not clobber existing ORDER BY
+                            continue;
+                        }
+
+                        $this->_sqlParts['orderby'][] = $v;
                     }
                 }
             }
