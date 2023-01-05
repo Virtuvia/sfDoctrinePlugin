@@ -1374,7 +1374,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
                             continue;
                         }
 
-                        if (in_array($v, $this->_sqlParts['orderby'])) {
+                        if (in_array($v, $this->_sqlParts['orderby'], true)) {
                             // do not clobber existing ORDER BY
                             continue;
                         }
