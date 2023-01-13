@@ -2841,7 +2841,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * findByColumnName, findByRelationAlias
      * findById, findByContactId, etc.
      *
-     * @return the result of the finder
+     * @return mixed the result of the finder
      */
     public function __call($method, $arguments)
     {
