@@ -119,10 +119,9 @@ class sfValidatorDoctrineUnique extends sfValidatorSchema
   /**
    * Returns whether the object is being updated.
    *
-   * @param BaseObject  A Doctrine object
    * @param array       An array of values
    *
-   * @param Boolean     true if the object is being updated, false otherwise
+   * @param bool     true if the object is being updated, false otherwise
    */
   protected function isUpdate(Doctrine_Record $object, $values)
   {

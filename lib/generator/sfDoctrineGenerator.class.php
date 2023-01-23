@@ -150,7 +150,7 @@ class sfDoctrineGenerator extends sfModelGenerator
     {
       $names[] = $name;
       $fields[$name] = array_merge(array(
-        'is_link'      => (Boolean) $column->isPrimaryKey(),
+        'is_link'      => (bool) $column->isPrimaryKey(),
         'is_real'      => true,
         'is_partial'   => false,
         'is_component' => false,
@@ -241,7 +241,7 @@ class sfDoctrineGenerator extends sfModelGenerator
   /**
    * Gets all the fields for the current model.
    *
-   * @param  Boolean $withM2M Whether to include m2m fields or not
+   * @param  bool $withM2M Whether to include m2m fields or not
    *
    * @return array   An array of field names
    */
