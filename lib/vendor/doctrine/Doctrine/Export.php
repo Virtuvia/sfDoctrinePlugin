@@ -1208,13 +1208,9 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
          foreach ($queries as $connectionName => $sql) {
              $connection = Doctrine_Manager::getInstance()->getConnection($connectionName);
 
-             $connection->beginTransaction();
-
              foreach ($sql as $query) {
                  $connection->exec($query);
              }
-
-             $connection->commit();
          }
      }
 

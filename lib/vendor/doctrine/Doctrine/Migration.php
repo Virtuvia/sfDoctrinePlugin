@@ -317,8 +317,6 @@ class Doctrine_Migration
 
         $this->_createMigrationTable();
 
-        $this->_connection->beginTransaction();
-
         try {
             // If nothing specified then lets assume we are migrating from
             // the current version to the latest version
@@ -332,8 +330,6 @@ class Doctrine_Migration
         }
 
         if ($this->hasErrors()) {
-            $this->_connection->rollback();
-
             if ($dryRun) {
                 return false;
             } else {
@@ -348,7 +344,6 @@ class Doctrine_Migration
                     return $to;
                 }
             } else {
-                $this->_connection->commit();
                 $this->setCurrentVersion($to);
                 return $to;
             }
