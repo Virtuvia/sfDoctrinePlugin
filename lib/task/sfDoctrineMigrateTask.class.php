@@ -118,13 +118,17 @@ EOF;
         }
       }
     }
-    catch (Exception $e)
+    catch (Exception $exception)
     {
     }
 
     // render errors
-    if ($migration->hasErrors())
+    if ($migration->hasErrors() || isset($exception))
     {
+        $errors = $migration->getErrors();
+        if (isset($exception)) {
+            array_unshift($errors, $exception);
+        }
       if ($this->commandApplication && $this->commandApplication->withTrace())
       {
         $this->logSection('doctrine', 'The following errors occurred:');
