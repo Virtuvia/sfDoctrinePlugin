@@ -10,15 +10,15 @@
  */
 abstract class BaseBlogArticleFormFilter extends ArticleFormFilter
 {
-  protected function setupInheritance()
-  {
-    parent::setupInheritance();
+    protected function setupInheritance()
+    {
+        parent::setupInheritance();
 
-    $this->widgetSchema->setNameFormat('blog_article_filters[%s]');
-  }
+        $this->widgetSchema->setNameFormat('blog_article_filters[%s]');
+    }
 
-  public function getModelName()
-  {
-    return 'BlogArticle';
-  }
+    public function getModelName()
+    {
+        return 'BlogArticle';
+    }
 }

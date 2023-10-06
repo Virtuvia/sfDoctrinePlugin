@@ -3,7 +3,8 @@
 /**
  * Attachment form base class.
  *
- * @method Attachment getObject() Returns the current form's model object
+ * @method     Attachment getObject() Returns the current form's model object
+ * @property   Attachment $object The current form's model object
  *
  * @package    symfony12
  * @subpackage form
@@ -12,30 +13,29 @@
  */
 abstract class BaseAttachmentForm extends BaseFormDoctrine
 {
-  public function setup()
-  {
-    $this->setWidgets(array(
-      'id'        => new sfWidgetFormInputHidden(),
-      'file_path' => new sfWidgetFormInputText(),
-    ));
+    public function setup()
+    {
+        $this->setWidgets(array(
+            'id'        => new sfWidgetFormInputHidden(),
+            'file_path' => new sfWidgetFormInputText(),
+        ));
 
-    $this->setValidators(array(
-      'id'        => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'file_path' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-    ));
+        $this->setValidators(array(
+            'id'        => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+            'file_path' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+        ));
 
-    $this->widgetSchema->setNameFormat('attachment[%s]');
+        $this->widgetSchema->setNameFormat('attachment[%s]');
 
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-    $this->setupInheritance();
+        $this->setupInheritance();
 
-    parent::setup();
-  }
+        parent::setup();
+    }
 
-  public function getModelName()
-  {
-    return 'Attachment';
-  }
-
+    public function getModelName()
+    {
+        return 'Attachment';
+    }
 }

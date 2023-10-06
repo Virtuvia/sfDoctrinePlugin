@@ -3,7 +3,8 @@
 /**
  * AuthorInheritance form base class.
  *
- * @method AuthorInheritance getObject() Returns the current form's model object
+ * @method     AuthorInheritance getObject() Returns the current form's model object
+ * @property   AuthorInheritance $object The current form's model object
  *
  * @package    symfony12
  * @subpackage form
@@ -12,16 +13,15 @@
  */
 abstract class BaseAuthorInheritanceForm extends AuthorForm
 {
-  protected function setupInheritance()
-  {
-    parent::setupInheritance();
+    protected function setupInheritance()
+    {
+        parent::setupInheritance();
 
-    $this->widgetSchema->setNameFormat('author_inheritance[%s]');
-  }
+        $this->widgetSchema->setNameFormat('author_inheritance[%s]');
+    }
 
-  public function getModelName()
-  {
-    return 'AuthorInheritance';
-  }
-
+    public function getModelName()
+    {
+        return 'AuthorInheritance';
+    }
 }

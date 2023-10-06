@@ -10,38 +10,38 @@
  */
 abstract class BaseAuthorFormFilter extends BaseFormFilterDoctrine
 {
-  public function setup()
-  {
-    $this->setWidgets(array(
-      'name' => new sfWidgetFormFilterInput(),
-      'type' => new sfWidgetFormFilterInput(),
-    ));
+    public function setup()
+    {
+        $this->setWidgets(array(
+            'name' => new sfWidgetFormFilterInput(),
+            'type' => new sfWidgetFormFilterInput(),
+        ));
 
-    $this->setValidators(array(
-      'name' => new sfValidatorPass(array('required' => false)),
-      'type' => new sfValidatorPass(array('required' => false)),
-    ));
+        $this->setValidators(array(
+            'name' => new sfValidatorPass(array('required' => false)),
+            'type' => new sfValidatorPass(array('required' => false)),
+        ));
 
-    $this->widgetSchema->setNameFormat('author_filters[%s]');
+        $this->widgetSchema->setNameFormat('author_filters[%s]');
 
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-    $this->setupInheritance();
+        $this->setupInheritance();
 
-    parent::setup();
-  }
+        parent::setup();
+    }
 
-  public function getModelName()
-  {
-    return 'Author';
-  }
+    public function getModelName()
+    {
+        return 'Author';
+    }
 
-  public function getFields()
-  {
-    return array(
-      'id'   => 'Number',
-      'name' => 'Text',
-      'type' => 'Text',
-    );
-  }
+    public function getFields()
+    {
+        return array(
+            'id'   => 'Number',
+            'name' => 'Text',
+            'type' => 'Text',
+        );
+    }
 }

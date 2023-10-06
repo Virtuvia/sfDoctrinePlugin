@@ -10,35 +10,35 @@
  */
 abstract class BaseResourceTypeFormFilter extends BaseFormFilterDoctrine
 {
-  public function setup()
-  {
-    $this->setWidgets(array(
-      'name' => new sfWidgetFormFilterInput(),
-    ));
+    public function setup()
+    {
+        $this->setWidgets(array(
+            'name' => new sfWidgetFormFilterInput(),
+        ));
 
-    $this->setValidators(array(
-      'name' => new sfValidatorPass(array('required' => false)),
-    ));
+        $this->setValidators(array(
+            'name' => new sfValidatorPass(array('required' => false)),
+        ));
 
-    $this->widgetSchema->setNameFormat('resource_type_filters[%s]');
+        $this->widgetSchema->setNameFormat('resource_type_filters[%s]');
 
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-    $this->setupInheritance();
+        $this->setupInheritance();
 
-    parent::setup();
-  }
+        parent::setup();
+    }
 
-  public function getModelName()
-  {
-    return 'ResourceType';
-  }
+    public function getModelName()
+    {
+        return 'ResourceType';
+    }
 
-  public function getFields()
-  {
-    return array(
-      'id'   => 'Enum',
-      'name' => 'Text',
-    );
-  }
+    public function getFields()
+    {
+        return array(
+            'id'   => 'Enum',
+            'name' => 'Text',
+        );
+    }
 }

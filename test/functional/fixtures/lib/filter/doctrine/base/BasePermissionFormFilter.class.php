@@ -10,77 +10,73 @@
  */
 abstract class BasePermissionFormFilter extends BaseFormFilterDoctrine
 {
-  public function setup()
-  {
-    $this->setWidgets(array(
-      'name'        => new sfWidgetFormFilterInput(),
-      'users_list'  => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'User')),
-      'groups_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Group')),
-    ));
-
-    $this->setValidators(array(
-      'name'        => new sfValidatorPass(array('required' => false)),
-      'users_list'  => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'User', 'required' => false)),
-      'groups_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Group', 'required' => false)),
-    ));
-
-    $this->widgetSchema->setNameFormat('permission_filters[%s]');
-
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
-
-    $this->setupInheritance();
-
-    parent::setup();
-  }
-
-  public function addUsersListColumnQuery(Doctrine_Query $query, $field, $values)
-  {
-    if (!is_array($values))
+    public function setup()
     {
-      $values = array($values);
+        $this->setWidgets(array(
+            'name'        => new sfWidgetFormFilterInput(),
+            'users_list'  => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'User')),
+            'groups_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Group')),
+        ));
+
+        $this->setValidators(array(
+            'name'        => new sfValidatorPass(array('required' => false)),
+            'users_list'  => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'User', 'required' => false)),
+            'groups_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Group', 'required' => false)),
+        ));
+
+        $this->widgetSchema->setNameFormat('permission_filters[%s]');
+
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+
+        $this->setupInheritance();
+
+        parent::setup();
     }
 
-    if (!count($values))
+    public function addUsersListColumnQuery(Doctrine_Query $query, $field, $values)
     {
-      return;
+        if (!is_array($values)) {
+            $values = array($values);
+        }
+
+        if (!count($values)) {
+            return;
+        }
+
+        $query
+            ->leftJoin($query->getRootAlias().'.UserPermission UserPermission')
+            ->andWhereIn('UserPermission.user_id', $values)
+        ;
     }
 
-    $query
-      ->leftJoin($query->getRootAlias().'.UserPermission UserPermission')
-      ->andWhereIn('UserPermission.user_id', $values)
-    ;
-  }
-
-  public function addGroupsListColumnQuery(Doctrine_Query $query, $field, $values)
-  {
-    if (!is_array($values))
+    public function addGroupsListColumnQuery(Doctrine_Query $query, $field, $values)
     {
-      $values = array($values);
+        if (!is_array($values)) {
+            $values = array($values);
+        }
+
+        if (!count($values)) {
+            return;
+        }
+
+        $query
+            ->leftJoin($query->getRootAlias().'.GroupPermission GroupPermission')
+            ->andWhereIn('GroupPermission.group_id', $values)
+        ;
     }
 
-    if (!count($values))
+    public function getModelName()
     {
-      return;
+        return 'Permission';
     }
 
-    $query
-      ->leftJoin($query->getRootAlias().'.GroupPermission GroupPermission')
-      ->andWhereIn('GroupPermission.group_id', $values)
-    ;
-  }
-
-  public function getModelName()
-  {
-    return 'Permission';
-  }
-
-  public function getFields()
-  {
-    return array(
-      'id'          => 'Number',
-      'name'        => 'Text',
-      'users_list'  => 'ManyKey',
-      'groups_list' => 'ManyKey',
-    );
-  }
+    public function getFields()
+    {
+        return array(
+            'id'          => 'Number',
+            'name'        => 'Text',
+            'users_list'  => 'ManyKey',
+            'groups_list' => 'ManyKey',
+        );
+    }
 }

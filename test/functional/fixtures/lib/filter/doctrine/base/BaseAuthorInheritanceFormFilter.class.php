@@ -10,15 +10,15 @@
  */
 abstract class BaseAuthorInheritanceFormFilter extends AuthorFormFilter
 {
-  protected function setupInheritance()
-  {
-    parent::setupInheritance();
+    protected function setupInheritance()
+    {
+        parent::setupInheritance();
 
-    $this->widgetSchema->setNameFormat('author_inheritance_filters[%s]');
-  }
+        $this->widgetSchema->setNameFormat('author_inheritance_filters[%s]');
+    }
 
-  public function getModelName()
-  {
-    return 'AuthorInheritance';
-  }
+    public function getModelName()
+    {
+        return 'AuthorInheritance';
+    }
 }

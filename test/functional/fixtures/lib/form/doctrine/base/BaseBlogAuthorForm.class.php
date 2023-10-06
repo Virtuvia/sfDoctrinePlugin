@@ -3,7 +3,8 @@
 /**
  * BlogAuthor form base class.
  *
- * @method BlogAuthor getObject() Returns the current form's model object
+ * @method     BlogAuthor getObject() Returns the current form's model object
+ * @property   BlogAuthor $object The current form's model object
  *
  * @package    symfony12
  * @subpackage form
@@ -12,16 +13,15 @@
  */
 abstract class BaseBlogAuthorForm extends AuthorForm
 {
-  protected function setupInheritance()
-  {
-    parent::setupInheritance();
+    protected function setupInheritance()
+    {
+        parent::setupInheritance();
 
-    $this->widgetSchema->setNameFormat('blog_author[%s]');
-  }
+        $this->widgetSchema->setNameFormat('blog_author[%s]');
+    }
 
-  public function getModelName()
-  {
-    return 'BlogAuthor';
-  }
-
+    public function getModelName()
+    {
+        return 'BlogAuthor';
+    }
 }

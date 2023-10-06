@@ -10,25 +10,25 @@
  */
 abstract class BaseAuthorInheritanceConcreteFormFilter extends AuthorFormFilter
 {
-  protected function setupInheritance()
-  {
-    parent::setupInheritance();
+    protected function setupInheritance()
+    {
+        parent::setupInheritance();
 
-    $this->widgetSchema   ['additional'] = new sfWidgetFormFilterInput();
-    $this->validatorSchema['additional'] = new sfValidatorPass(array('required' => false));
+        $this->widgetSchema   ['additional'] = new sfWidgetFormFilterInput();
+        $this->validatorSchema['additional'] = new sfValidatorPass(array('required' => false));
 
-    $this->widgetSchema->setNameFormat('author_inheritance_concrete_filters[%s]');
-  }
+        $this->widgetSchema->setNameFormat('author_inheritance_concrete_filters[%s]');
+    }
 
-  public function getModelName()
-  {
-    return 'AuthorInheritanceConcrete';
-  }
+    public function getModelName()
+    {
+        return 'AuthorInheritanceConcrete';
+    }
 
-  public function getFields()
-  {
-    return array_merge(parent::getFields(), array(
-      'additional' => 'Text',
-    ));
-  }
+    public function getFields()
+    {
+        return array_merge(parent::getFields(), array(
+            'additional' => 'Text',
+        ));
+    }
 }
