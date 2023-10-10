@@ -355,6 +355,7 @@ EOF;
             $i++;
         }
 
+        $fixConcreteTableName = '';
         if (isset($definition['inheritance']['subclasses']) && ! empty($definition['inheritance']['subclasses'])) {
             $subClasses = array();
             foreach ($definition['inheritance']['subclasses'] as $className => $def) {
@@ -363,12 +364,18 @@ EOF;
             }
             $ret[$i] = "        ".'$this->setSubClasses('. $this->varExport($subClasses).');';
             $i++;
+        } elseif (isset($definition['inheritance']['type']) && $definition['inheritance']['type'] == 'concrete') {
+            $fixConcreteTableName = PHP_EOL . PHP_EOL . '    public function setSubclasses($map)' . PHP_EOL . '    {' . PHP_EOL
+                . '        $this->setTableName(\'' . $definition['tableName'] . '\');' . PHP_EOL
+                . PHP_EOL . '        parent::setSubclasses($map);' . PHP_EOL
+                . '    }';
         }
 
         $code = implode(PHP_EOL, $ret);
         $code = trim($code);
 
-        return PHP_EOL . "    public function setTableDefinition()" . PHP_EOL . '    {' . PHP_EOL . '        ' . $code . PHP_EOL . '    }';
+
+        return PHP_EOL . "    public function setTableDefinition()" . PHP_EOL . '    {' . PHP_EOL . '        ' . $code . PHP_EOL . '    }' . $fixConcreteTableName;
     }
 
     /**

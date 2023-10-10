@@ -21,7 +21,7 @@ CREATE TABLE user_group (user_id INTEGER, group_id INTEGER, PRIMARY KEY(user_id,
 CREATE TABLE user_permission (user_id INTEGER, permission_id INTEGER, PRIMARY KEY(user_id, permission_id));
 CREATE INDEX article_type_idx ON article (type);
 CREATE INDEX author_type_idx ON author (type);
-CREATE INDEX author_type_idx ON author_inheritance_concrete (type);
+CREATE INDEX author_inheritance_concrete_type_idx ON author_inheritance_concrete (type);
 CREATE UNIQUE INDEX unique_test_idx ON unique_test (unique_test1, unique_test2);
 CREATE UNIQUE INDEX unique_test2_idx ON unique_test (unique_test4 ASC);
 CREATE TABLE subscription (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), status VARCHAR(255));

@@ -32,6 +32,13 @@ abstract class BaseAuthorInheritanceConcrete extends Author
              ));
     }
 
+    public function setSubclasses($map)
+    {
+        $this->setTableName('author_inheritance_concrete');
+
+        parent::setSubclasses($map);
+    }
+
     public function setUp()
     {
         parent::setUp();
