@@ -1,13 +1,18 @@
 <?php
 
-require_once dirname(__FILE__).'/../../../../../../autoload/sfCoreAutoload.class.php';
-sfCoreAutoload::register();
-
 class ProjectConfiguration extends sfProjectConfiguration
 {
   public function setup()
   {
-    $this->enableAllPluginsExcept(array('sfPropelPlugin'));
+    $this->enableAllPluginsExcept();
+  }
+  public function getAllPluginPaths()
+  {
+    $pluginPaths = parent::getAllPluginPaths();
+
+    $pluginPaths['sfDoctrinePlugin'] = dirname(__DIR__, 4);
+
+    return $pluginPaths;
   }
 
   public function initializeDoctrine()
