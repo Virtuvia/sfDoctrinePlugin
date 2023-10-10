@@ -81,7 +81,7 @@ EOF;
   protected function execute($arguments = array(), $options = array())
   {
     $databaseManager = new sfDatabaseManager($this->configuration);
-    
+
     $properties = parse_ini_file(sfConfig::get('sf_config_dir').'/properties.ini', true);
 
     $this->constants = array(
@@ -134,12 +134,6 @@ EOF;
     $finder = sfFinder::type('file')->name('*.php', '*.yml');
     $this->getFilesystem()->replaceTokens($finder->in($moduleDir), '##', '##', $this->constants);
 
-    // create basic test
-    $this->getFilesystem()->copy(sfConfig::get('sf_symfony_lib_dir').DIRECTORY_SEPARATOR.'task'.DIRECTORY_SEPARATOR.'generator'.DIRECTORY_SEPARATOR.'skeleton'.DIRECTORY_SEPARATOR.'module'.DIRECTORY_SEPARATOR.'test'.DIRECTORY_SEPARATOR.'actionsTest.php', sfConfig::get('sf_test_dir').DIRECTORY_SEPARATOR.'functional'.DIRECTORY_SEPARATOR.$arguments['application'].DIRECTORY_SEPARATOR.$arguments['module'].'ActionsTest.php');
-
-    // customize test file
-    $this->getFilesystem()->replaceTokens(sfConfig::get('sf_test_dir').DIRECTORY_SEPARATOR.'functional'.DIRECTORY_SEPARATOR.$arguments['application'].DIRECTORY_SEPARATOR.$arguments['module'].'ActionsTest.php', '##', '##', $this->constants);
-
     // delete temp files
     $this->getFilesystem()->remove(sfFinder::type('any')->in($tmpDir));
   }
@@ -186,12 +180,6 @@ EOF;
         $this->getFilesystem()->rename($config, $target);
       }
     }
-
-    // create basic test
-    $this->getFilesystem()->copy(sfConfig::get('sf_symfony_lib_dir').DIRECTORY_SEPARATOR.'task'.DIRECTORY_SEPARATOR.'generator'.DIRECTORY_SEPARATOR.'skeleton'.DIRECTORY_SEPARATOR.'module'.DIRECTORY_SEPARATOR.'test'.DIRECTORY_SEPARATOR.'actionsTest.php', sfConfig::get('sf_test_dir').DIRECTORY_SEPARATOR.'functional'.DIRECTORY_SEPARATOR.$arguments['application'].DIRECTORY_SEPARATOR.$arguments['module'].'ActionsTest.php');
-
-    // customize test file
-    $this->getFilesystem()->replaceTokens(sfConfig::get('sf_test_dir').DIRECTORY_SEPARATOR.'functional'.DIRECTORY_SEPARATOR.$arguments['application'].DIRECTORY_SEPARATOR.$arguments['module'].'ActionsTest.php', '##', '##', $this->constants);
 
     // customize php and yml files
     $finder = sfFinder::type('file')->name('*.php', '*.yml');
