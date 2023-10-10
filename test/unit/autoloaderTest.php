@@ -10,6 +10,6 @@
 
 include dirname(__FILE__).'/../bootstrap/unit.php';
 
-$t = new lime_test(1);
+$t = new lime_test();
 
-$t->ok(class_exists('Doctrine'), 'autoloader loads "Doctrine"');
+$t->ok(class_exists('Doctrine_Core'), 'autoloader loads "Doctrine_Core"');
