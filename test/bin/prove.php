@@ -8,6 +8,13 @@
  * file that was distributed with this source code.
  */
 
+$xml = $argv[1] ?? '';
+if (!empty($xml)) {
+    if ((file_exists($xml) && !is_writable($xml)) || (!file_exists($xml) && !is_writable(dirname($xml)))) {
+        throw new \RuntimeException(sprintf('unable xml to write to file, %s', $xml));
+    }
+}
+
 require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 
 define('SYMFONY_LIB_DIR', dirname(__DIR__, 2) . '/vendor/symfony/symfony1/lib');
@@ -24,4 +31,10 @@ $h->register(sfFinder::type('file')->prune('fixtures')->name('*Test.php')->in(ar
   $h->base_dir.'/functional'
 )));
 
-exit($h->run() ? 0 : 1);
+$ret = $h->run() ? 0 : 1;
+
+if (!empty($xml)) {
+    file_put_contents($xml, $h->to_xml());
+}
+
+exit($ret);
