@@ -8,14 +8,8 @@
  * file that was distributed with this source code.
  */
 
-include(dirname(__FILE__).'/../../../../../test/bootstrap/unit.php');
+require_once __DIR__ . '/unit.php';
 
-if (!isset($root_dir))
-{
-  $root_dir = realpath(dirname(__FILE__).sprintf('/../%s/fixtures', isset($type) ? $type : 'functional'));
-}
-
-include $root_dir.'/config/ProjectConfiguration.class.php';
 $configuration = ProjectConfiguration::getApplicationConfiguration($app, 'test', isset($debug) ? $debug : true);
 sfContext::createInstance($configuration);
 

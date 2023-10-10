@@ -8,13 +8,14 @@
  * file that was distributed with this source code.
  */
 
-define('SYMFONY_LIB_DIR', realpath(dirname(__FILE__).'/../../../..'));
+require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 
-require(SYMFONY_LIB_DIR.'/vendor/lime/lime.php');
-require(SYMFONY_LIB_DIR.'/util/sfFinder.class.php');
+define('SYMFONY_LIB_DIR', dirname(__DIR__, 2) . '/vendor/symfony/symfony1/lib');
+
+require(SYMFONY_LIB_DIR . '/vendor/lime/lime.php');
 
 $h = new lime_harness();
-$h->base_dir = realpath(dirname(__FILE__).'/..');
+$h->base_dir = dirname(__DIR__);
 
 $h->register(sfFinder::type('file')->prune('fixtures')->name('*Test.php')->in(array(
   // unit tests
