@@ -37,7 +37,7 @@ class Doctrine_Collection_OnDemand implements Iterator
     protected $_current;
     protected $_tableAliasMap;
     protected $_hydrator;
-    protected $index;
+    protected int $index;
 
     public function __construct($stmt, $hydrator, $tableAliasMap)
     {
@@ -64,7 +64,7 @@ class Doctrine_Collection_OnDemand implements Iterator
         }
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->index = 0;
         $this->_stmt->closeCursor();
@@ -73,28 +73,26 @@ class Doctrine_Collection_OnDemand implements Iterator
         $this->_hydrateCurrent();
     }
 
-    public function key()
+    public function key(): int
     {
         return $this->index;
     }
 
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->_current;
     }
 
-    public function next()
+    public function next(): void
     {
         $this->_current = null;
         $this->index++;
         $this->_hydrateCurrent();
     }
 
-    public function valid()
+    public function valid(): bool
     {
-        if ( ! is_null($this->_current) && $this->_current !== false) {
-            return true;
-        }
-        return false;
+        return !is_null($this->_current) && $this->_current !== false;
     }
 }

@@ -32,7 +32,7 @@
  */
 class Doctrine_Collection_Iterator_Expandable extends Doctrine_Collection_Iterator
 {
-    public function valid()
+    public function valid(): bool
     {
         if ($this->index < $this->count) {
             return true;

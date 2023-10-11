@@ -33,30 +33,18 @@
  */
 abstract class Doctrine_Collection_Iterator implements Iterator
 {
-    /**
-     * @var Doctrine_Collection $collection
-     */
-    protected $collection;
+    protected \Doctrine_Collection $collection;
 
-    /**
-     * @var array $keys
-     */
-    protected $keys;
+    protected array $keys;
 
     /**
      * @var mixed $key
      */
     protected $key;
 
-    /**
-     * @var integer $index
-     */
-    protected $index;
+    protected int $index = 0;
 
-    /**
-     * @var integer $count
-     */
-    protected $count;
+    protected int $count;
 
     /**
      * constructor
@@ -74,7 +62,7 @@ abstract class Doctrine_Collection_Iterator implements Iterator
      *
      * @return void
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->index = 0;
         $i = $this->index;
@@ -88,6 +76,7 @@ abstract class Doctrine_Collection_Iterator implements Iterator
      *
      * @return integer
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->key;
@@ -95,10 +84,8 @@ abstract class Doctrine_Collection_Iterator implements Iterator
 
     /**
      * returns the current record
-     *
-     * @return Doctrine_Record
      */
-    public function current()
+    public function current(): \Doctrine_Record
     {
         return $this->collection->get($this->key);
     }
@@ -108,7 +95,7 @@ abstract class Doctrine_Collection_Iterator implements Iterator
      *
      * @return void
      */
-    public function next()
+    public function next(): void
     {
         $this->index++;
         $i = $this->index;
