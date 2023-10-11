@@ -1425,12 +1425,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Virtuvia/symfony1.git",
-                "reference": "3c010f9c77b2dea1effe8bac444b1fc609d2bcff"
+                "reference": "809f2070c5f1344258928edceaa11ba862d92a45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Virtuvia/symfony1/zipball/3c010f9c77b2dea1effe8bac444b1fc609d2bcff",
-                "reference": "3c010f9c77b2dea1effe8bac444b1fc609d2bcff",
+                "url": "https://api.github.com/repos/Virtuvia/symfony1/zipball/809f2070c5f1344258928edceaa11ba862d92a45",
+                "reference": "809f2070c5f1344258928edceaa11ba862d92a45",
                 "shasum": ""
             },
             "require": {
@@ -1468,7 +1468,7 @@
             "support": {
                 "source": "https://github.com/Virtuvia/symfony1/tree/1.4-php7481"
             },
-            "time": "2023-10-11T01:03:30+00:00"
+            "time": "2023-10-11T18:06:45+00:00"
         },
         {
             "name": "symfony/yaml",
