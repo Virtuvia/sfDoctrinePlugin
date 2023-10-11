@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "68b9662bf4fb2762e090992be245c0b0",
+    "content-hash": "5801e7fdc7588a5a986e6a52ce787e66",
     "packages": [
         {
             "name": "composer/installers",
@@ -1421,16 +1421,16 @@
         },
         {
             "name": "symfony/symfony1",
-            "version": "v1.4.20.30+virtuvia",
+            "version": "dev-1.4-php7481",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Virtuvia/symfony1.git",
-                "reference": "64d15a4836edec1c61b8ac4dd15287f11a0ec5de"
+                "reference": "3c010f9c77b2dea1effe8bac444b1fc609d2bcff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Virtuvia/symfony1/zipball/64d15a4836edec1c61b8ac4dd15287f11a0ec5de",
-                "reference": "64d15a4836edec1c61b8ac4dd15287f11a0ec5de",
+                "url": "https://api.github.com/repos/Virtuvia/symfony1/zipball/3c010f9c77b2dea1effe8bac444b1fc609d2bcff",
+                "reference": "3c010f9c77b2dea1effe8bac444b1fc609d2bcff",
                 "shasum": ""
             },
             "require": {
@@ -1466,9 +1466,9 @@
             ],
             "description": "Symfony is a complete framework designed to optimize the development of web applications by way of several key features.",
             "support": {
-                "source": "https://github.com/Virtuvia/symfony1/tree/v1.4.20.30+virtuvia"
+                "source": "https://github.com/Virtuvia/symfony1/tree/1.4-php7481"
             },
-            "time": "2023-09-29T02:03:42+00:00"
+            "time": "2023-10-11T01:03:30+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -1543,9 +1543,18 @@
         }
     ],
     "packages-dev": [],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "symfony/symfony1",
+            "version": "dev-1.4-php7481",
+            "alias": "1.4.20.31+virtuvia",
+            "alias_normalized": "1.4.20.31"
+        }
+    ],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "symfony/symfony1": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

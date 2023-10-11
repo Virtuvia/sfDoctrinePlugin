@@ -9,7 +9,7 @@
     "require": {
         "php": "7.4.* | 8.1.*",
         "composer/installers": "^1.0",
-        "symfony/symfony1": "1.4.20.30+virtuvia"
+        "symfony/symfony1": "dev-1.4-php7481 as 1.4.20.31+virtuvia"
     },
     "config": {
         "allow-plugins": {

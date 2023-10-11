@@ -53,7 +53,7 @@
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Lukas Smith <smith@pooteeweet.org> (MDB2 library)
  */
-abstract class Doctrine_Connection extends Doctrine_Configurable implements Countable, IteratorAggregate, Serializable
+abstract class Doctrine_Connection extends Doctrine_Configurable implements Countable, IteratorAggregate
 {
     /**
      * @var $dbh                                the database handler
@@ -1146,7 +1146,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      *
      * @return ArrayIterator        SPL ArrayIterator object
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->tables);
     }
@@ -1156,7 +1156,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      *
      * @return integer
      */
-    public function count()
+    public function count(): int
     {
         return $this->_count;
     }
@@ -1558,28 +1558,21 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
 
     /**
      * Serialize. Remove database connection(pdo) since it cannot be serialized
-     *
-     * @return string $serialized
      */
-    public function serialize()
+    public function __serialize(): array
     {
         $vars = get_object_vars($this);
         $vars['dbh'] = null;
         $vars['isConnected'] = false;
-        return serialize($vars);
+        return $vars;
     }
 
     /**
      * Unserialize. Recreate connection from serialized content
-     *
-     * @param string $serialized
-     * @return void
      */
-    public function unserialize($serialized)
+    public function __unserialize(array $data): void
     {
-        $array = unserialize($serialized);
-
-        foreach ($array as $name => $values) {
+        foreach ($data as $name => $values) {
             $this->$name = $values;
         }
     }

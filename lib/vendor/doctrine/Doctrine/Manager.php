@@ -113,8 +113,8 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
     /**
      * Sets default attributes values.
      *
-     * This method sets default values for all null attributes of this 
-     * instance. It is idempotent and can only be called one time. Subsequent 
+     * This method sets default values for all null attributes of this
+     * instance. It is idempotent and can only be called one time. Subsequent
      * calls does not alter the attribute values.
      *
      * @return boolean      true if inizialization was executed
@@ -154,7 +154,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
                         Doctrine_Core::ATTR_TABLE_CLASS                  => 'Doctrine_Table',
                         Doctrine_Core::ATTR_CASCADE_SAVES                => true,
                         Doctrine_Core::ATTR_TABLE_CLASS_FORMAT           => '%sTable'
-                        ); 
+                        );
             foreach ($attributes as $attribute => $value) {
                 $old = $this->getAttribute($attribute);
                 if ($old === null) {
@@ -235,7 +235,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
     public function setQueryRegistry(Doctrine_Query_Registry $registry)
     {
         $this->_queryRegistry = $registry;
-        
+
         return $this;
     }
 
@@ -337,7 +337,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
         }
         return $this->_connections[$name];
     }
-    
+
     /**
      * Parse a pdo style dsn in to an array of parts
      *
@@ -387,7 +387,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
      * Build the blank dsn parts array used with parseDsn()
      *
      * @see parseDsn()
-     * @param string $dsn 
+     * @param string $dsn
      * @return array $parts
      */
     protected function _buildDsnPartsArray($dsn)
@@ -606,7 +606,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
      *
      * @return integer
      */
-    public function count()
+    public function count(): int
     {
         return count($this->_connections);
     }
@@ -616,7 +616,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
      *
      * @return ArrayIterator
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->_connections);
     }
@@ -784,8 +784,8 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
     /**
      * Register a Doctrine extension for extensionsAutoload() method
      *
-     * @param string $name 
-     * @param string $path 
+     * @param string $name
+     * @param string $path
      * @return void
      */
     public function registerExtension($name, $path = null)

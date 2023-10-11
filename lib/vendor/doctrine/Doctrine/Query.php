@@ -2101,7 +2101,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      * @param array $executeParams        an array of prepared statement parameters
      * @return integer             the count of this query
      */
-    public function count($executeParams = array())
+    public function count($executeParams = array()): int
     {
         $q = $this->getCountSqlQuery();
         $sqlParams = $this->getCountQueryParams($executeParams);

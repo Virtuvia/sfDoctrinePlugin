@@ -318,7 +318,7 @@ abstract class Doctrine_Record_Generator extends Doctrine_Record_Abstract
             $options['onUpdate'] = 'CASCADE';
         }
 
-        if ($foreignKeyName = $this->_options['localRelationOptions']['foreignKeyName']) {
+        if ($foreignKeyName = ($this->_options['localRelationOptions']['foreignKeyName'] ?? null)) {
             $options['foreignKeyName'] = $foreignKeyName;
         }
 

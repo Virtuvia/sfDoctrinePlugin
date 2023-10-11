@@ -67,7 +67,7 @@ abstract class BaseUniqueTest extends myDoctrineRecord
               'unique_test4' =>
               array(
               'sorting' => 'ASC',
-              'length' => 10,
+              'length' => '10',
               ),
              ),
              'type' => 'unique',

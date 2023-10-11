@@ -65,12 +65,12 @@ class sfTesterDoctrine extends sfTester
         }
 
         $operator = '=';
-        if ('!' == $condition[0])
+        if (is_string($condition) && '!' === $condition[0])
         {
           $operator = false !== strpos($condition, '%') ? 'NOT LIKE' : '!=';
           $condition = substr($condition, 1);
         }
-        else if (false !== strpos($condition, '%'))
+        else if (is_string($condition) && false !== strpos($condition, '%'))
         {
           $operator = 'LIKE';
         }
@@ -103,7 +103,7 @@ class sfTesterDoctrine extends sfTester
 
   /**
    * Outputs some debug information about queries run during the current request.
-   * 
+   *
    * @param integer|string $limit Either an integer to return the last many queries, a regular expression or a substring to search for
    */
   public function debug($limit = null)

@@ -42,7 +42,7 @@ abstract class BaseSetting extends myDoctrineRecord
         $this->hasColumn('weight', 'float', 4, array(
              'type' => 'float',
              'length' => 4,
-             'scale' => 4,
+             'scale' => '4',
              ));
     }
 
