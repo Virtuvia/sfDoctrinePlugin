@@ -153,8 +153,6 @@ class Doctrine_Column extends Doctrine_Access implements IteratorAggregate, Coun
 
     /**
      * getIterator
-     *
-     * @return ArrayIterator
      */
     public function getIterator(): Traversable
     {

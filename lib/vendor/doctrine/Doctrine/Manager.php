@@ -614,7 +614,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
     /**
      * Returns an ArrayIterator that iterates through all connections
      *
-     * @return ArrayIterator
+     * @return Traversable|iterable<Doctrine_Connection>
      */
     public function getIterator(): Traversable
     {

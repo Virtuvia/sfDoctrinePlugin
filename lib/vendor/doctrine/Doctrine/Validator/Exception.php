@@ -33,13 +33,10 @@
 class Doctrine_Validator_Exception extends Doctrine_Exception implements Countable, IteratorAggregate
 {
     /**
-     * @var array $invalid
+     * @var Doctrine_Record[] $invalid
      */
-    private $invalid = array();
+    private array $invalid;
 
-    /**
-     * @param Doctrine_Validator $validator
-     */
     public function __construct(array $invalid)
     {
         $this->invalid = $invalid;
@@ -51,6 +48,9 @@ class Doctrine_Validator_Exception extends Doctrine_Exception implements Countab
         return $this->invalid;
     }
 
+    /**
+     * @return Traversable|iterable<Doctrine_Record>
+     */
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->invalid);

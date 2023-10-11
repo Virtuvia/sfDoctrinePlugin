@@ -1018,12 +1018,11 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
     /**
      * Get collection data iterator
      *
-     * @return Iterator
+     * @return Traversable|iterable<Doctrine_Record>
      */
     public function getIterator(): Traversable
     {
-        $data = $this->data;
-        return new ArrayIterator($data);
+        return new ArrayIterator($this->data);
     }
 
     /**

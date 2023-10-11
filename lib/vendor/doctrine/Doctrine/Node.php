@@ -159,6 +159,7 @@ class Doctrine_Node implements IteratorAggregate
      *
      * @param string $type                      type of iterator (Pre | Post | Level)
      * @param array $options                    options
+     * @return Traversable|iterable<Doctrine_Record>
      */
     public function getIterator(string $type = null, array $options = null): Traversable
     {

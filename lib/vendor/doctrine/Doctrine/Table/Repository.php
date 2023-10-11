@@ -136,7 +136,7 @@ class Doctrine_Table_Repository implements Countable, IteratorAggregate
 
     /**
      * getIterator
-     * @return ArrayIterator
+     * @return Traversable|iterable<Doctrine_Record>
      */
     public function getIterator(): Traversable
     {

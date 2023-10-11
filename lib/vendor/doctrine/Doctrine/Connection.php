@@ -1144,7 +1144,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * }
      * </code>
      *
-     * @return ArrayIterator        SPL ArrayIterator object
+     * @return Traversable|iterable<Doctrine_Table>
      */
     public function getIterator(): Traversable
     {

@@ -132,7 +132,7 @@ class Doctrine_Connection_Profiler implements Doctrine_Overloadable, IteratorAgg
      * getIterator
      * returns an iterator that iterates through the logged events
      *
-     * @return ArrayIterator
+     * @return Traversable|iterable<Doctrine_Event>
      */
     public function getIterator(): Traversable
     {
