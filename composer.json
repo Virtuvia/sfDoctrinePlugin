@@ -19,6 +19,9 @@
     "autoload": {
         "classmap": [
             "lib/"
+        ],
+        "exclude-from-classmap": [
+            "/lib/vendor/doctrine/Doctrine"
         ]
     },
     "autoload-dev": {
