@@ -211,7 +211,7 @@ abstract class Doctrine_Query_Abstract
      * @var string
      */
     protected $_rootAlias = '';
-	
+
     /**
      * @var integer $type                   the query type
      *
@@ -540,7 +540,7 @@ abstract class Doctrine_Query_Abstract
     {
         $this->_params = $params;
     }
-    
+
     /**
      * getCountQueryParams
      * Retrieves the parameters for count query
@@ -568,19 +568,19 @@ abstract class Doctrine_Query_Abstract
     public function fixArrayParameterValues($params = array())
     {
         $i = 0;
-	
+
         foreach ($params as $param) {
             if (is_array($param)) {
                 $c = count($param);
 
                 array_splice($params, $i, 1, $param);
-                
+
                 $i += $c;
             } else {
                 $i++;
             }
         }
-        
+
         $this->_execParams = $params;
     }
 
@@ -621,17 +621,17 @@ abstract class Doctrine_Query_Abstract
             $tableAlias .= '.';
         }
 
-        // Fix for 2015: loop through whole inheritanceMap to add all   
-        // keyFields for inheritance (and not only the first) 
-        $retVal = ""; 
-        $count = 0; 
-         
-        foreach ($map as $field => $value) { 
+        // Fix for 2015: loop through whole inheritanceMap to add all
+        // keyFields for inheritance (and not only the first)
+        $retVal = "";
+        $count = 0;
+
+        foreach ($map as $field => $value) {
             if ($count++ > 0) {
                 $retVal .= ' AND ';
             }
 
-            $identifier = $this->_conn->quoteIdentifier($tableAlias . $field); 
+            $identifier = $this->_conn->quoteIdentifier($tableAlias . $field);
             $retVal .= $identifier . ' = ' . $this->_conn->quote($value);
         }
 
@@ -766,7 +766,7 @@ abstract class Doctrine_Query_Abstract
         if ( ! $this->_queryComponents) {
             $this->buildQueryComponents([]);
         }
-        
+
         return $this->_rootAlias;
     }
 
@@ -993,7 +993,7 @@ abstract class Doctrine_Query_Abstract
                 $this->_hydrator->setQueryComponents($this->_queryComponents);
                 if ($this->_type == self::SELECT && $hydrationMode == Doctrine_Core::HYDRATE_ON_DEMAND) {
                     $hydrationDriver = $this->_hydrator->getHydratorDriver($hydrationMode, $this->_tableAliasMap);
-                    $result = new Doctrine_Collection_OnDemand($stmt, $hydrationDriver, $this->_tableAliasMap); 
+                    $result = new Doctrine_Collection_OnDemand($stmt, $hydrationDriver, $this->_tableAliasMap);
                 } else {
                     $result = $this->_hydrator->hydrateResultSet($stmt, $this->_tableAliasMap);
                 }
@@ -1154,9 +1154,9 @@ abstract class Doctrine_Query_Abstract
         foreach ($cachedComponents as $alias => $components) {
             $e = explode('.', $components['name']);
             if (count($e) === 1) {
-                $manager = Doctrine_Manager::getInstance(); 
-                if ( ! $this->_passedConn && $manager->hasConnectionForComponent($e[0])) { 
-                    $this->_conn = $manager->getConnectionForComponent($e[0]); 
+                $manager = Doctrine_Manager::getInstance();
+                if ( ! $this->_passedConn && $manager->hasConnectionForComponent($e[0])) {
+                    $this->_conn = $manager->getConnectionForComponent($e[0]);
                 }
                 $queryComponents[$alias]['table'] = $this->_conn->getTable($e[0]);
             } else {
@@ -1468,7 +1468,7 @@ abstract class Doctrine_Query_Abstract
     /**
      * Adds conditions to the HAVING part of the query.
      *
-     * This methods add HAVING clauses. These clauses are used to narrow the 
+     * This methods add HAVING clauses. These clauses are used to narrow the
      * results by operating on aggregated values.
      * <code>
      * $q->having('num_phonenumbers > ?', 1);
@@ -2146,8 +2146,6 @@ abstract class Doctrine_Query_Abstract
 
         if ( ! isset($this->_parsers[$name])) {
             $class = 'Doctrine_Query_' . ucwords(strtolower($name));
-
-            Doctrine_Core::autoload($class);
 
             if ( ! class_exists($class)) {
                 throw new Doctrine_Query_Exception('Unknown parser ' . $name);
