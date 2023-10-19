@@ -35,6 +35,7 @@ $ret = $h->run() ? 0 : 1;
 
 if (!empty($xml)) {
     file_put_contents($xml, $h->to_xml());
+    exit;
 }
 
 exit($ret);
