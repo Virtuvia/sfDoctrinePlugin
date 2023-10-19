@@ -8,13 +8,10 @@
  * file that was distributed with this source code.
  */
 
-define('SYMFONY_LIB_DIR', realpath(dirname(__FILE__).'/../../../..'));
-
-require(SYMFONY_LIB_DIR.'/vendor/lime/lime.php');
-require(SYMFONY_LIB_DIR.'/util/sfFinder.class.php');
+require __DIR__ . '/../bootstrap/autoload.php';
 
 $h = new lime_harness();
-$h->base_dir = realpath(dirname(__FILE__).'/..');
+$h->base_dir = dirname(__DIR__);
 
 // unit tests
 $h->register_glob($h->base_dir.'/unit/*/*Test.php');
@@ -27,7 +24,7 @@ $h->register_glob($h->base_dir.'/functional/*/*Test.php');
 $c = new lime_coverage($h);
 $c->extension = '.class.php';
 $c->verbose = false;
-$c->base_dir = realpath(dirname(__FILE__).'/../lib');
+$c->base_dir = dirname(__DIR__, 2) . '/lib';
 
 $finder = sfFinder::type('file')->name('*.php')->prune('vendor')->prune('test')->prune('data');
 $c->register($finder->in($c->base_dir));

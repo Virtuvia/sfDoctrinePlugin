@@ -1,3 +1,7 @@
+all:
+  user:
+    class: myFrontendUser
+
 prod:
   logger:
     class:   sfNoLogger
