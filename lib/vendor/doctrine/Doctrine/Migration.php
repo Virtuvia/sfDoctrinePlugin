@@ -32,7 +32,7 @@
  * @version     $Revision: 1080 $
  * @author      Jonathan H. Wage <jwage@mac.com>
  */
-class Doctrine_Migration
+final class Doctrine_Migration
 {
     protected $_migrationTableName = 'migration_version',
               $_migrationTableCreated = false,
@@ -50,11 +50,11 @@ class Doctrine_Migration
      * The classes will be loaded and the migration table will be created if it
      * does not already exist
      *
-     * @param string $directory The path to your migrations directory
+     * @param ?string $directory The path to your migrations directory
      * @param mixed $connection The connection name or instance to use for this migration
      * @return void
      */
-    public function __construct($directory = null, $connection = null)
+    public function __construct(?string $directory = null, $connection = null)
     {
         $this->_reflectionClass = new ReflectionClass('Doctrine_Migration_Base');
 
@@ -74,7 +74,7 @@ class Doctrine_Migration
         if ($directory != null) {
             $this->_migrationClassesDirectory = $directory;
 
-            $this->loadMigrationClassesFromDirectory();
+            $this->loadMigrationClasses();
         }
     }
 
@@ -123,44 +123,49 @@ class Doctrine_Migration
     /**
      * Load migration classes from the passed directory. Any file found with a .php
      * extension will be passed to the loadMigrationClass()
-     *
-     * @param string $directory  Directory to load migration classes from
-     * @return void
      */
-    public function loadMigrationClassesFromDirectory($directory = null)
+    private function loadMigrationClasses(): void
     {
-        $directory = $directory ? $directory:$this->_migrationClassesDirectory;
+        $directory = $this->_migrationClassesDirectory;
 
-        $classesToLoad = array();
-        $classes = get_declared_classes();
-        foreach ((array) $directory as $dir) {
-            $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir),
-                RecursiveIteratorIterator::LEAVES_ONLY);
+        $migrationFiles = [];
+        $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory),
+            RecursiveIteratorIterator::LEAVES_ONLY);
 
-            if (isset(self::$_migrationClassesForDirectories[$dir])) {
-                foreach (self::$_migrationClassesForDirectories[$dir] as $num => $className) {
-                    $this->_migrationClasses[$num] = $className;
-                }
-            }
-
-            foreach ($it as $file) {
-                $info = pathinfo($file->getFileName());
-                if (isset($info['extension']) && $info['extension'] == 'php') {
-                    require_once($file->getPathName());
-
-                    $array = array_diff(get_declared_classes(), $classes);
-                    $className = end($array);
-                    $classes = get_declared_classes();
-
-                    if ($className) {
-                        $e = explode('_', $file->getFileName());
-                        $timestamp = $e[0];
-
-                        $classesToLoad[$timestamp] = array('className' => $className, 'path' => $file->getPathName());
-                    }
-                }
+        if (isset(self::$_migrationClassesForDirectories[$directory])) {
+            foreach (self::$_migrationClassesForDirectories[$directory] as $num => $className) {
+                $this->_migrationClasses[$num] = $className;
             }
         }
+
+        /** @var \SplFileInfo $file */
+        foreach ($it as $file) {
+            if ($file->getBasename('.php') === $file->getBasename()) {
+                continue;
+            }
+
+            $migrationFile = realpath($file->getPathName());
+            require_once($migrationFile);
+            $migrationFiles[] = $migrationFile;
+        }
+
+        $declaredClasses = get_declared_classes();
+        $classesToLoad = [];
+        foreach ($declaredClasses as $declaredClass) {
+            $reflectionClass = new \ReflectionClass($declaredClass);
+            $classFile = $reflectionClass->getFileName();
+            $classFileName = basename($classFile);
+
+            if (!in_array($classFile, $migrationFiles, true)) {
+                continue;
+            }
+
+            $e = explode('_', $classFileName);
+            $timestamp = $e[0];
+
+            $classesToLoad[$timestamp] = ['className' => $declaredClass, 'path' => $classFile];
+        }
+
         ksort($classesToLoad, SORT_NUMERIC);
         foreach ($classesToLoad as $class) {
             $this->loadMigrationClass($class['className'], $class['path']);
