@@ -108,7 +108,7 @@ abstract class sfDoctrineRecord extends Doctrine_Record
    *
    * @return string A string representation of the record
    */
-  public function __toString()
+  public function __toString(): string
   {
     $guesses = array('name',
                      'title',

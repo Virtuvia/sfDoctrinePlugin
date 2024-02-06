@@ -2573,7 +2573,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * magic method
      * @return string representation of this object
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->_oid;
     }

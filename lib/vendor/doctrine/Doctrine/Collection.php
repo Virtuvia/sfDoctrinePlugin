@@ -1030,7 +1030,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      *
      * @return string $string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return Doctrine_Lib::getCollectionAsString($this);
     }
