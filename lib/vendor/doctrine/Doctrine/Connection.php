@@ -247,7 +247,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * Retrieves option
      *
      * @param string $option
-     * @return void
+     * @return mixed
      */
     public function getOption($option)
     {

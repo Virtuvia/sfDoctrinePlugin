@@ -128,7 +128,7 @@ abstract class sfFormFilterDoctrine extends sfFormFilter
    *
    * @param  array    An array of parameters to build the Query object
    *
-   * @return Query A Doctrine Query object
+   * @return Doctrine_Query A Doctrine Query object
    */
   public function buildQuery(array $values)
   {
