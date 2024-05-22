@@ -226,8 +226,11 @@ class Doctrine_Connection_Statement implements Doctrine_Adapter_Statement_Interf
      */
     public function execute($params = null)
     {
+        $query = null;
+
         try {
-            $event = new Doctrine_Event($this, Doctrine_Event::STMT_EXECUTE, $this->getQuery(), $params);
+            $query = $this->getQuery();
+            $event = new Doctrine_Event($this, Doctrine_Event::STMT_EXECUTE, $query, $params);
             $this->_conn->getListener()->preStmtExecute($event);
 
             $result = true;
@@ -266,7 +269,7 @@ class Doctrine_Connection_Statement implements Doctrine_Adapter_Statement_Interf
         } catch (Doctrine_Adapter_Exception $e) {
         }
 
-        $this->_conn->rethrowException($e, $this);
+        $this->_conn->rethrowException($e, $this, $query);
 
         return false;
     }
