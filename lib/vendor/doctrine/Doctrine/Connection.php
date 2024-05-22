@@ -1074,7 +1074,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
             $message .= sprintf('. Failing Query: "%s"', $query);
         }
 
-        $exc  = new $name($message, (int) $e->getCode());
+        $exc  = new $name($message, (int) $e->getCode(), $e);
         if ( ! isset($e->errorInfo) || ! is_array($e->errorInfo)) {
             $e->errorInfo = array(null, null, null, null);
         }
