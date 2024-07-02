@@ -135,7 +135,7 @@ class Doctrine_Migration_Diff
     /**
      * Initialize some Doctrine models at a given path.
      *
-     * @param string $path 
+     * @param string $path
      * @return array $models
      */
     protected function _initializeModels($path)
@@ -327,7 +327,7 @@ class Doctrine_Migration_Diff
                 Doctrine_Inflector::tableize(self::$_toPrefix),
                 Doctrine_Inflector::tableize(self::$_fromPrefix)
             );
-            return str_replace($find, null, $info);
+            return str_replace($find, '', $info);
         }
     }
 
