@@ -1106,18 +1106,15 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      *
      * @param $name                         name of the property
      * @throws Doctrine_Record_Exception    if trying to get an unknown property
-     * @return mixed
+     * @return mixed|null
+     *
+     * @deprecated use getInternalData($fieldName, false) or getData()[$fieldName]
+     * @see self::getInternalData()
+     * @see self::getData()
      */
     public function rawGet($fieldName)
     {
-        if ( ! array_key_exists($fieldName, $this->_data)) {
-            throw new Doctrine_Record_Exception('Unknown property '. $fieldName);
-        }
-        if ($this->_data[$fieldName] === self::$_null) {
-            return null;
-        }
-
-        return $this->_data[$fieldName];
+        return $this->getInternalData($fieldName, false);
     }
 
     /**
@@ -1186,10 +1183,13 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     /**
      * returns a value of a property or a related component
      *
-     * @param mixed $fieldName                  name of the property or related component
-     * @param boolean $load                     whether or not to invoke the loading procedure
+     * @param string $fieldName                  name of the property or related component
+     * @param bool $load                     whether or not to invoke the loading procedure
      * @throws Doctrine_Record_Exception        if trying to get a value of unknown property / related component
-     * @return mixed
+     *
+     * @return Doctrine_Collection|Doctrine_Record|mixed|null
+     *
+     * @internal use appropriate get* method
      */
     public function get($fieldName, $load = true)
     {
@@ -1202,44 +1202,75 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         return $this->_get($fieldName, $load);
     }
 
+    final protected function getInternalReference(string $fieldName, bool $load = true): ?Doctrine_Record
+    {
+        if ( ! isset($this->_references[$fieldName])) {
+            if ($load) {
+                $rel = $this->_table->getRelation($fieldName);
+                $this->_references[$fieldName] = $rel->fetchRelatedFor($this);
+            } else {
+                return null;
+            }
+        }
+
+        if ($this->_references[$fieldName] === self::$_null) {
+            return null;
+        }
+
+        return $this->_references[$fieldName];
+    }
+
+    final protected function getInternalData(string $fieldName, bool $load = true): mixed
+    {
+        if (!array_key_exists($fieldName, $this->_data)) {
+            throw new Doctrine_Record_Exception('Unknown property '. $fieldName);
+        }
+
+        // check if the value is the Doctrine_Null object located in self::$_null)
+        if ($this->_data[$fieldName] === self::$_null && $load) {
+            $this->load();
+        }
+
+        if ($this->_data[$fieldName] === self::$_null) {
+            $value = null;
+        } else {
+            $value = $this->_data[$fieldName];
+        }
+
+        return $value;
+    }
+
+    final protected function getInternalValue(string $fieldName): mixed
+    {
+        if (!array_key_exists($fieldName, $this->_values)) {
+            throw new Doctrine_Record_Exception('Unknown property '. $fieldName);
+        }
+
+        return $this->_values[$fieldName];
+    }
+
+    /**
+     * @param string $fieldName
+     * @param bool $load
+     *
+     * @deprecated use getInternalValue or getFieldData or getInternalReference
+     *
+     * @return Doctrine_Collection|Doctrine_Record|mixed|null
+     */
     protected function _get($fieldName, $load = true)
     {
         $value = self::$_null;
 
         if (array_key_exists($fieldName, $this->_values)) {
-            return $this->_values[$fieldName];
+            return $this->getInternalValue($fieldName);
         }
 
         if (array_key_exists($fieldName, $this->_data)) {
-            // check if the value is the Doctrine_Null object located in self::$_null)
-            if ($this->_data[$fieldName] === self::$_null && $load) {
-                $this->load();
-            }
-
-            if ($this->_data[$fieldName] === self::$_null) {
-                $value = null;
-            } else {
-                $value = $this->_data[$fieldName];
-            }
-
-            return $value;
+            return $this->getInternalData($fieldName, $load);
         }
 
         try {
-            if ( ! isset($this->_references[$fieldName])) {
-                if ($load) {
-                    $rel = $this->_table->getRelation($fieldName);
-                    $this->_references[$fieldName] = $rel->fetchRelatedFor($this);
-                } else {
-                    return null;
-                }
-            }
-
-            if ($this->_references[$fieldName] === self::$_null) {
-                return null;
-            }
-
-            return $this->_references[$fieldName];
+            return $this->getInternalReference($fieldName, $load);
         } catch (Doctrine_Table_Exception) {
             throw new Doctrine_Record_UnknownPropertyException(sprintf('Unknown record property / related component "%s" on "%s"', $fieldName, static::class));
         }
@@ -1280,6 +1311,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * @throws Doctrine_Record_Exception    if trying to set a value of wrong type for related component
      *
      * @return Doctrine_Record
+     *
+     * @internal use appropriate set* method
      */
     public function set($fieldName, $value, $load = true)
     {
@@ -1292,48 +1325,19 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         return $this->_set($fieldName, $value, $load);
     }
 
+    /**
+     * @deprecated use setInternalValue or setInternalData or setInternalReference
+     */
     protected function _set($fieldName, $value, $load = true)
     {
         if (array_key_exists($fieldName, $this->_values)) {
-            $this->_values[$fieldName] = $value;
+            $this->setInternalValue($fieldName, $value);
         } else if (array_key_exists($fieldName, $this->_data)) {
-            $type = $this->_table->getTypeOf($fieldName);
-            if ($value instanceof Doctrine_Record) {
-                $id = $value->getIncremented();
-
-                if ($id !== null && $type !== 'object') {
-                    $value = $id;
-                }
-            }
-
-            if ($load) {
-                $old = $this->get($fieldName, $load);
-            } else {
-                $old = $this->_data[$fieldName];
-            }
-
-            if ($this->_isValueModified($type, $old, $value)) {
-                if ($value === null) {
-                    $value = $this->_table->getDefaultValueOf($fieldName);
-                }
-                $this->_data[$fieldName] = $value;
-                $this->_modified[] = $fieldName;
-                $this->_oldValues[$fieldName] = $old;
-
-                switch ($this->_state) {
-                    case Doctrine_Record::STATE_CLEAN:
-                    case Doctrine_Record::STATE_PROXY:
-                        $this->_state = Doctrine_Record::STATE_DIRTY;
-                        break;
-                    case Doctrine_Record::STATE_TCLEAN:
-                        $this->_state = Doctrine_Record::STATE_TDIRTY;
-                        break;
-                }
-            }
+            $this->setInternalData($fieldName, $value, $load);
         } else {
             try {
-                $this->setInternalReference($fieldName, $value);
-            } catch (Doctrine_Table_Exception) {
+                $this->setInternalReference($fieldName, $value, $load);
+            } catch (Doctrine_Table_Exception $e) {
                 throw new Doctrine_Record_UnknownPropertyException(sprintf('Unknown record property / related component "%s" on "%s"', $fieldName, static::class));
             }
         }
@@ -1357,6 +1361,56 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         }
 
         return $this;
+    }
+
+    final protected function setInternalValue(string $fieldName, mixed $value): void
+    {
+        if (!array_key_exists($fieldName, $this->_values)) {
+            throw new Doctrine_Record_Exception('Unknown property '. $fieldName);
+        }
+
+        $this->_values[$fieldName] = $value;
+    }
+
+    final protected function setInternalData(string $fieldName, mixed $value, bool $load = true): void
+    {
+        if (!array_key_exists($fieldName, $this->_data)) {
+            throw new Doctrine_Record_Exception('Unknown property '. $fieldName);
+        }
+
+        $type = $this->_table->getTypeOf($fieldName);
+        if ($value instanceof Doctrine_Record) {
+            $id = $value->getIncremented();
+
+            if ($id !== null && $type !== 'object') {
+                $value = $id;
+            }
+        }
+
+        if ($load) {
+            $old = $this->get($fieldName, $load);
+        } else {
+            $old = $this->_data[$fieldName];
+        }
+
+        if ($this->_isValueModified($type, $old, $value)) {
+            if ($value === null) {
+                $value = $this->_table->getDefaultValueOf($fieldName);
+            }
+            $this->_data[$fieldName] = $value;
+            $this->_modified[] = $fieldName;
+            $this->_oldValues[$fieldName] = $old;
+
+            switch ($this->_state) {
+                case Doctrine_Record::STATE_CLEAN:
+                case Doctrine_Record::STATE_PROXY:
+                    $this->_state = Doctrine_Record::STATE_DIRTY;
+                    break;
+                case Doctrine_Record::STATE_TCLEAN:
+                    $this->_state = Doctrine_Record::STATE_TDIRTY;
+                    break;
+            }
+        }
     }
 
     /**
@@ -1446,7 +1500,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
 
                 if ($rel instanceof Doctrine_Relation_LocalKey) {
                     if ($value !== self::$_null &&  ! empty($foreignFieldName) && $foreignFieldName != $value->getTable()->getIdentifier()) {
-                        $this->set($localFieldName, $value->rawGet($foreignFieldName), false);
+                        $this->set($localFieldName, $value->getInternalData($foreignFieldName), false);
                     } else {
                         // FIX: Ticket #1280 fits in this situation
                         $this->set($localFieldName, $value, false);
