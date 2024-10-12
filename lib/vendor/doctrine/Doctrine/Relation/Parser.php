@@ -150,6 +150,8 @@ class Doctrine_Relation_Parser
      * getRelation
      *
      * @param string $alias      relation alias
+     *
+     * @throws Doctrine_Table_Exception when relation is unknown
      */
     public function getRelation($alias, $recursive = true)
     {

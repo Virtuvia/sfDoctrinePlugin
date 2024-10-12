@@ -1023,6 +1023,9 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * Retrieves a relation object for this component.
      *
      * @param string $alias      relation alias; @see hasRelation()
+     *
+     * @throws Doctrine_Table_Exception
+     *
      * @return Doctrine_Relation
      */
     public function getRelation($alias, $recursive = true)
