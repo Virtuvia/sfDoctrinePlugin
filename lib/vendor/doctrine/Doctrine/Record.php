@@ -1332,7 +1332,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
             }
         } else {
             try {
-                $this->coreSetRelated($fieldName, $value);
+                $this->setInternalReference($fieldName, $value);
             } catch (Doctrine_Table_Exception $e) {
                 throw new Doctrine_Record_UnknownPropertyException(sprintf('Unknown record property / related component "%s" on "%s"', $fieldName, static::class));
             }
@@ -1404,10 +1404,10 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * relations, populating the foreign keys accordingly.
      *
      * @param string $name                                  related component alias in the relation
-     * @param Doctrine_Record|Doctrine_Collection $value    object to be linked as a related component
+     * @param Doctrine_Record|Doctrine_Collection|null $value    object to be linked as a related component
      * @todo Refactor. What about composite keys?
      */
-    public function coreSetRelated($name, $value)
+    final protected function setInternalReference(string $name, Doctrine_Record|Doctrine_Collection|null $value): void
     {
         $rel = $this->_table->getRelation($name);
 
@@ -1426,7 +1426,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
                 if (isset($this->_references[$name])) {
                     $this->_references[$name]->setData($value->getData());
 
-                    return $this;
+                    return;
                 }
             } else {
                 $localFieldName = $this->_table->getFieldName($rel->getLocal());
