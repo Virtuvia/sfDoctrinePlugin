@@ -1202,7 +1202,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         return $this->_get($fieldName, $load);
     }
 
-    final protected function getInternalReference(string $fieldName, bool $load = true): ?Doctrine_Record
+    final protected function getInternalReference(string $fieldName, bool $load = true): Doctrine_Record|Doctrine_Collection|null
     {
         if ( ! isset($this->_references[$fieldName])) {
             if ($load) {
