@@ -1312,20 +1312,6 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
     }
 
     /**
-     * getResultCacheDriver
-     *
-     * @return Doctrine_Cache_Interface
-     */
-    public function getResultCacheDriver()
-    {
-        if ( ! $this->getAttribute(Doctrine_Core::ATTR_RESULT_CACHE)) {
-            throw new Doctrine_Exception('Result Cache driver not initialized.');
-        }
-
-        return $this->getAttribute(Doctrine_Core::ATTR_RESULT_CACHE);
-    }
-
-    /**
      * getQueryCacheDriver
      *
      * @return Doctrine_Cache_Interface
