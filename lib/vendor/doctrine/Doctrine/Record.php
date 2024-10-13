@@ -1245,7 +1245,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
 
     final protected function getInternalValue(string $fieldName): mixed
     {
-        if (!array_key_exists($fieldName, $this->_values)) {
+        if (!$this->hasMappedValue($fieldName)) {
             throw new Doctrine_Record_Exception('Unknown property '. $fieldName);
         }
 
@@ -1283,24 +1283,22 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * sets a value that will be managed as if it were a field by magic accessor and mutators, @see get() and @see set().
      * Normally used by Doctrine for the mapping of aggregate values.
      *
-     * @param string $name                  the name of the mapped value
+     * @param string $fieldName                  the name of the mapped value
      * @param mixed $value                  mixed value to be mapped
-     * @return void
      */
-    public function mapValue($name, $value = null)
+    final public function mapValue(string $fieldName, mixed $value = null): void
     {
-        $this->_values[$name] = $value;
+        $this->setInternalValue($fieldName, $value);
     }
 
     /**
      * Tests whether a mapped value exists
      *
-     * @param string $name  the name of the property
-     * @return boolean
+     * @param string $fieldName  the name of the property
      */
-    public function hasMappedValue($name)
+    final public function hasMappedValue(string $fieldName): bool
     {
-        return array_key_exists($name, $this->_values);
+        return array_key_exists($fieldName, $this->_values);
     }
 
     /**
@@ -1352,7 +1350,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
 
     final protected function setInternalValue(string $fieldName, mixed $value): void
     {
-        if (!array_key_exists($fieldName, $this->_values)) {
+        if (!$this->hasMappedValue($fieldName)) {
             throw new Doctrine_Record_Exception('Unknown property '. $fieldName);
         }
 
