@@ -1191,7 +1191,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      *
      * @internal use appropriate get* method
      */
-    public function get($fieldName, $load = true)
+    final public function get($fieldName, bool $load = true): mixed
     {
         $accessor = 'get' . Doctrine_Inflector::classify($fieldName);
 
@@ -1306,7 +1306,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     /**
      * alters mapped values, properties and related components.
      *
-     * @param mixed $name                   name of the property or reference
+     * @param mixed $fieldName                   name of the property or reference
      * @param mixed $value                  value of the property or reference
      * @param boolean $load                 whether or not to refresh / load the uninitialized record data
      *
@@ -1317,7 +1317,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      *
      * @internal use appropriate set* method
      */
-    public function set($fieldName, $value, $load = true)
+    final public function set($fieldName, mixed $value, bool $load = true)
     {
         $mutator = 'set' . Doctrine_Inflector::classify($fieldName);
 
