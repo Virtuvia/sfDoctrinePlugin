@@ -1202,6 +1202,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         return $this->_get($fieldName, $load);
     }
 
+    /**
+     * @throws Doctrine_Table_Exception when relation is invalid
+     */
     final protected function getInternalReference(string $fieldName, bool $load = true): Doctrine_Record|Doctrine_Collection|null
     {
         if ( ! isset($this->_references[$fieldName])) {
@@ -1338,8 +1341,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
             try {
                 // pre-emptively call getRelation to validate if $fieldName is a relation
                 $this->_table->getRelation($fieldName);
-                $this->setInternalReference($fieldName, $value, $load);
-            } catch (Doctrine_Table_Exception $e) {
+                $this->setInternalReference($fieldName, $value);
+            } catch (Doctrine_Table_Exception) {
                 throw new Doctrine_Record_UnknownPropertyException(sprintf('Unknown record property / related component "%s" on "%s"', $fieldName, static::class));
             }
         }
