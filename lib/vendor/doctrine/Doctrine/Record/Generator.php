@@ -59,6 +59,10 @@ abstract class Doctrine_Record_Generator extends Doctrine_Record_Abstract
      */
     protected $_initialized = false;
 
+    public function setUp(): void
+    {
+    }
+
     /**
      * An alias for getOption
      *

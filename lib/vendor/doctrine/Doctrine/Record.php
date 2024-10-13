@@ -286,18 +286,19 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * it should be implemented by child classes
      *
      * @return void
+     * @internal
      */
-    public function setUp()
-    { }
+    abstract public function setUp();
+
     /**
      * construct
      * Empty template method to provide concrete Record classes with the possibility
      * to hook into the constructor procedure
      *
      * @return void
+     * @internal
      */
-    public function construct()
-    { }
+    abstract public function construct();
 
     /**
      * @see $_oid;

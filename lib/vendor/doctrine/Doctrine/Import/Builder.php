@@ -377,8 +377,7 @@ EOF;
         $code = implode(PHP_EOL, $ret);
         $code = trim($code);
 
-
-        return PHP_EOL . "    public function setTableDefinition()" . PHP_EOL . '    {' . PHP_EOL . '        ' . $code . PHP_EOL . '    }' . $fixConcreteTableName;
+        return PHP_EOL . "    public function setTableDefinition(): void" . PHP_EOL . '    {' . PHP_EOL . '        ' . $code . PHP_EOL . '    }' . $fixConcreteTableName;
     }
 
     /**
@@ -487,12 +486,7 @@ EOF;
         $code = implode(PHP_EOL, $ret);
         $code = trim($code);
 
-        $code = "parent::setUp();" . PHP_EOL . '        ' . $code;
-
-        // If we have some code for the function then lets define it and return it
-        if ($code) {
-            return '    public function setUp()' . PHP_EOL . '    {' . PHP_EOL . '        ' . $code . PHP_EOL . '    }';
-        }
+        return '    public function setUp(): void' . PHP_EOL . '    {' . PHP_EOL . '        ' . $code . PHP_EOL . '    }';
     }
 
     /**
