@@ -294,11 +294,10 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * construct
      * Empty template method to provide concrete Record classes with the possibility
      * to hook into the constructor procedure
-     *
-     * @return void
-     * @internal
      */
-    abstract public function construct();
+    protected function construct(): void
+    {
+    }
 
     /**
      * @see $_oid;
