@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  *  $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  *
@@ -36,7 +39,7 @@
  * @author      Nicolas Bérard-Nault <nicobn@php.net>
  * @author      Jonathan H. Wage <jwage@mac.com>
  */
-class Doctrine_Import_Builder extends Doctrine_Builder
+final class Doctrine_Import_Builder extends Doctrine_Builder
 {
     /**
      * Path where to generated files
@@ -1145,6 +1148,7 @@ EOF;
         $docBlock = PHP_EOL.' * ' . implode(PHP_EOL . ' * ', $docBlock);
 
         $content  = '<?php' . PHP_EOL.PHP_EOL;
+        $content .= 'declare(strict_types=1);' . PHP_EOL.PHP_EOL;
         $content .= sprintf(self::$_tpl,
             $docBlock,
             false,
@@ -1309,7 +1313,8 @@ EOF;
             $writePath = $this->_path . DIRECTORY_SEPARATOR . $fileName;
         }
 
-        $code = "<?php" . PHP_EOL;
+        $code = "<?php" . PHP_EOL . PHP_EOL;
+        $code .= 'declare(strict_types=1);' . PHP_EOL . PHP_EOL;
 
         if (isset($definition['connection']) && $definition['connection']) {
             $code .= "// Connection Component Binding" . PHP_EOL;
