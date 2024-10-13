@@ -1294,7 +1294,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      */
     final public function mapValue(string $fieldName, mixed $value = null): void
     {
-        $this->setInternalValue($fieldName, $value);
+        $this->_values[$fieldName] = $value;
     }
 
     /**
