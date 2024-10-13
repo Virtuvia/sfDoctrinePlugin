@@ -1223,10 +1223,13 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         return $this->_references[$fieldName];
     }
 
+    /**
+     * @throws Doctrine_Record_UnknownPropertyException
+     */
     final protected function getInternalData(string $fieldName, bool $load = true): mixed
     {
         if (!array_key_exists($fieldName, $this->_data)) {
-            throw new Doctrine_Record_Exception('Unknown property '. $fieldName);
+            throw new Doctrine_Record_UnknownPropertyException('Unknown property '. $fieldName);
         }
 
         // check if the value is the Doctrine_Null object located in self::$_null)
@@ -1243,10 +1246,13 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         return $value;
     }
 
+    /**
+     * @throws Doctrine_Record_UnknownPropertyException
+     */
     final protected function getInternalValue(string $fieldName): mixed
     {
         if (!$this->hasMappedValue($fieldName)) {
-            throw new Doctrine_Record_Exception('Unknown property '. $fieldName);
+            throw new Doctrine_Record_UnknownPropertyException('Unknown property '. $fieldName);
         }
 
         return $this->_values[$fieldName];
@@ -1274,8 +1280,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
 
         try {
             return $this->getInternalReference($fieldName, $load);
-        } catch (Doctrine_Table_Exception) {
-            throw new Doctrine_Record_UnknownPropertyException(sprintf('Unknown record property / related component "%s" on "%s"', $fieldName, static::class));
+        } catch (Doctrine_Table_Exception $e) {
+            throw new Doctrine_Record_UnknownPropertyException(sprintf('Unknown record property / related component "%s" on "%s"', $fieldName, static::class), previous: $e);
         }
     }
 
@@ -1328,6 +1334,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
 
     /**
      * @deprecated use setInternalValue or setInternalData or setInternalReference
+     *
+     * @throws Doctrine_Record_Exception
+     * @throws Doctrine_Record_UnknownPropertyException
      */
     protected function _set($fieldName, $value, $load = true)
     {
@@ -1350,19 +1359,27 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         return $this;
     }
 
+    /**
+     * @throws Doctrine_Record_UnknownPropertyException
+     */
     final protected function setInternalValue(string $fieldName, mixed $value): void
     {
         if (!$this->hasMappedValue($fieldName)) {
-            throw new Doctrine_Record_Exception('Unknown property '. $fieldName);
+            throw new Doctrine_Record_UnknownPropertyException('Unknown property '. $fieldName);
         }
 
         $this->_values[$fieldName] = $value;
     }
 
+    /**
+     * @throws Doctrine_Record_Exception
+     * @throws Doctrine_Record_UnknownPropertyException
+     * @throws Doctrine_Table_Exception
+     */
     final protected function setInternalData(string $fieldName, mixed $value, bool $load = true): void
     {
         if (!array_key_exists($fieldName, $this->_data)) {
-            throw new Doctrine_Record_Exception('Unknown property '. $fieldName);
+            throw new Doctrine_Record_UnknownPropertyException('Unknown property '. $fieldName);
         }
 
         $type = $this->_table->getTypeOf($fieldName);
