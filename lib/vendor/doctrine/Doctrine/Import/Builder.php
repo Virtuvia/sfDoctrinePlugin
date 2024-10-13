@@ -648,7 +648,7 @@ EOF;
 
         if (!$definedPrimary) {
             // @todo Should probably check the default identifier information rather than assuming integer and id
-            $ret .= PHP_EOL . $accessorTemplate('id', 'integer');
+            $ret .= PHP_EOL . $accessorTemplate('id', 'string', 'string', false);
         }
 
         return $ret;
