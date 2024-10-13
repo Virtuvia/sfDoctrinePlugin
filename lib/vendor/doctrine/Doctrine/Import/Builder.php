@@ -598,29 +598,33 @@ EOF;
      */
     public function buildAccessors(array $definition): string
     {
-        $accessorTemplate = function ($accessorName, $valueType) {
+        $accessorTemplate = function (string $accessorName, string $getReturnType, string $setValueType, bool $isRelation): string {
+            $internalGetMethod = $isRelation ? 'getInternalReference' : 'getInternalData';
+
             // getters
             $ret = '';
             $ret .= '    /**' . PHP_EOL;
             $ret .= '     * @param bool $load' . PHP_EOL;
             $ret .= '     *' . PHP_EOL;
-            $ret .= '     * @return ' . $valueType . PHP_EOL;
+            $ret .= '     * @return ' . $getReturnType . PHP_EOL;
             $ret .= '     */' . PHP_EOL;
             $ret .= '    public function get' . Doctrine_Inflector::classify(Doctrine_Inflector::tableize($accessorName)) . "(\$load = true)" . PHP_EOL;
             $ret .= "    {" . PHP_EOL;
-            $ret .= "        return \$this->_get('{$accessorName}', \$load);" . PHP_EOL;
+            $ret .= "        return \$this->$internalGetMethod('{$accessorName}', \$load);" . PHP_EOL;
             $ret .= "    }" . PHP_EOL . PHP_EOL;
+
+            $internalSetMethod = $isRelation ? 'setInternalReference' : 'setInternalData';
 
             // setters
             $ret .= '    /**' . PHP_EOL;
-            $ret .= "     * @param $valueType \${$accessorName}" . PHP_EOL;
+            $ret .= "     * @param $setValueType \${$accessorName}" . PHP_EOL;
             $ret .= '     * @param bool $load' . PHP_EOL;
             $ret .= '     *' . PHP_EOL;
-            $ret .= '     * @return self' . PHP_EOL;
+            $ret .= '     * @return static' . PHP_EOL;
             $ret .= '     */' . PHP_EOL;
             $ret .= '    public function set' . Doctrine_Inflector::classify(Doctrine_Inflector::tableize($accessorName)) . "(\${$accessorName}, \$load = true)" . PHP_EOL;
             $ret .= "    {" . PHP_EOL;
-            $ret .= "        return \$this->_set('{$accessorName}', \${$accessorName}, \$load);" . PHP_EOL;
+            $ret .= "        return \$this->$internalSetMethod('{$accessorName}', \${$accessorName}, \$load);" . PHP_EOL;
             $ret .= "    }" . PHP_EOL;
 
             return $ret;
@@ -630,7 +634,7 @@ EOF;
 
         $ret = '';
         foreach ($definition['columns'] as $name => $column) {
-            $ret .= PHP_EOL . $accessorTemplate($name, $this->getPhpTypeForColumn($column));
+            $ret .= PHP_EOL . $accessorTemplate($name, $this->getPhpTypeForColumnAccessor($column), $this->getPhpTypeForColumnMutator($column), false);
 
             // check for primary
             if (isset($column['primary']) && $column['primary']) {
@@ -640,7 +644,8 @@ EOF;
 
         if (isset($definition['relations']) && !empty($definition['relations'])) {
             foreach ($definition['relations'] as $relation) {
-                $ret .= PHP_EOL . $accessorTemplate($relation['alias'], $this->getPhpTypeForRelation($relation));
+                $valueType = $this->getPhpTypeForRelation($relation);
+                $ret .= PHP_EOL . $accessorTemplate($relation['alias'], $valueType, $valueType, true);
             }
         }
 
@@ -652,20 +657,17 @@ EOF;
         return $ret;
     }
 
-    /**
-     * @param array $column
-     * @return string
-     */
-    protected function getPhpTypeForColumn(array $column)
+    protected function getPhpTypeForColumnAccessor(array $column): string
     {
         return Doctrine_Lib::convertDoctrineTypeToPhpType($column['type']);
     }
 
-    /**
-     * @param array $relation
-     * @return string
-     */
-    protected function getPhpTypeForRelation(array $relation)
+    protected function getPhpTypeForColumnMutator(array $column): string
+    {
+        return Doctrine_Lib::convertDoctrineTypeToPhpType($column['type']);
+    }
+
+    protected function getPhpTypeForRelation(array $relation): string
     {
         return (isset($relation['type']) && $relation['type'] == Doctrine_Relation::MANY) ? 'Doctrine_Collection' : $this->_classPrefix . $relation['class'];
     }
@@ -717,7 +719,7 @@ EOF;
                     $definedPrimary = true;
                 }
 
-                $ret[] = '@property ' . $this->getPhpTypeForColumn($column) . ' $' . $fieldName;
+                $ret[] = '@property ' . $this->getPhpTypeForColumnAccessor($column) . ' $' . $fieldName;
             }
 
             if (isset($definition['relations']) && ! empty($definition['relations'])) {
