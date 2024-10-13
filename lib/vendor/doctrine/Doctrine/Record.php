@@ -1337,12 +1337,14 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
             $this->setInternalData($fieldName, $value, $load);
         } else {
             try {
-                // pre-emptively call getRelation to validate if $fieldName is a relation
-                $this->_table->getRelation($fieldName);
-                $this->setInternalReference($fieldName, $value);
-            } catch (Doctrine_Table_Exception) {
-                throw new Doctrine_Record_UnknownPropertyException(sprintf('Unknown record property / related component "%s" on "%s"', $fieldName, static::class));
+                // maintain old behavior where getRelation throws Table exception when $fieldName is not a relation
+                $relation = $this->_table->getRelation($fieldName);
+            } catch (Doctrine_Table_Exception $e) {
+                throw new Doctrine_Record_UnknownPropertyException(sprintf('Unknown record property / related component "%s" on "%s"', $fieldName, static::class), previous: $e);
             }
+
+            // let other exceptions propagate. could cause new unhandled exceptions.
+            $this->doSetInternalReference($relation, $fieldName, $value);
         }
 
         return $this;
@@ -1459,17 +1461,30 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * This method inserts a related component instance in this record
      * relations, populating the foreign keys accordingly.
      *
-     * @param string $name                                  related component alias in the relation
-     * @param Doctrine_Record|Doctrine_Collection|Doctrine_Null|null $value    object to be linked as a related component
+     * @param string $fieldName                                  related component alias in the relation
+     * @param Doctrine_Record|Doctrine_Collection|null $value    object to be linked as a related component
      *
      * @throws Doctrine_Table_Exception when relation is unknown
-     * @throws Doctrine_Record_Exception
+     * @throws Doctrine_Record_Exception when value is invalid
      * @todo Refactor. What about composite keys?
      */
-    final protected function setInternalReference(string $name, Doctrine_Record|Doctrine_Collection|Doctrine_Null|null $value): void
+    final protected function setInternalReference(string $fieldName, Doctrine_Record|Doctrine_Collection|null $value): void
     {
-        $rel = $this->_table->getRelation($name);
+        $relation = $this->_table->getRelation($fieldName);
 
+        $this->doSetInternalReference($relation, $fieldName, $value);
+    }
+
+    /**
+     * for BC here are some values that are accepted but ultimately lead to Exceptions
+     *   array $value will sometimes come from sfDoctrineForm::updateObject
+     *   Doctrine_Null $value will sometimes come from Doctrine_Hydrator_Graph/Doctrine_Hydrator_RecordDriver
+     *
+     * @param Doctrine_Record|Doctrine_Collection|Doctrine_Null|null|array|mixed $value
+     * @throws Doctrine_Record_Exception
+     */
+    private function doSetInternalReference(Doctrine_Relation $rel, string $name, mixed $value): void
+    {
         if ($value === null) {
             $value = self::$_null;
         }
