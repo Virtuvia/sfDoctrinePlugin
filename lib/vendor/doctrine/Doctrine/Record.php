@@ -1336,6 +1336,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
             $this->setInternalData($fieldName, $value, $load);
         } else {
             try {
+                // pre-emptively call getRelation to validate if $fieldName is a relation
+                $this->_table->getRelation($fieldName);
                 $this->setInternalReference($fieldName, $value, $load);
             } catch (Doctrine_Table_Exception $e) {
                 throw new Doctrine_Record_UnknownPropertyException(sprintf('Unknown record property / related component "%s" on "%s"', $fieldName, static::class));
