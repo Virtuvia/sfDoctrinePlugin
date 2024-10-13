@@ -1462,13 +1462,13 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * relations, populating the foreign keys accordingly.
      *
      * @param string $name                                  related component alias in the relation
-     * @param Doctrine_Record|Doctrine_Collection|null $value    object to be linked as a related component
+     * @param Doctrine_Record|Doctrine_Collection|Doctrine_Null|null $value    object to be linked as a related component
      *
      * @throws Doctrine_Table_Exception when relation is unknown
      * @throws Doctrine_Record_Exception
      * @todo Refactor. What about composite keys?
      */
-    final protected function setInternalReference(string $name, Doctrine_Record|Doctrine_Collection|null $value): void
+    final protected function setInternalReference(string $name, Doctrine_Record|Doctrine_Collection|Doctrine_Null|null $value): void
     {
         $rel = $this->_table->getRelation($name);
 
