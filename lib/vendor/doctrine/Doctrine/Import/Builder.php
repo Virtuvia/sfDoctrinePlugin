@@ -486,7 +486,15 @@ EOF;
         $code = implode(PHP_EOL, $ret);
         $code = trim($code);
 
-        return '    public function setUp(): void' . PHP_EOL . '    {' . PHP_EOL . '        ' . $code . PHP_EOL . '    }';
+        $hasParent = ($definition['inheritance']['type'] ?? null) !== null;
+
+        if (!$hasParent || !empty($code)) {
+            if ($hasParent) {
+                $code = "parent::setUp();" . PHP_EOL . '        ' . $code;
+            }
+
+            return '    public function setUp(): void' . PHP_EOL . '    {' . PHP_EOL . '        ' . $code . PHP_EOL . '    }';
+        }
     }
 
     /**
