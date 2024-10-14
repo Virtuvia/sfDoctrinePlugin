@@ -118,34 +118,6 @@ class Doctrine_EventListener_Chain extends Doctrine_Access implements Doctrine_E
     }
 
     /**
-     * onSleep
-     * an event invoked when Doctrine_Record is serialized
-     *
-     * @param Doctrine_Record $record
-     * @return void
-     */
-    public function onSleep(Doctrine_Record $record)
-    {
-        foreach ($this->_listeners as $listener) {
-            $listener->onSleep($record);
-        }
-    }
-
-    /**
-     * onWakeUp
-     * an event invoked when Doctrine_Record is unserialized
-     *
-     * @param Doctrine_Record $record
-     * @return void
-     */
-    public function onWakeUp(Doctrine_Record $record)
-    {
-        foreach ($this->_listeners as $listener) {
-            $listener->onWakeUp($record);
-        }
-    }
-
-    /**
      * postClose
      * an event invoked after Doctrine_Connection is closed
      *

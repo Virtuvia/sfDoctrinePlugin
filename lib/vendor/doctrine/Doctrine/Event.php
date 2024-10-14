@@ -62,8 +62,6 @@ class Doctrine_Event
     const RECORD_SAVE        = 22;
     const RECORD_UPDATE      = 23;
     const RECORD_INSERT      = 24;
-    const RECORD_SERIALIZE   = 25;
-    const RECORD_UNSERIALIZE = 26;
     const RECORD_DQL_DELETE  = 27;
     const RECORD_DQL_SELECT  = 28;
     const RECORD_DQL_UPDATE  = 29;
@@ -193,10 +191,6 @@ class Doctrine_Event
                 return 'update record';
             case self::RECORD_INSERT:
                 return 'insert record';
-            case self::RECORD_SERIALIZE:
-                return 'serialize record';
-            case self::RECORD_UNSERIALIZE:
-                return 'unserialize record';
             case self::RECORD_DQL_SELECT:
                 return 'select records';
             case self::RECORD_DQL_DELETE:
