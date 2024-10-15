@@ -93,12 +93,12 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     /**
      * @var Doctrine_Node_<TreeImpl>        node object
      */
-    protected $_node;
+    private $_node;
 
     /**
      * @var integer $_id                    the primary keys of this object
      */
-    protected $_id           = array();
+    private $_id           = array();
 
     /**
      * each element is one of 3 following types:
@@ -108,65 +108,65 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      *
      * @var array $_data                    the record data
      */
-    protected $_data         = array();
+    private array $_data         = [];
 
     /**
      * @var array $_values                  the values array, aggregate values and such are mapped into this array
      */
-    protected $_values       = array();
+    private array $_values       = [];
 
     /**
      * @var integer $_state                 the state of this record
      * @see STATE_* constants
      */
-    protected $_state;
+    private $_state;
 
     /**
      * @var array $_lastModified             an array containing field names that were modified in the previous transaction
      */
-    protected $_lastModified = array();
+    private array $_lastModified = [];
 
     /**
      * @var array $_modified                an array containing field names that have been modified
      * @todo Better name? $_modifiedFields?
      */
-    protected $_modified     = array();
+    private array $_modified     = [];
 
     /**
      * @var array $_oldValues               an array of the old values from set properties
      */
-    protected $_oldValues   = array();
+    protected array $_oldValues   = [];
 
     /**
      * @var Doctrine_Validator_ErrorStack   error stack object
      */
-    protected $_errorStack;
+    private $_errorStack;
 
     /**
      * @var array $_references              an array containing all the references
      */
-    protected $_references     = array();
+    private array $_references     = [];
 
     /**
      * Doctrine_Collection of objects needing to be deleted on save
      *
      * @var array
      */
-    protected $_pendingDeletes = array();
+    private array $_pendingDeletes = [];
 
     /**
      * Array of pending un links in format alias => keys to be executed after save
      *
      * @var array $_pendingUnlinks
      */
-    protected $_pendingUnlinks = array();
+    private array $_pendingUnlinks = [];
 
     /**
      * Array containing the save hooks and events that have been invoked
      *
      * @var array
      */
-    protected $_invokedSaveHooks = false;
+    private $_invokedSaveHooks = false;
 
     /**
      * @var integer $index                  this index is used for creating object identifiers
