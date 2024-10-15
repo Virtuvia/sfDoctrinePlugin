@@ -2121,17 +2121,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     }
 
     /**
-     * set a related component
-     *
-     * @param string $alias
-     * @param Doctrine_Access $coll
-     */
-    final public function setRelated($alias, Doctrine_Access $coll)
-    {
-        $this->_references[$alias] = $coll;
-    }
-
-    /**
      * loadReference
      * loads a related component
      *
