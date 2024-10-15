@@ -36,6 +36,8 @@
  */
 class Doctrine_Table extends Doctrine_Configurable implements Countable
 {
+    use Doctrine_NullInjectable;
+
     /**
      * @var array $data                                 temporary data which is then loaded into Doctrine_Record::$_data
      */
