@@ -1062,9 +1062,10 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     }
 
     /**
+     * @final
      * @throws Doctrine_Record_UnknownPropertyException
      */
-    final protected function getInternalData(string $fieldName, bool $load = true): mixed
+    protected function getInternalData(string $fieldName, bool $load = true): mixed
     {
         if (!array_key_exists($fieldName, $this->_data)) {
             throw new Doctrine_Record_UnknownPropertyException('Unknown property '. $fieldName);
