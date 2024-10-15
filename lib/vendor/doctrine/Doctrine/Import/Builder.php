@@ -629,7 +629,8 @@ EOF;
             $ret .= '     */' . PHP_EOL;
             $ret .= '    public function set' . Doctrine_Inflector::classify(Doctrine_Inflector::tableize($accessorName)) . "(\${$accessorName}, \$load = true)" . PHP_EOL;
             $ret .= "    {" . PHP_EOL;
-            $ret .= "        return \$this->$internalSetMethod('{$accessorName}', \${$accessorName}, \$load);" . PHP_EOL;
+            $ret .= "        \$this->$internalSetMethod('{$accessorName}', \${$accessorName}, \$load);" . PHP_EOL;
+            $ret .= "        return \$this;" . PHP_EOL;
             $ret .= "    }" . PHP_EOL;
 
             return $ret;
