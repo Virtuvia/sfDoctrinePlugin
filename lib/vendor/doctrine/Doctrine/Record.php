@@ -615,14 +615,11 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     /**
      * setDefaultValues
      * sets the default values for records internal data
-     *
-     * @param boolean $overwrite                whether or not to overwrite the already set values
-     * @return boolean
      */
-    public function assignDefaultValues($overwrite = false)
+    private function assignDefaultValues(): void
     {
         if ( ! $this->_table->hasDefaultValues()) {
-            return false;
+            return;
         }
         foreach ($this->_data as $column => $value) {
             $default = $this->_table->getDefaultValueOf($column);
@@ -631,7 +628,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
                 continue;
             }
 
-            if ($value === self::$_null || $overwrite) {
+            if ($value === self::$_null) {
                 $this->_data[$column] = $default;
                 $this->_modified[]    = $column;
                 $this->_state = Doctrine_Record::STATE_TDIRTY;
@@ -648,7 +645,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * @param array $data   data array to be cleaned
      * @return array        values cleaned from data
      */
-    public function cleanData(&$data)
+    private function cleanData(array &$data): array
     {
         $tmp = $data;
         $data = array();
@@ -968,11 +965,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     /**
      * loads all the uninitialized properties from the database.
      * Used to move a record from PROXY to CLEAN/DIRTY state.
-     *
-     * @param array $data  overwriting data to load in the record. Instance is hydrated from the table if not specified.
-     * @return boolean
      */
-    public function load(array $data = array())
+    private function load(): void
     {
         // only load the data from database if the Doctrine_Record is in proxy state
         if ($this->exists() && $this->isInProxyState()) {
@@ -983,7 +977,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
             }
 
             if (empty($id)) {
-                return false;
+                return;
             }
 
             $table = $this->getTable();
@@ -1002,11 +996,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
             } else if (!$this->isInProxyState()) {
                 $this->_state = Doctrine_Record::STATE_CLEAN;
             }
-
-            return true;
         }
-
-        return false;
     }
 
     /**
@@ -2128,7 +2118,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * @param string $name                          alias of the relation
      * @return void
      */
-    public function loadReference($name)
+    private function loadReference($name): void
     {
         $rel = $this->_table->getRelation($name);
         $this->_references[$name] = $rel->fetchRelatedFor($this);
