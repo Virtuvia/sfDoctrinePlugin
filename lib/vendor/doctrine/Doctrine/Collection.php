@@ -34,9 +34,9 @@
 class Doctrine_Collection extends Doctrine_Access implements Countable, IteratorAggregate
 {
     /**
-     * @var array $data                     an array containing the records of this collection
+     * @var Doctrine_Record[] $data                     an array containing the records of this collection
      */
-    protected $data = array();
+    protected array $data = [];
 
     /**
      * @var Doctrine_Table $table           each collection has only records of specified table

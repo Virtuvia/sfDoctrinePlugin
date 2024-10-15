@@ -58,7 +58,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     protected $_conn;
 
     /**
-     * @var array $identityMap                          first level cache
+     * @var Doctrine_Record[] $identityMap                          first level cache
      */
     protected $_identityMap        = array();
 
@@ -1551,9 +1551,10 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      *                           @see Doctrine_Record::fromArray()
      * @return Doctrine_Record   the created record object
      */
-    public function create(array $array = array())
+    public function create(array $array = array()): Doctrine_Record
     {
-        $record = new $this->_options['name']($this, true);
+        $recordName = $this->getComponentName();
+        $record = new $recordName($this, true);
         $record->fromArray($array);
 
         return $record;
@@ -2419,9 +2420,9 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     /**
      * Gets the subclass of Doctrine_Record that belongs to this table.
      *
-     * @return string
+     * @return class-string<Doctrine_Record>
      */
-    public function getComponentName()
+    public function getComponentName(): string
     {
         return $this->_options['name'];
     }
