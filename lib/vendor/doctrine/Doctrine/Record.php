@@ -2129,30 +2129,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     }
 
     /**
-     * call
-     *
-     * @param string|array $callback    valid callback
-     * @param string $column            column name
-     * @param mixed arg1 ... argN       optional callback arguments
-     * @return Doctrine_Record provides a fluent interface
-     */
-    public function call($callback, $column)
-    {
-        $args = func_get_args();
-        array_shift($args);
-
-        if (isset($args[0])) {
-            $fieldName = $args[0];
-            $args[0] = $this->get($fieldName);
-
-            $newvalue = call_user_func_array($callback, $args);
-
-            $this->_data[$fieldName] = $newvalue;
-        }
-        return $this;
-    }
-
-    /**
      * getter for node associated with this record
      *
      * @return Doctrine_Node    false if component is not a Tree
