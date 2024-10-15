@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-abstract class Doctrine_Record_Abstract extends Doctrine_Access
+abstract class Doctrine_Record_Abstract
 {
     /**
      * @param Doctrine_Table $_table     reference to associated Doctrine_Table instance

@@ -31,7 +31,7 @@
  * @since       1.0
  * @version     $Revision: 7673 $
  */
-abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Countable, IteratorAggregate
+abstract class Doctrine_Record extends Doctrine_Record_Abstract implements ArrayAccess, Countable, IteratorAggregate
 {
     use Doctrine_NullInjectable;
 
@@ -1415,6 +1415,63 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
                 $this->_references[$name]->setData(array());
             }
         }
+    }
+
+    /**
+     * @deprecated use appropriate set*($name, $value)
+     */
+    final public function __set(string $name, mixed $value): void
+    {
+        $this->set($name, $value);
+    }
+
+    /**
+     * @deprecated use appropriate get*($name)
+     */
+    final public function __get(string $name): mixed
+    {
+        return $this->get($name);
+    }
+
+    /**
+     * @deprecated
+     */
+    final public function __isset(string $name): bool
+    {
+        return $this->contains($name);
+    }
+
+    /**
+     * @deprecated
+     */
+    final public function offsetExists(mixed $offset): bool
+    {
+        return $this->contains($offset);
+    }
+
+    /**
+     * @deprecated use appropriate get*($offset)
+     */
+    final public function offsetGet(mixed $offset): mixed
+    {
+        return $this->get($offset);
+    }
+
+    /**
+     * @deprecated use appropriate set*($offset, $value)
+     */
+    final public function offsetSet(mixed $offset, mixed $value): void
+    {
+        if ( ! isset($offset)) {
+            throw new Doctrine_Exception('Add is not supported for ' . static::class);
+        } else {
+            $this->set($offset, $value);
+        }
+    }
+
+    final public function offsetUnset(mixed $offset): void
+    {
+        throw new Doctrine_Exception('ArrayAccess::offsetUnset is not supported for ' . static::class);
     }
 
     /**
