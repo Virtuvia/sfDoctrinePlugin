@@ -70,16 +70,6 @@ abstract class Doctrine_Template extends Doctrine_Record_Abstract
     }
 
     /**
-     * returns the associated table object
-     *
-     * @return Doctrine_Table               the associated table object
-     */
-    public function getTable()
-    {
-        return $this->_table;
-    }
-
-    /**
      * sets the last used invoker
      *
      * @param Doctrine_Record $invoker      the record that invoked the last delegated call
@@ -158,29 +148,6 @@ abstract class Doctrine_Template extends Doctrine_Record_Abstract
             return $this->_options[$name];
         }
         return $default;
-    }
-
-    /**
-     * get 
-     * 
-     * @param mixed $name 
-     * @return void
-     */
-    public function get($name) 
-    {
-        throw new Doctrine_Exception("Templates doesn't support accessors.");
-    }
-
-    /**
-     * set 
-     * 
-     * @param mixed $name 
-     * @param mixed $value 
-     * @return void
-     */
-    public function set($name, $value)
-    {
-        throw new Doctrine_Exception("Templates doesn't support accessors.");
     }
 
     /**

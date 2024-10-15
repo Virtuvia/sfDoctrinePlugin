@@ -671,69 +671,6 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
     }
 
     /**
-     * synchronizes a Doctrine_Collection with data from an array
-     *
-     * it expects an array representation of a Doctrine_Collection similar to the return
-     * value of the toArray() method. It will create Dectrine_Records that don't exist
-     * on the collection, update the ones that do and remove the ones missing in the $array
-     *
-     * @param array $array representation of a Doctrine_Collection
-     */
-    public function synchronizeWithArray(array $array)
-    {
-        foreach ($this as $key => $record) {
-            if (isset($array[$key])) {
-                $record->synchronizeWithArray($array[$key]);
-                unset($array[$key]);
-            } else {
-                // remove records that don't exist in the array
-                $this->remove($key);
-            }
-        }
-        // create new records for each new row in the array
-        foreach ($array as $rowKey => $row) {
-            $this[$rowKey]->fromArray($row);
-        }
-    }
-
-    public function synchronizeFromArray(array $array)
-    {
-        return $this->synchronizeWithArray($array);
-    }
-
-    /**
-     * Export a Doctrine_Collection to one of the supported Doctrine_Parser formats
-     *
-     * @param string $type
-     * @param string $deep
-     * @return void
-     */
-    public function exportTo($type, $deep = true)
-    {
-        if ($type == 'array') {
-            return $this->toArray($deep);
-        } else {
-            return Doctrine_Parser::dump($this->toArray($deep, true), $type);
-        }
-    }
-
-    /**
-     * Import data to a Doctrine_Collection from one of the supported Doctrine_Parser formats
-     *
-     * @param string $type
-     * @param string $data
-     * @return void
-     */
-    public function importFrom($type, $data)
-    {
-        if ($type == 'array') {
-            return $this->fromArray($data);
-        } else {
-            return $this->fromArray(Doctrine_Parser::load($data, $type));
-        }
-    }
-
-    /**
      * Perform a delete diff between the last snapshot and the current data
      *
      * @return array $diff

@@ -76,19 +76,6 @@ abstract class Doctrine_Record_Abstract extends Doctrine_Access
     }
 
     /**
-     * setListener
-     *
-     * @param Doctrine_EventListener_Interface|Doctrine_Overloadable $listener
-     * @return Doctrine_Record
-     */
-    public function setListener($listener)
-    {
-        $this->_table->setRecordListener($listener);
-
-        return $this;
-    }
-
-    /**
      * index
      * defines or retrieves an index
      * if the second parameter is set this method defines an index
@@ -134,11 +121,6 @@ abstract class Doctrine_Record_Abstract extends Doctrine_Access
         $this->_table->setTableName($tableName);
     }
 
-    public function setInheritanceMap($map)
-    {
-        $this->_table->setOption('inheritanceMap', $map);
-    }
-
     public function setSubclasses($map)
     {
         $class = get_class($this);
@@ -162,30 +144,6 @@ abstract class Doctrine_Record_Abstract extends Doctrine_Access
 
         // Set the subclasses array for the parent class
         $this->_table->setOption('subclasses', array_keys($map));
-    }
-
-    /**
-     * attribute
-     * sets or retrieves an option
-     *
-     * @see Doctrine_Core::ATTR_* constants   availible attributes
-     * @param mixed $attr
-     * @param mixed $value
-     * @return mixed
-     */
-    public function attribute($attr, $value)
-    {
-        if ($value == null) {
-            if (is_array($attr)) {
-                foreach ($attr as $k => $v) {
-                    $this->_table->setAttribute($k, $v);
-                }
-            } else {
-                return $this->_table->getAttribute($attr);
-            }
-        } else {
-            $this->_table->setAttribute($attr, $value);
-        }    
     }
 
     /**
@@ -254,77 +212,6 @@ abstract class Doctrine_Record_Abstract extends Doctrine_Access
     public function hasColumn($name, $type = null, $length = null, $options = array())
     {
         $this->_table->setColumn($name, $type, $length, $options);
-    }
-
-    /**
-     * Set multiple column definitions at once
-     *
-     * @param array $definitions 
-     * @return void
-     */
-    public function hasColumns(array $definitions)
-    {
-        foreach ($definitions as $name => $options) {
-            $length = isset($options['length']) ? $options['length']:null;
-            $this->hasColumn($name, $options['type'], $length, $options);
-        }
-    }
-
-    /**
-     * Customize the array of options for a column or multiple columns. First
-     * argument can be a single field/column name or an array of them. The second
-     * argument is an array of options.
-     *
-     *     [php]
-     *     public function setTableDefinition()
-     *     {
-     *         parent::setTableDefinition();
-     *         $this->setColumnOptions('username', array(
-     *             'unique' => true
-     *         ));
-     *     }
-     *
-     * @param string $columnName 
-     * @param array $validators 
-     * @return void
-     */
-    public function setColumnOptions($name, array $options)
-    {
-        $this->_table->setColumnOptions($name, $options);
-    }
-
-    /**
-     * Set an individual column option
-     *
-     * @param string $columnName 
-     * @param string $option 
-     * @param string $value 
-     * @return void
-     */
-    public function setColumnOption($columnName, $option, $value)
-    {
-        $this->_table->setColumnOption($columnName, $option, $value);
-    }
-
-    /**
-     * bindQueryParts
-     * binds query parts to given component
-     *
-     * @param array $queryParts         an array of pre-bound query parts
-     * @return Doctrine_Record          this object
-     */
-    public function bindQueryParts(array $queryParts)
-    {
-    	$this->_table->bindQueryParts($queryParts);
-
-        return $this;
-    }
-
-    public function loadGenerator(Doctrine_Record_Generator $generator)
-    {
-    	$generator->initialize($this->_table);
-
-        $this->_table->addGenerator($generator, get_class($generator));
     }
 
     /**

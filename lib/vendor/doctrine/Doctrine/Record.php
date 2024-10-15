@@ -250,16 +250,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     }
 
     /**
-     * the current instance counter used to generate unique ids for php objects. Contains the next identifier.
-     *
-     * @return integer
-     */
-    public static function _index()
-    {
-        return self::$_index;
-    }
-
-    /**
      * setUp
      * this method is used for setting up relations and attributes
      * it should be implemented by child classes
@@ -284,11 +274,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * @return integer  the object identifier
      */
     public function getOid()
-    {
-        return $this->_oid;
-    }
-
-    public function oid()
     {
         return $this->_oid;
     }
@@ -925,16 +910,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         }
 
         return $exists;
-    }
-
-    /**
-     * returns the table object for this record.
-     *
-     * @return Doctrine_Table        a Doctrine_Table object
-     */
-    public function getTable()
-    {
-        return $this->_table;
     }
 
     /**
@@ -1778,93 +1753,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
 
         if ($refresh) {
             $this->refresh();
-        }
-    }
-
-    /**
-     * synchronizes a Doctrine_Record instance and its relations with data from an array
-     *
-     * it expects an array representation of a Doctrine_Record similar to the return
-     * value of the toArray() method. If the array contains relations it will create
-     * those that don't exist, update the ones that do, and delete the ones missing
-     * on the array but available on the Doctrine_Record (unlike @see fromArray() that
-     * does not touch what it is not in $array)
-     *
-     * @param array $array representation of a Doctrine_Record
-     * @param bool   $deep   whether or not to act on relations
-     */
-    public function synchronizeWithArray(array $array, $deep = true)
-    {
-        $refresh = false;
-        foreach ($array as $key => $value) {
-            if ($key == '_identifier') {
-                $refresh = true;
-                $this->assignIdentifier($value);
-                continue;
-            }
-
-            if ($deep && $this->getTable()->hasRelation($key)) {
-                if ( ! $this->$key) {
-                    $this->refreshRelated($key);
-                }
-
-                if (is_array($value)) {
-                    if (isset($value[0]) && ! is_array($value[0])) {
-                        $this->unlink($key, array(), false);
-                        $this->link($key, $value, false);
-                    } else {
-                        $this->$key->synchronizeWithArray($value);
-                        $this->$key = $this->$key;
-                    }
-                }
-            } else if ($this->getTable()->hasField($key) || array_key_exists($key, $this->_values)) {
-                $this->set($key, $value);
-            }
-        }
-
-        // Eliminate relationships missing in the $array
-        foreach ($this->_references as $name => $relation) {
-	        $rel = $this->getTable()->getRelation($name);
-
-            if ( ! $rel->isRefClass() && ! isset($array[$name]) && ( ! $rel->isOneToOne() || ! isset($array[$rel->getLocalFieldName()]))) {
-                unset($this->$name);
-            }
-        }
-
-        if ($refresh) {
-            $this->refresh();
-        }
-    }
-
-    /**
-     * exports instance to a chosen format
-     *
-     * @param string $type  format type: array, xml, yml, json
-     * @param string $deep  whether or not to export all relationships
-     * @return string       representation as $type format. Array is $type is array
-     */
-    public function exportTo($type, $deep = true)
-    {
-        if ($type == 'array') {
-            return $this->toArray($deep);
-        } else {
-            return Doctrine_Parser::dump($this->toArray($deep, true), $type);
-        }
-    }
-
-    /**
-     * imports data from a chosen format in the current instance
-     *
-     * @param string $type  Format type: xml, yml, json
-     * @param string $data  Data to be parsed and imported
-     * @return void
-     */
-    public function importFrom($type, $data, $deep = true)
-    {
-        if ($type == 'array') {
-            return $this->fromArray($data, $deep);
-        } else {
-            return $this->fromArray(Doctrine_Parser::load($data, $type), $deep);
         }
     }
 
