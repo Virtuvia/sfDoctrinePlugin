@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 // Connection Component Binding
 Doctrine_Manager::getInstance()->bindComponent('Subscription', 'doctrine2');
 
@@ -27,7 +30,7 @@ Doctrine_Manager::getInstance()->bindComponent('Subscription', 'doctrine2');
 abstract class BaseSubscription extends myDoctrineRecord
 {
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('subscription');
         $this->hasColumn('name', 'string', 255, array(
@@ -46,9 +49,8 @@ abstract class BaseSubscription extends myDoctrineRecord
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
     {
-        parent::setUp();
         
     }
 

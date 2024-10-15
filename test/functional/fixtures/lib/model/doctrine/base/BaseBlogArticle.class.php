@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * ##COPYRIGHT PLACEHOLDER##
  */
@@ -22,7 +25,7 @@
 abstract class BaseBlogArticle extends Article
 {
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->hasOne('BlogAuthor as Author', array(

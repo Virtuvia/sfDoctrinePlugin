@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * ##COPYRIGHT PLACEHOLDER##
  */
@@ -31,7 +34,7 @@
 abstract class BaseProfile extends myDoctrineRecord
 {
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('profile');
         $this->hasColumn('user_id', 'integer', null, array(
@@ -47,9 +50,8 @@ abstract class BaseProfile extends myDoctrineRecord
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
     {
-        parent::setUp();
         $this->hasOne('User', array(
              'local' => 'user_id',
              'foreign' => 'id'));

@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * ##COPYRIGHT PLACEHOLDER##
  */
@@ -37,7 +40,7 @@
 abstract class BaseUser extends myDoctrineRecord
 {
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('user');
         $this->hasColumn('username', 'string', 255, array(
@@ -55,9 +58,8 @@ abstract class BaseUser extends myDoctrineRecord
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
     {
-        parent::setUp();
         $this->hasMany('Group as Groups', array(
              'refClass' => 'UserGroup',
              'local' => 'user_id',

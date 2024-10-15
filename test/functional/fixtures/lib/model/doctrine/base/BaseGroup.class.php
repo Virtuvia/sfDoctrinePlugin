@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * ##COPYRIGHT PLACEHOLDER##
  */
@@ -28,7 +31,7 @@
 abstract class BaseGroup extends myDoctrineRecord
 {
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('groups');
         $this->hasColumn('name', 'string', 255, array(
@@ -37,9 +40,8 @@ abstract class BaseGroup extends myDoctrineRecord
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
     {
-        parent::setUp();
         $this->hasMany('Permission as Permissions', array(
              'refClass' => 'GroupPermission',
              'local' => 'group_id',

@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * ##COPYRIGHT PLACEHOLDER##
  */
@@ -28,7 +31,7 @@
 abstract class BaseAuthor extends myDoctrineRecord
 {
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('author');
         $this->hasColumn('name', 'string', 255, array(
@@ -52,9 +55,8 @@ abstract class BaseAuthor extends myDoctrineRecord
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
     {
-        parent::setUp();
         $this->hasMany('Article as Articles', array(
              'local' => 'id',
              'foreign' => 'author_id'));

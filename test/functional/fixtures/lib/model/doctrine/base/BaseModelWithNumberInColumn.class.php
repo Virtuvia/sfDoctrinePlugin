@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * ##COPYRIGHT PLACEHOLDER##
  */
@@ -28,7 +31,7 @@
 abstract class BaseModelWithNumberInColumn extends myDoctrineRecord
 {
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('model_with_number_in_column');
         $this->hasColumn('column_1', 'string', 255, array(
@@ -50,9 +53,8 @@ abstract class BaseModelWithNumberInColumn extends myDoctrineRecord
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
     {
-        parent::setUp();
         
     }
 

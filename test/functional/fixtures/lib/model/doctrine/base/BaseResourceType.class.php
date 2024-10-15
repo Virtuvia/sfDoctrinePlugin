@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * ##COPYRIGHT PLACEHOLDER##
  */
@@ -22,7 +25,7 @@
 abstract class BaseResourceType extends myDoctrineRecord
 {
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('resource_type');
         $this->hasColumn('id', 'enum', null, array(
@@ -41,9 +44,8 @@ abstract class BaseResourceType extends myDoctrineRecord
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
     {
-        parent::setUp();
         
     }
 

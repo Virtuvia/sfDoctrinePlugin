@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * ##COPYRIGHT PLACEHOLDER##
  */
@@ -28,7 +31,7 @@
 abstract class BaseSetting extends myDoctrineRecord
 {
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('setting');
         $this->hasColumn('name', 'string', 255, array(
@@ -46,9 +49,8 @@ abstract class BaseSetting extends myDoctrineRecord
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
     {
-        parent::setUp();
         $timestampable0 = new Doctrine_Template_Timestampable(array(
              'updated' =>
              array(

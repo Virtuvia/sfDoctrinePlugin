@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * ##COPYRIGHT PLACEHOLDER##
  */
@@ -22,7 +25,7 @@
 abstract class BaseFormGeneratorTest3 extends myDoctrineRecord
 {
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('form_generator_test3');
         $this->hasColumn('name', 'string', 255, array(

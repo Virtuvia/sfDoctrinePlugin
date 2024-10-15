@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * ##COPYRIGHT PLACEHOLDER##
  */
@@ -31,7 +34,7 @@
 abstract class BaseUniqueTest extends myDoctrineRecord
 {
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('unique_test');
         $this->hasColumn('unique_test1', 'string', 255, array(
@@ -74,9 +77,8 @@ abstract class BaseUniqueTest extends myDoctrineRecord
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
     {
-        parent::setUp();
         
     }
 

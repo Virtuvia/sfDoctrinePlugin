@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * ##COPYRIGHT PLACEHOLDER##
  */
@@ -22,7 +25,7 @@
 abstract class BaseAttachment extends myDoctrineRecord
 {
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('attachment');
         $this->hasColumn('file_path', 'string', 255, array(
@@ -31,9 +34,8 @@ abstract class BaseAttachment extends myDoctrineRecord
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
     {
-        parent::setUp();
         
     }
 

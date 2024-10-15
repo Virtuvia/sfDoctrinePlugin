@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * ##COPYRIGHT PLACEHOLDER##
  */
@@ -22,7 +25,7 @@
 abstract class BaseModelFromLinkedSchema extends myDoctrineRecord
 {
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('model_from_linked_schema');
         $this->hasColumn('name', 'string', 255, array(
@@ -36,9 +39,8 @@ abstract class BaseModelFromLinkedSchema extends myDoctrineRecord
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
     {
-        parent::setUp();
         
     }
 

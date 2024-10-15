@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * ##COPYRIGHT PLACEHOLDER##
  */
@@ -19,10 +22,6 @@
 abstract class BaseAuthorInheritance extends Author
 {
 
-    public function setUp()
-    {
-        parent::setUp();
-        
-    }
+
 
 }

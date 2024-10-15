@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * ##COPYRIGHT PLACEHOLDER##
  */
@@ -22,7 +25,7 @@
 abstract class BaseAuthorInheritanceConcrete extends Author
 {
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         parent::setTableDefinition();
         $this->setTableName('author_inheritance_concrete');
@@ -39,10 +42,5 @@ abstract class BaseAuthorInheritanceConcrete extends Author
         parent::setSubclasses($map);
     }
 
-    public function setUp()
-    {
-        parent::setUp();
-        
-    }
 
 }
