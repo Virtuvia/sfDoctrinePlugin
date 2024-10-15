@@ -26,10 +26,10 @@ $t->is($results[1]['name'], 'Fabien POTENCIER');
 // Make sure data fixtures were loaded
 $q = Doctrine_Query::create()
   ->from('Article a')
-  ->leftJoin('a.Translation t');
+;
 
 $articles = $q->fetchArray();
-$t->is($articles[0]['Translation']['en']['title'], 'English Title');
+$t->is($articles[0]['title'], 'English Title');
 
 $manager = Doctrine_Manager::getInstance();
 $conn1 = $manager->getConnection('doctrine1');

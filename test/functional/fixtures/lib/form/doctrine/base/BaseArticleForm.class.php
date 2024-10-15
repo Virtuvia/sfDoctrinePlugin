@@ -19,8 +19,12 @@ abstract class BaseArticleForm extends BaseFormDoctrine
             'id'             => new sfWidgetFormInputHidden(),
             'author_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Author'), 'add_empty' => true)),
             'is_on_homepage' => new sfWidgetFormInputCheckbox(),
+            'title'          => new sfWidgetFormInputText(),
+            'body'           => new sfWidgetFormInputText(),
+            'test_column'    => new sfWidgetFormInputText(),
             'views'          => new sfWidgetFormInputText(),
             'type'           => new sfWidgetFormInputText(),
+            'slug'           => new sfWidgetFormInputText(),
             'created_at'     => new sfWidgetFormDateTime(),
             'updated_at'     => new sfWidgetFormDateTime(),
         ));
@@ -29,11 +33,22 @@ abstract class BaseArticleForm extends BaseFormDoctrine
             'id'             => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
             'author_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Author'), 'required' => false)),
             'is_on_homepage' => new sfValidatorBoolean(array('required' => false)),
+            'title'          => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+            'body'           => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+            'test_column'    => new sfValidatorString(array('max_length' => 255, 'required' => false)),
             'views'          => new sfValidatorInteger(array('required' => false)),
             'type'           => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+            'slug'           => new sfValidatorString(array('max_length' => 255, 'required' => false)),
             'created_at'     => new sfValidatorDateTime(),
             'updated_at'     => new sfValidatorDateTime(),
         ));
+
+        $this->validatorSchema->setPostValidator(
+            new sfValidatorAnd(array(
+                new sfValidatorDoctrineUnique(array('model' => 'Article', 'column' => array('title'))),
+                new sfValidatorDoctrineUnique(array('model' => 'Article', 'column' => array('slug'))),
+            ))
+        );
 
         $this->widgetSchema->setNameFormat('article[%s]');
 

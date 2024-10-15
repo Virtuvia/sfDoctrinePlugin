@@ -36,16 +36,9 @@ abstract class BaseFormGeneratorTest3 extends myDoctrineRecord
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
     {
-        parent::setUp();
-        $i18n0 = new Doctrine_Template_I18n(array(
-             'fields' =>
-             array(
-              0 => 'name',
-             ),
-             ));
-        $this->actAs($i18n0);
+        
     }
 
 }

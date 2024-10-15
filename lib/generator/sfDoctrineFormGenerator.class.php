@@ -523,26 +523,6 @@ class sfDoctrineFormGenerator extends sfGenerator
     return sprintf('array(\'%s\')', implode('\', \'', $this->getPrimaryKeyColumNames()));
   }
 
-  /**
-   * Returns true if the current table is internationalized.
-   *
-   * @return bool true if the current table is internationalized, false otherwise
-   */
-  public function isI18n()
-  {
-    return $this->table->hasRelation('Translation');
-  }
-
-  /**
-   * Returns the i18n model name for the current table.
-   *
-   * @return string The model class name
-   */
-  public function getI18nModel()
-  {
-    return $this->table->getRelation('Translation')->getTable()->create();
-  }
-
   public function underscore($name)
   {
     return strtolower(preg_replace(array('/([A-Z]+)([A-Z][a-z])/', '/([a-z\d])([A-Z])/'), '\\1_\\2', $name));
