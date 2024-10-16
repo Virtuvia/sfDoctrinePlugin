@@ -55,9 +55,11 @@ class Doctrine_Hydrator_ArrayDriver extends Doctrine_Hydrator_Graph
         return true;
     }
 
-    public function getNullPointer() 
+    public function setRelation(&$record, string $relationAlias, mixed $value): void
     {
-        return null;    
+        assert(is_array($record));
+        assert(is_array($value) || is_null($value));
+        $record[$relationAlias] = $value;
     }
 
     public function getLastKey(&$coll)

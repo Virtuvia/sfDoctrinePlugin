@@ -58,17 +58,19 @@ class Doctrine_Hydrator_RecordDriver extends Doctrine_Hydrator_Graph
         }
         return true;
     }
-    
+
     public function registerCollection($coll)
     {
         $this->_collections[] = $coll;
     }
-    
-    public function getNullPointer() 
+
+    public function setRelation(&$record, string $relationAlias, mixed $value): void
     {
-        return self::$_null;
+        assert($record instanceof \Doctrine_Record);
+        assert($value instanceof \Doctrine_Record || is_null($value));
+        $record->setReference($relationAlias, $value);
     }
-    
+
     public function getElement(array $data, $component)
     {
         $component = $this->_getClassNameToReturn($data, $component);

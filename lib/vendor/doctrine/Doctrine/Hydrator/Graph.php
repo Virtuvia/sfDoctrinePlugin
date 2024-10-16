@@ -252,7 +252,7 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
                     // 1-1 relation
                     $oneToOne = true;
                     if ( ! isset($nonemptyComponents[$dqlAlias]) && ! isset($prev[$parent][$relationAlias])) {
-                        $prev[$parent][$relationAlias] = $this->getNullPointer();
+                        $this->setRelation($prev[$parent], $relationAlias, null);
                     } else if ( ! isset($prev[$parent][$relationAlias])) {
                         $element = $this->getElement($data, $componentName);
 
@@ -261,7 +261,7 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
                         $listeners[$componentName]->postHydrate($event);
                         $instances[$componentName]->postHydrate($event);
 
-                        $prev[$parent][$relationAlias] = $element;
+                        $this->setRelation($prev[$parent], $relationAlias, $element);
                     }
                 }
                 if ($prev[$parent][$relationAlias] !== null) {
@@ -355,11 +355,11 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
     abstract public function getElementCollection($component);
 
     abstract public function registerCollection($coll);
- 
+
+    abstract protected function setRelation(&$record, string $relationAlias, mixed $value): void;
+
     abstract public function initRelated(&$record, $name, $keyColumn = null);
- 
-    abstract public function getNullPointer();
- 
+
     abstract public function getElement(array $data, $component);
 
     abstract public function getLastKey(&$coll);
