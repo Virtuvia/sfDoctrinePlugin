@@ -39,6 +39,15 @@ class Doctrine_Hydrator_RecordDriver extends Doctrine_Hydrator_Graph
     protected $_collections = array();
     private $_initializedRelations = array();
 
+    private Doctrine_Record_InternalsProxy $recordInternalsProxy;
+
+    public function __construct($queryComponents = null, $tableAliases = null, $hydrationMode = null)
+    {
+        parent::__construct($queryComponents, $tableAliases, $hydrationMode);
+
+        $this->recordInternalsProxy = new Doctrine_Record_InternalsProxy();
+    }
+
     public function getElementCollection($component)
     {
         $coll = Doctrine_Collection::create($component);
@@ -68,7 +77,8 @@ class Doctrine_Hydrator_RecordDriver extends Doctrine_Hydrator_Graph
     {
         assert($record instanceof \Doctrine_Record);
         assert($value instanceof \Doctrine_Record || is_null($value));
-        $record->setReference($relationAlias, $value);
+        $this->recordInternalsProxy->record = $record;
+        $this->recordInternalsProxy->setReference($relationAlias, $value);
     }
 
     public function getElement(array $data, $component)

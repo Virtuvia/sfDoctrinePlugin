@@ -31,7 +31,7 @@
  * @since       1.0
  * @version     $Revision: 7673 $
  */
-abstract class Doctrine_Record extends Doctrine_Record_Abstract implements ArrayAccess, Countable, IteratorAggregate
+abstract class Doctrine_Record extends Doctrine_Record_Internals implements ArrayAccess, Countable, IteratorAggregate
 {
     use Doctrine_NullInjectable;
 
@@ -1146,21 +1146,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Array
         }
 
         return $this->_set($fieldName, $value, $load);
-    }
-
-    /**
-     * @internal use appropriate set* method
-     * @see Doctrine_Hydrator_RecordDriver::setRelation()
-     */
-    final public function setReference(string $relationAlias, Doctrine_Record|Doctrine_Collection|null $value, bool $load = true): void
-    {
-        $mutator = 'set' . Doctrine_Inflector::classify($relationAlias);
-
-        if (method_exists($this, $mutator)) {
-            $this->$mutator($value, $load, $relationAlias);
-        }
-
-        $this->setInternalReference($relationAlias, $value);
     }
 
     /**
