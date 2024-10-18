@@ -22,18 +22,16 @@
 /**
  * Doctrine_Record_Abstract
  *
- * @package     Doctrine
- * @subpackage  Record
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @link        www.doctrine-project.org
+ * @see        www.doctrine-project.org
  * @since       1.0
  * @version     $Revision$
  */
 abstract class Doctrine_Record_Abstract
 {
     /**
-     * @param Doctrine_Table $_table     reference to associated Doctrine_Table instance
+     * @param Doctrine_Table $_table reference to associated Doctrine_Table instance
      */
     protected $_table;
 
@@ -45,7 +43,7 @@ abstract class Doctrine_Record_Abstract
      * getTable
      * returns the associated table object
      *
-     * @return Doctrine_Table               the associated table object
+     * @return Doctrine_Table the associated table object
      */
     public function getTable()
     {
@@ -55,7 +53,7 @@ abstract class Doctrine_Record_Abstract
     /**
      * addListener
      *
-     * @param Doctrine_EventListener_Interface|Doctrine_Overloadable $listener
+     * @param  Doctrine_EventListener_Interface|Doctrine_Overloadable $listener
      * @return Doctrine_Record
      */
     public function addListener($listener, $name = null)
@@ -81,13 +79,13 @@ abstract class Doctrine_Record_Abstract
      * if the second parameter is set this method defines an index
      * if not this method retrieves index named $name
      *
-     * @param string $name              the name of the index
-     * @param array $definition         the definition array
+     * @param  string $name       the name of the index
+     * @param  array  $definition the definition array
      * @return mixed
      */
-    public function index($name, array $definition = array())
+    public function index($name, array $definition = [])
     {
-        if ( ! $definition) {
+        if ( !$definition) {
             return $this->_table->getIndex($name);
         } else {
             return $this->_table->addIndex($name, $definition);
@@ -95,18 +93,18 @@ abstract class Doctrine_Record_Abstract
     }
 
     /**
-     * Defines a n-uple of fields that must be unique for every record. 
+     * Defines a n-uple of fields that must be unique for every record.
      *
-     * This method Will automatically add UNIQUE index definition 
+     * This method Will automatically add UNIQUE index definition
      * and validate the values on save. The UNIQUE index is not created in the
      * database until you use @see export().
      *
-     * @param array $fields     values are fieldnames
-     * @param array $options    array of options for unique validator
-     * @param bool $createUniqueIndex  Whether or not to create a unique index in the database
+     * @param  array $fields            values are fieldnames
+     * @param  array $options           array of options for unique validator
+     * @param  bool  $createUniqueIndex Whether or not to create a unique index in the database
      * @return void
      */
-    public function unique($fields, $options = array(), $createUniqueIndex = true)
+    public function unique($fields, $options = [], $createUniqueIndex = true)
     {
         return $this->_table->unique($fields, $options, $createUniqueIndex);
     }
@@ -126,20 +124,21 @@ abstract class Doctrine_Record_Abstract
         $class = get_class($this);
         // Set the inheritance map for subclasses
         if (isset($map[$class])) {
-            // fix for #1621 
-            $mapFieldNames = $map[$class]; 
-            $mapColumnNames = array(); 
+            // fix for #1621
+            $mapFieldNames = $map[$class];
+            $mapColumnNames = [];
 
-            foreach ($mapFieldNames as $fieldName => $val) { 
-                $mapColumnNames[$this->getTable()->getColumnName($fieldName)] = $val; 
+            foreach ($mapFieldNames as $fieldName => $val) {
+                $mapColumnNames[$this->getTable()->getColumnName($fieldName)] = $val;
             }
- 
+
             $this->_table->setOption('inheritanceMap', $mapColumnNames);
+
             return;
         } else {
             // Put an index on the key column
             $mapFieldName = array_keys(end($map));
-            $this->index($this->getTable()->getTableName().'_'.$mapFieldName[0], array('fields' => array($mapFieldName[0])));
+            $this->index($this->getTable()->getTableName() . '_' . $mapFieldName[0], ['fields' => [$mapFieldName[0]]]);
         }
 
         // Set the subclasses array for the parent class
@@ -151,8 +150,8 @@ abstract class Doctrine_Record_Abstract
      * sets or retrieves an option
      *
      * @see Doctrine_Table::$options    availible options
-     * @param mixed $name               the name of the option
-     * @param mixed $value              options value
+     * @param  mixed $name  the name of the option
+     * @param  mixed $value options value
      * @return mixed
      */
     public function option($name, $value = null)
@@ -173,10 +172,10 @@ abstract class Doctrine_Record_Abstract
     /**
      * Binds One-to-One aggregate relation
      *
-     * @param string $componentName     the name of the related component
-     * @param string $options           relation options
+     * @param string $componentName the name of the related component
+     * @param string $options       relation options
      * @see Doctrine_Relation::_$definition
-     * @return Doctrine_Record          this object
+     * @return Doctrine_Record this object
      */
     public function hasOne()
     {
@@ -188,10 +187,10 @@ abstract class Doctrine_Record_Abstract
     /**
      * Binds One-to-Many / Many-to-Many aggregate relation
      *
-     * @param string $componentName     the name of the related component
-     * @param string $options           relation options
+     * @param string $componentName the name of the related component
+     * @param string $options       relation options
      * @see Doctrine_Relation::_$definition
-     * @return Doctrine_Record          this object
+     * @return Doctrine_Record this object
      */
     public function hasMany()
     {
@@ -203,13 +202,13 @@ abstract class Doctrine_Record_Abstract
     /**
      * Sets a column definition
      *
-     * @param string $name
-     * @param string $type
-     * @param integer $length
-     * @param mixed $options
+     * @param  string $name
+     * @param  string $type
+     * @param  int    $length
+     * @param  mixed  $options
      * @return void
      */
-    public function hasColumn($name, $type = null, $length = null, $options = array())
+    public function hasColumn($name, $type = null, $length = null, $options = [])
     {
         $this->_table->setColumn($name, $type, $length, $options);
     }
@@ -217,31 +216,31 @@ abstract class Doctrine_Record_Abstract
     /**
      * Loads the given plugin.
      *
-     * This method loads a behavior in the record. It will add the behavior 
+     * This method loads a behavior in the record. It will add the behavior
      * also to the record table if it.
      * It is tipically called in @see setUp().
      *
-     * @param mixed $tpl        if an object, must be a subclass of Doctrine_Template. 
-     *                          If a string, Doctrine will try to instantiate an object of the classes Doctrine_Template_$tpl and subsequently $tpl, using also autoloading capabilities if defined.
-     * @param array $options    argument to pass to the template constructor if $tpl is a class name
-     * @throws Doctrine_Record_Exception    if $tpl is neither an instance of Doctrine_Template subclass or a valid class name, that could be instantiated.
-     * @return Doctrine_Record  this object; provides a fluent interface.
+     * @param  mixed                     $tpl     if an object, must be a subclass of Doctrine_Template.
+     *                                            If a string, Doctrine will try to instantiate an object of the classes Doctrine_Template_$tpl and subsequently $tpl, using also autoloading capabilities if defined.
+     * @param  array                     $options argument to pass to the template constructor if $tpl is a class name
+     * @throws Doctrine_Record_Exception if $tpl is neither an instance of Doctrine_Template subclass or a valid class name, that could be instantiated
+     * @return Doctrine_Record           this object; provides a fluent interface
      */
-    public function actAs($tpl, array $options = array())
+    public function actAs($tpl, array $options = [])
     {
-        if ( ! is_object($tpl)) {
+        if ( !is_object($tpl)) {
             $className = 'Doctrine_Template_' . $tpl;
 
             if (class_exists($className, true)) {
                 $tpl = new $className($options);
-            } else if (class_exists($tpl, true)) {
+            } elseif (class_exists($tpl, true)) {
                 $tpl = new $tpl($options);
             } else {
                 throw new Doctrine_Record_Exception('Could not load behavior named: "' . $tpl . '"');
             }
         }
 
-        if ( ! ($tpl instanceof Doctrine_Template)) {
+        if ( !($tpl instanceof Doctrine_Template)) {
             throw new Doctrine_Record_Exception('Loaded behavior class is not an instance of Doctrine_Template.');
         }
 
@@ -262,9 +261,9 @@ abstract class Doctrine_Record_Abstract
      *
      * This method will add a CHECK constraint to the record table.
      *
-     * @param mixed $constraint     either a SQL constraint portion or an array of CHECK constraints. If array, all values will be added as constraint
-     * @param string $name          optional constraint name. Not used if $constraint is an array.
-     * @return Doctrine_Record      this object
+     * @param  mixed           $constraint either a SQL constraint portion or an array of CHECK constraints. If array, all values will be added as constraint
+     * @param  string          $name       optional constraint name. Not used if $constraint is an array.
+     * @return Doctrine_Record this object
      */
     public function check($constraint, $name = null)
     {
@@ -275,6 +274,7 @@ abstract class Doctrine_Record_Abstract
         } else {
             $this->_table->addCheckConstraint($constraint, $name);
         }
+
         return $this;
     }
 }
