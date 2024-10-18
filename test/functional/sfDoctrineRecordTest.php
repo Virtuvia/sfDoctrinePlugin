@@ -66,6 +66,7 @@ $t->is($article->getAuthor(), $author);
 // Camel case with relationships
 $t->is($article->getCamelCase()->getTable()->getOption('name'), 'CamelCase');
 
+$article->invokeSaveHooks('pre', 'insert');
 // Test getDateTimeObject()
 $dateTime = $article->getDateTimeObject('created_at');
 $t->is($dateTime instanceof DateTime, true);
