@@ -474,7 +474,7 @@ class Doctrine_Cli
      * @todo Continue refactoring for testing
      */
     protected function _run(array $args)
-    {        
+    {
         $this->_scriptName = $args[0];
         
         $requestedTaskName = isset($args[1]) ? $args[1] : null;

@@ -478,7 +478,7 @@ class Doctrine_Query_Tokenizer
             if ( ! isset($res[$i])) {
                 $res[$i] = array($val[0], $val[1], $val[2]);
             } else {
-                $res[$i][0] .= $res[$i][1] . $val[0]; 
+                $res[$i][0] .= $res[$i][1] . $val[0];
                 $res[$i][1] = $val[1];
                 $res[$i][2] += $val[2];
             }

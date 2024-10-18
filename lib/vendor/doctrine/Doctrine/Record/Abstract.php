@@ -116,12 +116,12 @@ abstract class Doctrine_Record_Abstract
         $class = get_class($this);
         // Set the inheritance map for subclasses
         if (isset($map[$class])) {
-            // fix for #1621 
-            $mapFieldNames = $map[$class]; 
-            $mapColumnNames = array(); 
+            // fix for #1621
+            $mapFieldNames = $map[$class];
+            $mapColumnNames = array();
 
-            foreach ($mapFieldNames as $fieldName => $val) { 
-                $mapColumnNames[$this->getTable()->getColumnName($fieldName)] = $val; 
+            foreach ($mapFieldNames as $fieldName => $val) {
+                $mapColumnNames[$this->getTable()->getColumnName($fieldName)] = $val;
             }
  
             $this->_table->setOption('inheritanceMap', $mapColumnNames);

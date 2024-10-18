@@ -199,7 +199,7 @@ class Doctrine_Export_Sqlite extends Doctrine_Export
         
         $autoinc = false;
         foreach($fields as $field) {
-            if (isset($field['autoincrement']) && $field['autoincrement'] || 
+            if (isset($field['autoincrement']) && $field['autoincrement'] ||
               (isset($field['autoinc']) && $field['autoinc'])) {
                 $autoinc = true;
                 break;
@@ -299,7 +299,7 @@ class Doctrine_Export_Sqlite extends Doctrine_Export
             $this->conn->exec('INSERT INTO ' . $sequenceName . ' (' . $seqcolName . ') VALUES (' . ($start-1) . ')');
             return true;
         } catch(Doctrine_Connection_Exception $e) {
-            // Handle error    
+            // Handle error
 
             try {
                 $result = $db->exec('DROP TABLE ' . $sequenceName);
@@ -378,7 +378,7 @@ class Doctrine_Export_Sqlite extends Doctrine_Export
                     $oldFieldName = $fieldName;
                 }
                 $oldFieldName = $this->conn->quoteIdentifier($oldFieldName, true);
-                $query .= 'CHANGE ' . $oldFieldName . ' ' 
+                $query .= 'CHANGE ' . $oldFieldName . ' '
                         . $this->getDeclaration($fieldName, $field['definition']);
             }
         }

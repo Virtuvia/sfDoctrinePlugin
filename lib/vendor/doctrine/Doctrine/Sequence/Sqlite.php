@@ -68,7 +68,7 @@ class Doctrine_Sequence_Sqlite extends Doctrine_Sequence
         $value = $this->conn->getDbh()->lastInsertId();
 
         if (is_numeric($value)) {
-            $query = 'DELETE FROM ' . $sequenceName . ' WHERE ' . $seqcolName . ' < ' . $value;            
+            $query = 'DELETE FROM ' . $sequenceName . ' WHERE ' . $seqcolName . ' < ' . $value;
             $this->conn->exec($query);
         }
         

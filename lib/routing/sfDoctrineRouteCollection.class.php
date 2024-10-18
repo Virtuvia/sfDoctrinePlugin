@@ -20,6 +20,6 @@
  */
 class sfDoctrineRouteCollection extends sfObjectRouteCollection
 {
-  protected
+    protected
     $routeClass = 'sfDoctrineRoute';
 }

@@ -23,180 +23,180 @@ declare(strict_types=1);
  */
 abstract class sfDoctrineRecord extends Doctrine_Record
 {
-  /**
-   * Returns the current record's primary key.
-   *
-   * This a proxy method to {@link Doctrine_Record::identifier()} for
-   * compatibility with a Propel-style API.
-   *
-   * @return int|string|null The value of the current model's last identifier column
-   */
-  public function getPrimaryKey()
-  {
-    $identifier = (array) $this->identifier();
-    return end($identifier);
-  }
-
-  /**
-   * Function require by symfony >= 1.2 admin generators.
-   *
-   * @return boolean
-   */
-  final public function isNew(): bool
-  {
-    return ! $this->exists();
-  }
-
-  /**
-   * Returns a string representation of the record.
-   *
-   * @return string A string representation of the record
-   */
-  public function __toString(): string
-  {
-    $guesses = array('name',
-                     'title',
-                     'description',
-                     'subject',
-                     'keywords',
-                     'id');
-
-    // we try to guess a column which would give a good description of the object
-    foreach ($guesses as $descriptionColumn)
+    /**
+     * Returns the current record's primary key.
+     *
+     * This a proxy method to {@link Doctrine_Record::identifier()} for
+     * compatibility with a Propel-style API.
+     *
+     * @return int|string|null The value of the current model's last identifier column
+     */
+    public function getPrimaryKey()
     {
-      try
-      {
-        return (string) $this->get($descriptionColumn);
-      } catch (Throwable $e) {}
+        $identifier = (array) $this->identifier();
+        return end($identifier);
     }
 
-    return sprintf('No description for object of class "%s"', $this->getTable()->getComponentName());
-  }
+    /**
+     * Function require by symfony >= 1.2 admin generators.
+     *
+     * @return boolean
+     */
+    final public function isNew(): bool
+    {
+        return ! $this->exists();
+    }
 
-  /**
-   * Provides getter and setter methods.
-   *
-   * @param  string $method    The method name
-   * @param  array  $arguments The method arguments
-   *
-   * @return mixed The returned value of the called method
-   */
-  final public function __call(string $method, array $arguments): mixed
-  {
-    $failed = false;
-    try {
-      if (in_array($verb = substr($method, 0, 3), array('set', 'get')))
-      {
-        $name = substr($method, 3);
+    /**
+     * Returns a string representation of the record.
+     *
+     * @return string A string representation of the record
+     */
+    public function __toString(): string
+    {
+        $guesses = array('name',
+            'title',
+            'description',
+            'subject',
+            'keywords',
+            'id');
 
-        $table = $this->getTable();
-        if ($table->hasRelation($name))
+        // we try to guess a column which would give a good description of the object
+        foreach ($guesses as $descriptionColumn)
         {
-          $entityName = $name;
-        }
-        else if ($table->hasField($fieldName = $table->getFieldName($name)))
-        {
-          $entityNameLower = strtolower($fieldName);
-          if ($table->hasField($entityNameLower))
-          {
-            $entityName = $entityNameLower;
-          } else {
-            $entityName = $fieldName;
-          }
-        }
-        else
-        {
-          $underScored = $table->getFieldName(sfInflector::underscore($name));
-          if ($table->hasField($underScored) || $table->hasRelation($underScored))
-          {
-            $entityName = $underScored;
-          } else if ($table->hasField(strtolower($name)) || $table->hasRelation(strtolower($name))) {
-            $entityName = strtolower($name);
-          } else {
-            $camelCase = $table->getFieldName(sfInflector::camelize($name));
-            $camelCase = strtolower($camelCase[0]).substr($camelCase, 1, strlen($camelCase));
-            if ($table->hasField($camelCase) || $table->hasRelation($camelCase))
+            try
             {
-              $entityName = $camelCase;
-            } else {
-              $entityName = $underScored;
-            }
-          }
+                return (string) $this->get($descriptionColumn);
+            } catch (Throwable $e) {}
         }
 
-        return call_user_func_array(
-          array($this, $verb),
-          array_merge(array($entityName), $arguments)
-        );
-      } else {
-        $failed = true;
-      }
-    } catch (Exception $e) {
-      $failed = true;
+        return sprintf('No description for object of class "%s"', $this->getTable()->getComponentName());
     }
-    if ($failed)
+
+    /**
+     * Provides getter and setter methods.
+     *
+     * @param  string $method    The method name
+     * @param  array  $arguments The method arguments
+     *
+     * @return mixed The returned value of the called method
+     */
+    final public function __call(string $method, array $arguments): mixed
     {
-      try
-      {
-        return parent::__call($method, $arguments);
-      } catch (Doctrine_Record_UnknownPropertyException $e2) {}
+        $failed = false;
+        try {
+            if (in_array($verb = substr($method, 0, 3), array('set', 'get')))
+            {
+                $name = substr($method, 3);
 
-      if (isset($e) && $e)
-      {
-        throw $e;
-      } else if (isset($e2) && $e2) {
-        throw $e2;
-      }
+                $table = $this->getTable();
+                if ($table->hasRelation($name))
+                {
+                    $entityName = $name;
+                }
+                else if ($table->hasField($fieldName = $table->getFieldName($name)))
+                {
+                    $entityNameLower = strtolower($fieldName);
+                    if ($table->hasField($entityNameLower))
+                    {
+                        $entityName = $entityNameLower;
+                    } else {
+                        $entityName = $fieldName;
+                    }
+                }
+                else
+                {
+                    $underScored = $table->getFieldName(sfInflector::underscore($name));
+                    if ($table->hasField($underScored) || $table->hasRelation($underScored))
+                    {
+                        $entityName = $underScored;
+                    } else if ($table->hasField(strtolower($name)) || $table->hasRelation(strtolower($name))) {
+                        $entityName = strtolower($name);
+                    } else {
+                        $camelCase = $table->getFieldName(sfInflector::camelize($name));
+                        $camelCase = strtolower($camelCase[0]).substr($camelCase, 1, strlen($camelCase));
+                        if ($table->hasField($camelCase) || $table->hasRelation($camelCase))
+                        {
+                            $entityName = $camelCase;
+                        } else {
+                            $entityName = $underScored;
+                        }
+                    }
+                }
+
+                return call_user_func_array(
+                    array($this, $verb),
+                    array_merge(array($entityName), $arguments)
+                );
+            } else {
+                $failed = true;
+            }
+        } catch (Exception $e) {
+            $failed = true;
+        }
+        if ($failed)
+        {
+            try
+            {
+                return parent::__call($method, $arguments);
+            } catch (Doctrine_Record_UnknownPropertyException $e2) {}
+
+            if (isset($e) && $e)
+            {
+                throw $e;
+            } else if (isset($e2) && $e2) {
+                throw $e2;
+            }
+        }
     }
-  }
 
-  /**
-   * Get the Doctrine date value as a PHP DateTime object
-   *
-   * @param string $dateFieldName   The field name to get the DateTime object for
-   * @throws sfException if not a datetime or timestamp field
-   * @return DateTime|null $dateTime     The instance of PHPs DateTime
-   */
-  public function getDateTimeObject(string $dateFieldName)
-  {
-      $type = $this->getTable()->getTypeOf($dateFieldName);
+    /**
+     * Get the Doctrine date value as a PHP DateTime object
+     *
+     * @param string $dateFieldName   The field name to get the DateTime object for
+     * @throws sfException if not a datetime or timestamp field
+     * @return DateTime|null $dateTime     The instance of PHPs DateTime
+     */
+    public function getDateTimeObject(string $dateFieldName)
+    {
+        $type = $this->getTable()->getTypeOf($dateFieldName);
 
-      if (!in_array($type, ['timestamp', 'datetime'])) {
-          throw new sfException('Cannot call getDateTimeObject() on a field that is not of type date or timestamp.');
-      }
+        if (!in_array($type, ['timestamp', 'datetime'])) {
+            throw new sfException('Cannot call getDateTimeObject() on a field that is not of type date or timestamp.');
+        }
 
-      $dateTimeString = $this->getInternalData($dateFieldName);
+        $dateTimeString = $this->getInternalData($dateFieldName);
 
-      if ($dateTimeString === null) {
-          return null;
-      }
+        if ($dateTimeString === null) {
+            return null;
+        }
 
-      $dateTime = \DateTime::createFromFormat('Y-m-d H:i:s', $dateTimeString);
+        $dateTime = \DateTime::createFromFormat('Y-m-d H:i:s', $dateTimeString);
 
-      if (!$dateTime instanceof \DateTime) {
-          $errors = \DateTime::getLastErrors();
+        if (!$dateTime instanceof \DateTime) {
+            $errors = \DateTime::getLastErrors();
 
-          throw new \RuntimeException(sprintf('Errors while parsing DateTime: %s', implode(' ', $errors['errors'])));
-      }
+            throw new \RuntimeException(sprintf('Errors while parsing DateTime: %s', implode(' ', $errors['errors'])));
+        }
 
-      return $dateTime;
-  }
+        return $dateTime;
+    }
 
-  /**
-   * Set the Doctrine date value by passing a valid PHP DateTime object instance
-   *
-   * @param string $dateFieldName       The field name to set the date for
-   * @param null|DateTimeInterface $dateTimeObject The DateTime instance to use to set the value
-   * @throws sfException if not a datetime or timestamp field
-   */
-  public function setDateTimeObject(string $dateFieldName, ?DateTimeInterface $dateTimeObject): void
-  {
-      $type = $this->getTable()->getTypeOf($dateFieldName);
+    /**
+     * Set the Doctrine date value by passing a valid PHP DateTime object instance
+     *
+     * @param string $dateFieldName       The field name to set the date for
+     * @param null|DateTimeInterface $dateTimeObject The DateTime instance to use to set the value
+     * @throws sfException if not a datetime or timestamp field
+     */
+    public function setDateTimeObject(string $dateFieldName, ?DateTimeInterface $dateTimeObject): void
+    {
+        $type = $this->getTable()->getTypeOf($dateFieldName);
 
-      if (!in_array($type, ['timestamp', 'datetime'])) {
-          throw new sfException('Cannot call setDateTimeObject() on a field that is not of type date or timestamp.');
-      }
+        if (!in_array($type, ['timestamp', 'datetime'])) {
+            throw new sfException('Cannot call setDateTimeObject() on a field that is not of type date or timestamp.');
+        }
 
-      $this->setInternalData($dateFieldName, $dateTimeObject?->format('Y-m-d H:i:s'));
-  }
+        $this->setInternalData($dateFieldName, $dateTimeObject?->format('Y-m-d H:i:s'));
+    }
 }

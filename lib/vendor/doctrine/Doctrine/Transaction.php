@@ -143,7 +143,7 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
     * Return the invalid records
     *
     * @return array An array of invalid records
-    */ 
+    */
     public function getInvalid()
     {
         return $this->invalid;
@@ -284,10 +284,10 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
             
             if ($this->_nestingLevel > 0) {
                 $this->_nestingLevel--;
-            }            
+            }
             if ($this->_internalNestingLevel > 0) {
                 $this->_internalNestingLevel--;
-            } 
+            }
         }
 
         return true;

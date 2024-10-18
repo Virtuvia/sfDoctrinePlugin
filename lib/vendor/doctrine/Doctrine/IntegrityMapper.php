@@ -30,7 +30,7 @@
  * @version     $Revision$
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
-class Doctrine_IntegrityMapper 
+class Doctrine_IntegrityMapper
 {
     /**
      * processDeleteIntegrity 

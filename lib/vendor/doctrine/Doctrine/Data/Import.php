@@ -83,7 +83,7 @@ class Doctrine_Data_Import extends Doctrine_Data
                 } else if (is_dir($dir)) {
                     $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir),
                                                             RecursiveIteratorIterator::LEAVES_ONLY);
-                    $filesOrdered = array();                                        
+                    $filesOrdered = array();
                     foreach ($it as $file) {
                         $filesOrdered[] = $file;
                     }
@@ -183,7 +183,7 @@ class Doctrine_Data_Import extends Doctrine_Data
      */
     protected function _getImportedObject($rowKey, Doctrine_Record $record, $relationName, $referringRowKey)
     {
-        $relation = $record->getTable()->getRelation($relationName); 
+        $relation = $record->getTable()->getRelation($relationName);
         $rowKey = $this->_getRowKeyPrefix($relation->getTable()) . $rowKey;
 
         if ( ! isset($this->_importedObjects[$rowKey])) {

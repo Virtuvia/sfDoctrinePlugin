@@ -277,7 +277,7 @@ class Doctrine_Export_Pgsql extends Doctrine_Export
         foreach ($sql as $query) {
             $this->conn->exec($query);
         }
-        return true;    
+        return true;
     }
 
     /**
@@ -384,10 +384,10 @@ class Doctrine_Export_Pgsql extends Doctrine_Export
      */
     public function createIndexSql($table, $name, array $definition)
     {
-		$query = parent::createIndexSql($table, $name, $definition);
-		if (isset($definition['where'])) {
-			return $query . ' WHERE ' . $definition['where'];
-		}
+        $query = parent::createIndexSql($table, $name, $definition);
+        if (isset($definition['where'])) {
+            return $query . ' WHERE ' . $definition['where'];
+        }
         return $query;
     }
 }

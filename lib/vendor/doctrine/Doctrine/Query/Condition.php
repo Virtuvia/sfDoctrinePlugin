@@ -123,7 +123,7 @@ abstract class Doctrine_Query_Condition extends Doctrine_Query_Part
                 if ( ! is_numeric($a[0])) {
                     // a component found
                     $field     = array_pop($a);
-                	$reference = implode('.', $a);
+                    $reference = implode('.', $a);
                     $value     = $this->query->getConnection()->quoteIdentifier(
                         $this->query->getSqlTableAlias($reference). '.' . $field
                     );

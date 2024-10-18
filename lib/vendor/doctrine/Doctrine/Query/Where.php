@@ -44,7 +44,7 @@ class Doctrine_Query_Where extends Doctrine_Query_Condition
 
         $where = $this->_tokenizer->bracketTrim(trim($where));
         $conn  = $this->query->getConnection();
-        $terms = $this->_tokenizer->sqlExplode($where);  
+        $terms = $this->_tokenizer->sqlExplode($where);
 
         if (count($terms) > 1) {
             if (substr($where, 0, 6) == 'EXISTS') {

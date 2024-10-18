@@ -31,7 +31,7 @@
  * @since       1.0
  * @todo Composite key support?
  */
-class Doctrine_Relation_Parser 
+class Doctrine_Relation_Parser
 {
     /**
      * @var Doctrine_Table $_table          the table object this parser belongs to
@@ -53,7 +53,7 @@ class Doctrine_Relation_Parser
      *
      * @param Doctrine_Table $table         the table object this parser belongs to
      */
-    public function __construct(Doctrine_Table $table) 
+    public function __construct(Doctrine_Table $table)
     {
         $this->_table = $table;
     }
@@ -73,7 +73,7 @@ class Doctrine_Relation_Parser
      *
      * @return array            an array defining a pending relation
      */
-    public function getPendingRelation($name) 
+    public function getPendingRelation($name)
     {
         if ( ! isset($this->_pending[$name])) {
             throw new Doctrine_Relation_Exception('Unknown pending relation ' . $name);
@@ -87,7 +87,7 @@ class Doctrine_Relation_Parser
      *
      * @return array            an array containing all the pending relations
      */
-    public function getPendingRelations() 
+    public function getPendingRelations()
     {
         return $this->_pending;
     }
@@ -98,7 +98,7 @@ class Doctrine_Relation_Parser
      *
      * @param string            relation to remove
      */
-    public function unsetPendingRelations($name) 
+    public function unsetPendingRelations($name)
     {
        unset($this->_pending[$name]);
     }

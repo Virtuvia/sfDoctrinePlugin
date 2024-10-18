@@ -71,7 +71,7 @@ class Doctrine_Validator_Unique extends Doctrine_Validator_Driver
             $values[] = $value;
         }
         
-        // If the record is not new we need to add primary key checks because its ok if the 
+        // If the record is not new we need to add primary key checks because its ok if the
         // unique value already exists in the database IF the record in the database is the same
         // as the one that is validated here.
         $state = $this->invoker->state();

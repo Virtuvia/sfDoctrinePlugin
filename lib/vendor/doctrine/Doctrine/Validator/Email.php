@@ -101,11 +101,11 @@ class Doctrine_Validator_Email extends Doctrine_Validator_Driver
             
             if (empty($output)) {
                 throw new Doctrine_Exception('Unable to execute DNS lookup. Are you sure PHP can call exec()?');
-            }    
+            }
 
             foreach ($output as $line) {
-                if (preg_match('/^'.$host.'/', $line)) { 
-                    return true; 
+                if (preg_match('/^'.$host.'/', $line)) {
+                    return true;
                 }
             }
             

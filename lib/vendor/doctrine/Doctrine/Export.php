@@ -1158,7 +1158,7 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
                  if (substr($query, 0, strlen('CREATE TRIGGER')) == 'CREATE TRIGGER') {
                      $connections[$connectionName]['create_triggers'][] = $query;
 
-                 	 unset($sql[$key]);
+                      unset($sql[$key]);
                      continue;
                  }
 
@@ -1309,7 +1309,7 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
      */
     private function exportGeneratorsSql(Doctrine_Table $table)
     {
-    	$sql = array();
+        $sql = array();
 
         foreach ($this->getAllGenerators($table) as $name => $generator) {
             $table = $generator->getTable();

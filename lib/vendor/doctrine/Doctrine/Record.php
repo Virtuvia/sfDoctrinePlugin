@@ -83,14 +83,14 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      */
     public const STATE_LOCKED     = 6;
 
- 	/**
- 	 * TLOCKED STATE
- 	 * a Doctrine_Record is temporarily locked (and transient) during deletes and saves
- 	 *
- 	 * This state is used internally to ensure that circular deletes
- 	 * and saves will not cause infinite loops
- 	 */
- 	public const STATE_TLOCKED     = 7;
+    /**
+     * TLOCKED STATE
+     * a Doctrine_Record is temporarily locked (and transient) during deletes and saves
+     *
+     * This state is used internally to ensure that circular deletes
+     * and saves will not cause infinite loops
+     */
+    public const STATE_TLOCKED     = 7;
 
 
     /**

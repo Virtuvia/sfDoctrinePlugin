@@ -44,7 +44,7 @@ class Doctrine_Template_Versionable extends Doctrine_Template
                                                              'type'   => 'integer',
                                                              'length' => 8,
                                                              'options' => array()),
-								'generateRelations' => true,
+                                'generateRelations' => true,
                                 'tableName'         => false,
                                 'generateFiles'     => false,
                                 'auditLog'          => true,
@@ -64,7 +64,7 @@ class Doctrine_Template_Versionable extends Doctrine_Template
      */
     public function __construct(array $options = array())
     {
-	    parent::__construct($options);
+        parent::__construct($options);
         $this->_plugin = new Doctrine_AuditLog($this->_options);
     }
 

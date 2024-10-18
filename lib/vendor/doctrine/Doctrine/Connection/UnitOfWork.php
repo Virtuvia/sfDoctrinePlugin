@@ -599,7 +599,7 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
 
                 $table = $record->getTable();
                 $identifier = (array) $table->getIdentifier();
-                $data = $record->getPrepared();       
+                $data = $record->getPrepared();
 
                 foreach ($data as $key  => $value) {
                     if ($value instanceof Doctrine_Expression) {
@@ -936,7 +936,7 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
         if (empty($seq) && !is_array($identifier) &&
             $table->getIdentifierType() != Doctrine_Core::IDENTIFIER_NATURAL) {
             $id = false;
-            if ($record->$identifier == null) { 
+            if ($record->$identifier == null) {
                 if (($driver = strtolower($this->conn->getDriverName())) == 'pgsql') {
                     $seq = $table->getTableName() . '_' . $table->getColumnName($identifier);
                 }

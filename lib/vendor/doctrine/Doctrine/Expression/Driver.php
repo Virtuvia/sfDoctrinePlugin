@@ -628,7 +628,7 @@ class Doctrine_Expression_Driver extends Doctrine_Connection_Module
     {
         $args = func_get_args();
 
-	    return 'COALESCE(' . join(', ', (array) $args) . ')';
+        return 'COALESCE(' . join(', ', (array) $args) . ')';
     }
 
     /**
@@ -636,7 +636,7 @@ class Doctrine_Expression_Driver extends Doctrine_Connection_Module
      *
      * for all native RDBMS functions the function name itself is returned
      */
-    public function __call($m, $a) 
+    public function __call($m, $a)
     {
         if ($this->conn->getAttribute(Doctrine_Core::ATTR_PORTABILITY) & Doctrine_Core::PORTABILITY_EXPR) {
             throw new Doctrine_Expression_Exception('Unknown expression: ' . $m);

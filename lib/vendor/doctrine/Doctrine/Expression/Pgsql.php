@@ -227,8 +227,8 @@ class Doctrine_Expression_Pgsql extends Doctrine_Expression_Driver
      */
     public function translate($string, $from, $to)
     {
-    	$translate = 'TRANSLATE(' . $string . ', ' . $from . ', ' . $to . ')';
-    	return $translate;
+        $translate = 'TRANSLATE(' . $string . ', ' . $from . ', ' . $to . ')';
+        return $translate;
     }
 
     /**

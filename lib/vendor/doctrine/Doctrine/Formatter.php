@@ -145,7 +145,7 @@ class Doctrine_Formatter extends Doctrine_Connection_Module
             $arr[$k] = $this->quoteIdentifier($v, $checkOption);
         }
 
-		return $arr;
+        return $arr;
     }
 
     /**

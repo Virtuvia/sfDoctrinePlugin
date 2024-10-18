@@ -91,7 +91,7 @@ class Doctrine_Hydrator_RecordDriver extends Doctrine_Hydrator_Graph
         return $record;
     }
 
-    public function getLastKey(&$coll) 
+    public function getLastKey(&$coll)
     {
         $coll->end();
         

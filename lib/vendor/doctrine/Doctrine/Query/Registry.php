@@ -40,7 +40,7 @@ class Doctrine_Query_Registry
             $query = clone $query;
         }
 
-    	if (strpos($key, '/') === false) {
+        if (strpos($key, '/') === false) {
             $this->_queries[$key] = $query;
         } else {
             // namespace found
@@ -76,7 +76,7 @@ class Doctrine_Query_Registry
     
     public function has($key, $namespace = null)
     {
-        return isset($namespace) 
+        return isset($namespace)
             ? isset($this->_queries[$namespace][$key])
             : isset($this->_queries[$key]);
     }

@@ -75,15 +75,15 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
         $id = array();
         $idTemplate = array();
 
-        // Initialize 
-        foreach ($this->_queryComponents as $dqlAlias => $data) { 
-            $componentName = $data['table']->getComponentName(); 
-            $instances[$componentName] = $data['table']->getRecordInstance(); 
-            $listeners[$componentName] = $data['table']->getRecordListener(); 
-            $identifierMap[$dqlAlias] = array(); 
-            $prev[$dqlAlias] = null; 
-            $idTemplate[$dqlAlias] = ''; 
-        } 
+        // Initialize
+        foreach ($this->_queryComponents as $dqlAlias => $data) {
+            $componentName = $data['table']->getComponentName();
+            $instances[$componentName] = $data['table']->getRecordInstance();
+            $listeners[$componentName] = $data['table']->getRecordListener();
+            $identifierMap[$dqlAlias] = array();
+            $prev[$dqlAlias] = null;
+            $idTemplate[$dqlAlias] = '';
+        }
         $cache = array();
 
         $result = $this->getElementCollection($rootComponentName);
@@ -110,10 +110,10 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
                 }
             }
             $activeRootIdentifier = null;
-        } else { 
-            $data = $stmt->fetch(Doctrine_Core::FETCH_ASSOC); 
-            if ( ! $data) { 
-                return $result; 
+        } else {
+            $data = $stmt->fetch(Doctrine_Core::FETCH_ASSOC);
+            if ( ! $data) {
+                return $result;
             }
         }
 
@@ -128,15 +128,15 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
             $nonemptyComponents = array();
             $rowData = $this->_gatherRowData($data, $cache, $id, $nonemptyComponents);
 
-            if ($this->_hydrationMode == Doctrine_Core::HYDRATE_ON_DEMAND)  { 
-                if (is_null($activeRootIdentifier)) { 
-                    // first row for this record 
-                    $activeRootIdentifier = $id[$rootAlias]; 
-                } else if ($activeRootIdentifier != $id[$rootAlias]) { 
-                    // first row for the next record 
-                    $this->_priorRow = $data; 
-                    return $result; 
-                } 
+            if ($this->_hydrationMode == Doctrine_Core::HYDRATE_ON_DEMAND)  {
+                if (is_null($activeRootIdentifier)) {
+                    // first row for this record
+                    $activeRootIdentifier = $id[$rootAlias];
+                } else if ($activeRootIdentifier != $id[$rootAlias]) {
+                    // first row for the next record
+                    $this->_priorRow = $data;
+                    return $result;
+                }
             }
 
             //
@@ -236,9 +236,9 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
                                 }
                                 $prev[$parent][$relationAlias][$element[$field]] = $element;
                             } else {
-                                $prev[$parent][$relationAlias][] = $element; 
+                                $prev[$parent][$relationAlias][] = $element;
                             }
-                            $identifierMap[$path][$id[$parent]][$id[$dqlAlias]] = $this->getLastKey($prev[$parent][$relationAlias]);                            
+                            $identifierMap[$path][$id[$parent]][$id[$dqlAlias]] = $this->getLastKey($prev[$parent][$relationAlias]);
                         }
                         $collection = $prev[$parent][$relationAlias];
                         if ($collection instanceof Doctrine_Collection && $indexField) {
@@ -256,7 +256,7 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
                     } else if ( ! isset($prev[$parent][$relationAlias])) {
                         $element = $this->getElement($data, $componentName);
 
-						// [FIX] Tickets #1205 and #1237
+                        // [FIX] Tickets #1205 and #1237
                         $event->set('data', $element);
                         $listeners[$componentName]->postHydrate($event);
                         $instances[$componentName]->postHydrate($event);
@@ -290,7 +290,7 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
         $rowData = array();
 
         foreach ($data as $key => $value) {
-            // Parse each column name only once. Cache the results. 
+            // Parse each column name only once. Cache the results.
             if ( ! isset($cache[$key])) {
                 $e = explode('__', $key);
                 $last = strtolower(array_pop($e));

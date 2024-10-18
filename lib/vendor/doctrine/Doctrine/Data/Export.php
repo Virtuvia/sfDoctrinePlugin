@@ -64,7 +64,7 @@ class Doctrine_Data_Export extends Doctrine_Data
 
         $data = array();
 
-		    // for situation when the $models array is empty, but the $specifiedModels array isn't
+            // for situation when the $models array is empty, but the $specifiedModels array isn't
         if (empty($models)) {
           $models = $specifiedModels;
         }
@@ -201,7 +201,7 @@ class Doctrine_Data_Export extends Doctrine_Data
                         $relationValue = $relationClassName . '_' . $value;
 
                         $preparedData[$className][$recordKey][$relationAlias] = $relationValue;
-                    } else if ($record->getTable()->hasField($key)) {                        
+                    } else if ($record->getTable()->hasField($key)) {
                         $preparedData[$className][$recordKey][$key] = $value;
                     }
                 }
