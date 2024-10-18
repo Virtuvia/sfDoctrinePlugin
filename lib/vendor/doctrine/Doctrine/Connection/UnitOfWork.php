@@ -44,9 +44,8 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
      * (The save() operation is always cascaded in 0.10/1.0).
      *
      * @param Doctrine_Record $record
-     * @return void
      */
-    public function saveGraph(Doctrine_Record $record, $replace = false)
+    public function saveGraph(Doctrine_Record $record, $replace = false): bool
     {
         $record->assignInheritanceValues();
 

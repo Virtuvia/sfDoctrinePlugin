@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the symfony package.
  * (c) Fabien Potencier <fabien.potencier@symfony-project.com>
@@ -27,7 +29,7 @@ abstract class sfDoctrineRecord extends Doctrine_Record
    * This a proxy method to {@link Doctrine_Record::identifier()} for
    * compatibility with a Propel-style API.
    *
-   * @return mixed The value of the current model's last identifier column
+   * @return int|string|null The value of the current model's last identifier column
    */
   public function getPrimaryKey()
   {
@@ -40,7 +42,7 @@ abstract class sfDoctrineRecord extends Doctrine_Record
    *
    * @return boolean
    */
-  public function isNew()
+  final public function isNew(): bool
   {
     return ! $this->exists();
   }
@@ -65,7 +67,7 @@ abstract class sfDoctrineRecord extends Doctrine_Record
       try
       {
         return (string) $this->get($descriptionColumn);
-      } catch (Exception $e) {}
+      } catch (Throwable $e) {}
     }
 
     return sprintf('No description for object of class "%s"', $this->getTable()->getComponentName());
@@ -79,7 +81,7 @@ abstract class sfDoctrineRecord extends Doctrine_Record
    *
    * @return mixed The returned value of the called method
    */
-  public function __call($method, $arguments)
+  final public function __call(string $method, array $arguments): mixed
   {
     $failed = false;
     try {

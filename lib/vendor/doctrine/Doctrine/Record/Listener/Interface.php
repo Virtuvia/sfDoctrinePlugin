@@ -32,11 +32,11 @@
  */
 interface Doctrine_Record_Listener_Interface
 {
-    public function setOption($name, $value = null);
+    public function setOption(string $name, mixed $value = null);
 
     public function getOptions();
 
-    public function getOption($name);
+    public function getOption(string $name);
 
     public function preSave(Doctrine_Event $event);
 
@@ -53,8 +53,16 @@ interface Doctrine_Record_Listener_Interface
     public function preInsert(Doctrine_Event $event);
 
     public function postInsert(Doctrine_Event $event);
-    
+
     public function preHydrate(Doctrine_Event $event);
-    
+
     public function postHydrate(Doctrine_Event $event);
+
+    public function preValidate(Doctrine_Event $event);
+
+    public function postValidate(Doctrine_Event $event);
+
+    public function preDqlSelect(Doctrine_Event $event);
+
+    public function preDqlDelete(Doctrine_Event $event);
 }

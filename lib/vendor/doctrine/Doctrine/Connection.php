@@ -52,6 +52,8 @@
  * @version     $Revision: 7490 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Lukas Smith <smith@pooteeweet.org> (MDB2 library)
+ *
+ * @property Doctrine_Connection_UnitOfWork $unitOfWork
  */
 abstract class Doctrine_Connection extends Doctrine_Configurable implements Countable, IteratorAggregate
 {

@@ -295,6 +295,7 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
                 $e = explode('__', $key);
                 $last = strtolower(array_pop($e));
                 $cache[$key]['dqlAlias'] = $this->_tableAliases[strtolower(implode('__', $e))];
+                /** @var Doctrine_Table $table */
                 $table = $this->_queryComponents[$cache[$key]['dqlAlias']]['table'];
                 $fieldName = $table->getFieldName($last);
                 $cache[$key]['fieldName'] = $fieldName;
@@ -313,6 +314,7 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
             }
 
             $map = $this->_queryComponents[$cache[$key]['dqlAlias']];
+            /** @var Doctrine_Table $table */
             $table = $map['table'];
             $dqlAlias = $cache[$key]['dqlAlias'];
             $fieldName = $cache[$key]['fieldName'];

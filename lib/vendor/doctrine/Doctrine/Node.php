@@ -30,7 +30,7 @@
  * @version     $Revision: 7490 $
  * @author      Joe Simms <joe.simms@websites4.com>
  */
-class Doctrine_Node implements IteratorAggregate
+abstract class Doctrine_Node implements IteratorAggregate, Doctrine_Node_Interface
 {
     /**
      * @param object    $record   reference to associated Doctrine_Record instance
@@ -106,17 +106,16 @@ class Doctrine_Node implements IteratorAggregate
      * This is a factory method that returns node instance based upon chosen
      * implementation.
      *
-     * @param object $record                    instance of Doctrine_Record
+     * @param Doctrine_Record $record                    instance of Doctrine_Record
      * @param string $implName                  implementation (NestedSet, AdjacencyList, MaterializedPath)
      * @param array $options                    options
-     * @return Doctrine_Node
      * @throws Doctrine_Node_Exception          if $implName is not a valid class
      */
-    public static function factory(Doctrine_Record $record, $implName, $options = array())
+    public static function factory(Doctrine_Record $record, string $implName, array $options = array()): Doctrine_Node
     {
         $class = 'Doctrine_Node_' . $implName;
 
-        if ( ! class_exists($class)) {
+        if ( ! class_exists($class) || !is_subclass_of($class, self::class)) {
             throw new Doctrine_Node_Exception("The class $class must exist and extend Doctrine_Node");
         }
 

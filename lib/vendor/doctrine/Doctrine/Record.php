@@ -30,6 +30,9 @@
  * @link        www.doctrine-project.org
  * @since       1.0
  * @version     $Revision: 7673 $
+ *
+ * @template-implements ArrayAccess<string, mixed>
+ * @template-implements IteratorAggregate<string, mixed>
  */
 abstract class Doctrine_Record extends Doctrine_Record_Internals implements ArrayAccess, Countable, IteratorAggregate
 {
@@ -43,33 +46,33 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * DIRTY STATE
      * a Doctrine_Record is in dirty state when its properties are changed
      */
-    const STATE_DIRTY       = 1;
+    public const STATE_DIRTY       = 1;
 
     /**
      * TDIRTY STATE
      * a Doctrine_Record is in transient dirty state when it is created
      * and some of its fields are modified but it is NOT yet persisted into database
      */
-    const STATE_TDIRTY      = 2;
+    public const STATE_TDIRTY      = 2;
 
     /**
      * CLEAN STATE
      * a Doctrine_Record is in clean state when all of its properties are loaded from the database
      * and none of its properties are changed
      */
-    const STATE_CLEAN       = 3;
+    public const STATE_CLEAN       = 3;
 
     /**
      * PROXY STATE
      * a Doctrine_Record is in proxy state when its properties are not fully loaded
      */
-    const STATE_PROXY       = 4;
+    public const STATE_PROXY       = 4;
 
     /**
      * NEW TCLEAN
      * a Doctrine_Record is in transient clean state when it is created and none of its fields are modified
      */
-    const STATE_TCLEAN      = 5;
+    public const STATE_TCLEAN      = 5;
 
     /**
      * LOCKED STATE
@@ -78,7 +81,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * This state is used internally to ensure that circular deletes
      * and saves will not cause infinite loops
      */
-    const STATE_LOCKED     = 6;
+    public const STATE_LOCKED     = 6;
 
  	/**
  	 * TLOCKED STATE
@@ -87,18 +90,18 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
  	 * This state is used internally to ensure that circular deletes
  	 * and saves will not cause infinite loops
  	 */
- 	const STATE_TLOCKED     = 7;
+ 	public const STATE_TLOCKED     = 7;
 
 
     /**
-     * @var Doctrine_Node_<TreeImpl>        node object
+     * @var null|Doctrine_Node        node object
      */
-    private $_node;
+    private ?Doctrine_Node $_node;
 
     /**
-     * @var integer $_id                    the primary keys of this object
+     * @var array<int|string|null> $_id                    the primary keys of this object
      */
-    private $_id           = array();
+    private array $_id           = array();
 
     /**
      * each element is one of 3 following types:
@@ -116,13 +119,13 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     private array $_values       = [];
 
     /**
-     * @var integer $_state                 the state of this record
-     * @see STATE_* constants
+     * @var self::STATE_* $_state                 the state of this record
+     * @see self::STATE_* constants
      */
-    private $_state;
+    private int $_state;
 
     /**
-     * @var array $_lastModified             an array containing field names that were modified in the previous transaction
+     * @var array<string> $_lastModified             an array containing field names that were modified in the previous transaction
      */
     private array $_lastModified = [];
 
@@ -140,7 +143,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * @var Doctrine_Validator_ErrorStack   error stack object
      */
-    private $_errorStack;
+    private Doctrine_Validator_ErrorStack $_errorStack;
 
     /**
      * @var array $_references              an array containing all the references
@@ -163,33 +166,31 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
 
     /**
      * Array containing the save hooks and events that have been invoked
-     *
-     * @var array
      */
-    private $_invokedSaveHooks = false;
+    private false|array $_invokedSaveHooks = false;
 
     /**
-     * @var integer $index                  this index is used for creating object identifiers
+     * @var int $index                  this index is used for creating object identifiers
      */
-    private static $_index = 1;
+    private static int $_index = 1;
 
     /**
-     * @var integer $oid                    object identifier, each Record object has a unique object identifier
+     * @var int $oid                    object identifier, each Record object has a unique object identifier
      */
-    private $_oid;
+    private int $_oid;
 
     /**
      * constructor
      * @param Doctrine_Table|null $table       a Doctrine_Table object or null,
      *                                         if null the table object is retrieved from current connection
      *
-     * @param boolean $isNewEntry              whether or not this record is transient
+     * @param bool $isNewEntry              whether or not this record is transient
      *
      * @throws Doctrine_Connection_Exception   if object is created using the new operator and there are no
      *                                         open connections
      * @throws Doctrine_Record_Exception       if the cleanData operation fails somehow
      */
-    public function __construct($table = null, $isNewEntry = false)
+    public function __construct(?Doctrine_Table $table = null, bool $isNewEntry = false)
     {
         if (isset($table) && $table instanceof Doctrine_Table) {
             $this->_table = $table;
@@ -271,9 +272,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * @see $_oid;
      *
-     * @return integer  the object identifier
+     * @return int  the object identifier
      */
-    public function getOid()
+    final public function getOid(): int
     {
         return $this->_oid;
     }
@@ -285,12 +286,12 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * $this->invokeSaveHooks('pre', 'save');
      * </code>
      *
-     * @param string $when           'post' or 'pre'
-     * @param string $type           save, delete, update, insert, validate, dqlSelect, dqlDelete, hydrate
-     * @param Doctrine_Event $event  event raised
+     * @param 'pre'|'post' $when
+     * @param 'save'|'delete'|'update'|'insert'|'validate'|'dqlselect'|'dqlDelete'|'hydrate' $type
+     * @param null|Doctrine_Event $event  event raised
      * @return Doctrine_Event        the event generated using the type, if not specified
      */
-    public function invokeSaveHooks($when, $type, $event = null)
+    final public function invokeSaveHooks(string $when, string $type, ?Doctrine_Event $event = null): Doctrine_Event
     {
         $func = $when . ucfirst($type);
 
@@ -318,7 +319,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * makes all the already used save hooks available again
      */
-    public function clearInvokedSaveHooks()
+    final public function clearInvokedSaveHooks(): void
     {
         $this->_invokedSaveHooks = array();
     }
@@ -326,11 +327,11 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * tests validity of the record using the current data.
      *
-     * @param boolean $deep   run the validation process on the relations
-     * @param boolean $hooks  invoke save hooks before start
-     * @return boolean        whether or not this record is valid
+     * @param bool $deep   run the validation process on the relations
+     * @param bool $hooks  invoke save hooks before start
+     * @return bool        whether or not this record is valid
      */
-    public function isValid($deep = false, $hooks = true)
+    final public function isValid(bool $deep = false, bool $hooks = true): bool
     {
         if ( ! $this->_table->getAttribute(Doctrine_Core::ATTR_VALIDATE)) {
             return true;
@@ -351,7 +352,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
         // Run validation process
         $event = new Doctrine_Event($this, Doctrine_Event::RECORD_VALIDATE);
         $this->preValidate($event);
-        $this->getTable()->getRecordListener()->preValidate($event);
+        $this->getTable()->getRecordListener()?->preValidate($event);
 
         if ( ! $event->skipOperation) {
 
@@ -365,7 +366,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
             }
         }
 
-        $this->getTable()->getRecordListener()->postValidate($event);
+        $this->getTable()->getRecordListener()?->postValidate($event);
         $this->postValidate($event);
 
         $valid = $this->getErrorStack()->count() == 0 ? true : false;
@@ -420,28 +421,28 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * Empty template method to provide concrete Record classes with the possibility
      * to hook into the saving procedure.
      */
-    public function preSave($event)
+    public function preSave(Doctrine_Event $event)
     { }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
      * to hook into the saving procedure.
      */
-    public function postSave($event)
+    public function postSave(Doctrine_Event $event)
     { }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
      * to hook into the deletion procedure.
      */
-    public function preDelete($event)
+    public function preDelete(Doctrine_Event $event)
     { }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
      * to hook into the deletion procedure.
      */
-    public function postDelete($event)
+    public function postDelete(Doctrine_Event $event)
     { }
 
     /**
@@ -449,7 +450,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * to hook into the saving procedure only when the record is going to be
      * updated.
      */
-    public function preUpdate($event)
+    public function preUpdate(Doctrine_Event $event)
     { }
 
     /**
@@ -457,7 +458,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * to hook into the saving procedure only when the record is going to be
      * updated.
      */
-    public function postUpdate($event)
+    public function postUpdate(Doctrine_Event $event)
     { }
 
     /**
@@ -465,7 +466,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * to hook into the saving procedure only when the record is going to be
      * inserted into the data store the first time.
      */
-    public function preInsert($event)
+    public function preInsert(Doctrine_Event $event)
     { }
 
     /**
@@ -473,7 +474,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * to hook into the saving procedure only when the record is going to be
      * inserted into the data store the first time.
      */
-    public function postInsert($event)
+    public function postInsert(Doctrine_Event $event)
     { }
 
     /**
@@ -481,57 +482,57 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * to hook into the validation procedure. Useful for cleaning up data before
      * validating it.
      */
-    public function preValidate($event)
+    public function preValidate(Doctrine_Event $event)
     { }
     /**
      * Empty template method to provide concrete Record classes with the possibility
      * to hook into the validation procedure.
      */
-    public function postValidate($event)
+    public function postValidate(Doctrine_Event $event)
     { }
 
     /**
      * Empty template method to provide Record classes with the ability to alter DQL select
      * queries at runtime
      */
-    public function preDqlSelect($event)
+    public function preDqlSelect(Doctrine_Event $event)
     { }
 
     /**
      * Empty template method to provide Record classes with the ability to alter DQL update
      * queries at runtime
      */
-    public function preDqlUpdate($event)
+    public function preDqlUpdate(Doctrine_Event $event)
     { }
 
     /**
      * Empty template method to provide Record classes with the ability to alter DQL delete
      * queries at runtime
      */
-    public function preDqlDelete($event)
+    public function preDqlDelete(Doctrine_Event $event)
     { }
 
     /**
      * Empty template method to provide Record classes with the ability to alter hydration
      * before it runs
      */
-    public function preHydrate($event)
+    public function preHydrate(Doctrine_Event $event)
     { }
 
     /**
      * Empty template method to provide Record classes with the ability to alter hydration
      * after it runs
      */
-    public function postHydrate($event)
+    public function postHydrate(Doctrine_Event $event)
     { }
 
     /**
      * Get the record error stack as a human readable string.
      * Useful for outputting errors to user via web browser
      *
-     * @return string $message
+     * @return false|string $message
      */
-    public function getErrorStackAsString()
+    final public function getErrorStackAsString(): false|string
     {
         $errorStack = $this->getErrorStack();
 
@@ -553,9 +554,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      *
      * @return Doctrine_Validator_ErrorStack    returns the errorStack associated with this record
      */
-    public function getErrorStack()
+    final public function getErrorStack(): Doctrine_Validator_ErrorStack
     {
-        if ( ! $this->_errorStack) {
+        if (!isset($this->_errorStack)) {
             $this->_errorStack = new Doctrine_Validator_ErrorStack(get_class($this));
         }
 
@@ -565,9 +566,11 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * Assign the inheritance column values
      *
+     * @internal
+     * @see Doctrine_Connection_UnitOfWork
      * @return void
      */
-    public function assignInheritanceValues()
+    final public function assignInheritanceValues(): void
     {
         $map = $this->_table->inheritanceMap;
         foreach ($map as $k => $v) {
@@ -637,10 +640,14 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * hydrates this object from given array
      *
      * @param array $data
-     * @param boolean $overwriteLocalChanges  whether to overwrite the unsaved (dirty) data
+     * @param bool $overwriteLocalChanges  whether to overwrite the unsaved (dirty) data
+     *
+     * @internal
+     * @see Doctrine_Table::getRecord()
+     *
      * @return void
      */
-    public function hydrate(array $data, $overwriteLocalChanges = true)
+    final public function hydrate(array $data, bool $overwriteLocalChanges = true): void
     {
         if ($overwriteLocalChanges) {
             $this->_values = array_merge($this->_values, $this->cleanData($data));
@@ -661,10 +668,10 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * prepareIdentifiers
      * prepares identifiers for later use
      *
-     * @param boolean $exists               whether or not this record exists in persistent data store
+     * @param bool $exists               whether or not this record exists in persistent data store
      * @return void
      */
-    private function prepareIdentifiers($exists = true)
+    private function prepareIdentifiers(bool $exists = true): void
     {
         switch ($this->_table->getIdentifierType()) {
             case Doctrine_Core::IDENTIFIER_AUTOINC:
@@ -707,13 +714,11 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * assigns the state of this record or returns it if called without parameters
      *
-     * @param integer|string $state                 if set, this method tries to set the record state to $state
-     * @see Doctrine_Record::STATE_* constants
+     * @param self::STATE_*|string|null $state                 if set, this method tries to set the record state to $state
      *
      * @throws Doctrine_Record_State_Exception      if trying to set an unknown state
-     * @return null|integer
      */
-    public function state($state = null)
+    final public function state(int|string|null $state = null): int
     {
         if ($state == null) {
             return $this->_state;
@@ -745,6 +750,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
         if ($err) {
             throw new Doctrine_Record_State_Exception('Unknown record state ' . $state);
         }
+
+        return $this->_state;
     }
 
     /**
@@ -756,9 +763,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      *
      * @throws Doctrine_Record_Exception        When the refresh operation fails (when the database row
      *                                          this record represents does not exist anymore)
-     * @return boolean
      */
-    public function refresh($deep = false)
+    final public function refresh(bool $deep = false): false|static
     {
         $id = $this->identifier();
         if ( ! is_array($id)) {
@@ -807,12 +813,10 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * refresh
      * refresh data of related objects from the database
      *
-     * @param string $name              name of a related component.
+     * @param null|string $name              name of a related component.
      *                                  if set, this method only refreshes the specified related component
-     *
-     * @return Doctrine_Record          this object
      */
-    public function refreshRelated($name = null)
+    final public function refreshRelated(?string $name = null): void
     {
         if (is_null($name)) {
             foreach ($this->_table->getRelations() as $rel) {
@@ -848,10 +852,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * Clear a related reference or all references
      *
-     * @param string $name The relationship reference to clear
-     * @return void
+     * @param null|string $name The relationship reference to clear
      */
-    public function clearRelated($name = null)
+    final public function clearRelated(?string $name = null): void
     {
         if (is_null($name)) {
             $this->_references = array();
@@ -866,9 +869,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * exist in the database, the related reference will be cleared immediately.
      *
      * @param string $name
-     * @return boolean Whether or not the related relationship exists
+     * @return bool Whether or not the related relationship exists
      */
-    public function relatedExists($name)
+    final public function relatedExists(string $name): bool
     {
         if ($this->hasReference($name) && $this->_references[$name] !== self::$_null) {
             return true;
@@ -898,7 +901,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      *
      * @return array                        an array containing all the properties
      */
-    public function getData()
+    final public function getData(): array
     {
         return $this->_data;
     }
@@ -907,15 +910,14 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * returns the value of a property (column). If the property is not yet loaded
      * this method does NOT load it.
      *
-     * @param $name                         name of the property
+     * @param string $fieldName                         name of the property
      * @throws Doctrine_Record_Exception    if trying to get an unknown property
-     * @return mixed|null
      *
      * @deprecated use getInternalData($fieldName, false) or getData()[$fieldName]
      * @see self::getInternalData()
      * @see self::getData()
      */
-    public function rawGet($fieldName)
+    final public function rawGet(string $fieldName): mixed
     {
         return $this->getInternalData($fieldName, false);
     }
@@ -939,7 +941,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
             }
 
             $table = $this->getTable();
-            $data = empty($data) ? $table->find($id, Doctrine_Core::HYDRATE_ARRAY) : $data;
+            $data = $table->find($id, Doctrine_Core::HYDRATE_ARRAY);
 
             if (is_array($data)) {
                 foreach ($data as $field => $value) {
@@ -959,10 +961,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
 
     /**
      * indicates whether record has any not loaded fields
-     *
-     * @return boolean
      */
-    public function isInProxyState()
+    final public function isInProxyState(): bool
     {
         $count = 0;
         foreach ($this->_data as $value) {
@@ -981,13 +981,13 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      *
      * @param string $fieldName                  name of the property or related component
      * @param bool $load                     whether or not to invoke the loading procedure
-     * @throws Doctrine_Record_Exception        if trying to get a value of unknown property / related component
-     *
      * @return Doctrine_Collection|Doctrine_Record|mixed|null
+     *
+     * @throws Doctrine_Record_Exception        if trying to get a value of unknown property / related component
      *
      * @internal use appropriate get* method
      */
-    final public function get($fieldName, bool $load = true): mixed
+    final public function get(string $fieldName, bool $load = true): mixed
     {
         $accessor = 'get' . Doctrine_Inflector::classify($fieldName);
 
@@ -1060,13 +1060,12 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * @param bool $load
      *
      * @deprecated use getInternalValue or getFieldData or getInternalReference
+     * @final
      *
      * @return Doctrine_Collection|Doctrine_Record|mixed|null
      */
-    protected function _get($fieldName, $load = true)
+    protected function _get(string $fieldName, bool $load = true)
     {
-        $value = self::$_null;
-
         if (array_key_exists($fieldName, $this->_values)) {
             return $this->getInternalValue($fieldName);
         }
@@ -1107,18 +1106,16 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * alters mapped values, properties and related components.
      *
-     * @param mixed $fieldName                   name of the property or reference
+     * @param string $fieldName                   name of the property or reference
      * @param mixed $value                  value of the property or reference
-     * @param boolean $load                 whether or not to refresh / load the uninitialized record data
+     * @param bool $load                 whether or not to refresh / load the uninitialized record data
      *
      * @throws Doctrine_Record_Exception    if trying to set a value for unknown property / related component
      * @throws Doctrine_Record_Exception    if trying to set a value of wrong type for related component
      *
-     * @return Doctrine_Record
-     *
-     * @internal use appropriate set* method
+     * @deprecated use appropriate set* method
      */
-    final public function set($fieldName, mixed $value, bool $load = true)
+    final public function set(string $fieldName, mixed $value, bool $load = true): static
     {
         $mutator = 'set' . Doctrine_Inflector::classify($fieldName);
 
@@ -1130,12 +1127,17 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     }
 
     /**
+     * @param string $fieldName
+     * @param mixed $value
+     * @param bool $load
+     *
      * @deprecated use setInternalValue or setInternalData or setInternalReference
+     * @final
      *
      * @throws Doctrine_Record_Exception
      * @throws Doctrine_Record_UnknownPropertyException
      */
-    protected function _set($fieldName, $value, $load = true)
+    protected function _set(string $fieldName, mixed $value, bool $load = true)
     {
         if (array_key_exists($fieldName, $this->_values)) {
             $this->setInternalValue($fieldName, $value);
@@ -1242,11 +1244,11 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * and change it in the database when it is not necessary
      *
      * @param string $type  Doctrine type of the column
-     * @param string $old   Old value
-     * @param string $new   New value
-     * @return boolean $modified  Whether or not Doctrine considers the value modified
+     * @param mixed $old   Old value
+     * @param mixed $new   New value
+     * @return bool $modified  Whether or not Doctrine considers the value modified
      */
-    protected function _isValueModified($type, $old, $new)
+    private function _isValueModified(string $type, mixed $old, mixed $new): bool
     {
         if ($new instanceof Doctrine_Expression) {
             return true;
@@ -1355,9 +1357,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * test whether a field (column, mapped value, related component, accessor) is accessible by @see get()
      *
      * @param string $fieldName
-     * @return boolean
+     * @return bool
      */
-    public function contains($fieldName)
+    final public function contains(mixed $fieldName): bool
     {
         if (array_key_exists($fieldName, $this->_data)) {
             // this also returns true if the field is a Doctrine_Null.
@@ -1379,11 +1381,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     }
 
     /**
-     * deletes a column or a related component.
-     * @param string $name
-     * @return void
+     * @deprecated use appropriate set*(null) or unlink($name)
      */
-    public function __unset($name)
+    final public function __unset(mixed $name): void
     {
         if (array_key_exists($name, $this->_data)) {
             $this->_data[$name] = array();
@@ -1424,6 +1424,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
 
     /**
      * @deprecated
+     * @see Doctrine_Hydrator_Graph::hydrateResultSet
      */
     final public function offsetExists(mixed $offset): bool
     {
@@ -1432,6 +1433,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
 
     /**
      * @deprecated use appropriate get*($offset)
+     * @see Doctrine_Hydrator_Graph::hydrateResultSet
      */
     final public function offsetGet(mixed $offset): mixed
     {
@@ -1440,6 +1442,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
 
     /**
      * @deprecated use appropriate set*($offset, $value)
+     * @see Doctrine_Hydrator_Graph::hydrateResultSet
      */
     final public function offsetSet(mixed $offset, mixed $value): void
     {
@@ -1458,9 +1461,12 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * returns Doctrine_Record instances which need to be deleted on save
      *
+     * @internal
+     * @see Doctrine_Connection_UnitOfWork
+     *
      * @return array
      */
-    public function getPendingDeletes()
+    final public function getPendingDeletes(): array
     {
         return $this->_pendingDeletes;
     }
@@ -1468,9 +1474,12 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * returns Doctrine_Record instances which need to be unlinked (deleting the relation) on save
      *
+     * @internal
+     * @see Doctrine_Connection_UnitOfWork
+     *
      * @return array $pendingUnlinks
      */
-    public function getPendingUnlinks()
+    final public function getPendingUnlinks(): array
     {
         return $this->_pendingUnlinks;
     }
@@ -1478,9 +1487,10 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * resets pending record unlinks
      *
-     * @return void
+     * @internal
+     * @see Doctrine_Connection_UnitOfWork
      */
-    public function resetPendingUnlinks()
+    final public function resetPendingUnlinks(): void
     {
         $this->_pendingUnlinks = array();
     }
@@ -1492,11 +1502,13 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      *
      * this method also saves the related components
      *
-     * @param Doctrine_Connection $conn     optional connection parameter
+     * @final
+     *
+     * @param null|Doctrine_Connection $conn     optional connection parameter
      * @throws Exception                    if record is not valid and validation is active
      * @return void
      */
-    public function save(Doctrine_Connection $conn = null)
+    public function save(?Doctrine_Connection $conn = null)
     {
         if ($conn === null) {
             $conn = $this->_table->getConnection();
@@ -1510,10 +1522,11 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * throw an exception when validation fails but returns TRUE on
      * success or FALSE on failure.
      *
-     * @param Doctrine_Connection $conn                 optional connection parameter
-     * @return TRUE if the record was saved sucessfully without errors, FALSE otherwise.
+     * @param null|Doctrine_Connection $conn                 optional connection parameter
+     * @return bool TRUE if the record was saved sucessfully without errors, FALSE otherwise.
      */
-    public function trySave(Doctrine_Connection $conn = null) {
+    final public function trySave(?Doctrine_Connection $conn = null): bool
+    {
         try {
             $this->save($conn);
             return true;
@@ -1533,13 +1546,14 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * query isemulated through this method for other DBMS using standard types
      * of queries inside a transaction to assure the atomicity of the operation.
      *
-     * @param Doctrine_Connection $conn             optional connection parameter
+     * @final
+     *
+     * @param null|Doctrine_Connection $conn             optional connection parameter
      * @throws Doctrine_Connection_Exception        if some of the key values was null
      * @throws Doctrine_Connection_Exception        if there were no key fields
      * @throws Doctrine_Connection_Exception        if something fails at database level
-     * @return integer                              number of rows affected
      */
-    public function replace(Doctrine_Connection $conn = null)
+    public function replace(?Doctrine_Connection $conn = null): bool
     {
         if ($conn === null) {
             $conn = $this->_table->getConnection();
@@ -1550,11 +1564,11 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * retrieves an array of modified fields and associated new values.
      *
-     * @param boolean $old      pick the old values (instead of the new ones)
-     * @param boolean $last     pick only lastModified values (@see getLastModified())
+     * @param bool $old      pick the old values (instead of the new ones)
+     * @param bool $last     pick only lastModified values (@see getLastModified())
      * @return array $a
      */
-    public function getModified($old = false, $last = false)
+    final public function getModified(bool $old = false, bool $last = false): array
     {
         $a = array();
 
@@ -1574,10 +1588,10 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * returns an array of the modified fields from the last transaction.
      *
-     * @param boolean $old      pick the old values (instead of the new ones)
+     * @param bool $old      pick the old values (instead of the new ones)
      * @return array
      */
-    public function getLastModified($old = false)
+    final public function getLastModified(bool $old = false): array
     {
         return $this->getModified($old, true);
     }
@@ -1589,17 +1603,17 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * adds column aggregation inheritance and converts Records into primary
      * key values.
      *
-     * @param array $array
+     * @internal
+     * @see Doctrine_Connection_UnitOfWork
+     *
      * @return array
      * @todo What about a little bit more expressive name? getPreparedData?
      */
-    public function getPrepared(array $array = array())
+    final public function getPrepared(): array
     {
         $a = array();
 
-        if (empty($array)) {
-            $modifiedFields = $this->_modified;
-        }
+        $modifiedFields = $this->_modified;
 
         foreach ($modifiedFields as $field) {
             $type = $this->_table->getTypeOf($field);
@@ -1650,9 +1664,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * implements Countable interface
      *
-     * @return integer          the number of columns in this record
+     * @return int          the number of columns in this record
      */
-    public function count(): int
+    final public function count(): int
     {
         return count($this->_data);
     }
@@ -1660,9 +1674,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * alias for @see count()
      *
-     * @return integer          the number of columns in this record
+     * @return int          the number of columns in this record
      */
-    public function columnCount()
+    final public function columnCount(): int
     {
         return $this->count();
     }
@@ -1670,12 +1684,14 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * returns the record representation as an array
      *
+     * @final
+     *
      * @link http://www.doctrine-project.org/documentation/manual/1_1/en/working-with-models
-     * @param boolean $deep         whether to include relations
-     * @param boolean $prefixKey    not used
-     * @return array
+     * @param bool $deep         whether to include relations
+     * @param bool $prefixKey    not used
+     * @return array|false
      */
-    public function toArray($deep = true, $prefixKey = false)
+    public function toArray(bool $deep = true, bool $prefixKey = false)
     {
         if ($this->_state == self::STATE_LOCKED || $this->_state == self::STATE_TLOCKED) {
             return false;
@@ -1686,11 +1702,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
 
         $a = array();
 
-        foreach ($this as $column => $value) {
-            if ($value === self::$_null || is_object($value)) {
-                $value = null;
-            }
-
+        foreach ($this as $column => $_value) {
             $columnValue = $this->get($column, false);
 
             if ($columnValue instanceof Doctrine_Record) {
@@ -1730,30 +1742,28 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      *
      * @see fromArray()
      * @link http://www.doctrine-project.org/documentation/manual/1_1/en/working-with-models
-     * @param string $array  array of data to merge, see link for documentation
+     * @param array|static $array  array of data to merge, see link for documentation
      * @param bool   $deep   whether or not to merge relations
-     * @return void
      */
-    public function merge($data, $deep = true)
+    final public function merge(array|self $data, bool $deep = true): void
     {
-        if ($data instanceof $this) {
+        if ($data instanceof self) {
             $array = $data->toArray($deep);
-        } else if (is_array($data)) {
+        } else {
             $array = $data;
         }
 
-        return $this->fromArray($array, $deep);
+        $this->fromArray($array, $deep);
     }
 
     /**
      * imports data from a php array
      *
      * @link http://www.doctrine-project.org/documentation/manual/1_1/en/working-with-models
-     * @param string $array  array of data, see link for documentation
+     * @param array $array  array of data, see link for documentation
      * @param bool   $deep   whether or not to act on relations
-     * @return void
      */
-    public function fromArray(array $array, $deep = true)
+    final public function fromArray(array $array, bool $deep = true): void
     {
         $refresh = false;
         foreach ($array as $key => $value) {
@@ -1797,7 +1807,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * returns true if this record is saved in the database, otherwise false (it is transient)
      *
-     * @return boolean
+     * @final
+     * @return bool
      */
     public function exists()
     {
@@ -1810,10 +1821,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * returns true if this record was modified, otherwise false
      *
-     * @param boolean $deep     whether to process also the relations for changes
-     * @return boolean
+     * @param bool $deep     whether to process also the relations for changes
      */
-    public function isModified($deep = false)
+    final public function isModified(bool $deep = false): bool
     {
         $modified = ($this->_state === Doctrine_Record::STATE_DIRTY ||
                 $this->_state === Doctrine_Record::STATE_TDIRTY);
@@ -1845,10 +1855,10 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
 
     /**
      * checks existence of properties and related components
-     * @param mixed $fieldName   name of the property or reference
-     * @return boolean
+     * @param string $fieldName   name of the property or reference
+     * @return bool
      */
-    public function hasRelation($fieldName)
+    final public function hasRelation(string $fieldName): bool
     {
         if (isset($this->_data[$fieldName]) || isset($this->_id[$fieldName])) {
             return true;
@@ -1860,7 +1870,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * implements IteratorAggregate interface
      * @return Doctrine_Record_Iterator     iterator through data
      */
-    public function getIterator(): Traversable
+    final public function getIterator(): Traversable
     {
         return new Doctrine_Record_Iterator($this);
     }
@@ -1871,9 +1881,10 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      *
      * this event can be listened by the onPreDelete and onDelete listeners
      *
-     * @return boolean      true if successful
+     * @final
+     * @return bool      true if successful
      */
-    public function delete(Doctrine_Connection $conn = null)
+    public function delete(?Doctrine_Connection $conn = null): bool
     {
         if ($conn == null) {
             $conn = $this->_table->getConnection();
@@ -1884,10 +1895,11 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * generates a copy of this object. Returns an instance of the same class of $this.
      *
-     * @param boolean $deep     whether to duplicates the objects targeted by the relations
+     * @final
+     * @param bool $deep     whether to duplicates the objects targeted by the relations
      * @return static
      */
-    public function copy($deep = false): static
+    public function copy(bool $deep = false): static
     {
         $data = $this->_data;
         $idtype = $this->_table->getIdentifierType();
@@ -1898,6 +1910,10 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
         }
 
         $ret = $this->_table->create($data);
+
+        if (!$ret instanceof static) {
+            throw new Doctrine_Record_Exception(sprintf('Table returned a record of type %s, but expected %s', get_debug_type($ret), static::class));
+        }
 
         $ret->_modified = [];
 
@@ -1926,9 +1942,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * assigns an identifier to the instance, for database storage
      *
      * @param mixed $id     a key value or an array of keys
-     * @return void
      */
-    public function assignIdentifier($id = false)
+    final public function assignIdentifier(mixed $id = false): void
     {
         if ($id === false) {
             $this->_id       = array();
@@ -1957,10 +1972,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
 
     /**
      * returns the primary keys of this object
-     *
-     * @return array
      */
-    public function identifier()
+    final public function identifier(): array
     {
         return $this->_id;
     }
@@ -1968,10 +1981,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * returns the value of autoincremented primary key of this object (if any)
      *
-     * @return integer
      * @todo Better name?
      */
-    final public function getIncremented()
+    final public function getIncremented(): int|string|null
     {
         $id = current($this->_id);
         if ($id === false) {
@@ -1986,10 +1998,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * this method is used internally by Doctrine_Query
      * it is needed to provide compatibility between
      * records and collections
-     *
-     * @return Doctrine_Record
      */
-    public function getLast()
+    final public function getLast(): static
     {
         return $this;
     }
@@ -1997,9 +2007,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * tests whether a relation is set
      * @param string $name  relation alias
-     * @return boolean
      */
-    public function hasReference($name)
+    final public function hasReference(string $name): bool
     {
         return isset($this->_references[$name]);
     }
@@ -2010,7 +2019,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * @param string $name
      * @throws Doctrine_Record_Exception        if trying to get an unknown related component
      */
-    public function obtainReference($name)
+    private function obtainReference(string $name): Doctrine_Record|Doctrine_Collection|Doctrine_Null
     {
         if (isset($this->_references[$name])) {
             return $this->_references[$name];
@@ -2022,7 +2031,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * get all related components
      * @return array    various Doctrine_Collection or Doctrine_Record instances
      */
-    public function getReferences()
+    final public function getReferences(): array
     {
         return $this->_references;
     }
@@ -2035,7 +2044,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * @param string $name                          alias of the relation
      * @return void
      */
-    private function loadReference($name): void
+    private function loadReference(string $name): void
     {
         $rel = $this->_table->getRelation($name);
         $this->_references[$name] = $rel->fetchRelatedFor($this);
@@ -2044,9 +2053,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     /**
      * getter for node associated with this record
      *
-     * @return Doctrine_Node    false if component is not a Tree
+     * @return Doctrine_Node|false    false if component is not a Tree
      */
-    public function getNode()
+    final public function getNode(): Doctrine_Node|false
     {
         if ( ! $this->_table->isTree()) {
             return false;
@@ -2068,11 +2077,12 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * if no ids are given, it removes all links
      *
      * @param string $alias     related component alias
-     * @param array $ids        the identifiers of the related records
-     * @param boolean $now      whether or not to execute now or set as pending unlinks
+     * @param int|string|array $ids        the identifiers of the related records
+     * @param bool $now      whether or not to execute now or set as pending unlinks
+     * @final
      * @return Doctrine_Record  this object (fluent interface)
      */
-    public function unlink($alias, $ids = array(), $now = false)
+    public function unlink(string $alias, int|string|array $ids = array(), bool $now = false)
     {
         $ids = (array) $ids;
 
@@ -2115,9 +2125,10 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * unlink now the related components, querying the db
      * @param string $alias     related component alias
      * @param array $ids        the identifiers of the related records
+     * @final
      * @return Doctrine_Record  this object (fluent interface)
      */
-    public function unlinkInDb($alias, $ids = array())
+    public function unlinkInDb(string $alias, array $ids = array())
     {
         $rel = $this->getTable()->getRelation($alias);
 
@@ -2151,11 +2162,12 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * creates links from this record to given records
      *
      * @param string $alias     related component alias
-     * @param array $ids        the identifiers of the related records
-     * @param boolean $now      wether or not to execute now or set pending
+     * @param int|string|array $ids        the identifiers of the related records
+     * @param bool $now      wether or not to execute now or set pending
+     * @final
      * @return Doctrine_Record  this object (fluent interface)
      */
-    public function link($alias, $ids, $now = false)
+    public function link(string $alias, int|string|array $ids, bool $now = false)
     {
         $ids = (array) $ids;
 
@@ -2198,9 +2210,10 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      *
      * @param string $alias     related component alias
      * @param array $ids        the identifiers of the related records
+     * @final
      * @return Doctrine_Record  this object (fluent interface)
      */
-    public function linkInDb($alias, $ids)
+    public function linkInDb(string $alias, array $ids)
     {
         $identifier = array_values($this->identifier());
         $identifier = array_shift($identifier);
@@ -2213,7 +2226,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
             $localFieldDef  = $rel->getAssociationTable()->getColumnDefinition($localFieldName);
 
             if ($localFieldDef['type'] == 'integer') {
-                $identifier = (integer) $identifier;
+                $identifier = (int) $identifier;
             }
 
             $foreignFieldName = $rel->getForeignFieldName();
@@ -2221,7 +2234,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
 
             if ($foreignFieldDef['type'] == 'integer') {
                 foreach ($ids as $i => $id) {
-                    $ids[$i] = (integer) $id;
+                    $ids[$i] = (int) $id;
                 }
             }
 
@@ -2262,10 +2275,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * Reset the modified array and store the old array in lastModified so it
      * can be accessed by users after saving a record, since the modified array
      * is reset after the object is saved.
-     *
-     * @return void
      */
-    protected function _resetModified()
+    private function _resetModified(): void
     {
         if ( ! empty($this->_modified)) {
             $this->_lastModified = $this->_modified;
@@ -2282,15 +2293,17 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      *
      * So, in sense, this method replicates the usage of mixins (as seen in some programming languages)
      *
+     * @final
+     *
      * @param string $method        name of the method
-     * @param array $args           method arguments
+     * @param array $arguments           method arguments
      * @return mixed                the return value of the given method
      */
-    public function __call($method, $args)
+    public function __call(string $method, array $arguments): mixed
     {
         if (($template = $this->_table->getMethodOwner($method)) !== false) {
             $template->setInvoker($this);
-            return call_user_func_array(array($template, $method), $args);
+            return call_user_func_array(array($template, $method), $arguments);
         }
 
         foreach ($this->_table->getTemplates() as $template) {
@@ -2298,7 +2311,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
                 $template->setInvoker($this);
                 $this->_table->setMethodOwner($method, $template);
 
-                return call_user_func_array(array($template, $method), $args);
+                return call_user_func_array(array($template, $method), $arguments);
             }
         }
 
@@ -2307,7 +2320,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
 
     /**
      * used to delete node from tree - MUST BE USE TO DELETE RECORD IF TABLE ACTS AS TREE
-     *
+     * @final
      */
     public function deleteNode()
     {
@@ -2320,9 +2333,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      * from the instance pool.
      * Note: The entity is no longer useable after free() has been called. Any operations
      * done with the entity afterwards can lead to unpredictable results.
-     * @param boolean $deep     whether to free also the related components
+     * @param bool $deep     whether to free also the related components
      */
-    public function free($deep = false)
+    final public function free(bool $deep = false): void
     {
         if ($this->_state != self::STATE_LOCKED && $this->_state != self::STATE_TLOCKED) {
             $this->_state = $this->exists() ? self::STATE_LOCKED : self::STATE_TLOCKED;
@@ -2333,7 +2346,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
             $this->_id = array();
 
             if ($deep) {
-                foreach ($this->_references as $name => $reference) {
+                foreach ($this->_references as $reference) {
                     if ( ! ($reference instanceof Doctrine_Null)) {
                         $reference->free($deep);
                     }
@@ -2346,10 +2359,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
 
     /**
      * __toString alias
-     *
-     * @return string
      */
-    public function toString()
+    final public function toString(): string
     {
         return Doctrine_Core::dump(get_object_vars($this));
     }

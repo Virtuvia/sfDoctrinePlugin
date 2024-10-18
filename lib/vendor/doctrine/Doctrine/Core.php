@@ -1151,9 +1151,9 @@ class Doctrine_Core
      * @param mixed $var        a variable of any type
      * @param boolean $output   whether to output the content
      * @param string $indent    indention string
-     * @return void|string
+     * @return string
      */
-    public static function dump($var, $output = true, $indent = "")
+    public static function dump($var, $output = true, $indent = ""): string
     {
         $ret = array();
         switch (gettype($var)) {

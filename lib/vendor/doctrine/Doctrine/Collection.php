@@ -94,7 +94,10 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
         }
     }
 
-    public static function create($table, $keyColumn = null, $class = null)
+    /**
+     * @param null|class-string<Doctrine_Collection> $class
+     */
+    public static function create($table, $keyColumn = null, ?string $class = null)
     {
         if (is_null($class)) {
             if ( ! $table instanceof Doctrine_Table) {

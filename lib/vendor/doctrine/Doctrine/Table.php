@@ -41,7 +41,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     /**
      * @var array $data                                 temporary data which is then loaded into Doctrine_Record::$_data
      */
-    protected $_data             = array();
+    protected array $_data             = array();
 
     /**
      * @var mixed $identifier   The field names of all fields that are part of the identifier/primary key
@@ -49,10 +49,9 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     protected $_identifier = array();
 
     /**
-     * @see Doctrine_Identifier constants
-     * @var integer $identifierType                     the type of identifier this table uses
+     * @var null|Doctrine_Core::IDENTIFIER_* $identifierType                     the type of identifier this table uses
      */
-    protected $_identifierType;
+    protected ?int $_identifierType = null;
 
     /**
      * @var Doctrine_Connection $conn                   Doctrine_Connection object that created this table
@@ -111,7 +110,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     protected $_columnNames = array();
 
     /**
-     * @var integer $columnCount            cached column count, Doctrine_Record uses this column count in when
+     * @var int $columnCount            cached column count, Doctrine_Record uses this column count in when
      *                                      determining its state
      */
     protected $columnCount;
@@ -620,9 +619,8 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * getMethodOwner
      *
      * @param string $method
-     * @return void
      */
-    public function getMethodOwner($method)
+    public function getMethodOwner($method): Doctrine_Template|false
     {
         return (isset($this->_invokedMethods[$method])) ?
                       $this->_invokedMethods[$method] : false;
@@ -967,7 +965,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * @param array $args       first value is a string, name of related component;
      *                          second value is array, options for the relation.
      *                          @see Doctrine_Relation::_$definition
-     * @param integer $type     Doctrine_Relation::ONE or Doctrine_Relation::MANY
+     * @param int $type     Doctrine_Relation::ONE or Doctrine_Relation::MANY
      * @return void
      * @todo Name proposal: addRelation
      */
@@ -1310,7 +1308,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * @see $_columns;
      * @param string $name      column physical name
      * @param string $type      type of data
-     * @param integer $length   maximum length
+     * @param int $length   maximum length
      * @param mixed $options
      * @param boolean $prepend  Whether to prepend or append the new column to the column list.
      *                          By default the column gets appended.
@@ -1480,10 +1478,8 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * Retrieves the type of primary key.
      *
      * This method finds out if the primary key is multifield.
-     * @see Doctrine_Identifier constants
-     * @return integer
      */
-    public function getIdentifierType()
+    public function getIdentifierType(): int|null
     {
         return $this->_identifierType;
     }
@@ -1532,9 +1528,9 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     /**
      * Returns the connection associated with this table (if any).
      *
-     * @return Doctrine_Connection|null     the connection object
+     * @return Doctrine_Connection     the connection object
      */
-    public function getConnection()
+    public function getConnection(): Doctrine_Connection
     {
         return $this->_conn;
     }
@@ -1983,7 +1979,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     /**
      * Implements Countable interface.
      *
-     * @return integer number of records in the table
+     * @return int number of records in the table
      */
     public function count(): int
     {
@@ -2023,7 +2019,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * on the connection, index and value are the same thing.
      *
      * @param string $fieldName
-     * @param integer $index        numeric index of the enum
+     * @param int $index        numeric index of the enum
      * @return mixed
      */
     public function enumValue($fieldName, $index)
@@ -2047,7 +2043,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      *
      * @param string $fieldName
      * @param mixed $value          value of the enum considered
-     * @return integer              can be string if native enums are used.
+     * @return int              can be string if native enums are used.
      */
     public function enumIndex($fieldName, $value)
     {
@@ -2177,7 +2173,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     }
 
     /**
-     * @return integer      the number of columns in this table
+     * @return int      the number of columns in this table
      */
     public function getColumnCount()
     {
@@ -2683,7 +2679,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * For decimal fields, it is the total number of cyphers
      *
      * @param string $fieldName
-     * @return integer
+     * @return int
      */
     public function getFieldLength($fieldName)
     {

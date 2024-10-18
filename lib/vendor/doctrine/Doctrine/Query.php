@@ -270,7 +270,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      * Convenience method to execute the query and return the first item
      * of the collection.
      *
-     * @param string $executeParams        Query parameters
+     * @param array $executeParams        Query parameters
      * @param int $hydrationMode    Hydration mode: see Doctrine_Core::HYDRATE_* constants
      * @return mixed                Array or Doctrine_Collection, depending on hydration mode. False if no result.
      */

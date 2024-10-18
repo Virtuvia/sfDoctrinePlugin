@@ -70,7 +70,7 @@ abstract class Doctrine_Configurable
      * @throws Doctrine_Exception           if the value is invalid
      * @return void
      */
-    public function setAttribute($attribute, $value)
+    public function setAttribute(int|string $attribute, mixed $value)
     {
         switch ($attribute) {
             case Doctrine_Core::ATTR_LISTENER:
@@ -214,13 +214,7 @@ abstract class Doctrine_Configurable
         return $this->setListener($listener);
     }
 
-    /**
-     * addRecordListener
-     *
-     * @param Doctrine_EventListener_Interface|Doctrine_Overloadable $listener
-     * @return Doctrine_Configurable        this object
-     */
-    public function addRecordListener($listener, $name = null)
+    public function addRecordListener(Doctrine_Record_Listener_Interface $listener, string $name = null): static
     {
         if ( ! isset($this->attributes[Doctrine_Core::ATTR_RECORD_LISTENER]) ||
              ! ($this->attributes[Doctrine_Core::ATTR_RECORD_LISTENER] instanceof Doctrine_Record_Listener_Chain)) {
@@ -232,12 +226,7 @@ abstract class Doctrine_Configurable
         return $this;
     }
 
-    /**
-     * getListener
-     *
-     * @return Doctrine_EventListener_Interface|Doctrine_Overloadable
-     */
-    public function getRecordListener()
+    public function getRecordListener(): ?Doctrine_Record_Listener_Interface
     {
         if ( ! isset($this->attributes[Doctrine_Core::ATTR_RECORD_LISTENER])) {
             if (isset($this->parent)) {

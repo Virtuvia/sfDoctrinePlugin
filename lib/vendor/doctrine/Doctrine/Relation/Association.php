@@ -38,12 +38,12 @@ class Doctrine_Relation_Association extends Doctrine_Relation
     /**
      * @return Doctrine_Table
      */
-    public function getAssociationFactory()
+    public function getAssociationFactory(): Doctrine_Table
     {
         return $this->definition['refTable'];
     }
 
-    public function getAssociationTable()
+    public function getAssociationTable(): Doctrine_Table
     {
         return $this->definition['refTable'];
     }
