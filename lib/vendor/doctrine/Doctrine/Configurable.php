@@ -249,24 +249,6 @@ abstract class Doctrine_Configurable
     }
 
     /**
-     * setListener
-     *
-     * @param Doctrine_EventListener_Interface|Doctrine_Overloadable $listener
-     * @return Doctrine_Configurable        this object
-     */
-    public function setRecordListener($listener)
-    {
-        if ( ! ($listener instanceof Doctrine_Record_Listener_Interface)
-            && ! ($listener instanceof Doctrine_Overloadable)
-        ) {
-            throw new Doctrine_Exception("Couldn't set eventlistener. Record listeners should implement either Doctrine_Record_Listener_Interface or Doctrine_Overloadable");
-        }
-        $this->attributes[Doctrine_Core::ATTR_RECORD_LISTENER] = $listener;
-
-        return $this;
-    }
-
-    /**
      * addListener
      *
      * @param Doctrine_EventListener_Interface|Doctrine_Overloadable $listener

@@ -296,7 +296,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
 
         if (is_null($event)) {
             $constant = constant('Doctrine_Event::RECORD_' . strtoupper($type));
-            //echo $func . " - " . 'Doctrine_Event::RECORD_' . strtoupper($type) . "\n";
             $event = new Doctrine_Event($this, $constant);
         }
 
@@ -561,24 +560,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
         }
 
         return $this->_errorStack;
-    }
-
-    /**
-     * assigns the ErrorStack or returns it if called without parameters
-     *
-     * @param Doctrine_Validator_ErrorStack          errorStack to be assigned for this record
-     * @return void|Doctrine_Validator_ErrorStack    returns the errorStack associated with this record
-     */
-    public function errorStack($stack = null)
-    {
-        if ($stack !== null) {
-            if ( ! ($stack instanceof Doctrine_Validator_ErrorStack)) {
-               throw new Doctrine_Record_Exception('Argument should be an instance of Doctrine_Validator_ErrorStack.');
-            }
-            $this->_errorStack = $stack;
-        } else {
-            return $this->getErrorStack();
-        }
     }
 
     /**
@@ -2021,19 +2002,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
     public function hasReference($name)
     {
         return isset($this->_references[$name]);
-    }
-
-    /**
-     * gets a related component
-     *
-     * @param string $name
-     * @return Doctrine_Record|Doctrine_Collection
-     */
-    public function reference($name)
-    {
-        if (isset($this->_references[$name])) {
-            return $this->_references[$name];
-        }
     }
 
     /**
