@@ -37,6 +37,8 @@ class Doctrine_Core
      */
     const VERSION                   = '1.2.4.23';
 
+    public const PACKAGE = 'virtuvia/sf-doctrine-plugin';
+
     /**
      * ERROR CONSTANTS
      */
