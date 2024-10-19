@@ -1120,7 +1120,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
         $mutator = 'set' . Doctrine_Inflector::classify($fieldName);
 
         if (method_exists($this, $mutator)) {
-            return $this->$mutator($value, $load, $fieldName);
+            $this->$mutator($value, $load, $fieldName);
+
+            return $this;
         }
 
         return $this->_set($fieldName, $value, $load);
