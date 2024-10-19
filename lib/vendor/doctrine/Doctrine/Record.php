@@ -1405,6 +1405,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      */
     final public function __set(string $name, mixed $value): void
     {
+        trigger_error(sprintf('%s(%s, ...) is deprecated.', __METHOD__, $name), E_USER_DEPRECATED);
         $this->set($name, $value);
     }
 
@@ -1413,6 +1414,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      */
     final public function __get(string $name): mixed
     {
+        trigger_error(sprintf('%s(%s) is deprecated.', __METHOD__, $name), E_USER_DEPRECATED);
         return $this->get($name);
     }
 
@@ -1421,6 +1423,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      */
     final public function __isset(string $name): bool
     {
+        trigger_error(sprintf('%s(%s) is deprecated.', __METHOD__, $name), E_USER_DEPRECATED);
         return $this->contains($name);
     }
 
@@ -1430,6 +1433,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      */
     final public function offsetExists(mixed $offset): bool
     {
+        trigger_error(sprintf('%s(%s) is deprecated.', __METHOD__, is_scalar($offset) ? $offset : get_debug_type($offset)), E_USER_DEPRECATED);
         return $this->contains($offset);
     }
 
@@ -1439,6 +1443,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      */
     final public function offsetGet(mixed $offset): mixed
     {
+        trigger_error(sprintf('%s(%s) is deprecated.', __METHOD__, is_scalar($offset) ? $offset : get_debug_type($offset)), E_USER_DEPRECATED);
         return $this->get($offset);
     }
 
@@ -1448,6 +1453,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Internals implements Arra
      */
     final public function offsetSet(mixed $offset, mixed $value): void
     {
+        trigger_error(sprintf('%s(%s, ...) is deprecated.', __METHOD__, is_scalar($offset) ? $offset : get_debug_type($offset)), E_USER_DEPRECATED);
         if ( ! isset($offset)) {
             throw new Doctrine_Exception('Add is not supported for ' . static::class);
         } else {
