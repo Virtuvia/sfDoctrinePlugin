@@ -407,7 +407,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
         }
 
         if ( ! isset($this->_dqlParts[$queryPart])) {
-           throw new Doctrine_Query_Exception('Unknown query part ' . $queryPart);
+            throw new Doctrine_Query_Exception('Unknown query part ' . $queryPart);
         }
 
         return $this->_dqlParts[$queryPart];
@@ -423,7 +423,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      */
     public function contains($dql)
     {
-      return stripos($this->getDql(), $dql) === false ? false : true;
+        return stripos($this->getDql(), $dql) === false ? false : true;
     }
 
     /**
@@ -707,7 +707,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
         $clause = $this->_conn->dataDict->parseBoolean(trim($clause));
 
         if (is_numeric($clause)) {
-           return $clause;
+            return $clause;
         }
 
         $terms = $this->_tokenizer->clauseExplode($clause, array(' ', '+', '-', '*', '/', '<', '>', '=', '>=', '<=', '&', '|'));
@@ -843,7 +843,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
         // parse args
 
         foreach ($this->_tokenizer->sqlExplode($argStr, ',') as $arg) {
-           $args[] = $parseCallback ? call_user_func_array($parseCallback, array($arg)) : $this->parseClause($arg);
+            $args[] = $parseCallback ? call_user_func_array($parseCallback, array($arg)) : $this->parseClause($arg);
         }
 
         // convert DQL function to its RDBMS specific equivalent
@@ -1006,14 +1006,14 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
         switch ($this->_type) {
             case self::DELETE:
                 $q = 'DELETE FROM ';
-            break;
+                break;
             case self::UPDATE:
                 $q = 'UPDATE ';
-            break;
+                break;
             case self::SELECT:
                 $distinct = ($this->_sqlParts['distinct']) ? 'DISTINCT ' : '';
                 $q = 'SELECT ' . $distinct . implode(', ', $this->_sqlParts['select']) . ' FROM ';
-            break;
+                break;
         }
         return $q;
     }
@@ -1065,7 +1065,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
             } else {
                 if (substr($part, 0, 9) === 'LEFT JOIN') {
                     $aliases = array_merge($this->_subqueryAliases,
-                                array_keys($this->_neededTables));
+                        array_keys($this->_neededTables));
 
                     if ( ! in_array($e[3], $aliases) && ! in_array($e[2], $aliases) && ! empty($this->_pendingFields)) {
                         continue;
@@ -1541,7 +1541,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
                 // Rebuild the original part without the newly generate alias and with quoting reapplied
                 $e2 = array();
                 foreach ($e as $k2 => $v2) {
-                  $e2[$k2] = $this->_conn->quoteIdentifier($v2);
+                    $e2[$k2] = $this->_conn->quoteIdentifier($v2);
                 }
                 $match = implode('.', $e2);
 
@@ -1550,7 +1550,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
 
                 // Requote the part with the newly generated alias
                 foreach ($e as $k2 => $v2) {
-                  $e[$k2] = $this->_conn->quoteIdentifier($v2);
+                    $e[$k2] = $this->_conn->quoteIdentifier($v2);
                 }
 
                 $replace = implode('.' , $e);
@@ -1613,26 +1613,26 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
             switch ($partName) {
                 case 'create':
                     $this->_type = self::CREATE;
-                break;
+                    break;
                 case 'insert':
                     $this->_type = self::INSERT;
-                break;
+                    break;
                 case 'delete':
                     $this->_type = self::DELETE;
-                break;
+                    break;
                 case 'select':
                     $this->_type = self::SELECT;
                     $this->_addDqlQueryPart($partName, $subParts);
-                break;
+                    break;
                 case 'update':
                     $this->_type = self::UPDATE;
                     $partName = 'from';
                 case 'from':
                     $this->_addDqlQueryPart($partName, $subParts);
-                break;
+                    break;
                 case 'set':
                     $this->_addDqlQueryPart($partName, $subParts, true);
-                break;
+                    break;
                 case 'group':
                 case 'order':
                     $partName .= 'by';
@@ -1641,7 +1641,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
                 case 'limit':
                 case 'offset':
                     $this->_addDqlQueryPart($partName, $subParts);
-                break;
+                    break;
             }
         }
 

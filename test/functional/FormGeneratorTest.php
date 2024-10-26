@@ -18,10 +18,10 @@ $t->diag("Test that these models don't generate forms or filters classes");
 $noFormsOrFilters = array('UserGroup', 'UserPermission', 'GroupPermission');
 foreach ($noFormsOrFilters as $model)
 {
-  $t->is(file_exists(sfConfig::get('sf_lib_dir').'/form/doctrine/'.$model.'Form.class.php'), false);
-  $t->is(file_exists(sfConfig::get('sf_lib_dir').'/form/doctrine/base/Base'.$model.'Form.class.php'), false);
-  $t->is(file_exists(sfConfig::get('sf_lib_dir').'/filter/doctrine/'.$model.'FormFilter.class.php'), false);
-  $t->is(file_exists(sfConfig::get('sf_lib_dir').'/filter/doctrine/base/Base'.$model.'FormFilter.class.php'), false);
+    $t->is(file_exists(sfConfig::get('sf_lib_dir').'/form/doctrine/'.$model.'Form.class.php'), false);
+    $t->is(file_exists(sfConfig::get('sf_lib_dir').'/form/doctrine/base/Base'.$model.'Form.class.php'), false);
+    $t->is(file_exists(sfConfig::get('sf_lib_dir').'/filter/doctrine/'.$model.'FormFilter.class.php'), false);
+    $t->is(file_exists(sfConfig::get('sf_lib_dir').'/filter/doctrine/base/Base'.$model.'FormFilter.class.php'), false);
 }
 
 $t->diag('FormGeneratorTest model should generate forms but not filters');
@@ -86,11 +86,11 @@ $t->is($test->getValidator('author_id')->getOption('model'), 'BlogAuthor');
 $t->diag('Check enum primary keys');
 try
 {
-  $test = new ResourceTypeForm();
-  $t->pass('enum primary key widgets work');
+    $test = new ResourceTypeForm();
+    $t->pass('enum primary key widgets work');
 }
 catch (InvalidArgumentException $e)
 {
-  $t->fail('enum primary key widgets work');
-  $t->diag('    '.$e->getMessage());
+    $t->fail('enum primary key widgets work');
+    $t->diag('    '.$e->getMessage());
 }

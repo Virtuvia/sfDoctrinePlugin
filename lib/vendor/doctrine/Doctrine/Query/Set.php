@@ -34,20 +34,20 @@ class Doctrine_Query_Set extends Doctrine_Query_Part
 {
     public function parse($dql)
     {
-	    $terms = $this->_tokenizer->sqlExplode($dql, ' ');
+        $terms = $this->_tokenizer->sqlExplode($dql, ' ');
         $termsTranslation = array();
 
         foreach ($terms as $term) {
-	        $termOriginal = $term;
+            $termOriginal = $term;
 
-	        // We need to check for agg functions here
+            // We need to check for agg functions here
             $matches = array();
             $hasAggExpression = $this->_processPossibleAggExpression($term, $matches);
 
             $lftExpr = (($hasAggExpression) ? $matches[1] . '(' : '');
             $rgtExpr = (($hasAggExpression) ? $matches[3] . ')' : '');
 
-	        preg_match_all("/^([a-zA-Z0-9_]+[\.[a-zA-Z0-9_]+]*)(\sAS\s[a-zA-Z0-9_]+)?/i", $term, $m, PREG_SET_ORDER);
+            preg_match_all("/^([a-zA-Z0-9_]+[\.[a-zA-Z0-9_]+]*)(\sAS\s[a-zA-Z0-9_]+)?/i", $term, $m, PREG_SET_ORDER);
 
             if (isset($m[0])) {
                 $processed = array();
@@ -61,7 +61,7 @@ class Doctrine_Query_Set extends Doctrine_Query_Part
                     $aliasMap   = $this->query->getQueryComponent($reference);
 
                     if ($aliasMap['table']->hasField($fieldName)) {
-	                    $columnName = $aliasMap['table']->getColumnName($fieldName);
+                        $columnName = $aliasMap['table']->getColumnName($fieldName);
                         $columnName = $aliasMap['table']->getConnection()->quoteIdentifier($columnName);
 
                         $part = $columnName;

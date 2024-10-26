@@ -180,13 +180,13 @@ class Doctrine_Pager_Layout
     }
 
 
-     /**
-     * getTemplate
-     *
-     * Returns the Template to be applied for inactive pages
-     *
-     * @return string        Template to be applied for inactive pages
-     */
+    /**
+    * getTemplate
+    *
+    * Returns the Template to be applied for inactive pages
+    *
+    * @return string        Template to be applied for inactive pages
+    */
     public function getTemplate()
     {
         return $this->_template;
@@ -381,7 +381,7 @@ class Doctrine_Pager_Layout
      */
     public function __toString(): string
     {
-      return $this->display(array(), true);
+        return $this->display(array(), true);
     }
 
     /**

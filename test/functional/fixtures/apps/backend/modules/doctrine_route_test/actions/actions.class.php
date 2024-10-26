@@ -10,16 +10,16 @@
  */
 class doctrine_route_testActions extends sfActions
 {
-  public function executeIndex(sfWebRequest $request)
-  {
-    try {
-      $this->object = $this->getRoute()->getObjects();
-    } catch (Exception $e) {
-      try {
-        $this->object = $this->getRoute()->getObject();
-      } catch (Exception $e) {
-        return sfView::NONE;
-      }
+    public function executeIndex(sfWebRequest $request)
+    {
+        try {
+            $this->object = $this->getRoute()->getObjects();
+        } catch (Exception $e) {
+            try {
+                $this->object = $this->getRoute()->getObject();
+            } catch (Exception $e) {
+                return sfView::NONE;
+            }
+        }
     }
-  }
 }

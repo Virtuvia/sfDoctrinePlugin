@@ -10,7 +10,7 @@
  */
 class ResourceTypeFormFilter extends BaseResourceTypeFormFilter
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }

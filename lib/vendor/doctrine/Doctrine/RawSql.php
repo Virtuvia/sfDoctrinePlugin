@@ -78,22 +78,22 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
      *                                  the given query part stack with $queryPart
      * @return static
      */
- 	public function parseDqlQueryPart($queryPartName, $queryPart, $append = false)
+    public function parseDqlQueryPart($queryPartName, $queryPart, $append = false)
     {
         if ($queryPartName == 'select') {
-     	    $this->_parseSelectFields($queryPart);
-     	    return $this;
-     	}
-     	if ( ! isset($this->_sqlParts[$queryPartName])) {
-     	    $this->_sqlParts[$queryPartName] = array();
-     	}
+            $this->_parseSelectFields($queryPart);
+            return $this;
+        }
+        if ( ! isset($this->_sqlParts[$queryPartName])) {
+            $this->_sqlParts[$queryPartName] = array();
+        }
 
-     	if ( ! $append) {
-     	    $this->_sqlParts[$queryPartName] = array($queryPart);
-     	} else {
-     	    $this->_sqlParts[$queryPartName][] = $queryPart;
-     	}
-     	return $this;
+        if ( ! $append) {
+            $this->_sqlParts[$queryPartName] = array($queryPart);
+        } else {
+            $this->_sqlParts[$queryPartName][] = $queryPart;
+        }
+        return $this;
     }
 
     /**
@@ -286,13 +286,13 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
         return $q;
     }
 
-	/**
+    /**
      * getCountQuery
      * builds the count query.
      *
      * @return string       the built sql query
      */
-	public function getCountSqlQuery($params = array())
+    public function getCountSqlQuery($params = array())
     {
         //Doing COUNT( DISTINCT rootComponent.id )
         //This is not correct, if the result is not hydrated by doctrine, but it mimics the behaviour of Doctrine_Query::getCountQuery
@@ -305,7 +305,7 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
         $fields = array();
 
         foreach ((array) $this->_queryComponents[$componentAlias]['table']->getIdentifierColumnNames() as $key) {
-        	$fields[] = $tableAlias . '.' . $key;
+            $fields[] = $tableAlias . '.' . $key;
         }
 
         $q = 'SELECT COUNT(*) as num_results FROM (SELECT DISTINCT '.implode(', ',$fields);
@@ -329,7 +329,7 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
         return $q;
     }
 
-	/**
+    /**
      * count
      * fetches the count of the query
      *

@@ -77,7 +77,7 @@ class Doctrine_Query_Tokenizer
                     $p = $token;
                     //$parts[$token] = array();
                     $parts[$token] = '';
-                break;
+                    break;
 
                 case 'order':
                 case 'group':
@@ -90,7 +90,7 @@ class Doctrine_Query_Tokenizer
                         $parts[$p] .= "$token ";
                         //$parts[$p][] = $token;
                     }
-                break;
+                    break;
 
                 case 'by':
                     break;
@@ -355,13 +355,13 @@ class Doctrine_Query_Tokenizer
 
         foreach ($quoteTerms as $key => $val) {
             if ($key & 1) { // a quoted string
-               // If the last term had no ending delimiter, we append the string to the element,
-               // otherwise, we create a new element without delimiter
-               if ($terms[$i - 1][1] == '') {
-                   $terms[$i - 1][0] .= $val;
-               } else {
-                   $terms[$i++] = array($val, '', 0);
-               }
+                // If the last term had no ending delimiter, we append the string to the element,
+                // otherwise, we create a new element without delimiter
+                if ($terms[$i - 1][1] == '') {
+                    $terms[$i - 1][0] .= $val;
+                } else {
+                    $terms[$i++] = array($val, '', 0);
+                }
             } else { // Not a quoted string
                 // Do the clause explode
                 $subterms = $this->clauseExplodeNonQuoted($val, $regexp);

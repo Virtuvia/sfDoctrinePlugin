@@ -78,14 +78,14 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      */
     const STATE_LOCKED     = 6;
 
- 	/**
- 	 * TLOCKED STATE
- 	 * a Doctrine_Record is temporarily locked (and transient) during deletes and saves
- 	 *
- 	 * This state is used internally to ensure that circular deletes
- 	 * and saves will not cause infinite loops
- 	 */
- 	const STATE_TLOCKED     = 7;
+    /**
+     * TLOCKED STATE
+     * a Doctrine_Record is temporarily locked (and transient) during deletes and saves
+     *
+     * This state is used internally to ensure that circular deletes
+     * and saves will not cause infinite loops
+     */
+    const STATE_TLOCKED     = 7;
 
 
     /**
@@ -637,7 +637,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     {
         if ($stack !== null) {
             if ( ! ($stack instanceof Doctrine_Validator_ErrorStack)) {
-               throw new Doctrine_Record_Exception('Argument should be an instance of Doctrine_Validator_ErrorStack.');
+                throw new Doctrine_Record_Exception('Argument should be an instance of Doctrine_Validator_ErrorStack.');
             }
             $this->_errorStack = $stack;
         } else {
@@ -1148,8 +1148,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
             if (is_array($data)) {
                 foreach ($data as $field => $value) {
                     if ($table->hasField($field) && ( ! array_key_exists($field, $this->_data) || $this->_data[$field] === self::$_null)) {
-                       $this->_data[$field] = $value;
-                   }
+                        $this->_data[$field] = $value;
+                    }
                 }
             }
 
@@ -1695,14 +1695,14 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
                     break;
                 case 'boolean':
                     $a[$field] = $this->getTable()->getConnection()->convertBooleans($this->_data[$field]);
-                break;
+                    break;
                 case 'set':
                     if (is_array($this->_data[$field])) {
                         $a[$field] = implode(',', $this->_data[$field]);
                     } else {
                         $a[$field] = $this->_data[$field];
                     }
-                break;
+                    break;
                 default:
                     if ($this->_data[$field] instanceof Doctrine_Record) {
                         $a[$field] = $this->_data[$field]->getIncremented();
@@ -1913,7 +1913,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
 
         // Eliminate relationships missing in the $array
         foreach ($this->_references as $name => $relation) {
-	        $rel = $this->getTable()->getRelation($name);
+            $rel = $this->getTable()->getRelation($name);
 
             if ( ! $rel->isRefClass() && ! isset($array[$name]) && ( ! $rel->isOneToOne() || ! isset($array[$rel->getLocalFieldName()]))) {
                 unset($this->$name);
@@ -2264,9 +2264,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
 
         if ( ! isset($this->_node)) {
             $this->_node = Doctrine_Node::factory($this,
-                                              $this->getTable()->getOption('treeImpl'),
-                                              $this->getTable()->getOption('treeOptions')
-                                              );
+                $this->getTable()->getOption('treeImpl'),
+                $this->getTable()->getOption('treeOptions')
+            );
         }
 
         return $this->_node;

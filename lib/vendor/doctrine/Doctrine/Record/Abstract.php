@@ -321,14 +321,14 @@ abstract class Doctrine_Record_Abstract extends Doctrine_Access
      */
     public function bindQueryParts(array $queryParts)
     {
-    	$this->_table->bindQueryParts($queryParts);
+        $this->_table->bindQueryParts($queryParts);
 
         return $this;
     }
 
     public function loadGenerator(Doctrine_Record_Generator $generator)
     {
-    	$generator->initialize($this->_table);
+        $generator->initialize($this->_table);
 
         $this->_table->addGenerator($generator, get_class($generator));
     }

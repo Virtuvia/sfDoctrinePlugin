@@ -645,7 +645,7 @@ class Doctrine_Core
                 }
 
                 $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir),
-                                                        RecursiveIteratorIterator::LEAVES_ONLY);
+                    RecursiveIteratorIterator::LEAVES_ONLY);
 
                 foreach ($it as $file) {
                     $e = explode('.', $file->getFileName());
@@ -822,7 +822,7 @@ class Doctrine_Core
             $table = Doctrine_Core::getTable($name);
 
             if ($table->getTableName() == $tableName) {
-               return $table->getConnection();
+                return $table->getConnection();
             }
         }
 

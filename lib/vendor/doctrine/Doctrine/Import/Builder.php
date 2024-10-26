@@ -917,7 +917,7 @@ EOF;
             $values = array();
             if (is_bool($value))
             {
-              $values[] = $value ? 'true':'false';
+                $values[] = $value ? 'true':'false';
             } else {
                 if ( ! is_array($value)) {
                     $value = array($value);
@@ -964,15 +964,15 @@ EOF;
      */
     public function buildIndexes(array $indexes)
     {
-      $build = '';
+        $build = '';
 
-      foreach ($indexes as $indexName => $definitions) {
-          $build .= PHP_EOL . "        \$this->index('" . $indexName . "'";
-          $build .= ', ' . $this->varExport($definitions);
-          $build .= ');';
-      }
+        foreach ($indexes as $indexName => $definitions) {
+            $build .= PHP_EOL . "        \$this->index('" . $indexName . "'";
+            $build .= ', ' . $this->varExport($definitions);
+            $build .= ');';
+        }
 
-      return $build;
+        return $build;
     }
 
     /**
@@ -1033,11 +1033,11 @@ EOF;
         $docs = PHP_EOL . $this->buildPhpDocs($definition);
 
         $content = sprintf(self::$_tpl, $docs, $abstract,
-                                       $className,
-                                       $extends,
-                                       $tableDefinitionCode,
-                                       $setUpCode,
-                                       $accessors);
+            $className,
+            $extends,
+            $tableDefinitionCode,
+            $setUpCode,
+            $accessors);
 
         return $content;
     }
@@ -1262,7 +1262,7 @@ EOF;
             // If is package then we need to put it in a package subfolder
             if (isset($definition['is_package']) && $definition['is_package']) {
                 $writePath = $this->_path . DIRECTORY_SEPARATOR . $definition['package_name'];
-            // Otherwise lets just put it in the root of the path
+                // Otherwise lets just put it in the root of the path
             } else {
                 $writePath = $this->_path;
             }
@@ -1274,9 +1274,9 @@ EOF;
         // If is the package class then we need to make the path to the complete package
         else if (isset($definition['is_package_class']) && $definition['is_package_class']) {
             if (isset($definition['package_custom_path'])) {
-              $writePath = $definition['package_custom_path'];
+                $writePath = $definition['package_custom_path'];
             } else {
-              $writePath = $packagesPath . DIRECTORY_SEPARATOR . $definition['package_path'];
+                $writePath = $packagesPath . DIRECTORY_SEPARATOR . $definition['package_path'];
             }
 
             if ($this->generateTableClasses()) {
@@ -1289,7 +1289,7 @@ EOF;
             if (isset($definition['is_package']) && $definition['is_package']) {
                 $basePath = $this->_path . DIRECTORY_SEPARATOR . $definition['package_name'];
                 $writePath = $basePath . DIRECTORY_SEPARATOR . $this->_baseClassesDirectory;
-            // Otherwise lets just put it in the root generated folder
+                // Otherwise lets just put it in the root generated folder
             } else {
                 $writePath = $this->_path . DIRECTORY_SEPARATOR . $this->_baseClassesDirectory;
             }
@@ -1300,7 +1300,7 @@ EOF;
             Doctrine_Lib::makeDirectories($writePath);
 
             $writePath .= DIRECTORY_SEPARATOR . $fileName;
-        // Otherwise none of the conditions were met and we aren't generating base classes
+            // Otherwise none of the conditions were met and we aren't generating base classes
         } else {
             Doctrine_Lib::makeDirectories($this->_path);
 

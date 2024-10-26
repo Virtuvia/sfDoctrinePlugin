@@ -64,7 +64,7 @@ class Doctrine_Template_Versionable extends Doctrine_Template
      */
     public function __construct(array $options = array())
     {
-	    parent::__construct($options);
+        parent::__construct($options);
         $this->_plugin = new Doctrine_AuditLog($this->_options);
     }
 
@@ -97,15 +97,15 @@ class Doctrine_Template_Versionable extends Doctrine_Template
         return $this->_plugin;
     }
 
-     /**
-     * revert
-     * reverts this record to given version, this method only works if versioning plugin
-     * is enabled
-     *
-     * @throws Doctrine_Record_Exception    if given version does not exist
-     * @param integer $version      an integer > 1
-     * @return Doctrine_Record      this object
-     */
+    /**
+    * revert
+    * reverts this record to given version, this method only works if versioning plugin
+    * is enabled
+    *
+    * @throws Doctrine_Record_Exception    if given version does not exist
+    * @param integer $version      an integer > 1
+    * @return Doctrine_Record      this object
+    */
     public function revert($version)
     {
         $auditLog = $this->_plugin;

@@ -33,19 +33,19 @@ $article->free(true);
 
 class MyArticleForm extends ArticleForm
 {
-  public function configure()
-  {
-    parent::configure();
+    public function configure()
+    {
+        parent::configure();
 
-    $this->embedI18n(array('en', 'fr'));
+        $this->embedI18n(array('en', 'fr'));
 
-    $authorForm = new AuthorForm($this->object->Author);
-    unset($authorForm['id']);
+        $authorForm = new AuthorForm($this->object->Author);
+        unset($authorForm['id']);
 
-    $this->embedForm('Author', $authorForm);
+        $this->embedForm('Author', $authorForm);
 
-    unset($this['author_id']);
-  }
+        unset($this['author_id']);
+    }
 }
 
 $article = new Article();

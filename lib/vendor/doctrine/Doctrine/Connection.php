@@ -238,7 +238,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      */
     public function getOptions()
     {
-      return $this->options;
+        return $this->options;
     }
 
     /**
@@ -266,7 +266,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      */
     public function setOption($option, $value)
     {
-      return $this->options[$option] = $value;
+        return $this->options[$option] = $value;
     }
 
     /**
@@ -414,7 +414,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
                 default:
                     $class = 'Doctrine_' . ucwords($name) . '_' . $this->getDriverName();
                     $this->modules[$name] = new $class($this);
-                }
+            }
         }
 
         return $this->modules[$name];
@@ -465,7 +465,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
             if (in_array($e[0], self::getAvailableDrivers())) {
                 try {
                     $this->dbh = new PDO($this->options['dsn'], $this->options['username'],
-                                     (!$this->options['password'] ? '':$this->options['password']), $this->options['other']);
+                        (!$this->options['password'] ? '':$this->options['password']), $this->options['other']);
 
                     $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 } catch (PDOException $e) {
@@ -1080,7 +1080,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
         }
         $exc->processErrorInfo($e->errorInfo);
 
-         if ($this->getAttribute(Doctrine_Core::ATTR_THROW_EXCEPTIONS)) {
+        if ($this->getAttribute(Doctrine_Core::ATTR_THROW_EXCEPTIONS)) {
             throw $exc;
         }
 
@@ -1542,7 +1542,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * @return string
      */
     public function modifyLimitSubquery(Doctrine_Table $rootTable, $query, $limit = false,
-            $offset = false, $isManip = false)
+        $offset = false, $isManip = false)
     {
         return $this->modifyLimitQuery($query, $limit, $offset, $isManip);
     }
@@ -1621,7 +1621,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
             return $this->_usedNames[$type][$key];
         }
         if ($maxLength === null) {
-          $maxLength = $this->properties['max_identifier_length'];
+            $maxLength = $this->properties['max_identifier_length'];
         }
 
         $generated = implode('_', $parts);

@@ -9,7 +9,7 @@
  */
 class SubscriptionFormFilter extends BaseSubscriptionFormFilter
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }

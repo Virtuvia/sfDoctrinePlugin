@@ -130,7 +130,7 @@ class Doctrine_Query_Check
             case '!=':
             case '<>':
 
-            break;
+                break;
             default:
                 throw new Doctrine_Query_Exception('Unknown operator ' . $e[1]);
         }

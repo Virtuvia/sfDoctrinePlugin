@@ -46,10 +46,10 @@ class Doctrine_Relation_ForeignKey extends Doctrine_Relation
         $id = array();
         $localTable = $record->getTable();
         foreach ((array) $this->definition['local'] as $local) {
-           $value = $record->get($localTable->getFieldName($local));
-           if (isset($value)) {
-               $id[] = $value;
-           }
+            $value = $record->get($localTable->getFieldName($local));
+            if (isset($value)) {
+                $id[] = $value;
+            }
         }
         if ($this->isOneToOne()) {
             if ( ! $record->exists() || empty($id) ||
@@ -65,7 +65,7 @@ class Doctrine_Relation_ForeignKey extends Doctrine_Relation
             }
 
             $related->set($related->getTable()->getFieldName($this->definition['foreign']),
-                    $record, false);
+                $record, false);
         } else {
 
             if ( ! $record->exists() || empty($id) ||
@@ -89,7 +89,7 @@ class Doctrine_Relation_ForeignKey extends Doctrine_Relation
     public function getCondition($alias = null)
     {
         if ( ! $alias) {
-           $alias = $this->getTable()->getComponentName();
+            $alias = $this->getTable()->getComponentName();
         }
         $conditions = array();
         foreach ((array) $this->definition['foreign'] as $foreign) {

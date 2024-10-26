@@ -96,13 +96,13 @@ class Doctrine_Connection_Mysql extends Doctrine_Connection_Common
      * @see Doctrine_Connection :: connect();
      * @return boolean connected
      */
-     public function connect()
-     {
-         $connected = parent::connect();
-         $this->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
+    public function connect()
+    {
+        $connected = parent::connect();
+        $this->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
 
-         return $connected;
-     }
+        return $connected;
+    }
 
 
     /**

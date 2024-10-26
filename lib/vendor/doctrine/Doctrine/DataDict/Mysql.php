@@ -154,7 +154,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
                 if ($this->conn->getAttribute(Doctrine_Core::ATTR_USE_NATIVE_ENUM)) {
                     $values = array();
                     foreach ($field['values'] as $value) {
-                      $values[] = $this->conn->quote($value, 'varchar');
+                        $values[] = $this->conn->quote($value, 'varchar');
                     }
                     return 'ENUM('.implode(', ', $values).')';
                 } else {
@@ -297,28 +297,28 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
                 }
                 $unsigned = preg_match('/ unsigned/i', $field['type']);
                 $length = 1;
-            break;
+                break;
             case 'smallint':
                 $type[] = 'integer';
                 $unsigned = preg_match('/ unsigned/i', $field['type']);
                 $length = 2;
-            break;
+                break;
             case 'mediumint':
                 $type[] = 'integer';
                 $unsigned = preg_match('/ unsigned/i', $field['type']);
                 $length = 3;
-            break;
+                break;
             case 'int':
             case 'integer':
                 $type[] = 'integer';
                 $unsigned = preg_match('/ unsigned/i', $field['type']);
                 $length = 4;
-            break;
+                break;
             case 'bigint':
                 $type[] = 'integer';
                 $unsigned = preg_match('/ unsigned/i', $field['type']);
                 $length = 8;
-            break;
+                break;
             case 'tinytext':
             case 'mediumtext':
             case 'longtext':
@@ -343,7 +343,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
                 if ($fixed !== false) {
                     $fixed = true;
                 }
-            break;
+                break;
             case 'enum':
                 $type[] = 'enum';
                 preg_match_all('/\'((?:\'\'|[^\'])*)\'/', $field['type'], $matches);
@@ -369,26 +369,26 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
                 $fixed = false;
                 $type[] = 'text';
                 $type[] = 'integer';
-            break;
+                break;
             case 'date':
                 $type[] = 'date';
                 $length = null;
-            break;
+                break;
             case 'datetime':
             case 'timestamp':
                 $type[] = 'timestamp';
                 $length = null;
-            break;
+                break;
             case 'time':
                 $type[] = 'time';
                 $length = null;
-            break;
+                break;
             case 'float':
             case 'double':
             case 'real':
                 $type[] = 'float';
                 $unsigned = preg_match('/ unsigned/i', $field['type']);
-            break;
+                break;
             case 'unknown':
             case 'decimal':
                 if ($decimal !== null) {
@@ -397,7 +397,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
             case 'numeric':
                 $type[] = 'decimal';
                 $unsigned = preg_match('/ unsigned/i', $field['type']);
-            break;
+                break;
             case 'tinyblob':
             case 'mediumblob':
             case 'longblob':
@@ -406,15 +406,15 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
             case 'varbinary':
                 $type[] = 'blob';
                 $length = null;
-            break;
+                break;
             case 'year':
                 $type[] = 'integer';
                 $type[] = 'date';
                 $length = null;
-            break;
+                break;
             case 'bit':
                 $type[] = 'bit';
-            break;
+                break;
             case 'geometry':
             case 'geometrycollection':
             case 'point':
@@ -425,7 +425,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
             case 'multipolygon':
                 $type[] = 'blob';
                 $length = null;
-            break;
+                break;
             default:
                 $type[] = $field['type'];
                 $length = isset($field['length']) ? $field['length']:null;

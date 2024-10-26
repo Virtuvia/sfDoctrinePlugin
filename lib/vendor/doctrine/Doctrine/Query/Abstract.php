@@ -205,7 +205,7 @@ abstract class Doctrine_Query_Abstract
      */
     protected $_queryComponents = array();
 
-	/**
+    /**
      * Stores the root DQL alias
      *
      * @var string
@@ -277,7 +277,7 @@ abstract class Doctrine_Query_Abstract
      * @param Doctrine_Hydrator_Abstract  The hydrator that will be used for generating result sets.
      */
     public function __construct(Doctrine_Connection $connection = null,
-            Doctrine_Hydrator_Abstract $hydrator = null)
+        Doctrine_Hydrator_Abstract $hydrator = null)
     {
         if ($connection === null) {
             $connection = Doctrine_Manager::getInstance()->getCurrentConnection();
@@ -610,7 +610,7 @@ abstract class Doctrine_Query_Abstract
 
         // No inheritance map so lets just return
         if (empty($map)) {
-          return;
+            return;
         }
 
         $tableAlias = $this->getSqlTableAlias($componentAlias);
@@ -900,11 +900,11 @@ abstract class Doctrine_Query_Abstract
      */
     public function getResultCacheHash($executeParams = array())
     {
-      if ($this->_resultCacheHash) {
-          return $this->_resultCacheHash;
-      } else {
-          return $this->calculateResultCacheHash($executeParams);
-      }
+        if ($this->_resultCacheHash) {
+            return $this->_resultCacheHash;
+        } else {
+            return $this->calculateResultCacheHash($executeParams);
+        }
     }
 
     /**
@@ -1029,19 +1029,19 @@ abstract class Doctrine_Query_Abstract
                         'callback' => 'preDqlDelete',
                         'const' => Doctrine_Event::RECORD_DQL_DELETE
                     );
-                break;
+                    break;
                 case self::UPDATE:
                     $callback = array(
                         'callback' => 'preDqlUpdate',
                         'const' => Doctrine_Event::RECORD_DQL_UPDATE
                     );
-                break;
+                    break;
                 case self::SELECT:
                     $callback = array(
                         'callback' => 'preDqlSelect',
                         'const' => Doctrine_Event::RECORD_DQL_SELECT
                     );
-                break;
+                    break;
             }
         }
 

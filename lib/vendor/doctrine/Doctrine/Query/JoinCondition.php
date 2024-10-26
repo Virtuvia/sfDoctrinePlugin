@@ -38,9 +38,9 @@ class Doctrine_Query_JoinCondition extends Doctrine_Query_Condition
         $e = $this->_tokenizer->sqlExplode($condition);
 
         foreach ($e as $k => $v) {
-          if ( ! $v) {
-            unset($e[$k]);
-          }
+            if ( ! $v) {
+                unset($e[$k]);
+            }
         }
         $e = array_values($e);
 

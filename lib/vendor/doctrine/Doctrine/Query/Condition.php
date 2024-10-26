@@ -118,12 +118,12 @@ abstract class Doctrine_Query_Condition extends Doctrine_Query_Part
             $a = explode('.', $value);
 
             if (count($a) > 1) {
-            // either a float or a component..
+                // either a float or a component..
 
                 if ( ! is_numeric($a[0])) {
                     // a component found
                     $field     = array_pop($a);
-                	$reference = implode('.', $a);
+                    $reference = implode('.', $a);
                     $value     = $this->query->getConnection()->quoteIdentifier(
                         $this->query->getSqlTableAlias($reference). '.' . $field
                     );

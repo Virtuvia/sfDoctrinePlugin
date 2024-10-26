@@ -12,7 +12,7 @@ $app = 'frontend';
 require_once(dirname(__FILE__).'/../../bootstrap/functional.php');
 if (!is_link(sfConfig::get('sf_config_dir').'/doctrine/linked_schema.yml'))
 {
-  return;
+    return;
 }
 
 $t = new lime_test(1);

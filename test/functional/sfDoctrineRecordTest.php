@@ -72,10 +72,10 @@ $t->is($dateTime instanceof DateTime, true);
 $t->is($dateTime->format('m/d/Y'), date('m/d/Y'));
 
 try {
-  $article->getDateTimeObject('author_id');
-  $t->fail();
+    $article->getDateTimeObject('author_id');
+    $t->fail();
 } catch (Exception $e) {
-  $t->pass();
+    $t->pass();
 }
 
 $article->setDateTimeObject('created_at', new DateTime('1985-09-01'));

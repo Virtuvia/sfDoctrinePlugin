@@ -139,11 +139,11 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
     }
 
 
-   /**
-    * Return the invalid records
-    *
-    * @return array An array of invalid records
-    */
+    /**
+     * Return the invalid records
+     *
+     * @return array An array of invalid records
+     */
     public function getInvalid()
     {
         return $this->invalid;

@@ -145,7 +145,7 @@ class Doctrine_Formatter extends Doctrine_Connection_Module
             $arr[$k] = $this->quoteIdentifier($v, $checkOption);
         }
 
-		return $arr;
+        return $arr;
     }
 
     /**
@@ -162,30 +162,30 @@ class Doctrine_Formatter extends Doctrine_Connection_Module
             $type = gettype($input);
         }
         switch ($type) {
-        case 'integer':
-        case 'double':
-        case 'float':
-        case 'bool':
-        case 'decimal':
-        case 'int':
-            return $input;
-        case 'array':
-        case 'object':
-            $input = serialize($input);
-        case 'date':
-        case 'time':
-        case 'timestamp':
-        case 'string':
-        case 'char':
-        case 'varchar':
-        case 'text':
-        case 'gzip':
-        case 'blob':
-        case 'clob':
-        case 'enum':
-        case 'set':
-        case 'boolean':
-        return "'" . str_replace("'","''",$input) . "'";
+            case 'integer':
+            case 'double':
+            case 'float':
+            case 'bool':
+            case 'decimal':
+            case 'int':
+                return $input;
+            case 'array':
+            case 'object':
+                $input = serialize($input);
+            case 'date':
+            case 'time':
+            case 'timestamp':
+            case 'string':
+            case 'char':
+            case 'varchar':
+            case 'text':
+            case 'gzip':
+            case 'blob':
+            case 'clob':
+            case 'enum':
+            case 'set':
+            case 'boolean':
+                return "'" . str_replace("'","''",$input) . "'";
         }
     }
 

@@ -213,7 +213,7 @@ class Doctrine_Import_Schema
     public function setOptions($options)
     {
         if ( ! empty($options)) {
-          $this->_options = $options;
+            $this->_options = $options;
         }
     }
 
@@ -238,7 +238,7 @@ class Doctrine_Import_Schema
                 }
             } else if (is_dir($s)) {
                 $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($s),
-                                                      RecursiveIteratorIterator::LEAVES_ONLY);
+                    RecursiveIteratorIterator::LEAVES_ONLY);
 
                 foreach ($it as $file) {
                     $e = explode('.', $file->getFileName());
@@ -247,7 +247,7 @@ class Doctrine_Import_Schema
                     }
                 }
             } else {
-              $array = array_merge($array, $this->parseSchema($s, $format));
+                $array = array_merge($array, $this->parseSchema($s, $format));
             }
         }
 

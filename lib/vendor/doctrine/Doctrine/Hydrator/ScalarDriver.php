@@ -86,7 +86,7 @@ class Doctrine_Hydrator_ScalarDriver extends Doctrine_Hydrator_Abstract
                 $rowData[$rowDataKey] = $value;
             } else {
                 $rowData[$rowDataKey] = $table->prepareValue(
-                        $fieldName, $value, $cache[$key]['type']);
+                    $fieldName, $value, $cache[$key]['type']);
             }
         }
         return $rowData;

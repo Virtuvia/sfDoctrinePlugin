@@ -55,8 +55,8 @@ class Doctrine_Validator_Creditcard extends Doctrine_Validator_Driver
         );
         foreach ($card_regexes as $regex => $type) {
             if (preg_match($regex, $value)) {
-                 $cardType = $type;
-                 break;
+                $cardType = $type;
+                break;
             }
         }
         if ( ! $cardType) {
@@ -68,12 +68,12 @@ class Doctrine_Validator_Creditcard extends Doctrine_Validator_Driver
         for ($i = 0; $i < strlen($revcode); $i++) {
             $currentNum = intval($revcode[$i]);
             if ($i & 1) {               /* Odd position */
-                 $currentNum *= 2;
+                $currentNum *= 2;
             }
             /* Split digits and add. */
             $checksum += $currentNum % 10;
             if ($currentNum > 9) {
-                 $checksum += 1;
+                $checksum += 1;
             }
         }
         if ($checksum % 10 == 0) {

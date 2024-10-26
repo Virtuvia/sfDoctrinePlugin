@@ -214,9 +214,9 @@ class Doctrine_Import_Pgsql extends Doctrine_Import
                 $description['default'] = $matches[1];
             } else if ($description['type'] == 'boolean') {
                 if ($description['default'] === 'true') {
-                   $description['default'] = true;
+                    $description['default'] = true;
                 } else if ($description['default'] === 'false') {
-                   $description['default'] = false;
+                    $description['default'] = false;
                 }
             }
 

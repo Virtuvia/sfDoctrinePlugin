@@ -111,7 +111,7 @@ class Doctrine_Tree
      */
     public function getAttribute($name)
     {
-      return isset($this->options[$name]) ? $this->options[$name] : null;
+        return isset($this->options[$name]) ? $this->options[$name] : null;
     }
 
     /**
@@ -121,7 +121,7 @@ class Doctrine_Tree
      */
     public function setAttribute($name, $value)
     {
-      $this->options[$name] = $value;
+        $this->options[$name] = $value;
     }
 
     /**

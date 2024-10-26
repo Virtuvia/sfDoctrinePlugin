@@ -41,10 +41,10 @@ class Doctrine_Record_Filter_Compound extends Doctrine_Record_Filter
 
     public function init()
     {
-    	// check that all aliases exist
-    	foreach ($this->_aliases as $alias) {
+        // check that all aliases exist
+        foreach ($this->_aliases as $alias) {
             $this->_table->getRelation($alias);
-    	}
+        }
     }
 
     /**

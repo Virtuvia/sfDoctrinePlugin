@@ -477,7 +477,7 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
             switch (strtolower($definition['type'])) {
                 case 'unique':
                     $type = strtoupper($definition['type']) . ' ';
-                break;
+                    break;
                 default:
                     throw new Doctrine_Export_Exception(
                         'Unknown type ' . $definition['type'] . ' for index ' . $name . ' in table ' . $table
@@ -989,7 +989,7 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
             case 'RESTRICT':
             case 'SET DEFAULT':
                 return $upper;
-            break;
+                break;
             default:
                 throw new Doctrine_Export_Exception('Unknown foreign key referential action \'' . $upper . '\' given.');
         }
@@ -1102,91 +1102,91 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
 
     protected function exportSortedClassesSql(array $classes, bool $groupByConnection = true): array
     {
-         $connections = array();
-         foreach ($classes as $class) {
-             $connection = Doctrine_Manager::getInstance()->getConnectionForComponent($class);
-             $connectionName = $connection->getName();
+        $connections = array();
+        foreach ($classes as $class) {
+            $connection = Doctrine_Manager::getInstance()->getConnectionForComponent($class);
+            $connectionName = $connection->getName();
 
-             if ( ! isset($connections[$connectionName])) {
-                 $connections[$connectionName] = array(
-                     'create_tables'    => array(),
-                     'create_sequences' => array(),
-                     'create_indexes'   => array(),
-                     'alters'           => array(),
-                     'create_triggers'  => array(),
-                 );
-             }
+            if ( ! isset($connections[$connectionName])) {
+                $connections[$connectionName] = array(
+                    'create_tables'    => array(),
+                    'create_sequences' => array(),
+                    'create_indexes'   => array(),
+                    'alters'           => array(),
+                    'create_triggers'  => array(),
+                );
+            }
 
-             $sql = $connection->export->exportClassesSql(array($class));
+            $sql = $connection->export->exportClassesSql(array($class));
 
-             // Build array of all the creates
-             // We need these to happen first
-             foreach ($sql as $key => $query) {
-                 // If create table statement
-                 if (substr($query, 0, strlen('CREATE TABLE')) == 'CREATE TABLE') {
-                     $connections[$connectionName]['create_tables'][] = $query;
+            // Build array of all the creates
+            // We need these to happen first
+            foreach ($sql as $key => $query) {
+                // If create table statement
+                if (substr($query, 0, strlen('CREATE TABLE')) == 'CREATE TABLE') {
+                    $connections[$connectionName]['create_tables'][] = $query;
 
-                     unset($sql[$key]);
-                     continue;
-                 }
+                    unset($sql[$key]);
+                    continue;
+                }
 
-                 // If create sequence statement
-                 if (substr($query, 0, strlen('CREATE SEQUENCE')) == 'CREATE SEQUENCE') {
-                     $connections[$connectionName]['create_sequences'][] = $query;
+                // If create sequence statement
+                if (substr($query, 0, strlen('CREATE SEQUENCE')) == 'CREATE SEQUENCE') {
+                    $connections[$connectionName]['create_sequences'][] = $query;
 
-                     unset($sql[$key]);
-                     continue;
-                 }
+                    unset($sql[$key]);
+                    continue;
+                }
 
-                 // If create index statement
-                 if (preg_grep("/CREATE ([^ ]* )?INDEX/", array($query))) {
-                     $connections[$connectionName]['create_indexes'][] =  $query;
+                // If create index statement
+                if (preg_grep("/CREATE ([^ ]* )?INDEX/", array($query))) {
+                    $connections[$connectionName]['create_indexes'][] =  $query;
 
-                     unset($sql[$key]);
-                     continue;
-                 }
+                    unset($sql[$key]);
+                    continue;
+                }
 
-                 // If alter table statement
-                 if (substr($query, 0, strlen('ALTER TABLE')) == 'ALTER TABLE') {
-                     $connections[$connectionName]['alters'][] = $query;
+                // If alter table statement
+                if (substr($query, 0, strlen('ALTER TABLE')) == 'ALTER TABLE') {
+                    $connections[$connectionName]['alters'][] = $query;
 
-                     unset($sql[$key]);
-                     continue;
-                 }
+                    unset($sql[$key]);
+                    continue;
+                }
 
-                 // If create trgger statement
-                 if (substr($query, 0, strlen('CREATE TRIGGER')) == 'CREATE TRIGGER') {
-                     $connections[$connectionName]['create_triggers'][] = $query;
+                // If create trgger statement
+                if (substr($query, 0, strlen('CREATE TRIGGER')) == 'CREATE TRIGGER') {
+                    $connections[$connectionName]['create_triggers'][] = $query;
 
-                 	 unset($sql[$key]);
-                     continue;
-                 }
+                    unset($sql[$key]);
+                    continue;
+                }
 
-                 // If comment statement
-                 if (substr($query, 0, strlen('COMMENT ON')) == 'COMMENT ON') {
-                     $connections[$connectionName]['comments'][] = $query;
+                // If comment statement
+                if (substr($query, 0, strlen('COMMENT ON')) == 'COMMENT ON') {
+                    $connections[$connectionName]['comments'][] = $query;
 
-                     unset($sql[$key]);
-                     continue;
-                 }
-             }
-         }
+                    unset($sql[$key]);
+                    continue;
+                }
+            }
+        }
 
-         // Loop over all the sql again to merge everything together so it is in the correct order
-         $build = array();
-         foreach ($connections as $connectionName => $sql) {
-             $build[$connectionName] = array_unique(array_merge($sql['create_tables'], $sql['create_sequences'], $sql['create_indexes'], $sql['alters'], $sql['create_triggers']));
-         }
+        // Loop over all the sql again to merge everything together so it is in the correct order
+        $build = array();
+        foreach ($connections as $connectionName => $sql) {
+            $build[$connectionName] = array_unique(array_merge($sql['create_tables'], $sql['create_sequences'], $sql['create_indexes'], $sql['alters'], $sql['create_triggers']));
+        }
 
-         if ( ! $groupByConnection) {
-             $new = array();
-             foreach($build as $connectionname => $sql) {
-                 $new = array_unique(array_merge($new, $sql));
-             }
-             $build = $new;
-         }
+        if ( ! $groupByConnection) {
+            $new = array();
+            foreach($build as $connectionname => $sql) {
+                $new = array_unique(array_merge($new, $sql));
+            }
+            $build = $new;
+        }
 
-         return $build;
+        return $build;
     }
 
     /**
@@ -1201,18 +1201,18 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
      * @param array $classes
      * @return void
      */
-     final public function exportClasses(array $classes): void
-     {
-         $queries = $this->exportSortedClassesSql($classes);
+    final public function exportClasses(array $classes): void
+    {
+        $queries = $this->exportSortedClassesSql($classes);
 
-         foreach ($queries as $connectionName => $sql) {
-             $connection = Doctrine_Manager::getInstance()->getConnection($connectionName);
+        foreach ($queries as $connectionName => $sql) {
+            $connection = Doctrine_Manager::getInstance()->getConnection($connectionName);
 
-             foreach ($sql as $query) {
-                 $connection->exec($query);
-             }
-         }
-     }
+            foreach ($sql as $query) {
+                $connection->exec($query);
+            }
+        }
+    }
 
     /**
      * exportClassesSql
@@ -1309,7 +1309,7 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
      */
     private function exportGeneratorsSql(Doctrine_Table $table)
     {
-    	$sql = array();
+        $sql = array();
 
         foreach ($this->getAllGenerators($table) as $name => $generator) {
             $table = $generator->getTable();

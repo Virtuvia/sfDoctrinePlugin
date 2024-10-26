@@ -35,13 +35,13 @@
 class Doctrine_Migration
 {
     protected $_migrationTableName = 'migration_version',
-              $_migrationTableCreated = false,
-              $_connection,
-              $_migrationClassesDirectory = array(),
-              $_migrationClasses = array(),
-              $_reflectionClass,
-              $_errors = array(),
-              $_process;
+        $_migrationTableCreated = false,
+        $_connection,
+        $_migrationClassesDirectory = array(),
+        $_migrationClasses = array(),
+        $_reflectionClass,
+        $_errors = array(),
+        $_process;
 
     protected static $_migrationClassesForDirectories = array();
 

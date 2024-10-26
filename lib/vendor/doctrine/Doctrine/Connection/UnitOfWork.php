@@ -331,31 +331,31 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
      * @throws PDOException    If something went wrong at database level
      * @return void
      */
-     protected function _cascadeDelete(Doctrine_Record $record, array &$deletions)
-     {
-         foreach ($record->getTable()->getRelations() as $relation) {
-             if ($relation->isCascadeDelete()) {
-                 $fieldName = $relation->getAlias();
-                 // if it's a xToOne relation and the related object is already loaded
-                 // we don't need to refresh.
-                 if ( ! ($relation->getType() == Doctrine_Relation::ONE && isset($record->$fieldName))) {
-                     $record->refreshRelated($relation->getAlias());
-                 }
-                 $relatedObjects = $record->get($relation->getAlias());
-                 if ($relatedObjects instanceof Doctrine_Record && $relatedObjects->exists()
-                        && ! isset($deletions[$relatedObjects->getOid()])) {
-                     $this->_collectDeletions($relatedObjects, $deletions);
-                 } else if ($relatedObjects instanceof Doctrine_Collection && count($relatedObjects) > 0) {
-                     // cascade the delete to the other objects
-                     foreach ($relatedObjects as $object) {
-                         if ( ! isset($deletions[$object->getOid()])) {
-                             $this->_collectDeletions($object, $deletions);
-                         }
-                     }
-                 }
-             }
-         }
-     }
+    protected function _cascadeDelete(Doctrine_Record $record, array &$deletions)
+    {
+        foreach ($record->getTable()->getRelations() as $relation) {
+            if ($relation->isCascadeDelete()) {
+                $fieldName = $relation->getAlias();
+                // if it's a xToOne relation and the related object is already loaded
+                // we don't need to refresh.
+                if ( ! ($relation->getType() == Doctrine_Relation::ONE && isset($record->$fieldName))) {
+                    $record->refreshRelated($relation->getAlias());
+                }
+                $relatedObjects = $record->get($relation->getAlias());
+                if ($relatedObjects instanceof Doctrine_Record && $relatedObjects->exists()
+                       && ! isset($deletions[$relatedObjects->getOid()])) {
+                    $this->_collectDeletions($relatedObjects, $deletions);
+                } else if ($relatedObjects instanceof Doctrine_Collection && count($relatedObjects) > 0) {
+                    // cascade the delete to the other objects
+                    foreach ($relatedObjects as $object) {
+                        if ( ! isset($deletions[$object->getOid()])) {
+                            $this->_collectDeletions($object, $deletions);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * saveRelatedForeignKeys

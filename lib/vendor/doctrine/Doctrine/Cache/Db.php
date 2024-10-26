@@ -50,7 +50,7 @@ class Doctrine_Cache_Db extends Doctrine_Cache_Driver
         if ( ! isset($options['tableName']) ||
              ! is_string($options['tableName'])) {
 
-             throw new Doctrine_Cache_Exception('Table name option not set.');
+            throw new Doctrine_Cache_Exception('Table name option not set.');
         }
 
 

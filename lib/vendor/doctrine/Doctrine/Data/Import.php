@@ -79,10 +79,10 @@ class Doctrine_Data_Import extends Doctrine_Data
                 // If they specified a specific yml file
                 if (end($e) == 'yml') {
                     $array = $mergeFunction($array, Doctrine_Parser::load($dir, $this->getFormat()));
-                // If they specified a directory
+                    // If they specified a directory
                 } else if (is_dir($dir)) {
                     $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir),
-                                                            RecursiveIteratorIterator::LEAVES_ONLY);
+                        RecursiveIteratorIterator::LEAVES_ONLY);
                     $filesOrdered = array();
                     foreach ($it as $file) {
                         $filesOrdered[] = $file;
@@ -259,16 +259,16 @@ class Doctrine_Data_Import extends Doctrine_Data
         }
     }
 
-   /**
-    * NestedSet fixtures may come in a 'natural' format with nested children listed under a 'children'
-    * key or in a raw, non-nested format with lft/rgt values.
-    *
-    * This method returns true if the given $data is a nested set in 'natural' form.
-    *
-    * @param $className
-    * @param $data
-    * @return boolean
-    */
+    /**
+     * NestedSet fixtures may come in a 'natural' format with nested children listed under a 'children'
+     * key or in a raw, non-nested format with lft/rgt values.
+     *
+     * This method returns true if the given $data is a nested set in 'natural' form.
+     *
+     * @param $className
+     * @param $data
+     * @return boolean
+     */
     protected function _hasNaturalNestedSetFormat($className, array &$data)
     {
         if (Doctrine_Core::getTable($className)->isTree()) {

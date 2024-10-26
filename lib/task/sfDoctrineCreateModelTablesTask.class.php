@@ -20,72 +20,72 @@ require_once(dirname(__FILE__).'/sfDoctrineBaseTask.class.php');
  */
 class sfDoctrineCreateModelTables extends sfDoctrineBaseTask
 {
-  protected function configure()
-  {
-    $this->addArguments(array(
-        new sfCommandArgument('models', sfCommandArgument::IS_ARRAY, 'The list of models', array()),
-    ));
+    protected function configure()
+    {
+        $this->addArguments(array(
+            new sfCommandArgument('models', sfCommandArgument::IS_ARRAY, 'The list of models', array()),
+        ));
 
-    $this->addOptions(array(
-        new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'frontend'),
-        new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-    ));
+        $this->addOptions(array(
+            new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'frontend'),
+            new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+        ));
 
-    $this->namespace = 'doctrine';
-    $this->name = 'create-model-tables';
-    $this->briefDescription = 'Drop and recreate tables for specified models.';
+        $this->namespace = 'doctrine';
+        $this->name = 'create-model-tables';
+        $this->briefDescription = 'Drop and recreate tables for specified models.';
 
-    $this->detailedDescription = <<<EOF
+        $this->detailedDescription = <<<EOF
 The [doctrine:create-model-tables|INFO] Drop and recreate tables for specified models:
 
   [./symfony doctrine:create-model-tables User|INFO]
 EOF;
-  }
-
-  protected function execute($arguments = array(), $options = array())
-  {
-    $databaseManager = new sfDatabaseManager($this->configuration);
-
-    $buildModel = new sfDoctrineBuildModelTask($this->dispatcher, $this->formatter);
-    $buildModel->setCommandApplication($this->commandApplication);
-    $buildModel->setConfiguration($this->configuration);
-    $ret = $buildModel->run();
-
-    $connections = array();
-    $models = $arguments['models'];
-    foreach ($models as $key => $model)
-    {
-      $model = trim($model);
-      $conn = Doctrine_Core::getTable($model)->getConnection();
-      $connections[$conn->getName()][] = $model;
     }
 
-    foreach ($connections as $name => $models)
+    protected function execute($arguments = array(), $options = array())
     {
-      $this->logSection('doctrine', 'dropping model tables for connection "'.$name.'"');
+        $databaseManager = new sfDatabaseManager($this->configuration);
 
-      $conn = Doctrine_Manager::getInstance()->getConnection($name);
-      $models = $conn->unitOfWork->buildFlushTree($models);
-      $models = array_reverse($models);
+        $buildModel = new sfDoctrineBuildModelTask($this->dispatcher, $this->formatter);
+        $buildModel->setCommandApplication($this->commandApplication);
+        $buildModel->setConfiguration($this->configuration);
+        $ret = $buildModel->run();
 
-      foreach ($models as $model)
-      {
-        $tableName = Doctrine_Core::getTable($model)->getOption('tableName');
-
-        $this->logSection('doctrine', 'dropping table "'.$tableName.'"');
-
-        try {
-          $conn->export->dropTable($tableName);
-        }
-        catch (Exception $e)
+        $connections = array();
+        $models = $arguments['models'];
+        foreach ($models as $key => $model)
         {
-          $this->logSection('doctrine', 'dropping table failed: '.$e->getMessage());
+            $model = trim($model);
+            $conn = Doctrine_Core::getTable($model)->getConnection();
+            $connections[$conn->getName()][] = $model;
         }
-      }
 
-      $this->logSection('doctrine', 'recreating tables for models');
+        foreach ($connections as $name => $models)
+        {
+            $this->logSection('doctrine', 'dropping model tables for connection "'.$name.'"');
 
-      Doctrine_Core::createTablesFromArray($models);
+            $conn = Doctrine_Manager::getInstance()->getConnection($name);
+            $models = $conn->unitOfWork->buildFlushTree($models);
+            $models = array_reverse($models);
+
+            foreach ($models as $model)
+            {
+                $tableName = Doctrine_Core::getTable($model)->getOption('tableName');
+
+                $this->logSection('doctrine', 'dropping table "'.$tableName.'"');
+
+                try {
+                    $conn->export->dropTable($tableName);
+                }
+                catch (Exception $e)
+                {
+                    $this->logSection('doctrine', 'dropping table failed: '.$e->getMessage());
+                }
+            }
+
+            $this->logSection('doctrine', 'recreating tables for models');
+
+            Doctrine_Core::createTablesFromArray($models);
+        }
     }
-  }
 }

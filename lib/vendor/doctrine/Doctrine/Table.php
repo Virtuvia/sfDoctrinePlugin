@@ -458,7 +458,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                         // add the inherited primary key column
                         $fullName = $id . ' as ' . $table->getFieldName($id);
                         $this->setColumn($fullName, $definition['type'], $definition['length'],
-                                $definition, true);
+                            $definition, true);
                     }
                 } else {
                     $identifierOptions = $this->getAttribute(Doctrine_Core::ATTR_DEFAULT_IDENTIFIER_OPTIONS);
@@ -1105,7 +1105,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
             case 'index':
             case 'treeOptions':
                 if ( ! is_array($value)) {
-                throw new Doctrine_Table_Exception($name . ' should be an array.');
+                    throw new Doctrine_Table_Exception($name . ' should be an array.');
                 }
                 break;
         }
@@ -1154,7 +1154,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     public function processOrderBy($alias, $orderBy, $columnNames = false)
     {
         if ( ! $alias) {
-           $alias = $this->getComponentName();
+            $alias = $this->getComponentName();
         }
 
         if ( ! is_array($orderBy)) {
@@ -1376,10 +1376,10 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
             switch ($type) {
                 case 'integer':
                     $length = 8;
-                break;
+                    break;
                 case 'decimal':
                     $length = 18;
-                break;
+                    break;
                 case 'string':
                 case 'clob':
                 case 'float':
@@ -1393,7 +1393,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                     //All the DataDict driver classes have work-arounds to deal
                     //with unset lengths.
                     $length = null;
-                break;
+                    break;
                 case 'boolean':
                     $length = 1;
                 case 'date':
@@ -2206,7 +2206,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     public function removeColumn($fieldName)
     {
         if ( ! $this->hasField($fieldName)) {
-          return false;
+            return false;
         }
 
         $columnName = $this->getColumnName($fieldName);
@@ -2225,11 +2225,11 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
         if ($fieldNames === null) {
             return array_keys($this->_columns);
         } else {
-           $columnNames = array();
-           foreach ($fieldNames as $fieldName) {
-               $columnNames[] = $this->getColumnName($fieldName);
-           }
-           return $columnNames;
+            $columnNames = array();
+            foreach ($fieldNames as $fieldName) {
+                $columnNames[] = $this->getColumnName($fieldName);
+            }
+            return $columnNames;
         }
     }
 
@@ -2366,14 +2366,14 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                 case 'enum':
                 case 'integer':
                 case 'string';
-                    // don't do any casting here PHP INT_MAX is smaller than what the databases support
+                // don't do any casting here PHP INT_MAX is smaller than what the databases support
                 break;
                 case 'set':
                     return explode(',', $value);
-                break;
+                    break;
                 case 'boolean':
                     return (boolean) $value;
-                break;
+                    break;
                 case 'array':
                 case 'object':
                     if (is_string($value)) {
@@ -2384,7 +2384,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                         }
                         return $value;
                     }
-                break;
+                    break;
                 case 'gzip':
                     $value = gzuncompress($value);
 
@@ -2392,7 +2392,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                         throw new Doctrine_Table_Exception('Uncompressing of ' . $fieldName . ' failed.');
                     }
                     return $value;
-                break;
+                    break;
             }
         }
         return $value;
@@ -2646,22 +2646,22 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
         // this loop is a dirty workaround to get the validators filtered out of
         // the options, since everything is squeezed together currently
         foreach ($this->_columns[$columnName] as $name => $args) {
-             if (empty($name)
-                    || $name == 'primary'
-                    || $name == 'protected'
-                    || $name == 'autoincrement'
-                    || $name == 'default'
-                    || $name == 'values'
-                    || $name == 'sequence'
-                    || $name == 'zerofill'
-                    || $name == 'owner'
-                    || $name == 'scale'
-                    || $name == 'type'
-                    || $name == 'length'
-                    || $name == 'fixed'
-                    || $name == 'comment'
-                    || $name == 'alias'
-                    || $name == 'extra') {
+            if (empty($name)
+                   || $name == 'primary'
+                   || $name == 'protected'
+                   || $name == 'autoincrement'
+                   || $name == 'default'
+                   || $name == 'values'
+                   || $name == 'sequence'
+                   || $name == 'zerofill'
+                   || $name == 'owner'
+                   || $name == 'scale'
+                   || $name == 'type'
+                   || $name == 'length'
+                   || $name == 'fixed'
+                   || $name == 'comment'
+                   || $name == 'alias'
+                   || $name == 'extra') {
                 continue;
             }
             if ($name == 'notnull' && isset($this->_columns[$columnName]['autoincrement'])

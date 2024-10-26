@@ -10,12 +10,12 @@ $t->diag('->__construct()');
 
 class NumericFieldForm extends ArticleForm
 {
-  public function configure()
-  {
-    $this->widgetSchema[1] = new sfWidgetFormInputText();
-    $this->validatorSchema[1] = new sfValidatorPass();
-    $this->setDefault(1, '==DEFAULT_VALUE==');
-  }
+    public function configure()
+    {
+        $this->widgetSchema[1] = new sfWidgetFormInputText();
+        $this->validatorSchema[1] = new sfValidatorPass();
+        $this->setDefault(1, '==DEFAULT_VALUE==');
+    }
 }
 
 $form = new NumericFieldForm();
@@ -24,10 +24,10 @@ $t->is($defaults[1], '==DEFAULT_VALUE==', '->__construct() allows ->configure() 
 
 class DefaultValuesForm extends AuthorForm
 {
-  public function configure()
-  {
-    $this->setDefault('name', 'John Doe');
-  }
+    public function configure()
+    {
+        $this->setDefault('name', 'John Doe');
+    }
 }
 
 $author = new Author();

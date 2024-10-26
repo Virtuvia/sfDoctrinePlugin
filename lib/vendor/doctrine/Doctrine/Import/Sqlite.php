@@ -167,7 +167,7 @@ class Doctrine_Import_Sqlite extends Doctrine_Import
     {
         $sql  = 'PRAGMA index_list(' . $table . ')';
         return $this->conn->fetchColumn($sql);
-   }
+    }
     /**
      * lists tables
      *

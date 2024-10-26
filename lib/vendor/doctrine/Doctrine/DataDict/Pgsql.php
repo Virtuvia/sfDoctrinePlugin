@@ -411,8 +411,8 @@ class Doctrine_DataDict_Pgsql extends Doctrine_DataDict
                     }
                 }
                 return 'INT';
-			case 'inet':
-				return 'INET';
+            case 'inet':
+                return 'INET';
             case 'bit':
             case 'varbit':
                 return 'VARBIT';
@@ -469,13 +469,13 @@ class Doctrine_DataDict_Pgsql extends Doctrine_DataDict
         }
 
         switch ($dbType) {
-    	    case 'inet':
-                    $type[] = 'inet';
-    		break;
-    	    case 'bit':
-    	    case 'varbit':
-                    $type[] = 'bit';
-    		break;
+            case 'inet':
+                $type[] = 'inet';
+                break;
+            case 'bit':
+            case 'varbit':
+                $type[] = 'bit';
+                break;
             case 'smallint':
             case 'int2':
                 $type[] = 'integer';

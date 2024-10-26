@@ -8,7 +8,7 @@
  */
 abstract class BaseFormDoctrine extends sfFormDoctrine
 {
-  public function setup()
-  {
-  }
+    public function setup()
+    {
+    }
 }

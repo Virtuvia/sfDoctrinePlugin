@@ -10,7 +10,7 @@
  */
 class DefaultValueTestForm extends BaseDefaultValueTestForm
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }

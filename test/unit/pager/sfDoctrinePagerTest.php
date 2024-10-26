@@ -40,11 +40,11 @@ $normal = 0;
 $iterated = 0;
 foreach ($pager->getResults() as $object)
 {
-  $normal++;
+    $normal++;
 }
 foreach ($pager as $object)
 {
-  $iterated++;
+    $iterated++;
 }
 $t->is($iterated, $normal, '"Iterator" interface loops over objects in the current pager');
 

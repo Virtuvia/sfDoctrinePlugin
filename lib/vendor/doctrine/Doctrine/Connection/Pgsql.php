@@ -112,9 +112,9 @@ class Doctrine_Connection_Pgsql extends Doctrine_Connection_Common
                 }
             }
         } else {
-           if (is_bool($item) || is_numeric($item)) {
-               $item = ($item) ? 'true' : 'false';
-           }
+            if (is_bool($item) || is_numeric($item)) {
+                $item = ($item) ? 'true' : 'false';
+            }
         }
         return $item;
     }
@@ -146,10 +146,10 @@ class Doctrine_Connection_Pgsql extends Doctrine_Connection_Common
 
             } else {
                 if ( ! empty($limit)) {
-                  $query .= ' LIMIT ' . (int)$limit;
+                    $query .= ' LIMIT ' . (int)$limit;
                 }
                 if ( ! empty($offset)) {
-                  $query .= ' OFFSET ' . (int)$offset;
+                    $query .= ' OFFSET ' . (int)$offset;
                 }
             }
         }
@@ -212,14 +212,14 @@ class Doctrine_Connection_Pgsql extends Doctrine_Connection_Common
         $a = array();
 
         foreach ($fields as $fieldName => $value) {
-        	if ($table->isIdentifier($fieldName)
-        	           && $table->isIdentifierAutoincrement()
-        	           && $value == null) {
-        		// Autoincrement fields should not be added to the insert statement
-        		// if their value is null
-        		unset($fields[$fieldName]);
-        		continue;
-        	}
+            if ($table->isIdentifier($fieldName)
+                       && $table->isIdentifierAutoincrement()
+                       && $value == null) {
+                // Autoincrement fields should not be added to the insert statement
+                // if their value is null
+                unset($fields[$fieldName]);
+                continue;
+            }
             $cols[] = $this->quoteIdentifier($table->getColumnName($fieldName));
             if ($value instanceof Doctrine_Expression) {
                 $a[] = $value->getSql();
@@ -230,7 +230,7 @@ class Doctrine_Connection_Pgsql extends Doctrine_Connection_Common
         }
 
         if (count($fields) == 0) {
-        	// Real fix #1786 and #2327 (default values when table is just 'id' as PK)
+            // Real fix #1786 and #2327 (default values when table is just 'id' as PK)
             return $this->exec('INSERT INTO ' . $this->quoteIdentifier($tableName)
                               . ' '
                               . ' VALUES (DEFAULT)');

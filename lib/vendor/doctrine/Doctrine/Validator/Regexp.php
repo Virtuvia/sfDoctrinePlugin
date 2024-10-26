@@ -45,7 +45,7 @@ class Doctrine_Validator_Regexp extends Doctrine_Validator_Driver
             return true;
         }
         if ( ! isset($this->args)) {
-           return true;
+            return true;
         }
         if (is_array($this->args)) {
             foreach ($this->args as $regexp) {

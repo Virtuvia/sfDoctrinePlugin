@@ -155,51 +155,51 @@ class Doctrine_Validator extends Doctrine_Locator_Injectable
      * @param  string $type  Type of the variable expected
      * @return boolean
      */
-     public static function isValidType($var, $type)
-     {
-         if ($var instanceof Doctrine_Expression) {
-             return true;
-         } else if ($var === null) {
-             return true;
-         } else if (is_object($var)) {
-             return $type == 'object';
-         }
+    public static function isValidType($var, $type)
+    {
+        if ($var instanceof Doctrine_Expression) {
+            return true;
+        } else if ($var === null) {
+            return true;
+        } else if (is_object($var)) {
+            return $type == 'object';
+        }
 
-         switch ($type) {
-             case 'float':
-             case 'double':
-             case 'decimal':
-                 return (string) $var == strval(floatval($var));
-             case 'integer':
-                 return (string) $var == strval(round(floatval($var)));
-             case 'string':
-                 return is_string($var) || is_numeric($var);
-             case 'blob':
-                 return is_string($var) || is_resource($var);
-             case 'clob':
-             case 'gzip':
-                 return is_string($var);
-             case 'array':
-                 return is_array($var);
-             case 'object':
-                 return is_object($var);
-             case 'boolean':
-                 return is_bool($var) || (is_numeric($var) && ($var == 0 || $var == 1));
-             case 'timestamp':
-                 $validator = self::getValidator('timestamp');
-                 return $validator->validate($var);
-             case 'time':
-                 $validator = self::getValidator('time');
-                 return $validator->validate($var);
-             case 'date':
-                 $validator = self::getValidator('date');
-                 return $validator->validate($var);
-             case 'enum':
-                 return is_string($var) || is_int($var);
-             case 'set':
-                 return is_array($var) || is_string($var);
-             default:
-                 return true;
-         }
-     }
+        switch ($type) {
+            case 'float':
+            case 'double':
+            case 'decimal':
+                return (string) $var == strval(floatval($var));
+            case 'integer':
+                return (string) $var == strval(round(floatval($var)));
+            case 'string':
+                return is_string($var) || is_numeric($var);
+            case 'blob':
+                return is_string($var) || is_resource($var);
+            case 'clob':
+            case 'gzip':
+                return is_string($var);
+            case 'array':
+                return is_array($var);
+            case 'object':
+                return is_object($var);
+            case 'boolean':
+                return is_bool($var) || (is_numeric($var) && ($var == 0 || $var == 1));
+            case 'timestamp':
+                $validator = self::getValidator('timestamp');
+                return $validator->validate($var);
+            case 'time':
+                $validator = self::getValidator('time');
+                return $validator->validate($var);
+            case 'date':
+                $validator = self::getValidator('date');
+                return $validator->validate($var);
+            case 'enum':
+                return is_string($var) || is_int($var);
+            case 'set':
+                return is_array($var) || is_string($var);
+            default:
+                return true;
+        }
+    }
 }

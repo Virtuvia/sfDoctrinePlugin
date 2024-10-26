@@ -113,7 +113,7 @@ class Doctrine_AuditLog extends Doctrine_Record_Generator
 
         // the version column should be part of the primary key definition
         $this->hasColumn(
-	        $this->_options['version']['name'],
+            $this->_options['version']['name'],
             $this->_options['version']['type'],
             $this->_options['version']['length'],
             $this->_options['version']['options']);

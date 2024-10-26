@@ -10,11 +10,11 @@
  */
 class BlogAuthorFormFilter extends BaseBlogAuthorFormFilter
 {
-  /**
-   * @see AuthorFormFilter
-   */
-  public function configure()
-  {
-    parent::configure();
-  }
+    /**
+     * @see AuthorFormFilter
+     */
+    public function configure()
+    {
+        parent::configure();
+    }
 }

@@ -202,8 +202,8 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      * @return mixed
      */
     public function fetch($fetchStyle = Doctrine_Core::FETCH_BOTH,
-                          $cursorOrientation = Doctrine_Core::FETCH_ORI_NEXT,
-                          $cursorOffset = null)
+        $cursorOrientation = Doctrine_Core::FETCH_ORI_NEXT,
+        $cursorOffset = null)
     {
         return array();
     }

@@ -9,7 +9,7 @@
  */
 class UniqueTestFormFilter extends BaseUniqueTestFormFilter
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }

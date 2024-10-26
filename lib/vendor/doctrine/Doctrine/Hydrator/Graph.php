@@ -256,7 +256,7 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
                     } else if ( ! isset($prev[$parent][$relationAlias])) {
                         $element = $this->getElement($data, $componentName);
 
-						// [FIX] Tickets #1205 and #1237
+                        // [FIX] Tickets #1205 and #1237
                         $event->set('data', $element);
                         $listeners[$componentName]->postHydrate($event);
                         $instances[$componentName]->postHydrate($event);
@@ -301,7 +301,7 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
                 if ($table->isIdentifier($fieldName)) {
                     $cache[$key]['isIdentifier'] = true;
                 } else {
-                  $cache[$key]['isIdentifier'] = false;
+                    $cache[$key]['isIdentifier'] = false;
                 }
                 $type = $table->getTypeOfColumn($last);
                 if ($type == 'integer' || $type == 'string') {

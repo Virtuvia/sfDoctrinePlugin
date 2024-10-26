@@ -15,11 +15,11 @@ $t = new lime_test(1);
 
 class TestUserForm extends UserForm
 {
-  public function configure()
-  {
-    parent::configure();
-    unset($this['test']);
-  }
+    public function configure()
+    {
+        parent::configure();
+        unset($this['test']);
+    }
 }
 
 $user = new User();
@@ -35,7 +35,7 @@ $userForm = new TestUserForm($user);
 $userForm->bind(array('id' => $user->id, 'username' => 'nullvaluetest', 'password' => 'changeme2'));
 if ($userForm->isValid())
 {
-  $userForm->save();
+    $userForm->save();
 }
 
 $user->free();

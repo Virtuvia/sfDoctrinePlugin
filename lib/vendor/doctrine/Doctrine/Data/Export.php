@@ -64,9 +64,9 @@ class Doctrine_Data_Export extends Doctrine_Data
 
         $data = array();
 
-		    // for situation when the $models array is empty, but the $specifiedModels array isn't
+        // for situation when the $models array is empty, but the $specifiedModels array isn't
         if (empty($models)) {
-          $models = $specifiedModels;
+            $models = $specifiedModels;
         }
 
         $models = Doctrine_Core::initializeModels($models);
@@ -74,11 +74,11 @@ class Doctrine_Data_Export extends Doctrine_Data
         // temporarily disable indexBy query parts of selected and related tables
         $originalIndexBy = array();
         foreach ($models AS $name) {
-          $table = Doctrine_Core::getTable($name);
-          if ( !is_null($indexBy = $table->getBoundQueryPart('indexBy'))) {
-            $originalIndexBy[$name] = $indexBy;
-            $table->bindQueryPart('indexBy', null);
-          }
+            $table = Doctrine_Core::getTable($name);
+            if ( !is_null($indexBy = $table->getBoundQueryPart('indexBy'))) {
+                $originalIndexBy[$name] = $indexBy;
+                $table->bindQueryPart('indexBy', null);
+            }
         }
 
         foreach ($models AS $name) {
@@ -166,7 +166,7 @@ class Doctrine_Data_Export extends Doctrine_Data
 
                 foreach ($recordData as $key => $value) {
                     if ( ! is_array($keys)) {
-                      $keys = array($keys);
+                        $keys = array($keys);
                     }
 
                     if ($keyType !== Doctrine_Core::IDENTIFIER_NATURAL && count($keys) <= 1 && in_array($key, $keys)) {

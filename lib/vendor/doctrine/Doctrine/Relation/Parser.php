@@ -100,7 +100,7 @@ class Doctrine_Relation_Parser
      */
     public function unsetPendingRelations($name)
     {
-       unset($this->_pending[$name]);
+        unset($this->_pending[$name]);
     }
 
     /**
@@ -176,11 +176,11 @@ class Doctrine_Relation_Parser
 
                     if ( ! $parser->hasRelation($this->_table->getComponentName())) {
                         $parser->bind($this->_table->getComponentName(),
-                                      array('type'    => Doctrine_Relation::ONE,
-                                          'local'   => $def['local'],
-                                          'foreign' => $idColumnName,
-                                          'localKey' => true,
-                                      ));
+                            array('type'    => Doctrine_Relation::ONE,
+                                'local'   => $def['local'],
+                                'foreign' => $idColumnName,
+                                'localKey' => true,
+                            ));
                     }
 
                     if ( ! $this->hasRelation($backRefRelationName)) {
@@ -346,7 +346,7 @@ class Doctrine_Relation_Parser
             }
         } else {
             $columns = $componentNameToLower . '_' . $table->getColumnName(
-                    $table->getIdentifier());
+                $table->getIdentifier());
         }
 
         return $columns;

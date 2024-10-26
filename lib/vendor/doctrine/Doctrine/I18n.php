@@ -73,9 +73,9 @@ class Doctrine_I18n extends Doctrine_Record_Generator
      */
     public function setTableDefinition()
     {
-      	if (empty($this->_options['fields'])) {
-      	    throw new Doctrine_I18n_Exception('Fields not set.');
-      	}
+        if (empty($this->_options['fields'])) {
+            throw new Doctrine_I18n_Exception('Fields not set.');
+        }
 
         $options = array('className' => $this->_options['className']);
 

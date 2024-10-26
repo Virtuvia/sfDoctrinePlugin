@@ -54,7 +54,7 @@ class Doctrine_Query_From extends Doctrine_Query_Part
                 $operator = ':';
             case 'LEFT':
                 array_shift($parts);
-            break;
+                break;
         }
 
         $last = '';

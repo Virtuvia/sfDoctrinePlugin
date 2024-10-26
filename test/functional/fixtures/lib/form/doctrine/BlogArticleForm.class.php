@@ -10,11 +10,11 @@
  */
 class BlogArticleForm extends BaseBlogArticleForm
 {
-  /**
-   * @see ArticleForm
-   */
-  public function configure()
-  {
-    parent::configure();
-  }
+    /**
+     * @see ArticleForm
+     */
+    public function configure()
+    {
+        parent::configure();
+    }
 }

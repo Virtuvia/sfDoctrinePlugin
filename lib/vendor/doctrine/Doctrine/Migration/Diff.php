@@ -34,22 +34,22 @@
 class Doctrine_Migration_Diff
 {
     protected $_from,
-              $_to,
-              $_changes = array('created_tables'      =>  array(),
-                  'dropped_tables'      =>  array(),
-                  'created_foreign_keys'=>  array(),
-                  'dropped_foreign_keys'=>  array(),
-                  'created_columns'     =>  array(),
-                  'dropped_columns'     =>  array(),
-                  'changed_columns'     =>  array(),
-                  'created_indexes'     =>  array(),
-                  'dropped_indexes'     =>  array()),
-              $_migration,
-              $_startingModelFiles = array(),
-              $_tmpPath;
+        $_to,
+        $_changes = array('created_tables'      =>  array(),
+            'dropped_tables'      =>  array(),
+            'created_foreign_keys'=>  array(),
+            'dropped_foreign_keys'=>  array(),
+            'created_columns'     =>  array(),
+            'dropped_columns'     =>  array(),
+            'changed_columns'     =>  array(),
+            'created_indexes'     =>  array(),
+            'dropped_indexes'     =>  array()),
+        $_migration,
+        $_startingModelFiles = array(),
+        $_tmpPath;
 
     protected static $_toPrefix   = 'ToPrfx',
-                     $_fromPrefix = 'FromPrfx';
+        $_fromPrefix = 'FromPrfx';
 
     /**
      * Instantiate new Doctrine_Migration_Diff instance
@@ -223,7 +223,7 @@ class Doctrine_Migration_Diff
                     $this->_changes['created_foreign_keys'][$info['tableName']][$name] = $foreignKey;
                     $indexName = Doctrine_Manager::connection()->generateUniqueIndexName($info['tableName'], $foreignKey['local']);
                     $this->_changes['created_indexes'][$info['tableName']][$indexName] = array('fields' => array($foreignKey['local']));
-                // If foreign key does exist then lets see if anything has changed with it
+                    // If foreign key does exist then lets see if anything has changed with it
                 } else if (isset($from[$className]['options']['foreignKeys'][$name])) {
                     $oldForeignKey = $from[$className]['options']['foreignKeys'][$name];
                     $oldForeignKey['name'] = $name;

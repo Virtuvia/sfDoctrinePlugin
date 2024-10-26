@@ -327,7 +327,7 @@ abstract class Doctrine_Relation implements ArrayAccess
      */
     final public function getForeignColumnName()
     {
-       return $this->definition['table']->getColumnName($this->definition['foreign']);
+        return $this->definition['table']->getColumnName($this->definition['foreign']);
     }
 
     /**
@@ -392,7 +392,7 @@ abstract class Doctrine_Relation implements ArrayAccess
     public function getOrderBy($alias = null, $columnNames = false)
     {
         if ( ! $alias) {
-           $alias = $this->getTable()->getComponentName();
+            $alias = $this->getTable()->getComponentName();
         }
 
         if ($orderBy = $this->getOrderByStatement($alias, $columnNames)) {
@@ -412,7 +412,7 @@ abstract class Doctrine_Relation implements ArrayAccess
         $table = $this->getTable();
 
         if ( ! $alias) {
-           $alias = $table->getComponentName();
+            $alias = $table->getComponentName();
         }
 
         if (isset($this->definition['orderBy'])) {

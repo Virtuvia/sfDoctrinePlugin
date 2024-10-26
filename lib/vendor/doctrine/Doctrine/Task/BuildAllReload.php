@@ -33,8 +33,8 @@
 class Doctrine_Task_BuildAllReload extends Doctrine_Task
 {
     public $description          =   'Calls rebuild-db and load-data',
-           $requiredArguments    =   array(),
-           $optionalArguments    =   array();
+        $requiredArguments    =   array(),
+        $optionalArguments    =   array();
 
     public function __construct($dispatcher = null)
     {

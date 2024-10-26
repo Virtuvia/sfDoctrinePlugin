@@ -224,14 +224,14 @@ class Doctrine_Lib
      * Different from array_merge
      *  If string keys have arrays for values, these arrays will merge recursively.
      */
-     public static function arrayDeepMerge()
-     {
-         switch (func_num_args()) {
-             case 0:
+    public static function arrayDeepMerge()
+    {
+        switch (func_num_args()) {
+            case 0:
                 return false;
-             case 1:
+            case 1:
                 return func_get_arg(0);
-             case 2:
+            case 2:
                 $args = func_get_args();
                 $args[2] = array();
 
@@ -264,7 +264,7 @@ class Doctrine_Lib
                 array_shift($args);
 
                 return call_user_func_array(array('Doctrine_Lib', 'arrayDeepMerge'), $args);
-            break;
+                break;
         }
     }
 
@@ -282,11 +282,11 @@ class Doctrine_Lib
     public static function makeDirectories($path, $mode = 0777)
     {
         if ( ! $path) {
-          return false;
+            return false;
         }
 
         if (is_dir($path) || is_file($path)) {
-          return true;
+            return true;
         }
 
         return mkdir(trim($path), $mode, true);

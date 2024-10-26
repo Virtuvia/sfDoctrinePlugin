@@ -65,7 +65,7 @@ class Doctrine_Connection_Sqlite extends Doctrine_Connection_Common
             'identifier_quoting'   => true,
             'pattern_escaping'     => false,
         );
-         parent::__construct($manager, $adapter);
+        parent::__construct($manager, $adapter);
 
         if ($this->isConnected) {
             $this->dbh->sqliteCreateFunction('mod',    array('Doctrine_Expression_Sqlite', 'modImpl'), 2);

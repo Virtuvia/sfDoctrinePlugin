@@ -7,38 +7,38 @@ $t = new lime_test(16);
 
 class TestFormFilter extends ArticleFormFilter
 {
-  public $processedFields = array();
+    public $processedFields = array();
 
-  public function configure()
-  {
-    $this->setWidgets(array(
-        'name'        => new sfWidgetFormInputText(),
-        'nomethod_bc' => new sfWidgetFormInputText(),
-        'nomethod'    => new sfWidgetFormInputText(),
-        'author_id'   => new sfWidgetFormInputText(),
-    ));
+    public function configure()
+    {
+        $this->setWidgets(array(
+            'name'        => new sfWidgetFormInputText(),
+            'nomethod_bc' => new sfWidgetFormInputText(),
+            'nomethod'    => new sfWidgetFormInputText(),
+            'author_id'   => new sfWidgetFormInputText(),
+        ));
 
-    $this->setValidators(array(
-        'name'        => new sfValidatorPass(),
-        'nomethod_bc' => new sfValidatorPass(),
-        'nomethod'    => new sfValidatorPass(),
-        'author_id'   => new sfValidatorPass(),
-    ));
-  }
+        $this->setValidators(array(
+            'name'        => new sfValidatorPass(),
+            'nomethod_bc' => new sfValidatorPass(),
+            'nomethod'    => new sfValidatorPass(),
+            'author_id'   => new sfValidatorPass(),
+        ));
+    }
 
-  public function addNameColumnQuery($query, $field, $value)
-  {
-    $this->processedFields[] = $field;
-  }
+    public function addNameColumnQuery($query, $field, $value)
+    {
+        $this->processedFields[] = $field;
+    }
 
-  public function getFields()
-  {
-    return array_merge(parent::getFields(), array(
-        'body'        => 'Invalid',
-        'nomethod_bc' => 'Text',
-        'author_id'   => 'Number',
-    ));
-  }
+    public function getFields()
+    {
+        return array_merge(parent::getFields(), array(
+            'body'        => 'Invalid',
+            'nomethod_bc' => 'Text',
+            'author_id'   => 'Number',
+        ));
+    }
 }
 
 $t->diag('->getQuery()');
@@ -59,12 +59,12 @@ $filter = new TestFormFilter();
 $filter->bind(array('nomethod_bc' => 'nomethod_bc'));
 try
 {
-  $filter->getQuery();
-  $t->fail('->getQuery() throws an exception if a field that is not a real column is specified in getFields() but a column method does not exist');
+    $filter->getQuery();
+    $t->fail('->getQuery() throws an exception if a field that is not a real column is specified in getFields() but a column method does not exist');
 }
 catch (Exception $e)
 {
-  $t->pass('->getQuery() throws an exception if a field that is not a real column is specified in getFields() but a column method does not exist');
+    $t->pass('->getQuery() throws an exception if a field that is not a real column is specified in getFields() but a column method does not exist');
 }
 
 // BC with symfony 1.2
@@ -72,12 +72,12 @@ $filter = new TestFormFilter();
 $filter->bind(array('body' => 'body'));
 try
 {
-  $filter->getQuery();
-  $t->fail('->getQuery() throws an exception if a field is a real column and neither a column nor type method exists');
+    $filter->getQuery();
+    $t->fail('->getQuery() throws an exception if a field is a real column and neither a column nor type method exists');
 }
 catch (Exception $e)
 {
-  $t->pass('->getQuery() throws an exception if a field is a real column and neither a column nor type method exists');
+    $t->pass('->getQuery() throws an exception if a field is a real column and neither a column nor type method exists');
 }
 
 // BC with symfony 1.2
@@ -85,12 +85,12 @@ $filter = new TestFormFilter();
 $filter->bind(array('nomethod' => 'nomethod'));
 try
 {
-  $filter->getQuery();
-  $t->pass('->getQuery() does not throw an exception when a value without a query method is passed');
+    $filter->getQuery();
+    $t->pass('->getQuery() does not throw an exception when a value without a query method is passed');
 }
 catch (Exception $e)
 {
-  $t->fail('->getQuery() does not throw an exception when a value without a query method is passed');
+    $t->fail('->getQuery() does not throw an exception when a value without a query method is passed');
 }
 
 // new in symfony 1.3

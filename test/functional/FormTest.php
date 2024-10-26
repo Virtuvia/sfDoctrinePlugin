@@ -67,8 +67,8 @@ $methods = array(
 
 foreach ($methods as $method)
 {
-  $widget = new sfWidgetFormDoctrineChoice(array('model' => 'User', 'table_method' => $method));
-  $t->is($widget->getChoices(), array(1 => 1));
+    $widget = new sfWidgetFormDoctrineChoice(array('model' => 'User', 'table_method' => $method));
+    $t->is($widget->getChoices(), array(1 => 1));
 }
 
 $widget = new sfWidgetFormDoctrineChoice(array('model' => 'User', 'table_method' => 'widgetChoiceTableMethod4'));
@@ -80,11 +80,11 @@ $user->Groups[]->name = 'User Group 2';
 
 class UserGroupForm extends GroupForm
 {
-  public function configure()
-  {
-    parent::configure();
-    $this->useFields(array('name'));
-  }
+    public function configure()
+    {
+        parent::configure();
+        $this->useFields(array('name'));
+    }
 }
 
 $userForm = new UserForm($user);
@@ -108,7 +108,7 @@ $t->is($userForm->isValid(), true);
 
 if ($userForm->isValid())
 {
-  $userForm->save();
+    $userForm->save();
 }
 
 $t->is($user->Groups[0]->name, 'New User Group 1 Name');

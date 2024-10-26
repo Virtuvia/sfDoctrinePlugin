@@ -579,7 +579,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
                 case 'fulltext':
                 case 'unique':
                     $type = strtoupper($definition['type']) . ' ';
-                break;
+                    break;
                 default:
                     throw new Doctrine_Export_Exception(
                         'Unknown type ' . $definition['type'] . ' for index ' . $name . ' in table ' . $table
@@ -648,7 +648,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
                 case 'fulltext':
                 case 'unique':
                     $type = strtoupper($definition['type']) . ' ';
-                break;
+                    break;
                 default:
                     throw new Doctrine_Export_Exception(
                         'Unknown type ' . $definition['type'] . ' for index ' . $name

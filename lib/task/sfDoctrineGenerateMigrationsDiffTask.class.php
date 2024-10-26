@@ -22,47 +22,47 @@ require_once(dirname(__FILE__).'/sfDoctrineBaseTask.class.php');
  */
 class sfDoctrineGenerateMigrationsDiffTask extends sfDoctrineBaseTask
 {
-  /**
-   * @see sfTask
-   */
-  protected function configure()
-  {
-    $this->addOptions(array(
-        new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
-        new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-    ));
+    /**
+     * @see sfTask
+     */
+    protected function configure()
+    {
+        $this->addOptions(array(
+            new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
+            new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+        ));
 
-    $this->namespace = 'doctrine';
-    $this->name = 'generate-migrations-diff';
-    $this->briefDescription = 'Generate migration classes by producing a diff between your old and new schema.';
+        $this->namespace = 'doctrine';
+        $this->name = 'generate-migrations-diff';
+        $this->briefDescription = 'Generate migration classes by producing a diff between your old and new schema.';
 
-    $this->detailedDescription = <<<EOF
+        $this->detailedDescription = <<<EOF
 The [doctrine:generate-migrations-diff|INFO] task generates migration classes by
 producing a diff between your old and new schema.
 
   [./symfony doctrine:generate-migrations-diff|INFO]
 EOF;
-  }
-
-  /**
-   * @see sfTask
-   */
-  protected function execute($arguments = array(), $options = array())
-  {
-    $databaseManager = new sfDatabaseManager($this->configuration);
-    $config = $this->getCliConfig();
-
-    $this->logSection('doctrine', 'generating migration diff');
-
-    if (!is_dir($config['migrations_path']))
-    {
-      $this->getFilesystem()->mkdirs($config['migrations_path']);
     }
 
-    spl_autoload_register(array('Doctrine_Core', 'modelsAutoload'));
+    /**
+     * @see sfTask
+     */
+    protected function execute($arguments = array(), $options = array())
+    {
+        $databaseManager = new sfDatabaseManager($this->configuration);
+        $config = $this->getCliConfig();
 
-    $this->callDoctrineCli('generate-migrations-diff', array(
-        'yaml_schema_path' => $this->prepareSchemaFile($config['yaml_schema_path']),
-    ));
-  }
+        $this->logSection('doctrine', 'generating migration diff');
+
+        if (!is_dir($config['migrations_path']))
+        {
+            $this->getFilesystem()->mkdirs($config['migrations_path']);
+        }
+
+        spl_autoload_register(array('Doctrine_Core', 'modelsAutoload'));
+
+        $this->callDoctrineCli('generate-migrations-diff', array(
+            'yaml_schema_path' => $this->prepareSchemaFile($config['yaml_schema_path']),
+        ));
+    }
 }

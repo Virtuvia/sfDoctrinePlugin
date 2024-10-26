@@ -110,7 +110,7 @@ class Doctrine_Expression
 
         // parse args
         foreach ($this->_tokenizer->bracketExplode($argStr, ',') as $arg) {
-           $args[] = $this->parseClause($arg);
+            $args[] = $this->parseClause($arg);
         }
 
         return call_user_func_array(array($this->getConnection()->expression, $name), $args);

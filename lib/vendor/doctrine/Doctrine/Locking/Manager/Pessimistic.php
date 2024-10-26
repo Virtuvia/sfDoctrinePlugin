@@ -128,7 +128,7 @@ class Doctrine_Locking_Manager_Pessimistic
                 $stmt->execute();
                 $gotLock = true;
 
-            // we catch an Exception here instead of PDOException since we might also be catching Doctrine_Exception
+                // we catch an Exception here instead of PDOException since we might also be catching Doctrine_Exception
             } catch(Exception $pkviolation) {
                 // PK violation occured => existing lock!
             }

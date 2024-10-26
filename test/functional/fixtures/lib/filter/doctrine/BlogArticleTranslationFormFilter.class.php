@@ -10,7 +10,7 @@
  */
 class BlogArticleTranslationFormFilter extends BaseBlogArticleTranslationFormFilter
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }
