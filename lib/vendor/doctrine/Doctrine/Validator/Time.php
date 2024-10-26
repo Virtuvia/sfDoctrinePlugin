@@ -58,9 +58,9 @@ class Doctrine_Validator_Time extends Doctrine_Validator_Driver
         $tz_mm = (isset($matches[9])) ? intval($matches[9]) : 0;
 
         return 	($hh >= 0 && $hh <= 23) &&
-				($mm >= 0 && $mm <= 59) &&
-				($ss >= 0 && $ss <= 59) &&
-				($tz_hh >= -13 && $tz_hh <= 14) &&
-				($tz_mm >= 0 && $tz_mm <= 59) ;
+                ($mm >= 0 && $mm <= 59) &&
+                ($ss >= 0 && $ss <= 59) &&
+                ($tz_hh >= -13 && $tz_hh <= 14) &&
+                ($tz_mm >= 0 && $tz_mm <= 59) ;
     }
 }

@@ -354,7 +354,7 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
         // cannot insert as parent of itself
         if (
             $dest === $this->record ||
-			($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
+            ($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
         ) {
             throw new Doctrine_Tree_Exception("Cannot insert node as parent of itself");
 
@@ -412,7 +412,7 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
         // cannot insert as sibling of itself
         if (
             $dest === $this->record ||
-			($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
+            ($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
         ) {
             throw new Doctrine_Tree_Exception("Cannot insert node as previous sibling of itself");
 
@@ -458,7 +458,7 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
         // cannot insert as sibling of itself
         if (
             $dest === $this->record ||
-			($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
+            ($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
         ) {
             throw new Doctrine_Tree_Exception("Cannot insert node as next sibling of itself");
 
@@ -503,7 +503,7 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
         // cannot insert as child of itself
         if (
             $dest === $this->record ||
-			($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
+            ($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
         ) {
             throw new Doctrine_Tree_Exception("Cannot insert node as first child of itself");
 
@@ -549,7 +549,7 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
         // cannot insert as child of itself
         if (
             $dest === $this->record ||
-			($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
+            ($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
         ) {
             throw new Doctrine_Tree_Exception("Cannot insert node as last child of itself");
 
@@ -679,7 +679,7 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
     {
         if (
             $dest === $this->record ||
-			($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
+            ($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
         ) {
             throw new Doctrine_Tree_Exception("Cannot move node as previous sibling of itself");
 
@@ -707,7 +707,7 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
     {
         if (
             $dest === $this->record ||
-			($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
+            ($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
         ) {
             throw new Doctrine_Tree_Exception("Cannot move node as next sibling of itself");
 
@@ -735,7 +735,7 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
     {
         if (
             $dest === $this->record || $this->isAncestorOf($dest) ||
-			($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
+            ($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
         ) {
             throw new Doctrine_Tree_Exception("Cannot move node as first child of itself or into a descendant");
 
@@ -763,7 +763,7 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
     {
         if (
             $dest === $this->record || $this->isAncestorOf($dest) ||
-			($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
+            ($dest->exists() && $this->record->exists() && $dest->identifier() === $this->record->identifier())
         ) {
             throw new Doctrine_Tree_Exception("Cannot move node as last child of itself or into a descendant");
 

@@ -109,7 +109,7 @@ class Doctrine_AuditLog_Listener extends Doctrine_Record_Listener
                 }
 
                 $rows = $q->where(implode(' AND ', $conditions))
-    					  ->execute($values);
+                          ->execute($values);
             }
         }
     }
