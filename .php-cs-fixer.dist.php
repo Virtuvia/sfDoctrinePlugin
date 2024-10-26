@@ -7,6 +7,9 @@ $finder = (new PhpCsFixer\Finder())
     ->in(__DIR__.'/lib/vendor')
     ->exclude([
         'data/generator',
+        'test/functional/fixtures/lib/model',
+        'test/functional/fixtures/lib/filter',
+        'test/functional/fixtures/lib/form',
     ])
 ;
 
