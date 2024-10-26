@@ -39,37 +39,37 @@ abstract class BaseUser extends myDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('user');
-        $this->hasColumn('username', 'string', 255, array(
+        $this->hasColumn('username', 'string', 255, [
             'type' => 'string',
             'unique' => true,
             'length' => 255,
-        ));
-        $this->hasColumn('password', 'string', 255, array(
+        ]);
+        $this->hasColumn('password', 'string', 255, [
             'type' => 'string',
             'length' => 255,
-        ));
-        $this->hasColumn('test', 'string', 255, array(
+        ]);
+        $this->hasColumn('test', 'string', 255, [
             'type' => 'string',
             'length' => 255,
-        ));
+        ]);
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('Group as Groups', array(
+        $this->hasMany('Group as Groups', [
             'refClass' => 'UserGroup',
             'local' => 'user_id',
-            'foreign' => 'group_id'));
+            'foreign' => 'group_id']);
 
-        $this->hasMany('Permission as Permissions', array(
+        $this->hasMany('Permission as Permissions', [
             'refClass' => 'UserPermission',
             'local' => 'user_id',
-            'foreign' => 'permission_id'));
+            'foreign' => 'permission_id']);
 
-        $this->hasOne('Profile', array(
+        $this->hasOne('Profile', [
             'local' => 'id',
-            'foreign' => 'user_id'));
+            'foreign' => 'user_id']);
     }
 
 }

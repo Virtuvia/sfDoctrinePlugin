@@ -15,25 +15,25 @@ abstract class BaseArticleForm extends BaseFormDoctrine
 {
     public function setup()
     {
-        $this->setWidgets(array(
+        $this->setWidgets([
             'id'             => new sfWidgetFormInputHidden(),
-            'author_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Author'), 'add_empty' => true)),
+            'author_id'      => new sfWidgetFormDoctrineChoice(['model' => $this->getRelatedModelName('Author'), 'add_empty' => true]),
             'is_on_homepage' => new sfWidgetFormInputCheckbox(),
             'views'          => new sfWidgetFormInputText(),
             'type'           => new sfWidgetFormInputText(),
             'created_at'     => new sfWidgetFormDateTime(),
             'updated_at'     => new sfWidgetFormDateTime(),
-        ));
+        ]);
 
-        $this->setValidators(array(
-            'id'             => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-            'author_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Author'), 'required' => false)),
-            'is_on_homepage' => new sfValidatorBoolean(array('required' => false)),
-            'views'          => new sfValidatorInteger(array('required' => false)),
-            'type'           => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+        $this->setValidators([
+            'id'             => new sfValidatorChoice(['choices' => [$this->getObject()->get('id')], 'empty_value' => $this->getObject()->get('id'), 'required' => false]),
+            'author_id'      => new sfValidatorDoctrineChoice(['model' => $this->getRelatedModelName('Author'), 'required' => false]),
+            'is_on_homepage' => new sfValidatorBoolean(['required' => false]),
+            'views'          => new sfValidatorInteger(['required' => false]),
+            'type'           => new sfValidatorString(['max_length' => 255, 'required' => false]),
             'created_at'     => new sfValidatorDateTime(),
             'updated_at'     => new sfValidatorDateTime(),
-        ));
+        ]);
 
         $this->widgetSchema->setNameFormat('article[%s]');
 

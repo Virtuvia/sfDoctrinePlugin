@@ -12,15 +12,15 @@ abstract class BaseAuthorFormFilter extends BaseFormFilterDoctrine
 {
     public function setup()
     {
-        $this->setWidgets(array(
+        $this->setWidgets([
             'name' => new sfWidgetFormFilterInput(),
             'type' => new sfWidgetFormFilterInput(),
-        ));
+        ]);
 
-        $this->setValidators(array(
-            'name' => new sfValidatorPass(array('required' => false)),
-            'type' => new sfValidatorPass(array('required' => false)),
-        ));
+        $this->setValidators([
+            'name' => new sfValidatorPass(['required' => false]),
+            'type' => new sfValidatorPass(['required' => false]),
+        ]);
 
         $this->widgetSchema->setNameFormat('author_filters[%s]');
 
@@ -38,10 +38,10 @@ abstract class BaseAuthorFormFilter extends BaseFormFilterDoctrine
 
     public function getFields()
     {
-        return array(
+        return [
             'id'   => 'Number',
             'name' => 'Text',
             'type' => 'Text',
-        );
+        ];
     }
 }

@@ -30,30 +30,30 @@ abstract class BaseSetting extends myDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('setting');
-        $this->hasColumn('name', 'string', 255, array(
+        $this->hasColumn('name', 'string', 255, [
             'type' => 'string',
             'length' => 255,
             'notnull' => true,
-        ));
-        $this->hasColumn('value', 'string', null, array(
+        ]);
+        $this->hasColumn('value', 'string', null, [
             'type' => 'string',
-        ));
-        $this->hasColumn('weight', 'float', 4, array(
+        ]);
+        $this->hasColumn('weight', 'float', 4, [
             'type' => 'float',
             'length' => 4,
             'scale' => '4',
-        ));
+        ]);
     }
 
     public function setUp()
     {
         parent::setUp();
-        $timestampable0 = new Doctrine_Template_Timestampable(array(
+        $timestampable0 = new Doctrine_Template_Timestampable([
             'updated' =>
-            array(
+            [
                 'disabled' => true,
-            ),
-        ));
+            ],
+        ]);
         $this->actAs($timestampable0);
     }
 

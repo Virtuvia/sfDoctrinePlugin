@@ -18,15 +18,15 @@ class testProjectConfiguration extends sfProjectConfiguration
 
 $configuration = new testProjectConfiguration(dirname(__FILE__).'/../../lib', new sfEventDispatcher());
 
-$parameters = array(
+$parameters = [
     'name'        => 'doctrine',
     'dsn'         => 'sqlite::memory',
-    'attributes'  => array(
+    'attributes'  => [
         'use_native_enum'   => true,
         'validate'          => 'all',
         'tblname_format'    => 'test_%s',
-    ),
-);
+    ],
+];
 
 $p = new sfDoctrineDatabase($parameters);
 $t->is($p->getDoctrineConnection()->getName(), 'doctrine', 'initialize() - creates a valid doctrine configuration from parameters');

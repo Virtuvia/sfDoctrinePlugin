@@ -23,9 +23,9 @@ class sfWidgetFormDoctrineChoice extends sfWidgetFormChoice
     /**
      * @see sfWidget
      */
-    public function __construct($options = array(), $attributes = array())
+    public function __construct($options = [], $attributes = [])
     {
-        $options['choices'] = array();
+        $options['choices'] = [];
 
         parent::__construct($options, $attributes);
     }
@@ -49,7 +49,7 @@ class sfWidgetFormDoctrineChoice extends sfWidgetFormChoice
      *
      * @see sfWidgetFormSelect
      */
-    protected function configure($options = array(), $attributes = array())
+    protected function configure($options = [], $attributes = [])
     {
         $this->addRequiredOption('model');
         $this->addOption('add_empty', false);
@@ -70,7 +70,7 @@ class sfWidgetFormDoctrineChoice extends sfWidgetFormChoice
      */
     public function getChoices()
     {
-        $choices = array();
+        $choices = [];
         if (false !== $this->getOption('add_empty')) {
             $choices[''] = true === $this->getOption('add_empty') ? '' : $this->translate($this->getOption('add_empty'));
         }
@@ -93,7 +93,7 @@ class sfWidgetFormDoctrineChoice extends sfWidgetFormChoice
                 $objects = new Doctrine_Collection($this->getOption('model'));
                 $objects[] = $results;
             } else {
-                $objects = array();
+                $objects = [];
             }
         }
 

@@ -38,9 +38,9 @@ abstract class Doctrine_Task
     public $taskName             =   null;
     /*Treat as protected*/
     public $description          =   null;
-    public $arguments            =   array();
-    public $requiredArguments    =   array();
-    public $optionalArguments    =   array();
+    public $arguments            =   [];
+    public $requiredArguments    =   [];
+    public $optionalArguments    =   [];
 
     /**
      * __construct
@@ -103,7 +103,7 @@ abstract class Doctrine_Task
         if (is_object($this->dispatcher) && method_exists($this->dispatcher, 'notify')) {
             $args = func_get_args();
 
-            return call_user_func_array(array($this->dispatcher, 'notify'), $args);
+            return call_user_func_array([$this->dispatcher, 'notify'], $args);
         } elseif ($notification !== null) {
             return $notification;
         } else {
@@ -120,7 +120,7 @@ abstract class Doctrine_Task
     {
         $args = func_get_args();
 
-        call_user_func_array(array($this, 'notify'), $args);
+        call_user_func_array([$this, 'notify'], $args);
 
         $answer = strtolower(trim(fgets(STDIN)));
 

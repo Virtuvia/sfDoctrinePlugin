@@ -36,7 +36,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
     /**
      * @var array $data                     an array containing the records of this collection
      */
-    protected $data = array();
+    protected $data = [];
 
     /**
      * @var Doctrine_Table $table           each collection has only records of specified table
@@ -46,7 +46,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
     /**
      * @var array $_snapshot                a snapshot of the fetched data
      */
-    protected $_snapshot = array();
+    protected $_snapshot = [];
 
     /**
      * @var Doctrine_Record $reference      collection can belong to a record
@@ -387,7 +387,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      */
     public function getPrimaryKeys()
     {
-        $list = array();
+        $list = [];
         $name = $this->_table->getIdentifier();
 
         foreach ($this->data as $record) {
@@ -523,7 +523,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      */
     public function loadRelated($name = null)
     {
-        $list = array();
+        $list = [];
         $query = $this->_table->createQuery();
 
         if (! isset($name)) {
@@ -678,7 +678,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      */
     public function processDiff()
     {
-        foreach (array_udiff($this->_snapshot, $this->data, array($this, "compareRecords")) as $record) {
+        foreach (array_udiff($this->_snapshot, $this->data, [$this, "compareRecords"]) as $record) {
             $record->delete();
         }
 
@@ -692,7 +692,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      */
     public function toArray($deep = true, $prefixKey = false)
     {
-        $data = array();
+        $data = [];
         foreach ($this as $key => $record) {
 
             $key = $prefixKey ? get_class($record) . '_' .$key : $key;
@@ -712,7 +712,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      */
     public function toKeyValueArray($key, $value)
     {
-        $result = array();
+        $result = [];
         foreach ($this as $record) {
             $result[$record->$key] = $record->$value;
         }
@@ -775,7 +775,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      */
     public function fromArray($array, $deep = true)
     {
-        $data = array();
+        $data = [];
         foreach ($array as $rowKey => $row) {
             $this[$rowKey]->fromArray($row, $deep);
         }
@@ -851,7 +851,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      */
     public function getDeleteDiff()
     {
-        return array_udiff($this->_snapshot, $this->data, array($this, 'compareRecords'));
+        return array_udiff($this->_snapshot, $this->data, [$this, 'compareRecords']);
     }
 
     /**
@@ -861,7 +861,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      */
     public function getInsertDiff()
     {
-        return array_udiff($this->data, $this->_snapshot, array($this, "compareRecords"));
+        return array_udiff($this->data, $this->_snapshot, [$this, "compareRecords"]);
     }
 
     /**
@@ -989,7 +989,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      */
     public function clear()
     {
-        $this->data = array();
+        $this->data = [];
     }
 
     /**
@@ -1007,7 +1007,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
             }
         }
 
-        $this->data = array();
+        $this->data = [];
 
         if ($this->reference) {
             $this->reference->free($deep);

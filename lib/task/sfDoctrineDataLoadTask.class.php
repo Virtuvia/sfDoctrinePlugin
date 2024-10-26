@@ -27,15 +27,15 @@ class sfDoctrineDataLoadTask extends sfDoctrineBaseTask
      */
     protected function configure()
     {
-        $this->addArguments(array(
+        $this->addArguments([
             new sfCommandArgument('dir_or_file', sfCommandArgument::OPTIONAL | sfCommandArgument::IS_ARRAY, 'Directory or file to load'),
-        ));
+        ]);
 
-        $this->addOptions(array(
+        $this->addOptions([
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
             new sfCommandOption('append', null, sfCommandOption::PARAMETER_NONE, 'Don\'t delete current data in the database'),
-        ));
+        ]);
 
         $this->namespace = 'doctrine';
         $this->name = 'data-load';
@@ -63,7 +63,7 @@ EOF;
     /**
      * @see sfTask
      */
-    protected function execute($arguments = array(), $options = array())
+    protected function execute($arguments = [], $options = [])
     {
         $databaseManager = new sfDatabaseManager($this->configuration);
 
@@ -73,10 +73,10 @@ EOF;
             $arguments['dir_or_file'] = $config['data_fixtures_path'];
         }
 
-        $doctrineArguments = array(
+        $doctrineArguments = [
             'data_fixtures_path' => $arguments['dir_or_file'],
             'append'             => $options['append'],
-        );
+        ];
 
         foreach ($arguments['dir_or_file'] as $target) {
             $this->logSection('doctrine', sprintf('Loading data fixtures from "%s"', $target));

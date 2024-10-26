@@ -32,7 +32,7 @@ class sfValidatorDoctrineUnique extends sfValidatorSchema
      *
      * @see sfValidatorSchema
      */
-    public function __construct($options = array(), $messages = array())
+    public function __construct($options = [], $messages = [])
     {
         parent::__construct(null, $options, $messages);
     }
@@ -52,7 +52,7 @@ class sfValidatorDoctrineUnique extends sfValidatorSchema
      *
      * @see sfValidatorBase
      */
-    protected function configure($options = array(), $messages = array())
+    protected function configure($options = [], $messages = [])
     {
         $this->addRequiredOption('model');
         $this->addRequiredOption('column');
@@ -71,14 +71,14 @@ class sfValidatorDoctrineUnique extends sfValidatorSchema
         $originalValues = $value;
         $table = Doctrine_Core::getTable($this->getOption('model'));
         if (!is_array($this->getOption('column'))) {
-            $this->setOption('column', array($this->getOption('column')));
+            $this->setOption('column', [$this->getOption('column')]);
         }
 
         //if $value isn't an array, make it one
         if (!is_array($value)) {
             //use first column for key
             $columns = $this->getOption('column');
-            $value = array($columns[0] => $value);
+            $value = [$columns[0] => $value];
         }
 
         $q = Doctrine_Core::getTable($this->getOption('model'))->createQuery('a');
@@ -99,7 +99,7 @@ class sfValidatorDoctrineUnique extends sfValidatorSchema
             return $originalValues;
         }
 
-        $error = new sfValidatorError($this, 'invalid', array('column' => implode(', ', $this->getOption('column'))));
+        $error = new sfValidatorError($this, 'invalid', ['column' => implode(', ', $this->getOption('column'))]);
 
         if ($this->getOption('throw_global_error')) {
             throw $error;
@@ -107,7 +107,7 @@ class sfValidatorDoctrineUnique extends sfValidatorSchema
 
         $columns = $this->getOption('column');
 
-        throw new sfValidatorErrorSchema($this, array($columns[0] => $error));
+        throw new sfValidatorErrorSchema($this, [$columns[0] => $error]);
     }
 
     /**
@@ -142,7 +142,7 @@ class sfValidatorDoctrineUnique extends sfValidatorSchema
         }
 
         if (!is_array($this->getOption('primary_key'))) {
-            $this->setOption('primary_key', array($this->getOption('primary_key')));
+            $this->setOption('primary_key', [$this->getOption('primary_key')]);
         }
 
         return $this->getOption('primary_key');

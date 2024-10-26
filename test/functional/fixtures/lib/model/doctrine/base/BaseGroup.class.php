@@ -30,24 +30,24 @@ abstract class BaseGroup extends myDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('groups');
-        $this->hasColumn('name', 'string', 255, array(
+        $this->hasColumn('name', 'string', 255, [
             'type' => 'string',
             'length' => 255,
-        ));
+        ]);
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('Permission as Permissions', array(
+        $this->hasMany('Permission as Permissions', [
             'refClass' => 'GroupPermission',
             'local' => 'group_id',
-            'foreign' => 'permission_id'));
+            'foreign' => 'permission_id']);
 
-        $this->hasMany('User as Users', array(
+        $this->hasMany('User as Users', [
             'refClass' => 'UserGroup',
             'local' => 'group_id',
-            'foreign' => 'user_id'));
+            'foreign' => 'user_id']);
     }
 
 }

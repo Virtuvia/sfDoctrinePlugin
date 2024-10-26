@@ -24,15 +24,15 @@ abstract class BaseModelFromLinkedSchema extends myDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('model_from_linked_schema');
-        $this->hasColumn('name', 'string', 255, array(
+        $this->hasColumn('name', 'string', 255, [
             'type' => 'string',
             'length' => 255,
-        ));
+        ]);
 
-        $this->option('symfony', array(
+        $this->option('symfony', [
             'form' => false,
             'filter' => false,
-        ));
+        ]);
     }
 
     public function setUp()

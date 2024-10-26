@@ -39,11 +39,11 @@ class Doctrine_Template_Versionable extends Doctrine_Template
      *
      * @var array
      */
-    protected $_options = array('version'           => array('name'   => 'version',
+    protected $_options = ['version'           => ['name'   => 'version',
         'alias'  => null,
         'type'   => 'integer',
         'length' => 8,
-        'options' => array()),
+        'options' => []],
         'generateRelations' => true,
         'tableName'         => false,
         'generateFiles'     => false,
@@ -54,7 +54,7 @@ class Doctrine_Template_Versionable extends Doctrine_Template
         'localRelationOptions' => [
             'foreignKeyName' => null,
         ],
-    );
+    ];
 
     /**
      * __construct
@@ -62,7 +62,7 @@ class Doctrine_Template_Versionable extends Doctrine_Template
      * @param array $options
      * @return void
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         parent::__construct($options);
         $this->_plugin = new Doctrine_AuditLog($this->_options);

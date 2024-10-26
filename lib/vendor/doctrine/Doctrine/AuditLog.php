@@ -37,25 +37,25 @@ class Doctrine_AuditLog extends Doctrine_Record_Generator
      *
      * @var array
      */
-    protected $_options = array('className'         => '%CLASS%Version',
+    protected $_options = ['className'         => '%CLASS%Version',
         'localRelationOptions' => [
             'foreignKeyName' => null,
         ],
-        'version'           => array('name'   => 'version',
+        'version'           => ['name'   => 'version',
             'alias'  => null,
             'type'   => 'integer',
             'length' => 8,
-            'options' => array('primary' => true)),
+            'options' => ['primary' => true]],
         'tableName'         => false,
         'generateFiles'     => false,
         'table'             => false,
         'pluginTable'       => false,
-        'children'          => array(),
+        'children'          => [],
         'auditLog'          => true,
         'deleteVersions'    => true,
         'cascadeDelete'     => true,
-        'excludeFields'     => array(),
-        'appLevelDelete'    => false);
+        'excludeFields'     => [],
+        'appLevelDelete'    => false];
 
     /**
      * Accepts array of options to configure the AuditLog
@@ -63,7 +63,7 @@ class Doctrine_AuditLog extends Doctrine_Record_Generator
      * @param   array $options An array of options
      * @return  void
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         $this->_options = Doctrine_Lib::arrayDeepMerge($this->_options, $options);
     }
@@ -136,7 +136,7 @@ class Doctrine_AuditLog extends Doctrine_Record_Generator
         $q = Doctrine_Core::getTable($className)
             ->createQuery();
 
-        $values = array();
+        $values = [];
         foreach ((array) $this->_options['table']->getIdentifier() as $id) {
             $conditions[] = $className . '.' . $id . ' = ?';
             $values[] = $record->get($id);

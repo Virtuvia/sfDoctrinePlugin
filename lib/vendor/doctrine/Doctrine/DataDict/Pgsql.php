@@ -35,7 +35,7 @@ class Doctrine_DataDict_Pgsql extends Doctrine_DataDict
     /**
      * @param array $reservedKeyWords     an array of reserved keywords by pgsql
      */
-    protected static $reservedKeyWords = array(
+    protected static $reservedKeyWords = [
         'abort',
         'absolute',
         'access',
@@ -332,7 +332,7 @@ class Doctrine_DataDict_Pgsql extends Doctrine_DataDict
         'write',
         'year',
         'zone'
-    );
+    ];
 
     /**
      * Obtain DBMS specific SQL code portion needed to declare an text type
@@ -452,7 +452,7 @@ class Doctrine_DataDict_Pgsql extends Doctrine_DataDict
         if ((int)$length <= 0) {
             $length = null;
         }
-        $type = array();
+        $type = [];
         $unsigned = $fixed = null;
 
         if (! isset($field['name'])) {
@@ -601,10 +601,10 @@ class Doctrine_DataDict_Pgsql extends Doctrine_DataDict
                 $length = isset($field['length']) ? $field['length'] : null;
         }
 
-        $ret = array('type'     => $type,
+        $ret = ['type'     => $type,
             'length'   => $length,
             'unsigned' => $unsigned,
-            'fixed'    => $fixed);
+            'fixed'    => $fixed];
 
         // If this is postgresql enum type we will have non-null values here
         if ($default !== null) {

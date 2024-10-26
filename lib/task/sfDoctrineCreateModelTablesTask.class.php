@@ -22,14 +22,14 @@ class sfDoctrineCreateModelTables extends sfDoctrineBaseTask
 {
     protected function configure()
     {
-        $this->addArguments(array(
-            new sfCommandArgument('models', sfCommandArgument::IS_ARRAY, 'The list of models', array()),
-        ));
+        $this->addArguments([
+            new sfCommandArgument('models', sfCommandArgument::IS_ARRAY, 'The list of models', []),
+        ]);
 
-        $this->addOptions(array(
+        $this->addOptions([
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'frontend'),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-        ));
+        ]);
 
         $this->namespace = 'doctrine';
         $this->name = 'create-model-tables';
@@ -42,7 +42,7 @@ The [doctrine:create-model-tables|INFO] Drop and recreate tables for specified m
 EOF;
     }
 
-    protected function execute($arguments = array(), $options = array())
+    protected function execute($arguments = [], $options = [])
     {
         $databaseManager = new sfDatabaseManager($this->configuration);
 
@@ -51,7 +51,7 @@ EOF;
         $buildModel->setConfiguration($this->configuration);
         $ret = $buildModel->run();
 
-        $connections = array();
+        $connections = [];
         $models = $arguments['models'];
         foreach ($models as $key => $model) {
             $model = trim($model);

@@ -12,19 +12,19 @@ abstract class BaseArticleTranslationFormFilter extends BaseFormFilterDoctrine
 {
     public function setup()
     {
-        $this->setWidgets(array(
+        $this->setWidgets([
             'title'       => new sfWidgetFormFilterInput(),
             'body'        => new sfWidgetFormFilterInput(),
             'test_column' => new sfWidgetFormFilterInput(),
             'slug'        => new sfWidgetFormFilterInput(),
-        ));
+        ]);
 
-        $this->setValidators(array(
-            'title'       => new sfValidatorPass(array('required' => false)),
-            'body'        => new sfValidatorPass(array('required' => false)),
-            'test_column' => new sfValidatorPass(array('required' => false)),
-            'slug'        => new sfValidatorPass(array('required' => false)),
-        ));
+        $this->setValidators([
+            'title'       => new sfValidatorPass(['required' => false]),
+            'body'        => new sfValidatorPass(['required' => false]),
+            'test_column' => new sfValidatorPass(['required' => false]),
+            'slug'        => new sfValidatorPass(['required' => false]),
+        ]);
 
         $this->widgetSchema->setNameFormat('article_translation_filters[%s]');
 
@@ -42,13 +42,13 @@ abstract class BaseArticleTranslationFormFilter extends BaseFormFilterDoctrine
 
     public function getFields()
     {
-        return array(
+        return [
             'id'          => 'Number',
             'title'       => 'Text',
             'body'        => 'Text',
             'test_column' => 'Text',
             'lang'        => 'Text',
             'slug'        => 'Text',
-        );
+        ];
     }
 }

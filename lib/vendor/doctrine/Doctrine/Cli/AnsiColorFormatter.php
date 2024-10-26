@@ -42,15 +42,15 @@
  */
 class Doctrine_Cli_AnsiColorFormatter extends Doctrine_Cli_Formatter
 {
-    protected $_styles = array(
-        'HEADER'  => array('fg' => 'black', 'bold' => true),
-        'ERROR'   => array('bg' => 'red', 'fg' => 'white', 'bold' => true),
-        'INFO'    => array('fg' => 'green', 'bold' => true),
-        'COMMENT' => array('fg' => 'yellow'),
-    );
-    protected $_options    = array('bold' => 1, 'underscore' => 4, 'blink' => 5, 'reverse' => 7, 'conceal' => 8);
-    protected $_foreground = array('black' => 30, 'red' => 31, 'green' => 32, 'yellow' => 33, 'blue' => 34, 'magenta' => 35, 'cyan' => 36, 'white' => 37);
-    protected $_background = array('black' => 40, 'red' => 41, 'green' => 42, 'yellow' => 43, 'blue' => 44, 'magenta' => 45, 'cyan' => 46, 'white' => 47);
+    protected $_styles = [
+        'HEADER'  => ['fg' => 'black', 'bold' => true],
+        'ERROR'   => ['bg' => 'red', 'fg' => 'white', 'bold' => true],
+        'INFO'    => ['fg' => 'green', 'bold' => true],
+        'COMMENT' => ['fg' => 'yellow'],
+    ];
+    protected $_options    = ['bold' => 1, 'underscore' => 4, 'blink' => 5, 'reverse' => 7, 'conceal' => 8];
+    protected $_foreground = ['black' => 30, 'red' => 31, 'green' => 32, 'yellow' => 33, 'blue' => 34, 'magenta' => 35, 'cyan' => 36, 'white' => 37];
+    protected $_background = ['black' => 40, 'red' => 41, 'green' => 42, 'yellow' => 43, 'blue' => 44, 'magenta' => 45, 'cyan' => 46, 'white' => 47];
 
     /**
      * Sets a new style.
@@ -58,7 +58,7 @@ class Doctrine_Cli_AnsiColorFormatter extends Doctrine_Cli_Formatter
      * @param string The style name
      * @param array  An array of options
      */
-    public function setStyle($name, $options = array())
+    public function setStyle($name, $options = [])
     {
         $this->_styles[$name] = $options;
     }
@@ -71,7 +71,7 @@ class Doctrine_Cli_AnsiColorFormatter extends Doctrine_Cli_Formatter
      *
      * @return string The styled text
      */
-    public function format($text = '', $parameters = array(), $stream = STDOUT)
+    public function format($text = '', $parameters = [], $stream = STDOUT)
     {
         if (! $this->supportsColors($stream)) {
             return $text;
@@ -85,7 +85,7 @@ class Doctrine_Cli_AnsiColorFormatter extends Doctrine_Cli_Formatter
             $parameters = $this->_styles[$parameters];
         }
 
-        $codes = array();
+        $codes = [];
         if (isset($parameters['fg'])) {
             $codes[] = $this->_foreground[$parameters['fg']];
         }

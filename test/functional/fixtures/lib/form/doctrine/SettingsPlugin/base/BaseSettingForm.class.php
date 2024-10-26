@@ -15,21 +15,21 @@ abstract class BaseSettingForm extends BaseFormDoctrine
 {
     public function setup()
     {
-        $this->setWidgets(array(
+        $this->setWidgets([
             'id'         => new sfWidgetFormInputHidden(),
             'name'       => new sfWidgetFormInputText(),
             'value'      => new sfWidgetFormTextarea(),
             'weight'     => new sfWidgetFormInputText(),
             'created_at' => new sfWidgetFormDateTime(),
-        ));
+        ]);
 
-        $this->setValidators(array(
-            'id'         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-            'name'       => new sfValidatorString(array('max_length' => 255)),
-            'value'      => new sfValidatorString(array('required' => false)),
-            'weight'     => new sfValidatorNumber(array('required' => false)),
+        $this->setValidators([
+            'id'         => new sfValidatorChoice(['choices' => [$this->getObject()->get('id')], 'empty_value' => $this->getObject()->get('id'), 'required' => false]),
+            'name'       => new sfValidatorString(['max_length' => 255]),
+            'value'      => new sfValidatorString(['required' => false]),
+            'weight'     => new sfValidatorNumber(['required' => false]),
             'created_at' => new sfValidatorDateTime(),
-        ));
+        ]);
 
         $this->widgetSchema->setNameFormat('setting[%s]');
 

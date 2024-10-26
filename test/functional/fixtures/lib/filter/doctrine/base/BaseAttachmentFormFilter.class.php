@@ -12,13 +12,13 @@ abstract class BaseAttachmentFormFilter extends BaseFormFilterDoctrine
 {
     public function setup()
     {
-        $this->setWidgets(array(
+        $this->setWidgets([
             'file_path' => new sfWidgetFormFilterInput(),
-        ));
+        ]);
 
-        $this->setValidators(array(
-            'file_path' => new sfValidatorPass(array('required' => false)),
-        ));
+        $this->setValidators([
+            'file_path' => new sfValidatorPass(['required' => false]),
+        ]);
 
         $this->widgetSchema->setNameFormat('attachment_filters[%s]');
 
@@ -36,9 +36,9 @@ abstract class BaseAttachmentFormFilter extends BaseFormFilterDoctrine
 
     public function getFields()
     {
-        return array(
+        return [
             'id'        => 'Number',
             'file_path' => 'Text',
-        );
+        ];
     }
 }

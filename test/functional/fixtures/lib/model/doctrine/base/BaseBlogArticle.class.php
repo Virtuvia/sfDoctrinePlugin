@@ -24,9 +24,9 @@ abstract class BaseBlogArticle extends Article
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('BlogAuthor as Author', array(
+        $this->hasOne('BlogAuthor as Author', [
             'local' => 'blog_author_id',
-            'foreign' => 'id'));
+            'foreign' => 'id']);
     }
 
 }

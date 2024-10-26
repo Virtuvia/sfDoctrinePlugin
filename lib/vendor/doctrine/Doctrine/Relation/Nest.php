@@ -80,7 +80,7 @@ class Doctrine_Relation_Nest extends Doctrine_Relation_Association
             }
             $q->addComponent($assocTable, $path);
 
-            $params = ($this->definition['equal']) ? array($id, $id) : array($id);
+            $params = ($this->definition['equal']) ? [$id, $id] : [$id];
 
             $res = $q->execute($params);
 

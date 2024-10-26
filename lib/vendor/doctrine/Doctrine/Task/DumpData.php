@@ -33,9 +33,9 @@
 class Doctrine_Task_DumpData extends Doctrine_Task
 {
     public $description          =   'Dump data to a yaml data fixture file.';
-    public $requiredArguments    =   array('data_fixtures_path' =>  'Specify path to write the yaml data fixtures file to.',
-        'models_path'        =>  'Specify path to your Doctrine_Record definitions.');
-    public $optionalArguments    =   array();
+    public $requiredArguments    =   ['data_fixtures_path' =>  'Specify path to write the yaml data fixtures file to.',
+        'models_path'        =>  'Specify path to your Doctrine_Record definitions.'];
+    public $optionalArguments    =   [];
 
     public function execute()
     {

@@ -54,7 +54,7 @@ class Doctrine_Query_Where extends Doctrine_Query_Condition
         }
 
         if (count($terms) < 3) {
-            $terms = $this->_tokenizer->sqlExplode($where, array('=', '<', '<>', '>', '!='));
+            $terms = $this->_tokenizer->sqlExplode($where, ['=', '<', '<>', '>', '!=']);
         }
 
         if (count($terms) > 1) {
@@ -109,7 +109,7 @@ class Doctrine_Query_Where extends Doctrine_Query_Condition
     protected function _buildWhereInArraySqlPart($rightExpr)
     {
         $params = $this->query->getInternalParams();
-        $value = array();
+        $value = [];
 
         for ($i = 0, $l = count($params); $i < $l; $i++) {
             if (is_array($params[$i])) {

@@ -12,13 +12,13 @@ abstract class BaseDefaultValueTestFormFilter extends BaseFormFilterDoctrine
 {
     public function setup()
     {
-        $this->setWidgets(array(
-            'name' => new sfWidgetFormFilterInput(array('with_empty' => false)),
-        ));
+        $this->setWidgets([
+            'name' => new sfWidgetFormFilterInput(['with_empty' => false]),
+        ]);
 
-        $this->setValidators(array(
-            'name' => new sfValidatorPass(array('required' => false)),
-        ));
+        $this->setValidators([
+            'name' => new sfValidatorPass(['required' => false]),
+        ]);
 
         $this->widgetSchema->setNameFormat('default_value_test_filters[%s]');
 
@@ -36,9 +36,9 @@ abstract class BaseDefaultValueTestFormFilter extends BaseFormFilterDoctrine
 
     public function getFields()
     {
-        return array(
+        return [
             'id'   => 'Number',
             'name' => 'Text',
-        );
+        ];
     }
 }

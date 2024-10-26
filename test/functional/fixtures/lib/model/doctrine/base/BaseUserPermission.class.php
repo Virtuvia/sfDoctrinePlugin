@@ -24,19 +24,19 @@ abstract class BaseUserPermission extends myDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('user_permission');
-        $this->hasColumn('user_id', 'integer', null, array(
+        $this->hasColumn('user_id', 'integer', null, [
             'type' => 'integer',
             'primary' => true,
-        ));
-        $this->hasColumn('permission_id', 'integer', null, array(
+        ]);
+        $this->hasColumn('permission_id', 'integer', null, [
             'type' => 'integer',
             'primary' => true,
-        ));
+        ]);
 
-        $this->option('symfony', array(
+        $this->option('symfony', [
             'form' => false,
             'filter' => false,
-        ));
+        ]);
     }
 
     public function setUp()

@@ -233,7 +233,7 @@ class Doctrine_Lib
                 return func_get_arg(0);
             case 2:
                 $args = func_get_args();
-                $args[2] = array();
+                $args[2] = [];
 
                 if (is_array($args[0]) && is_array($args[1])) {
                     foreach (array_unique(array_merge(array_keys($args[0]), array_keys($args[1]))) as $key) {
@@ -261,7 +261,7 @@ class Doctrine_Lib
                 $args[1] = self::arrayDeepMerge($args[0], $args[1]);
                 array_shift($args);
 
-                return call_user_func_array(array('Doctrine_Lib', 'arrayDeepMerge'), $args);
+                return call_user_func_array(['Doctrine_Lib', 'arrayDeepMerge'], $args);
                 break;
         }
     }

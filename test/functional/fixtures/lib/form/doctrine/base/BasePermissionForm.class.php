@@ -15,19 +15,19 @@ abstract class BasePermissionForm extends BaseFormDoctrine
 {
     public function setup()
     {
-        $this->setWidgets(array(
+        $this->setWidgets([
             'id'          => new sfWidgetFormInputHidden(),
             'name'        => new sfWidgetFormInputText(),
-            'users_list'  => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'User')),
-            'groups_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Group')),
-        ));
+            'users_list'  => new sfWidgetFormDoctrineChoice(['multiple' => true, 'model' => 'User']),
+            'groups_list' => new sfWidgetFormDoctrineChoice(['multiple' => true, 'model' => 'Group']),
+        ]);
 
-        $this->setValidators(array(
-            'id'          => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-            'name'        => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-            'users_list'  => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'User', 'required' => false)),
-            'groups_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Group', 'required' => false)),
-        ));
+        $this->setValidators([
+            'id'          => new sfValidatorChoice(['choices' => [$this->getObject()->get('id')], 'empty_value' => $this->getObject()->get('id'), 'required' => false]),
+            'name'        => new sfValidatorString(['max_length' => 255, 'required' => false]),
+            'users_list'  => new sfValidatorDoctrineChoice(['multiple' => true, 'model' => 'User', 'required' => false]),
+            'groups_list' => new sfValidatorDoctrineChoice(['multiple' => true, 'model' => 'Group', 'required' => false]),
+        ]);
 
         $this->widgetSchema->setNameFormat('permission[%s]');
 
@@ -83,7 +83,7 @@ abstract class BasePermissionForm extends BaseFormDoctrine
         $existing = $this->object->Users->getPrimaryKeys();
         $values = $this->getValue('users_list');
         if (!is_array($values)) {
-            $values = array();
+            $values = [];
         }
 
         $unlink = array_diff($existing, $values);
@@ -115,7 +115,7 @@ abstract class BasePermissionForm extends BaseFormDoctrine
         $existing = $this->object->Groups->getPrimaryKeys();
         $values = $this->getValue('groups_list');
         if (!is_array($values)) {
-            $values = array();
+            $values = [];
         }
 
         $unlink = array_diff($existing, $values);

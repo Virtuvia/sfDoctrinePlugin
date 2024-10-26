@@ -30,20 +30,20 @@ abstract class BaseSubscription extends myDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('subscription');
-        $this->hasColumn('name', 'string', 255, array(
+        $this->hasColumn('name', 'string', 255, [
             'type' => 'string',
             'length' => 255,
-        ));
-        $this->hasColumn('status', 'enum', null, array(
+        ]);
+        $this->hasColumn('status', 'enum', null, [
             'type' => 'enum',
             'values' =>
-            array(
+            [
                 0 => 'New',
                 1 => 'Active',
                 2 => 'Pending',
                 3 => 'Expired',
-            ),
-        ));
+            ],
+        ]);
     }
 
     public function setUp()

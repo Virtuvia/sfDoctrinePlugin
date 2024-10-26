@@ -53,7 +53,7 @@ class Doctrine_Query_Having extends Doctrine_Query_Condition
         }
 
         if ($pos !== false) {
-            $funcs  = array();
+            $funcs  = [];
 
             $name   = substr($func, 0, $pos);
             $func   = substr($func, ($pos + 1), -1);

@@ -15,26 +15,26 @@ abstract class BaseUserForm extends BaseFormDoctrine
 {
     public function setup()
     {
-        $this->setWidgets(array(
+        $this->setWidgets([
             'id'               => new sfWidgetFormInputHidden(),
             'username'         => new sfWidgetFormInputText(),
             'password'         => new sfWidgetFormInputText(),
             'test'             => new sfWidgetFormInputText(),
-            'groups_list'      => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Group')),
-            'permissions_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Permission')),
-        ));
+            'groups_list'      => new sfWidgetFormDoctrineChoice(['multiple' => true, 'model' => 'Group']),
+            'permissions_list' => new sfWidgetFormDoctrineChoice(['multiple' => true, 'model' => 'Permission']),
+        ]);
 
-        $this->setValidators(array(
-            'id'               => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-            'username'         => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-            'password'         => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-            'test'             => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-            'groups_list'      => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Group', 'required' => false)),
-            'permissions_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Permission', 'required' => false)),
-        ));
+        $this->setValidators([
+            'id'               => new sfValidatorChoice(['choices' => [$this->getObject()->get('id')], 'empty_value' => $this->getObject()->get('id'), 'required' => false]),
+            'username'         => new sfValidatorString(['max_length' => 255, 'required' => false]),
+            'password'         => new sfValidatorString(['max_length' => 255, 'required' => false]),
+            'test'             => new sfValidatorString(['max_length' => 255, 'required' => false]),
+            'groups_list'      => new sfValidatorDoctrineChoice(['multiple' => true, 'model' => 'Group', 'required' => false]),
+            'permissions_list' => new sfValidatorDoctrineChoice(['multiple' => true, 'model' => 'Permission', 'required' => false]),
+        ]);
 
         $this->validatorSchema->setPostValidator(
-            new sfValidatorDoctrineUnique(array('model' => 'User', 'column' => array('username')))
+            new sfValidatorDoctrineUnique(['model' => 'User', 'column' => ['username']])
         );
 
         $this->widgetSchema->setNameFormat('user[%s]');
@@ -91,7 +91,7 @@ abstract class BaseUserForm extends BaseFormDoctrine
         $existing = $this->object->Groups->getPrimaryKeys();
         $values = $this->getValue('groups_list');
         if (!is_array($values)) {
-            $values = array();
+            $values = [];
         }
 
         $unlink = array_diff($existing, $values);
@@ -123,7 +123,7 @@ abstract class BaseUserForm extends BaseFormDoctrine
         $existing = $this->object->Permissions->getPrimaryKeys();
         $values = $this->getValue('permissions_list');
         if (!is_array($values)) {
-            $values = array();
+            $values = [];
         }
 
         $unlink = array_diff($existing, $values);
