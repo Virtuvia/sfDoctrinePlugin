@@ -16,6 +16,8 @@ $config
         '@PER-CS2.0' => true,
         'method_argument_space' => ['on_multiline' => 'ignore'],
         'single_line_empty_body' => false,
+        'phpdoc_scalar' => true,
+        'phpdoc_types' => true,
     ])
     ->setFinder($finder)
 ;
