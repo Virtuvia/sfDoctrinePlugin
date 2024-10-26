@@ -72,8 +72,6 @@ class Doctrine_Pager
      */
     protected $_executed;
 
-
-
     /**
      * __construct
      *

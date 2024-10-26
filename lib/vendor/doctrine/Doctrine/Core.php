@@ -231,7 +231,6 @@ class Doctrine_Core
      * FETCHMODE CONSTANTS
      */
 
-
     /**
      * PORTABILITY CONSTANTS
      */

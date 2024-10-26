@@ -789,7 +789,6 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
         return array_values($flushList);
     }
 
-
     /* The following is all the Class Table Inheritance specific code. Support dropped
        for 0.10/1.0. */
 

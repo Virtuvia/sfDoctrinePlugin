@@ -122,7 +122,6 @@ class Doctrine_Template_Versionable extends Doctrine_Template
 
         $this->getInvoker()->merge($data[0]);
 
-
         return $this->getInvoker();
     }
 }

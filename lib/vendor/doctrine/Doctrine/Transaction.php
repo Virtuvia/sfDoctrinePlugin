@@ -138,7 +138,6 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
         return true;
     }
 
-
     /**
      * Return the invalid records
      *

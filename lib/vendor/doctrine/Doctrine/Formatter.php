@@ -129,7 +129,6 @@ class Doctrine_Formatter extends Doctrine_Connection_Module
         return $tmp['start'] . $str . $tmp['end'];
     }
 
-
     /**
      * quoteMultipleIdentifier
      * Quotes multiple identifier strings

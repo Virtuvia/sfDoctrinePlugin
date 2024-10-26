@@ -138,7 +138,6 @@ abstract class Doctrine_Query_Abstract
     protected $_expireQueryCache = false;
     protected $_queryCacheTTL;
 
-
     /**
      * @var Doctrine_Connection  The connection used by this query object.
      */
@@ -183,7 +182,6 @@ abstract class Doctrine_Query_Abstract
         'limit'     => array(),
         'offset'    => array(),
     );
-
 
     /**
      * @var array $_queryComponents   Two dimensional array containing the components of this query,

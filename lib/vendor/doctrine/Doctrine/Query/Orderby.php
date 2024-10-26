@@ -141,7 +141,6 @@ class Doctrine_Query_Orderby extends Doctrine_Query_Part
                                     // get the actual column name from field name
                                     $field = $table->getColumnName($term[0]);
 
-
                                     if (isset($def['owner'])) {
                                         $componentAlias = $componentAlias . '.' . $def['owner'];
                                     }

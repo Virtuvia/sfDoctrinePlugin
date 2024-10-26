@@ -1127,7 +1127,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
         return null;
     }
 
-
     /**
      * Get the table orderby statement
      *

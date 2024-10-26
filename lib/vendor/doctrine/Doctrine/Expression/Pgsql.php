@@ -89,7 +89,6 @@ class Doctrine_Expression_Pgsql extends Doctrine_Expression_Driver
      * @return string
      */
 
-
     /**
      * PostgreSQLs AGE(<timestamp1> [, <timestamp2>]) function.
      *

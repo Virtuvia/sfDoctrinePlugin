@@ -87,7 +87,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      */
     const STATE_TLOCKED     = 7;
 
-
     /**
      * @var Doctrine_Node_<TreeImpl>        node object
      */

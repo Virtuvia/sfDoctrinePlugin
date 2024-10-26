@@ -200,7 +200,6 @@ class Doctrine_Import_Mysql extends Doctrine_Import
         $query = 'SHOW INDEX FROM ' . $table;
         $indexes = $this->conn->fetchAssoc($query);
 
-
         $result = array();
         foreach ($indexes as $indexData) {
             if ($indexData[$nonUnique] && ($index = $this->conn->formatter->fixIndexName($indexData[$keyName]))) {

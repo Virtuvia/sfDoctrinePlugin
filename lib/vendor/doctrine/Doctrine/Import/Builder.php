@@ -374,7 +374,6 @@ EOF;
         $code = implode(PHP_EOL, $ret);
         $code = trim($code);
 
-
         return PHP_EOL . "    public function setTableDefinition()" . PHP_EOL . '    {' . PHP_EOL . '        ' . $code . PHP_EOL . '    }' . $fixConcreteTableName;
     }
 

@@ -1477,7 +1477,6 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
         // Close the temporary connection used to issue the drop database command
         $this->getManager()->closeConnection($tmpConnection);
 
-
         if (isset($e)) {
             throw $e;
         }

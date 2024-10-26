@@ -131,7 +131,6 @@ class Doctrine_Query_JoinCondition extends Doctrine_Query_Condition
         return $parser->parse($condition);
     }
 
-
     protected function _processPossibleAggExpression(& $expr, & $matches = array())
     {
         $hasAggExpr = preg_match('/(.*[^\s\(\=])\(([^\)]*)\)(.*)/', $expr, $matches);

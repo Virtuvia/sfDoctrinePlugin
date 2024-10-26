@@ -73,7 +73,6 @@ class Doctrine_Query_Registry
         return clone $query;
     }
 
-
     public function has($key, $namespace = null)
     {
         return isset($namespace)

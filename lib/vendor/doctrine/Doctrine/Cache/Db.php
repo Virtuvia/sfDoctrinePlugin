@@ -53,7 +53,6 @@ class Doctrine_Cache_Db extends Doctrine_Cache_Driver
             throw new Doctrine_Cache_Exception('Table name option not set.');
         }
 
-
         $this->_options = $options;
     }
 

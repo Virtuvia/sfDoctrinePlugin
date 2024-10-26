@@ -69,7 +69,6 @@ class Doctrine_Pager_Layout
      */
     private $_maskReplacements = array();
 
-
     /**
      * __construct
      *
@@ -178,7 +177,6 @@ class Doctrine_Pager_Layout
     {
         $this->_urlMask = $urlMask;
     }
-
 
     /**
     * getTemplate
@@ -294,7 +292,6 @@ class Doctrine_Pager_Layout
             unset($this->_maskReplacements[$oldMask]);
         }
     }
-
 
     /**
      * cleanMaskReplacements

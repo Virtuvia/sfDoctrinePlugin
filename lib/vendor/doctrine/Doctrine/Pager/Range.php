@@ -42,7 +42,6 @@ abstract class Doctrine_Pager_Range
      */
     private $pager;
 
-
     /**
      * __construct
      *
@@ -147,8 +146,6 @@ abstract class Doctrine_Pager_Range
         return (array_search($page, $this->rangeAroundPage()) !== false);
     }
 
-
-
     /**
      * _initialize
      *
@@ -157,7 +154,6 @@ abstract class Doctrine_Pager_Range
      * @return void
      */
     abstract protected function _initialize();
-
 
     /**
      * rangeAroundPage

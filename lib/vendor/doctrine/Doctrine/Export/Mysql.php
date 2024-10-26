@@ -500,7 +500,6 @@ class Doctrine_Export_Mysql extends Doctrine_Export
             $optionsStrings[] = 'ENGINE = ' . $type;
         }
 
-
         try {
             $query  = 'CREATE TABLE ' . $sequenceName
                     . ' (' . $seqcolName . ' BIGINT NOT NULL AUTO_INCREMENT, PRIMARY KEY ('
@@ -528,7 +527,6 @@ class Doctrine_Export_Mysql extends Doctrine_Export
         } catch(Doctrine_Connection_Exception $e) {
             throw new Doctrine_Export_Exception('could not drop inconsistent sequence table');
         }
-
 
     }
 

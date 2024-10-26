@@ -52,7 +52,6 @@ abstract class BaseUniqueTest extends myDoctrineRecord
             'length' => 255,
         ));
 
-
         $this->index('unique_test', array(
             'fields' =>
             array(

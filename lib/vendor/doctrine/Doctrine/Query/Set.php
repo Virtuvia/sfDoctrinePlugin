@@ -77,7 +77,6 @@ class Doctrine_Query_Set extends Doctrine_Query_Part
         return strtr($dql, $termsTranslation);
     }
 
-
     protected function _processPossibleAggExpression(& $expr, & $matches = array())
     {
         $hasAggExpr = preg_match('/(.*[^\s\(\=])\(([^\)]*)\)(.*)/', $expr, $matches);

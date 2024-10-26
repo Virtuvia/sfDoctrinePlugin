@@ -492,7 +492,6 @@ class Doctrine_Query_Tokenizer
         return $res;
     }
 
-
     /**
      * Explodes the given string by <quoted words>
      *

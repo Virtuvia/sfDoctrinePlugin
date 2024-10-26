@@ -195,7 +195,6 @@ abstract class Doctrine_Configurable extends Doctrine_Locator_Injectable
         return $this->_impl[$template];
     }
 
-
     public function hasImpl($template)
     {
         if ( ! isset($this->_impl[$template])) {

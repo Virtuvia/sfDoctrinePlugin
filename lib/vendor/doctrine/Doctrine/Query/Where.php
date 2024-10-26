@@ -71,7 +71,6 @@ class Doctrine_Query_Where extends Doctrine_Query_Condition
         }
     }
 
-
     protected function _buildSql($leftExpr, $operator, $rightExpr)
     {
         $leftExprOriginal = $leftExpr;
@@ -107,7 +106,6 @@ class Doctrine_Query_Where extends Doctrine_Query_Condition
 
         return $leftExpr . ' ' . $operator . ' ' . $rightExpr;
     }
-
 
     protected function _buildWhereInArraySqlPart($rightExpr)
     {

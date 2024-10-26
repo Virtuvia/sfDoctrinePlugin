@@ -242,7 +242,6 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
 
         $queryFields = $this->getFieldDeclarationList($fields);
 
-
         if (isset($options['primary']) && ! empty($options['primary'])) {
             $primaryKeys = array_map(array($this->conn, 'quoteIdentifier'), array_values($options['primary']));
             $queryFields .= ', PRIMARY KEY(' . implode(', ', $primaryKeys) . ')';
@@ -784,7 +783,6 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
         return $default;
     }
 
-
     /**
      * getNotNullFieldDeclaration
      * Obtain DBMS specific SQL code portion needed to set a NOT NULL
@@ -797,7 +795,6 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
     {
         return (isset($definition['notnull']) && $definition['notnull']) ? ' NOT NULL' : '';
     }
-
 
     /**
      * Obtain DBMS specific SQL code portion needed to set a CHECK constraint

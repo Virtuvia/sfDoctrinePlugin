@@ -104,7 +104,6 @@ class Doctrine_Connection_Mysql extends Doctrine_Connection_Common
         return $connected;
     }
 
-
     /**
      * returns the name of the connected database
      *

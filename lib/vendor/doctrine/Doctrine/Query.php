@@ -546,7 +546,6 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
         $tableAlias = $this->getSqlTableAlias($componentAlias);
         $table      = $this->_queryComponents[$componentAlias]['table'];
 
-
         // check for wildcards
         if ($field === '*') {
             $sql = array();
@@ -790,7 +789,6 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
                                     // get the actual column name from field name
                                     $term[0] = $table->getColumnName($term[0]);
 
-
                                     if (isset($def['owner'])) {
                                         $componentAlias = $componentAlias . '.' . $def['owner'];
                                     }
@@ -856,7 +854,6 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
         return $expr;
     }
 
-
     public function parseSubquery($subquery)
     {
         $trimmed = trim($this->_tokenizer->bracketTrim($subquery));
@@ -884,7 +881,6 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
 
         return '(' . $trimmed . ')';
     }
-
 
     /**
      * processPendingSubqueries
@@ -1883,7 +1879,6 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
 
         return $this->_queryComponents[$componentAlias];
     }
-
 
     protected function buildAssociativeRelationSql(Doctrine_Relation $relation, $assocAlias, $foreignAlias, $localAlias)
     {
