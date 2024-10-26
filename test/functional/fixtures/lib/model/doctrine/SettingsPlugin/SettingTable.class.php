@@ -1,5 +1,6 @@
 <?php
 
+
 class SettingTable extends PluginSettingTable
 {
     public static function getInstance()

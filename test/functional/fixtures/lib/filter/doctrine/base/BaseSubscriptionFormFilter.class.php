@@ -14,12 +14,12 @@ abstract class BaseSubscriptionFormFilter extends BaseFormFilterDoctrine
     {
         $this->setWidgets([
             'name'   => new sfWidgetFormFilterInput(),
-            'status' => new sfWidgetFormChoice(['choices' => ['' => '', 'New' => 'New', 'Active' => 'Active', 'Pending' => 'Pending', 'Expired' => 'Expired']]),
+            'status' => new sfWidgetFormChoice(['choices' => array('' => '', 'New' => 'New', 'Active' => 'Active', 'Pending' => 'Pending', 'Expired' => 'Expired')]),
         ]);
 
         $this->setValidators([
             'name'   => new sfValidatorPass(['required' => false]),
-            'status' => new sfValidatorChoice(['required' => false, 'choices' => ['New' => 'New', 'Active' => 'Active', 'Pending' => 'Pending', 'Expired' => 'Expired']]),
+            'status' => new sfValidatorChoice(['required' => false, 'choices' => array('New' => 'New', 'Active' => 'Active', 'Pending' => 'Pending', 'Expired' => 'Expired')]),
         ]);
 
         $this->widgetSchema->setNameFormat('subscription_filters[%s]');
