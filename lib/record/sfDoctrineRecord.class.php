@@ -92,7 +92,7 @@ abstract class sfDoctrineRecord extends Doctrine_Record
     /**
      * Function require by symfony >= 1.2 admin generators.
      *
-     * @return boolean
+     * @return bool
      */
     public function isNew()
     {

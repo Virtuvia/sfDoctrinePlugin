@@ -48,17 +48,17 @@ class Doctrine_Node_NestedSet_PreOrderIterator implements Iterator
     protected $key;
 
     /**
-     * @var integer $index
+     * @var int $index
      */
     protected $index;
 
     /**
-     * @var integer $index
+     * @var int $index
      */
     protected $prevIndex;
 
     /**
-     * @var integer $index
+     * @var int $index
      */
     protected $traverseLevel;
 
@@ -106,7 +106,7 @@ class Doctrine_Node_NestedSet_PreOrderIterator implements Iterator
     /**
      * returns the current key
      *
-     * @return integer
+     * @return int
      */
     #[\ReturnTypeWillChange]
     public function key()
@@ -139,7 +139,7 @@ class Doctrine_Node_NestedSet_PreOrderIterator implements Iterator
     }
 
     /**
-     * @return boolean                          whether or not the iteration will continue
+     * @return bool                          whether or not the iteration will continue
      */
     public function valid(): bool
     {

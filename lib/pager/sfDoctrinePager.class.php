@@ -145,7 +145,7 @@ class sfDoctrinePager extends sfPager
     /**
      * Retrieve the object for a certain offset
      *
-     * @param integer $offset
+     * @param int $offset
      *
      * @return Doctrine_Record
      */

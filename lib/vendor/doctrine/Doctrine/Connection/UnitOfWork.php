@@ -164,7 +164,7 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
      *
      * this event can be listened by the onPreDelete and onDelete listeners
      *
-     * @return boolean      true on success, false on failure
+     * @return bool      true on success, false on failure
      */
     public function delete(Doctrine_Record $record)
     {
@@ -286,7 +286,7 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
      * primary key.
      *
      * @param Doctrine_Table $table  The table from which the records are going to be deleted.
-     * @param integer $numRecords  The number of records that are going to be deleted.
+     * @param int $numRecords  The number of records that are going to be deleted.
      * @return string  The SQL condition "pk = ? OR pk = ? OR pk = ? ..."
      */
     private function _buildSqlSingleKeyCondition($columnNames, $numRecords)
@@ -299,7 +299,7 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
      * Builds the SQL condition to target multiple records who have a composite primary key.
      *
      * @param Doctrine_Table $table  The table from which the records are going to be deleted.
-     * @param integer $numRecords  The number of records that are going to be deleted.
+     * @param int $numRecords  The number of records that are going to be deleted.
      * @return string  The SQL condition "(pk1 = ? AND pk2 = ?) OR (pk1 = ? AND pk2 = ?) ..."
      */
     private function _buildSqlCompositeKeyCondition($columnNames, $numRecords)
@@ -469,7 +469,7 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
     /**
      * Invokes preDelete event listeners.
      *
-     * @return boolean  Whether a listener has used it's veto (don't delete!).
+     * @return bool  Whether a listener has used it's veto (don't delete!).
      */
     private function _preDelete(Doctrine_Record $record)
     {
@@ -515,7 +515,7 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
      * updates given record
      *
      * @param Doctrine_Record $record   record to be updated
-     * @return boolean                  whether or not the update was successful
+     * @return bool                  whether or not the update was successful
      */
     public function update(Doctrine_Record $record)
     {
@@ -554,7 +554,7 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
      * if required.
      *
      * @param Doctrine_Record $record
-     * @return boolean                  false if record is not valid
+     * @return bool                  false if record is not valid
      */
     public function insert(Doctrine_Record $record)
     {
@@ -586,7 +586,7 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
      * Replaces a record into database.
      *
      * @param Doctrine_Record $record
-     * @return boolean                  false if record is not valid
+     * @return bool                  false if record is not valid
      */
     public function replace(Doctrine_Record $record)
     {

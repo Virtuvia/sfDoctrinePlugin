@@ -107,7 +107,7 @@ class Doctrine_Relation_Parser
      * Check if a relation alias exists
      *
      * @param string $name
-     * @return boolean $bool
+     * @return bool $bool
      */
     public function hasRelation($name)
     {

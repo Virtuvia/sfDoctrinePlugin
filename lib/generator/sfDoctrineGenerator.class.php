@@ -84,7 +84,7 @@ class sfDoctrineGenerator extends sfModelGenerator
      * Returns the getter either non-developped: 'getFoo' or developped: '$class->getFoo()'.
      *
      * @param string  $column     The column name
-     * @param boolean $developed  true if you want developped method names, false otherwise
+     * @param bool $developed  true if you want developped method names, false otherwise
      * @param string  $prefix     The prefix value
      *
      * @return string PHP code

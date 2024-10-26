@@ -215,7 +215,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
      * checks if a database exists
      *
      * @param string $database
-     * @return boolean
+     * @return bool
      */
     public function databaseExists($database)
     {
@@ -226,7 +226,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
      * checks if a function exists
      *
      * @param string $function
-     * @return boolean
+     * @return bool
      */
     public function functionExists($function)
     {
@@ -238,7 +238,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
      *
      * @param string $trigger
      * @param string|null $database
-     * @return boolean
+     * @return bool
      */
     public function triggerExists($trigger, $database = null)
     {
@@ -250,7 +250,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
      *
      * @param string $sequence
      * @param string|null $database
-     * @return boolean
+     * @return bool
      */
     public function sequenceExists($sequence, $database = null)
     {
@@ -262,7 +262,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
      *
      * @param string $constraint
      * @param string $table     database table name
-     * @return boolean
+     * @return bool
      */
     public function tableConstraintExists($constraint, $table)
     {
@@ -274,7 +274,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
      *
      * @param string $column
      * @param string $table     database table name
-     * @return boolean
+     * @return bool
      */
     public function tableColumnExists($column, $table)
     {
@@ -286,7 +286,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
      *
      * @param string $index
      * @param string $table     database table name
-     * @return boolean
+     * @return bool
      */
     public function tableIndexExists($index, $table)
     {
@@ -298,7 +298,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
      *
      * @param string $table
      * @param string|null $database
-     * @return boolean
+     * @return bool
      */
     public function tableExists($table, $database = null)
     {
@@ -310,7 +310,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
      *
      * @param string $trigger
      * @param string $table     database table name
-     * @return boolean
+     * @return bool
      */
     public function tableTriggerExists($trigger, $table)
     {
@@ -322,7 +322,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
      *
      * @param string $view
      * @param string $table     database table name
-     * @return boolean
+     * @return bool
      */
     public function tableViewExists($view, $table)
     {
@@ -333,7 +333,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
      * checks if a user exists
      *
      * @param string $user
-     * @return boolean
+     * @return bool
      */
     public function userExists($user)
     {
@@ -345,7 +345,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
      *
      * @param string $view
      * @param string|null $database
-     * @return boolean
+     * @return bool
      */
     public function viewExists($view, $database = null)
     {

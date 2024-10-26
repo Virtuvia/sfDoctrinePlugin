@@ -70,7 +70,7 @@ class Doctrine_Table_Repository implements Countable, IteratorAggregate
      * add
      *
      * @param Doctrine_Record $record       record to be added into registry
-     * @return boolean
+     * @return bool
      */
     public function add(Doctrine_Record $record)
     {
@@ -86,7 +86,7 @@ class Doctrine_Table_Repository implements Countable, IteratorAggregate
 
     /**
      * get
-     * @param integer $oid
+     * @param int $oid
      * @throws Doctrine_Table_Repository_Exception
      */
     public function get($oid)
@@ -100,7 +100,7 @@ class Doctrine_Table_Repository implements Countable, IteratorAggregate
     /**
      * count
      * Doctrine_Registry implements interface Countable
-     * @return integer                      the number of records this registry has
+     * @return int                      the number of records this registry has
      */
     public function count(): int
     {
@@ -108,8 +108,8 @@ class Doctrine_Table_Repository implements Countable, IteratorAggregate
     }
 
     /**
-     * @param integer $oid                  object identifier
-     * @return boolean                      whether ot not the operation was successful
+     * @param int $oid                  object identifier
+     * @return bool                      whether ot not the operation was successful
      */
     public function evict($oid)
     {
@@ -121,7 +121,7 @@ class Doctrine_Table_Repository implements Countable, IteratorAggregate
     }
 
     /**
-     * @return integer                      number of records evicted
+     * @return int                      number of records evicted
      */
     public function evictAll()
     {
@@ -145,7 +145,7 @@ class Doctrine_Table_Repository implements Countable, IteratorAggregate
 
     /**
      * contains
-     * @param integer $oid                  object identifier
+     * @param int $oid                  object identifier
      */
     public function contains($oid)
     {

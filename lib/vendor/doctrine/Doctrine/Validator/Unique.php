@@ -36,7 +36,7 @@ class Doctrine_Validator_Unique extends Doctrine_Validator_Driver
      * checks if given value is unique
      *
      * @param mixed $value
-     * @return boolean
+     * @return bool
      */
     public function validate($value)
     {

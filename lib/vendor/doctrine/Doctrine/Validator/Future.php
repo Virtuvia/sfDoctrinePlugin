@@ -36,7 +36,7 @@ class Doctrine_Validator_Future extends Doctrine_Validator_Driver
      * checks if the given value is a valid date in the future.
      *
      * @param mixed $value
-     * @return boolean
+     * @return bool
      */
     public function validate($value)
     {

@@ -360,10 +360,10 @@ class Doctrine_Export_Mysql extends Doctrine_Export
      *                                    )
      *                                )
      *
-     * @param boolean $check     indicates whether the function should just check if the DBMS driver
+     * @param bool $check     indicates whether the function should just check if the DBMS driver
      *                           can perform the requested table alterations if the value is true or
      *                           actually perform them otherwise.
-     * @return boolean
+     * @return bool
      */
     public function alterTableSql($name, array $changes, $check = false)
     {
@@ -469,7 +469,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
      *                              'collate' => 'utf8_unicode_ci',
      *                              'type'    => 'innodb',
      *                          );
-     * @return boolean
+     * @return bool
      */
     public function createSequence($sequenceName, $start = 1, array $options = [])
     {

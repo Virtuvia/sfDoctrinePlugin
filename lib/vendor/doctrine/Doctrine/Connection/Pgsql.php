@@ -123,9 +123,9 @@ class Doctrine_Connection_Pgsql extends Doctrine_Connection_Common
      * Changes a query string for various DBMS specific reasons
      *
      * @param string $query         query to modify
-     * @param integer $limit        limit the number of rows
-     * @param integer $offset       start reading from given offset
-     * @param boolean $isManip      if the query is a DML query
+     * @param int $limit        limit the number of rows
+     * @param int $offset       start reading from given offset
+     * @param bool $isManip      if the query is a DML query
      * @return string               modified query
      */
     public function modifyLimitQuery($query, $limit = false, $offset = false, $isManip = false)
@@ -200,7 +200,7 @@ class Doctrine_Connection_Pgsql extends Doctrine_Connection_Common
      * @param Doctrine_Table $table     The table to insert data into.
      * @param array $values             An associative array containing column-value pairs.
      *                                  Values can be strings or Doctrine_Expression instances.
-     * @return integer                  the number of affected rows. Boolean false if empty value array was given,
+     * @return int                  the number of affected rows. Boolean false if empty value array was given,
      */
     public function insert(Doctrine_Table $table, array $fields)
     {

@@ -74,7 +74,7 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
      *
      * @param string $queryPartName     the name of the query part
      * @param string $queryPart         query part to be parsed
-     * @param boolean $append           whether or not to append the query part to its stack
+     * @param bool $append           whether or not to append the query part to its stack
      *                                  if false is given, this method will overwrite
      *                                  the given query part stack with $queryPart
      * @return static
@@ -341,7 +341,7 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
      *
      * @see Doctrine_Query::count()
      * @param array $params        an array of prepared statement parameters
-     * @return integer             the count of this query
+     * @return int             the count of this query
      */
     public function count($params = []): int
     {

@@ -71,7 +71,7 @@ class Doctrine_Connection_Mysql_Exception extends Doctrine_Connection_Exception
      *
      * @param array $errorInfo      error info array
      * @since 1.0
-     * @return boolean              whether or not the error info processing was successfull
+     * @return bool              whether or not the error info processing was successfull
      *                              (the process is successfull if portable error code was found)
      */
     public function processErrorInfo(array $errorInfo)

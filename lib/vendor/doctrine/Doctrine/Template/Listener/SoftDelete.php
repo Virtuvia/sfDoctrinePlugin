@@ -56,7 +56,7 @@ class Doctrine_Template_Listener_SoftDelete extends Doctrine_Record_Listener
     /**
      * Set the hard delete flag so that it is really deleted
      *
-     * @param boolean $bool
+     * @param bool $bool
      * @return void
      */
     public function hardDelete($bool)

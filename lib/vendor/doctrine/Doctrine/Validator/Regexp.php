@@ -37,7 +37,7 @@ class Doctrine_Validator_Regexp extends Doctrine_Validator_Driver
      *
      * @param mixed $value
      * @param mixed $args
-     * @return boolean
+     * @return bool
      */
     public function validate($value)
     {

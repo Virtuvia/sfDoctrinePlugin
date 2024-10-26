@@ -46,8 +46,8 @@ class Doctrine_Expression_Sqlite extends Doctrine_Expression_Driver
     /**
      * Returns the modules of the data that SQLite's mod() function receives.
      *
-     * @param integer $dividend
-     * @param integer $divisor
+     * @param int $dividend
+     * @param int $divisor
      * @return string
      */
     public static function modImpl($dividend, $divisor)
@@ -166,8 +166,8 @@ class Doctrine_Expression_Sqlite extends Doctrine_Expression_Driver
      * SQLite only supports the 2 parameter variant of this function
      *
      * @param string $value         an sql string literal or column name/alias
-     * @param integer $position     where to start the substring portion
-     * @param integer $length       the substring portion length
+     * @param int $position     where to start the substring portion
+     * @param int $length       the substring portion length
      * @return string               SQL substring function with given parameters
      */
     public function substring($value, $position, $length = null)

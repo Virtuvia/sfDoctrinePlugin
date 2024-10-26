@@ -139,7 +139,7 @@ abstract class Doctrine_Pager_Range
      * Check if a given page is in the range
      *
      * @param $page       Page to be checked
-     * @return boolean
+     * @return bool
      */
     public function isInRange($page)
     {

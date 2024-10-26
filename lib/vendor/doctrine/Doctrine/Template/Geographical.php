@@ -92,7 +92,7 @@ class Doctrine_Template_Geographical extends Doctrine_Template
      *
      * @param string $Doctrine_Record
      * @param string $kilometers
-     * @return integer
+     * @return int
      */
     public function getDistance(Doctrine_Record $record, $kilometers = false)
     {

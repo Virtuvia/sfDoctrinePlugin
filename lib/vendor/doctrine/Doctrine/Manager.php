@@ -45,12 +45,12 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
     protected $_bound         = [];
 
     /**
-     * @var integer $index              the incremented index
+     * @var int $index              the incremented index
      */
     protected $_index         = 0;
 
     /**
-     * @var integer $currIndex          the current connection index
+     * @var int $currIndex          the current connection index
      */
     protected $_currIndex     = 0;
 
@@ -90,7 +90,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
     protected $_extensions = [];
 
     /**
-     * @var boolean                     Whether or not the validators from disk have been loaded
+     * @var bool                     Whether or not the validators from disk have been loaded
      */
     protected $_loadedValidatorsFromDisk = false;
 
@@ -117,7 +117,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
      * instance. It is idempotent and can only be called one time. Subsequent
      * calls does not alter the attribute values.
      *
-     * @return boolean      true if inizialization was executed
+     * @return bool      true if inizialization was executed
      */
     public function setDefaultAttributes()
     {
@@ -504,7 +504,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
      *
      * @param string $componentName
      * @param string $connectionName
-     * @return boolean
+     * @return bool
      */
     public function bindComponent($componentName, $connectionName)
     {
@@ -532,7 +532,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
      * Check if a component is bound to a connection
      *
      * @param string $componentName
-     * @return boolean
+     * @return bool
      */
     public function hasConnectionForComponent($componentName = null)
     {
@@ -593,7 +593,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
      * Whether or not the manager contains specified connection
      *
      * @param mixed $key                        the connection key
-     * @return boolean
+     * @return bool
      */
     public function contains($key)
     {
@@ -603,7 +603,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
     /**
      * Returns the number of opened connections
      *
-     * @return integer
+     * @return int
      */
     public function count(): int
     {

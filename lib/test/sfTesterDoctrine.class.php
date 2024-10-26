@@ -90,7 +90,7 @@ class sfTesterDoctrine extends sfTester
     /**
      * Outputs some debug information about queries run during the current request.
      *
-     * @param integer|string $limit Either an integer to return the last many queries, a regular expression or a substring to search for
+     * @param int|string $limit Either an integer to return the last many queries, a regular expression or a substring to search for
      */
     public function debug($limit = null)
     {

@@ -291,7 +291,7 @@ class Doctrine_Validator_Country extends Doctrine_Validator_Driver
      * checks if given value is a valid country code
      *
      * @param mixed $value
-     * @return boolean
+     * @return bool
      */
     public function validate($value)
     {

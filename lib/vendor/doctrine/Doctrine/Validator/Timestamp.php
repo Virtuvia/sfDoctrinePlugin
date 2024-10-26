@@ -37,7 +37,7 @@ class Doctrine_Validator_Timestamp extends Doctrine_Validator_Driver
      * ISO-8601 timestamp (YYYY-MM-DDTHH:MM:SS+00:00) or (YYYY-MM-DD HH:MM:SS)
      *
      * @param mixed $value
-     * @return boolean
+     * @return bool
      */
     public function validate($value)
     {

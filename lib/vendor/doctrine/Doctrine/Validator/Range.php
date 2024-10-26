@@ -36,7 +36,7 @@ class Doctrine_Validator_Range extends Doctrine_Validator_Driver
      * checks if value is within given range
      *
      * @param mixed $value
-     * @return boolean
+     * @return bool
      */
     public function validate($value)
     {

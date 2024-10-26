@@ -36,7 +36,7 @@ class Doctrine_Validator_Nospace extends Doctrine_Validator_Driver
      * checks that value doesn't contain any space chars
      *
      * @param mixed $value
-     * @return boolean
+     * @return bool
      */
     public function validate($value)
     {

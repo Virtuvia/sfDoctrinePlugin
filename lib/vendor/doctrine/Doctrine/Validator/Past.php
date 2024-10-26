@@ -36,7 +36,7 @@ class Doctrine_Validator_Past extends Doctrine_Validator_Driver
      * checks if the given value is a valid date in the past.
      *
      * @param mixed $value
-     * @return boolean
+     * @return bool
      */
     public function validate($value)
     {

@@ -50,14 +50,14 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
     public const STATE_BUSY        = 2;
 
     /**
-     * @var integer $_nestingLevel      The current nesting level of this transaction.
+     * @var int $_nestingLevel      The current nesting level of this transaction.
      *                                  A nesting level of 0 means there is currently no active
      *                                  transaction.
      */
     protected $_nestingLevel = 0;
 
     /**
-     * @var integer $_internalNestingLevel  The current internal nesting level of this transaction.
+     * @var int $_internalNestingLevel  The current internal nesting level of this transaction.
      *                                      "Internal" means transactions started by Doctrine itself.
      *                                      Therefore the internal nesting level is always
      *                                      lower or equal to the overall nesting level.
@@ -105,7 +105,7 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
      * returns the state of this transaction module.
      *
      * @see Doctrine_Connection_Transaction::STATE_* constants
-     * @return integer          the connection state
+     * @return int          the connection state
      */
     public function getState()
     {
@@ -126,7 +126,7 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
      * adds record into invalid records list
      *
      * @param Doctrine_Record $record
-     * @return boolean        false if record already existed in invalid records list,
+     * @return bool        false if record already existed in invalid records list,
      *                        otherwise true
      */
     public function addInvalid(Doctrine_Record $record)
@@ -152,7 +152,7 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
      * getTransactionLevel
      * get the current transaction nesting level
      *
-     * @return integer
+     * @return int
      */
     public function getTransactionLevel()
     {
@@ -178,7 +178,7 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
      *
      * @param string $savepoint                 name of a savepoint to set
      * @throws Doctrine_Transaction_Exception   if the transaction fails at database level
-     * @return integer                          current transaction nesting level
+     * @return int                          current transaction nesting level
      */
     public function beginTransaction($savepoint = null)
     {
@@ -230,7 +230,7 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
      * @param string $savepoint                 name of a savepoint to release
      * @throws Doctrine_Transaction_Exception   if the transaction fails at database level
      * @throws Doctrine_Validator_Exception     if the transaction fails due to record validations
-     * @return boolean                          false if commit couldn't be performed, true otherwise
+     * @return bool                          false if commit couldn't be performed, true otherwise
      */
     public function commit($savepoint = null)
     {
@@ -304,7 +304,7 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
      *
      * @param string $savepoint                 name of a savepoint to rollback to
      * @throws Doctrine_Transaction_Exception   if the rollback operation fails at database level
-     * @return boolean                          false if rollback couldn't be performed, true otherwise
+     * @return bool                          false if rollback couldn't be performed, true otherwise
      * @todo Shouldnt this method only commit a rollback if the transactionLevel is 1
      *       (STATE_ACTIVE)? Explanation: Otherwise a rollback that is triggered from inside doctrine
      *       in an (emulated) nested transaction would lead to a complete database level
@@ -430,7 +430,7 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
      * and all its children savepoints
      *
      * @param sring $savepoint      name of the savepoint to remove
-     * @return integer              removed savepoints
+     * @return int              removed savepoints
      */
     private function removeSavePoints($savepoint)
     {

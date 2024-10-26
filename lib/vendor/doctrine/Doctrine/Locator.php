@@ -106,7 +106,7 @@ class Doctrine_Locator implements Countable, IteratorAggregate
      * contains
      * checks if a resource exists under the given name
      *
-     * @return boolean      whether or not given resource name exists
+     * @return bool      whether or not given resource name exists
      */
     public function contains($name)
     {
@@ -175,7 +175,7 @@ class Doctrine_Locator implements Countable, IteratorAggregate
      * this object
      *
      * @see Countable interface
-     * @return integer              the number of resources
+     * @return int              the number of resources
      */
     public function count(): int
     {

@@ -56,7 +56,7 @@ class Doctrine_Adapter_Mock implements Doctrine_Adapter_Interface, Countable
     /**
      * Bool true/false variable for whether or not the last insert failed
      *
-     * @var boolean $lastInsertIdFail
+     * @var bool $lastInsertIdFail
      */
     private $_lastInsertIdFail = false;
 
@@ -100,7 +100,7 @@ class Doctrine_Adapter_Mock implements Doctrine_Adapter_Interface, Countable
      *
      * @param string $name     Name of exception
      * @param string $message  Message for the exception
-     * @param integer $code    Code of the exception
+     * @param int $code    Code of the exception
      * @return void
      */
     public function forceException($name, $message = '', $code = 0)
@@ -206,7 +206,7 @@ class Doctrine_Adapter_Mock implements Doctrine_Adapter_Interface, Countable
     /**
      * Force last insert to be failed
      *
-     * @param boolean $fail
+     * @param bool $fail
      * @return void
      */
     public function forceLastInsertIdFail($fail = true)
@@ -221,7 +221,7 @@ class Doctrine_Adapter_Mock implements Doctrine_Adapter_Interface, Countable
     /**
      * Get the id of the last inserted record
      *
-     * @return integer $id
+     * @return int $id
      */
     public function lastInsertId()
     {
@@ -236,7 +236,7 @@ class Doctrine_Adapter_Mock implements Doctrine_Adapter_Interface, Countable
     /**
      * Get the number of queries executed
      *
-     * @return integer $count
+     * @return int $count
      */
     public function count(): int
     {

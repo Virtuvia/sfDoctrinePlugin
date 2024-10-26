@@ -221,7 +221,7 @@ class Doctrine_Migration
     /**
      * Set the current version of the database
      *
-     * @param integer $number
+     * @param int $number
      * @return void
      */
     public function setCurrentVersion($number)
@@ -236,7 +236,7 @@ class Doctrine_Migration
     /**
      * Get the current version of the database
      *
-     * @return integer $version
+     * @return int $version
      */
     public function getCurrentVersion()
     {
@@ -250,7 +250,7 @@ class Doctrine_Migration
     /**
      * hReturns true/false for whether or not this database has been migrated in the past
      *
-     * @return boolean $migrated
+     * @return bool $migrated
      */
     public function hasMigrated()
     {
@@ -264,7 +264,7 @@ class Doctrine_Migration
     /**
      * Gets the latest possible version from the loaded migration classes
      *
-     * @return integer $latestVersion
+     * @return int $latestVersion
      */
     public function getLatestVersion()
     {
@@ -278,7 +278,7 @@ class Doctrine_Migration
      * Get the next incremented version number based on the latest version number
      * using getLatestVersion()
      *
-     * @return integer $nextVersion
+     * @return int $nextVersion
      */
     public function getNextVersion()
     {
@@ -288,7 +288,7 @@ class Doctrine_Migration
     /**
      * Get the next incremented class version based on the loaded migration classes
      *
-     * @return integer $nextMigrationClassVersion
+     * @return int $nextMigrationClassVersion
      */
     public function getNextMigrationClassVersion()
     {
@@ -306,9 +306,9 @@ class Doctrine_Migration
      * migrate to. It will automatically know whether you are migrating up or down
      * based on the current version of the database.
      *
-     * @param  integer $to       Version to migrate to
-     * @param  boolean $dryRun   Whether or not to run the migrate process as a dry run
-     * @return integer $to       Version number migrated to
+     * @param  int $to       Version to migrate to
+     * @param  bool $dryRun   Whether or not to run the migrate process as a dry run
+     * @return int $to       Version number migrated to
      * @throws Doctrine_Exception
      */
     public function migrate($to = null, $dryRun = false)
@@ -356,7 +356,7 @@ class Doctrine_Migration
      * false for whether or not the migration can be ran
      *
      * @param  string  $to
-     * @return boolean $success
+     * @return bool $success
      */
     public function migrateDryRun($to = null)
     {
@@ -366,7 +366,7 @@ class Doctrine_Migration
     /**
      * Get the number of errors
      *
-     * @return integer $numErrors
+     * @return int $numErrors
      */
     public function getNumErrors()
     {
@@ -407,7 +407,7 @@ class Doctrine_Migration
     /**
      * Whether or not the migration instance has errors
      *
-     * @return boolean
+     * @return bool
      */
     public function hasErrors()
     {
@@ -417,7 +417,7 @@ class Doctrine_Migration
     /**
      * Get instance of migration class for number/version specified
      *
-     * @param integer $num
+     * @param int $num
      * @throws Doctrine_Migration_Exception $e
      */
     public function getMigrationClass($num)
@@ -456,8 +456,8 @@ class Doctrine_Migration
     /**
      * Do the actual migration process
      *
-     * @param  integer $to
-     * @return integer $to
+     * @param  int $to
+     * @return int $to
      * @throws Doctrine_Exception
      */
     protected function _doMigrate($to)
@@ -488,7 +488,7 @@ class Doctrine_Migration
      * processes the changes
      *
      * @param string $direction Direction to go, 'up' or 'down'
-     * @param integer $num
+     * @param int $num
      * @return void
      */
     protected function _doMigrateStep($direction, $num)
@@ -536,7 +536,7 @@ class Doctrine_Migration
      * Create the migration table and return true. If it already exists it will
      * silence the exception and return false
      *
-     * @return boolean $created Whether or not the table was created. Exceptions
+     * @return bool $created Whether or not the table was created. Exceptions
      *                          are silenced when table already exists
      */
     protected function _createMigrationTable()

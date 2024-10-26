@@ -302,7 +302,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      * Removes a specified collection element
      *
      * @param mixed $key
-     * @return boolean
+     * @return bool
      */
     public function remove($key)
     {
@@ -316,7 +316,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      * Whether or not this collection contains a specified element
      *
      * @param mixed $key                    the key of the element
-     * @return boolean
+     * @return bool
      */
     public function contains($key)
     {
@@ -414,7 +414,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      * Gets the number of records in this collection
      * This class implements interface countable
      *
-     * @return integer
+     * @return int
      */
     public function count(): int
     {
@@ -424,7 +424,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
     /**
      * Set a Doctrine_Record instance to the collection
      *
-     * @param integer $key
+     * @param int $key
      * @param Doctrine_Record $record
      * @return void
      */
@@ -442,7 +442,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      *
      * @param Doctrine_Record $record              record to be added
      * @param string $key                          optional key for the record
-     * @return boolean
+     * @return bool
      */
     public function add($record, $key = null)
     {
@@ -519,7 +519,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      * Load all relationships or the named relationship passed
      *
      * @param mixed $name
-     * @return boolean
+     * @return bool
      */
     public function loadRelated($name = null)
     {
@@ -688,7 +688,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
     /**
      * Mimics the result of a $query->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
      *
-     * @param boolean $deep
+     * @param bool $deep
      */
     public function toArray($deep = true, $prefixKey = false)
     {
@@ -869,7 +869,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      *
      * @param Doctrine_Record $a
      * @param Doctrine_Record $b
-     * @return integer
+     * @return int
      */
     protected function compareRecords($a, $b)
     {
@@ -1049,7 +1049,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      * checks if one of the containing records is modified
      * returns true if modified, false otherwise
      *
-     * @return boolean
+     * @return bool
      */
     final public function isModified()
     {

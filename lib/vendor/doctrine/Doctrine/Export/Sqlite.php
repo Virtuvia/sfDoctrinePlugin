@@ -281,7 +281,7 @@ class Doctrine_Export_Sqlite extends Doctrine_Export
      *                              'charset' => 'utf8',
      *                              'collate' => 'utf8_unicode_ci',
      *                          );
-     * @return boolean
+     * @return bool
      */
     public function createSequence($seqName, $start = 1, array $options = [])
     {

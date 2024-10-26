@@ -36,7 +36,7 @@ class Doctrine_Validator_Date extends Doctrine_Validator_Driver
      * checks if given value is a valid date
      *
      * @param mixed $value
-     * @return boolean
+     * @return bool
      */
     public function validate($value)
     {

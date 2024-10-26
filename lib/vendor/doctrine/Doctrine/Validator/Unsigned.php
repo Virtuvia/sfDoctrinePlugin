@@ -39,7 +39,7 @@ class Doctrine_Validator_Unsigned extends Doctrine_Validator_Driver
      * invalid values: -5, '-5', 'five', -5.9, '-5.9', '5.5.5'
      *
      * @param mixed $value
-     * @return boolean
+     * @return bool
      */
     public function validate($value)
     {

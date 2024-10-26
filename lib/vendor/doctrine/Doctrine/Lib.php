@@ -39,7 +39,7 @@ class Doctrine_Lib
      * in an english string.
      * @see Doctrine_Record::STATE_* constants
      *
-     * @param integer $state    the state of record
+     * @param int $state    the state of record
      * @return string           description of given state
      */
     public static function getRecordStateAsString($state)
@@ -92,7 +92,7 @@ class Doctrine_Lib
      * This method translates a Doctrine_Connection state (integer constant)
      * in a english description.
      * @see Doctrine_Transaction::STATE_* constants
-     * @param integer $state    state of the connection as a string
+     * @param int $state    state of the connection as a string
      * @return string
      */
     public static function getConnectionStateAsString($state)
@@ -273,9 +273,9 @@ class Doctrine_Lib
      * that do not exist yet. Equivalent to 'mkdir -p'.
      *
      * @param string $path
-     * @param integer $mode     an integer (octal) chmod parameter for the
+     * @param int $mode     an integer (octal) chmod parameter for the
      *                          created directories
-     * @return boolean  true if succeeded
+     * @return bool  true if succeeded
      */
     public static function makeDirectories($path, $mode = 0777)
     {
@@ -297,7 +297,7 @@ class Doctrine_Lib
      * Equivalent to 'rm -rf'.
      *
      * @param string $folderPath
-     * @return boolean  success of the operation
+     * @return bool  success of the operation
      */
     public static function removeDirectories($folderPath)
     {
@@ -370,7 +370,7 @@ class Doctrine_Lib
      * and underscores for directory separation.
      *
      * @param string $classname
-     * @return boolean
+     * @return bool
      */
     public static function isValidClassName($className)
     {

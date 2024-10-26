@@ -35,7 +35,7 @@ class Doctrine_Relation_Association_Self extends Doctrine_Relation_Association
     /**
      * getRelationDql
      *
-     * @param integer $count
+     * @param int $count
      * @return string
      */
     public function getRelationDql($count, $context = 'record')

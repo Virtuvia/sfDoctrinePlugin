@@ -126,7 +126,7 @@ abstract class Doctrine_Template extends Doctrine_Record_Abstract
     /**
      * Check if this template has a generator plugin
      *
-     * @return boolean
+     * @return bool
      */
     public function hasPlugin()
     {

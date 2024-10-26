@@ -46,7 +46,7 @@ class Swift_DoctrineSpool extends Swift_ConfigurableSpool
     /**
      * Tests if this Transport mechanism has started.
      *
-     * @return boolean
+     * @return bool
      */
     public function isStarted()
     {

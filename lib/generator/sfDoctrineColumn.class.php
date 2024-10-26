@@ -195,7 +195,7 @@ class sfDoctrineColumn implements ArrayAccess
     /**
      * Returns true of the column is not null and false if it is null
      *
-     * @return boolean
+     * @return bool
      */
     public function isNotNull()
     {
@@ -224,7 +224,7 @@ class sfDoctrineColumn implements ArrayAccess
     /**
      * Returns true if this column is a foreign key and false if it is not
      *
-     * @return boolean $isForeignKey
+     * @return bool $isForeignKey
      */
     public function isForeignKey()
     {

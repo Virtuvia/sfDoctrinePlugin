@@ -83,7 +83,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
     protected $driverName;
 
     /**
-     * @var boolean $isConnected                whether or not a connection has been established
+     * @var bool $isConnected                whether or not a connection has been established
      */
     protected $isConnected      = false;
 
@@ -222,7 +222,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
     /**
      * Check wherther the connection to the database has been made yet
      *
-     * @return boolean
+     * @return bool
      */
     public function isConnected()
     {
@@ -273,7 +273,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * getAttribute
      * retrieves a database connection attribute
      *
-     * @param integer $attribute
+     * @param int $attribute
      * @return mixed
      */
     public function getAttribute($attribute)
@@ -326,9 +326,9 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * @todo why check for >= 100? has this any special meaning when creating
      * attributes?
      *
-     * @param integer $attribute
+     * @param int $attribute
      * @param mixed $value
-     * @return boolean
+     * @return bool
      */
     public function setAttribute($attribute, $value)
     {
@@ -446,7 +446,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * connect
      * connects into database
      *
-     * @return boolean
+     * @return bool
      */
     public function connect()
     {
@@ -518,7 +518,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * supports
      *
      * @param string $feature   the name of the feature
-     * @return boolean          whether or not this drivers supports given feature
+     * @return bool          whether or not this drivers supports given feature
      */
     public function supports($feature)
     {
@@ -599,7 +599,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * @throws Doctrine_Connection_Exception    if something went wrong at the database level
      * @param string $table         The table to delete data from
      * @param array $identifier     An associateve array containing identifier column-value pairs.
-     * @return integer              The number of affected rows
+     * @return int              The number of affected rows
      */
     public function delete(Doctrine_Table $table, array $identifier)
     {
@@ -623,7 +623,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * @param Doctrine_Table $table     The table to insert data into
      * @param array $values             An associative array containing column-value pairs.
      *                                  Values can be strings or Doctrine_Expression instances.
-     * @return integer                  the number of affected rows. Boolean false if empty value array was given,
+     * @return int                  the number of affected rows. Boolean false if empty value array was given,
      */
     public function update(Doctrine_Table $table, array $fields, array $identifier)
     {
@@ -657,7 +657,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * @param Doctrine_Table $table     The table to insert data into.
      * @param array $values             An associative array containing column-value pairs.
      *                                  Values can be strings or Doctrine_Expression instances.
-     * @return integer                  the number of affected rows. Boolean false if empty value array was given,
+     * @return int                  the number of affected rows. Boolean false if empty value array was given,
      */
     public function insert(Doctrine_Table $table, array $fields)
     {
@@ -960,8 +960,8 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * added to the query and returns a Doctrine_Connection_Statement object
      *
      * @param string $query
-     * @param integer $limit
-     * @param integer $offset
+     * @param int $limit
+     * @param int $offset
      * @return Doctrine_Connection_Statement
      */
     public function select($query, $limit = 0, $offset = 0)
@@ -1027,7 +1027,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * @param string $query     sql query
      * @param array $params     query parameters
      *
-     * @return integer
+     * @return int
      */
     public function exec($query, array $params = [])
     {
@@ -1095,7 +1095,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * whether or not this connection has table $name initialized
      *
      * @param mixed $name
-     * @return boolean
+     * @return bool
      */
     public function hasTable($name)
     {
@@ -1157,7 +1157,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
     /**
      * returns the count of initialized table objects
      *
-     * @return integer
+     * @return int
      */
     public function count(): int
     {
@@ -1169,7 +1169,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * adds a Doctrine_Table object into connection registry
      *
      * @param $table                a Doctrine_Table object to be added into registry
-     * @return boolean
+     * @return bool
      */
     public function addTable(Doctrine_Table $table)
     {
@@ -1281,7 +1281,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
     /**
      * get the current transaction nesting level
      *
-     * @return integer
+     * @return int
      */
     public function getTransactionLevel()
     {
@@ -1292,7 +1292,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * errorCode
      * Fetch the SQLSTATE associated with the last operation on the database handle
      *
-     * @return integer
+     * @return int
      */
     public function errorCode()
     {
@@ -1370,7 +1370,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      *
      * @param string $savepoint                 name of a savepoint to set
      * @throws Doctrine_Transaction_Exception   if the transaction fails at database level
-     * @return integer                          current transaction nesting level
+     * @return int                          current transaction nesting level
      */
     public function beginTransaction($savepoint = null)
     {
@@ -1393,7 +1393,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * @param string $savepoint                 name of a savepoint to release
      * @throws Doctrine_Transaction_Exception   if the transaction fails at PDO level
      * @throws Doctrine_Validator_Exception     if the transaction fails due to record validations
-     * @return boolean                          false if commit couldn't be performed, true otherwise
+     * @return bool                          false if commit couldn't be performed, true otherwise
      */
     public function commit($savepoint = null)
     {
@@ -1412,7 +1412,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      *
      * @param string $savepoint                 name of a savepoint to rollback to
      * @throws Doctrine_Transaction_Exception   if the rollback operation fails at database level
-     * @return boolean                          false if rollback couldn't be performed, true otherwise
+     * @return bool                          false if rollback couldn't be performed, true otherwise
      */
     public function rollback($savepoint = null)
     {

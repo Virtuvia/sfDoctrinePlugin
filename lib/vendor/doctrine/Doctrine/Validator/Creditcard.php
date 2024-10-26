@@ -37,7 +37,7 @@ class Doctrine_Validator_Creditcard extends Doctrine_Validator_Driver
      *
      * @link http://www.owasp.org/index.php/OWASP_Validation_Regex_Repository
      * @param mixed $value
-     * @return boolean
+     * @return bool
      */
     public function validate($value)
     {

@@ -53,7 +53,7 @@ abstract class Doctrine_Cache_Driver implements Doctrine_Cache_Interface
      *
      * @param mixed $option     the option name
      * @param mixed $value      option value
-     * @return boolean          TRUE on success, FALSE on failure
+     * @return bool          TRUE on success, FALSE on failure
      */
     public function setOption($option, $value)
     {
@@ -83,7 +83,7 @@ abstract class Doctrine_Cache_Driver implements Doctrine_Cache_Interface
      * Fetch a cache record from this cache driver instance
      *
      * @param string $id cache id
-     * @param boolean $testCacheValidity        if set to false, the cache validity won't be tested
+     * @param bool $testCacheValidity        if set to false, the cache validity won't be tested
      * @return mixed  Returns either the cached data or false
      */
     public function fetch($id, $testCacheValidity = true)
@@ -110,7 +110,7 @@ abstract class Doctrine_Cache_Driver implements Doctrine_Cache_Interface
      * @param string $id        cache id
      * @param string $data      data to cache
      * @param int $lifeTime     if != false, set a specific lifetime for this cache record (null => infinite lifeTime)
-     * @return boolean true if no problem
+     * @return bool true if no problem
      */
     public function save($id, $data, $lifeTime = false)
     {
@@ -124,7 +124,7 @@ abstract class Doctrine_Cache_Driver implements Doctrine_Cache_Interface
      * Note: This method accepts wildcards with the * character
      *
      * @param string $id cache id
-     * @return boolean true if no problem
+     * @return bool true if no problem
      */
     public function delete($id)
     {
@@ -141,7 +141,7 @@ abstract class Doctrine_Cache_Driver implements Doctrine_Cache_Interface
      * Delete cache entries where the key matches a PHP regular expressions
      *
      * @param string $regex
-     * @return integer $count The number of deleted cache entries
+     * @return int $count The number of deleted cache entries
      */
     public function deleteByRegex($regex)
     {
@@ -162,7 +162,7 @@ abstract class Doctrine_Cache_Driver implements Doctrine_Cache_Interface
      * Delete cache entries where the key has the passed prefix
      *
      * @param string $prefix
-     * @return integer $count The number of deleted cache entries
+     * @return int $count The number of deleted cache entries
      */
     public function deleteByPrefix($prefix)
     {
@@ -183,7 +183,7 @@ abstract class Doctrine_Cache_Driver implements Doctrine_Cache_Interface
      * Delete cache entries where the key has the passed suffix
      *
      * @param string $suffix
-     * @return integer $count The number of deleted cache entries
+     * @return int $count The number of deleted cache entries
      */
     public function deleteBySuffix($suffix)
     {
@@ -203,7 +203,7 @@ abstract class Doctrine_Cache_Driver implements Doctrine_Cache_Interface
     /**
      * Delete all cache entries from the cache driver
      *
-     * @return integer $count The number of deleted cache entries
+     * @return int $count The number of deleted cache entries
      */
     public function deleteAll()
     {
@@ -245,7 +245,7 @@ abstract class Doctrine_Cache_Driver implements Doctrine_Cache_Interface
      * Fetch a cache record from this cache driver instance
      *
      * @param string $id cache id
-     * @param boolean $testCacheValidity        if set to false, the cache validity won't be tested
+     * @param bool $testCacheValidity        if set to false, the cache validity won't be tested
      * @return mixed  Returns either the cached data or false
      */
     abstract protected function _doFetch($id, $testCacheValidity = true);
@@ -265,7 +265,7 @@ abstract class Doctrine_Cache_Driver implements Doctrine_Cache_Interface
      * @param string $id        cache id
      * @param string $data      data to cache
      * @param int $lifeTime     if != false, set a specific lifetime for this cache record (null => infinite lifeTime)
-     * @return boolean true if no problem
+     * @return bool true if no problem
      */
     abstract protected function _doSave($id, $data, $lifeTime = false);
 
@@ -274,7 +274,7 @@ abstract class Doctrine_Cache_Driver implements Doctrine_Cache_Interface
      * drivers and used in Doctrine_Cache_Driver::delete()
      *
      * @param string $id cache id
-     * @return boolean true if no problem
+     * @return bool true if no problem
      */
     abstract protected function _doDelete($id);
 }

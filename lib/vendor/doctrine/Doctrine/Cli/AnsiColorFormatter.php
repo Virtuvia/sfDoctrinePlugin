@@ -108,7 +108,7 @@ class Doctrine_Cli_AnsiColorFormatter extends Doctrine_Cli_Formatter
      *
      * @param string  The section name
      * @param string  The text message
-     * @param integer The maximum size allowed for a line (65 by default)
+     * @param int The maximum size allowed for a line (65 by default)
      */
     public function formatSection($section, $text, $size = null)
     {
@@ -121,7 +121,7 @@ class Doctrine_Cli_AnsiColorFormatter extends Doctrine_Cli_Formatter
      * Truncates a line.
      *
      * @param string  The text
-     * @param integer The maximum size of the returned string (65 by default)
+     * @param int The maximum size of the returned string (65 by default)
      *
      * @return string The truncated string
      */
@@ -150,7 +150,7 @@ class Doctrine_Cli_AnsiColorFormatter extends Doctrine_Cli_Formatter
      *
      * @param  mixed A stream
      *
-     * @return Boolean true if the stream supports colorization, false otherwise
+     * @return bool true if the stream supports colorization, false otherwise
      */
     public function supportsColors($stream)
     {

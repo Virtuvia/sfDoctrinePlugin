@@ -76,7 +76,7 @@ abstract class Doctrine_Access extends Doctrine_Locator_Injectable implements Ar
      * Check if key exists in data
      *
      * @param   string $name
-     * @return  boolean whether or not this object contains $name
+     * @return  bool whether or not this object contains $name
      */
     public function __isset($name)
     {
@@ -98,7 +98,7 @@ abstract class Doctrine_Access extends Doctrine_Locator_Injectable implements Ar
      * Check if an offset axists
      *
      * @param   mixed $offset
-     * @return  boolean Whether or not this object contains $offset
+     * @return  bool Whether or not this object contains $offset
      */
     public function offsetExists($offset): bool
     {
@@ -150,7 +150,7 @@ abstract class Doctrine_Access extends Doctrine_Locator_Injectable implements Ar
      * Remove the element with the specified offset
      *
      * @param mixed $offset The offset to remove
-     * @return boolean True if removed otherwise false
+     * @return bool True if removed otherwise false
      */
     public function remove($offset)
     {
@@ -184,7 +184,7 @@ abstract class Doctrine_Access extends Doctrine_Locator_Injectable implements Ar
      * Check if the specified offset exists
      *
      * @param mixed $offset The offset to check
-     * @return boolean True if exists otherwise false
+     * @return bool True if exists otherwise false
      */
     public function contains($offset)
     {

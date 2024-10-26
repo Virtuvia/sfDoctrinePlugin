@@ -285,7 +285,7 @@ END;
      *
      * @param  string $modelsPath    Path to models
      * @param  string $modelLoading  What type of model loading to use when loading the models
-     * @return boolean
+     * @return bool
      */
     public function generateMigrationsFromModels($modelsPath = null, $modelLoading = null)
     {
@@ -480,7 +480,7 @@ END;
      * @param array   $options     Options for the migration class
      * @param string  $up          The code for the up function
      * @param string  $down        The code for the down function
-     * @param boolean $return      Whether or not to return the code.
+     * @param bool $return      Whether or not to return the code.
      *                             If true return and false it writes the class to disk.
      * @return mixed
      */

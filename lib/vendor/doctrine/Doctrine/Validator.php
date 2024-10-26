@@ -85,7 +85,7 @@ class Doctrine_Validator extends Doctrine_Locator_Injectable
      * @param  string  $value         Value to validate
      * @param  string  $type          Type of field being validated
      * @param  string  $maximumLength Maximum length allowed for the column
-     * @return boolean $success       True/false for whether the value passed validation
+     * @return bool $success       True/false for whether the value passed validation
      */
     public static function validateLength($value, $type, $maximumLength)
     {
@@ -123,7 +123,7 @@ class Doctrine_Validator extends Doctrine_Locator_Injectable
      * Get length of passed string. Will use multibyte character functions if they exist
      *
      * @param string $string
-     * @return integer $length
+     * @return int $length
      */
     public static function getStringLength($string)
     {
@@ -141,7 +141,7 @@ class Doctrine_Validator extends Doctrine_Locator_Injectable
     /**
      * Whether or not errors exist on this validator
      *
-     * @return boolean True/false for whether or not this validate instance has error
+     * @return bool True/false for whether or not this validate instance has error
      */
     public function hasErrors()
     {
@@ -153,7 +153,7 @@ class Doctrine_Validator extends Doctrine_Locator_Injectable
      *
      * @param  mixed  $var   Variable to validate
      * @param  string $type  Type of the variable expected
-     * @return boolean
+     * @return bool
      */
     public static function isValidType($var, $type)
     {

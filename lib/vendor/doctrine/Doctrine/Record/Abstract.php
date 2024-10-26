@@ -251,7 +251,7 @@ abstract class Doctrine_Record_Abstract extends Doctrine_Access
      *
      * @param string $name
      * @param string $type
-     * @param integer $length
+     * @param int $length
      * @param mixed $options
      * @return void
      */

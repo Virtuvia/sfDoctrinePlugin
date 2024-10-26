@@ -269,7 +269,7 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
     /**
      * gets ancestors for node
      *
-     * @param integer $deth  The depth 'upstairs'.
+     * @param int $deth  The depth 'upstairs'.
      * @return mixed  The ancestors of the node or FALSE if the node has no ancestors (this
      *                basically means it's a root node).
      */

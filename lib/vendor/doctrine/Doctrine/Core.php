@@ -478,7 +478,7 @@ class Doctrine_Core
     /**
      * Debug bool true/false option
      *
-     * @var boolean $_debug
+     * @var bool $_debug
      */
     private static $_debug = false;
 
@@ -623,7 +623,7 @@ class Doctrine_Core
      * Recursively load all models from a directory or array of directories
      *
      * @param  string   $directory      Path to directory of models or array of directory paths
-     * @param  integer  $modelLoading   Pass value of Doctrine_Core::ATTR_MODEL_LOADING to force a certain style of model loading
+     * @param  int  $modelLoading   Pass value of Doctrine_Core::ATTR_MODEL_LOADING to force a certain style of model loading
      *                                  Allowed Doctrine_Core::MODEL_LOADING_AGGRESSIVE(default) or Doctrine_Core::MODEL_LOADING_CONSERVATIVE
      * @param  string  $classPrefix     The class prefix of the models to load. This is useful if the class name and file name are not the same
      */
@@ -781,7 +781,7 @@ class Doctrine_Core
      * Will load class in to memory in order to inflect it and find out information about the class
      *
      * @param   mixed   $class Can be a string named after the class, an instance of the class, or an instance of the class reflected
-     * @return  boolean
+     * @return  bool
      */
     public static function isValidModelClass($class)
     {
@@ -834,7 +834,7 @@ class Doctrine_Core
      * @param string $directory Directory to write your models to
      * @param array $connections Array of connection names to generate models for
      * @param array $options Array of options
-     * @return boolean
+     * @return bool
      * @throws Exception
      */
     public static function generateModelsFromDb($directory, array $connections = [], array $options = [])
@@ -1041,7 +1041,7 @@ class Doctrine_Core
      *
      * @param string  $migrationsPath Path to your Doctrine migration classes
      * @param string  $modelsPath     Path to your Doctrine model classes
-     * @param integer $modelLoading   Style of model loading to use for loading the models in order to generate migrations
+     * @param int $modelLoading   Style of model loading to use for loading the models in order to generate migrations
      * @return void
      */
     public static function generateMigrationsFromModels($migrationsPath, $modelsPath = null, $modelLoading = null)
@@ -1124,7 +1124,7 @@ class Doctrine_Core
      * Load classes from the Doctrine extensions directory/path
      *
      * @param string $className
-     * @return boolean
+     * @return bool
      */
     public static function extensionsAutoload($className)
     {
@@ -1152,7 +1152,7 @@ class Doctrine_Core
      * dumps a given variable
      *
      * @param mixed $var        a variable of any type
-     * @param boolean $output   whether to output the content
+     * @param bool $output   whether to output the content
      * @param string $indent    indention string
      * @return void|string
      */

@@ -39,7 +39,7 @@ class Doctrine_Sequence extends Doctrine_Connection_Module
      * @param string $seqName   name of the sequence
      * @param bool              when true missing sequences are automatic created
      *
-     * @return integer          next id in the given sequence
+     * @return int          next id in the given sequence
      * @throws Doctrine_Sequence_Exception
      */
     public function nextId($seqName, $ondemand = true)
@@ -64,7 +64,7 @@ class Doctrine_Sequence extends Doctrine_Connection_Module
      *
      * @param string $seqName   name of the sequence
      *
-     * @return integer          current id in the given sequence
+     * @return int          current id in the given sequence
      */
     public function currId($seqName)
     {

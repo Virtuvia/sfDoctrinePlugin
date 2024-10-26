@@ -73,7 +73,7 @@ class Doctrine_Template_SoftDelete extends Doctrine_Template
      * Add a hardDelete() method to any of the models who act as SoftDelete behavior
      *
      * @param Doctrine_Connection $conn
-     * @return integer $result Number of affected rows.
+     * @return int $result Number of affected rows.
      */
     public function hardDelete($conn = null)
     {

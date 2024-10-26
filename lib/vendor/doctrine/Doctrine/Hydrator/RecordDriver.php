@@ -88,7 +88,7 @@ class Doctrine_Hydrator_RecordDriver extends Doctrine_Hydrator_Graph
      * sets the last element of given data array / collection
      * as previous element
      *
-     * @param boolean|integer $index
+     * @param bool|int $index
      * @return void
      * @todo Detailed documentation
      */

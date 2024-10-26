@@ -148,7 +148,7 @@ abstract class Doctrine_Relation implements ArrayAccess
      * hasConstraint
      * whether or not this relation has an explicit constraint
      *
-     * @return boolean
+     * @return bool
      */
     public function hasConstraint()
     {
@@ -225,7 +225,7 @@ abstract class Doctrine_Relation implements ArrayAccess
      * returns the relation type, either 0 or 1
      *
      * @see Doctrine_Relation MANY_* and ONE_* constants
-     * @return integer
+     * @return int
      */
     final public function getType()
     {
@@ -236,7 +236,7 @@ abstract class Doctrine_Relation implements ArrayAccess
      * Checks whether this relation cascades deletions to the related objects
      * on the application level.
      *
-     * @return boolean
+     * @return bool
      */
     public function isCascadeDelete()
     {
@@ -334,7 +334,7 @@ abstract class Doctrine_Relation implements ArrayAccess
      * isOneToOne
      * returns whether or not this relation is a one-to-one relation
      *
-     * @return boolean
+     * @return bool
      */
     final public function isOneToOne()
     {
@@ -344,7 +344,7 @@ abstract class Doctrine_Relation implements ArrayAccess
     /**
      * getRelationDql
      *
-     * @param integer $count
+     * @param int $count
      * @return string
      */
     public function getRelationDql($count)
@@ -386,7 +386,7 @@ abstract class Doctrine_Relation implements ArrayAccess
      * Get the relationship orderby SQL/DQL
      *
      * @param string $alias        The alias to use
-     * @param boolean $columnNames Whether or not to use column names instead of field names
+     * @param bool $columnNames Whether or not to use column names instead of field names
      * @return string $orderBy
      */
     public function getOrderBy($alias = null, $columnNames = false)
@@ -404,7 +404,7 @@ abstract class Doctrine_Relation implements ArrayAccess
      * Get the relationship orderby statement
      *
      * @param string $alias        The alias to use
-     * @param boolean $columnNames Whether or not to use column names instead of field names
+     * @param bool $columnNames Whether or not to use column names instead of field names
      * @return string $orderByStatement
      */
     public function getOrderByStatement($alias = null, $columnNames = false)

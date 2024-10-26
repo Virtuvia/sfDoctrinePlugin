@@ -142,7 +142,7 @@ class Doctrine_AuditLog_Listener extends Doctrine_Record_Listener
      * Get the initial version number for the audit log
      *
      * @param Doctrine_Record $record
-     * @return integer $initialVersion
+     * @return int $initialVersion
      */
     protected function _getInitialVersion(Doctrine_Record $record)
     {
@@ -153,7 +153,7 @@ class Doctrine_AuditLog_Listener extends Doctrine_Record_Listener
      * Get the next version number for the audit log
      *
      * @param Doctrine_Record $record
-     * @return integer $nextVersion
+     * @return int $nextVersion
      */
     protected function _getNextVersion(Doctrine_Record $record)
     {

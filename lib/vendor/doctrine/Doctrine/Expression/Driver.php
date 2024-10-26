@@ -71,7 +71,7 @@ class Doctrine_Expression_Driver extends Doctrine_Connection_Module
      * If a '*' is used instead of a column the number of selected rows
      * is returned.
      *
-     * @param string|integer $column    the column to use
+     * @param string|int $column    the column to use
      * @return string                   generated sql including a COUNT aggregate function
      */
     public function count($column)
@@ -241,7 +241,7 @@ class Doctrine_Expression_Driver extends Doctrine_Connection_Module
      *
      * @param string $substr    literal string to find
      * @param string $str       literal string
-     * @return integer
+     * @return int
      */
     public function locate($str, $substr)
     {
@@ -281,8 +281,8 @@ class Doctrine_Expression_Driver extends Doctrine_Connection_Module
      * SQLite only supports the 2 parameter variant of this function
      *
      * @param string $value         an sql string literal or column name/alias
-     * @param integer $position     where to start the substring portion
-     * @param integer $length       the substring portion length
+     * @param int $position     where to start the substring portion
+     * @param int $length       the substring portion length
      * @return string               SQL substring function with given parameters
      */
     public function substring($value, $from, $len = null)

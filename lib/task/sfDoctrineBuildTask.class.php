@@ -242,7 +242,7 @@ EOF;
      *
      * @param  array $options
      *
-     * @return integer
+     * @return int
      */
     protected function calculateMode($options = [])
     {

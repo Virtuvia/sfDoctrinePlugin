@@ -76,14 +76,14 @@ class Doctrine_Import_Builder extends Doctrine_Builder
     /**
      * Bool true/false for whether or not to generate base classes
      *
-     * @var boolean $generateBaseClasses
+     * @var bool $generateBaseClasses
      */
     protected $_generateBaseClasses = true;
 
     /**
      * Bool true/false for whether or not to generate child table classes
      *
-     * @var boolean $generateTableClasses
+     * @var bool $generateTableClasses
      */
     protected $_generateTableClasses = false;
 
@@ -132,14 +132,14 @@ class Doctrine_Import_Builder extends Doctrine_Builder
     /**
      * Whether to use the class prefix for the filenames too
      *
-     * @var boolean
+     * @var bool
      **/
     protected $_classPrefixFiles = true;
 
     /**
      * Whether or not to generate PEAR style directories and files
      *
-     * @var boolean
+     * @var bool
      */
     protected $_pearStyle = false;
 
@@ -201,8 +201,8 @@ class Doctrine_Import_Builder extends Doctrine_Builder
      *
      * Specify whether or not to generate classes which extend from generated base classes
      *
-     * @param  boolean $bool
-     * @return boolean $bool
+     * @param  bool $bool
+     * @return bool $bool
      */
     public function generateBaseClasses($bool = null)
     {
@@ -218,8 +218,8 @@ class Doctrine_Import_Builder extends Doctrine_Builder
      *
      * Specify whether or not to generate children table classes
      *
-     * @param  boolean $bool
-     * @return boolean $bool
+     * @param  bool $bool
+     * @return bool $bool
      */
     public function generateTableClasses($bool = null)
     {

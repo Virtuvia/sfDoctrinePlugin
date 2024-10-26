@@ -36,7 +36,7 @@ class Doctrine_Validator_Notnull extends Doctrine_Validator_Driver
      * checks that given value isn't null
      *
      * @param mixed $value
-     * @return boolean
+     * @return bool
      */
     public function validate($value)
     {

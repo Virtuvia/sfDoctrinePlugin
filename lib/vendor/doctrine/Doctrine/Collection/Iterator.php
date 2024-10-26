@@ -74,7 +74,7 @@ abstract class Doctrine_Collection_Iterator implements Iterator
     /**
      * returns the current key
      *
-     * @return integer
+     * @return int
      */
     #[\ReturnTypeWillChange]
     public function key()

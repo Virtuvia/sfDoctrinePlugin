@@ -129,12 +129,12 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
     protected $_pendingAggregates = [];
 
     /**
-     * @param boolean $needsSubquery
+     * @param bool $needsSubquery
      */
     protected $_needsSubquery = false;
 
     /**
-     * @param boolean $isSubquery           whether or not this query object is a subquery of another
+     * @param bool $isSubquery           whether or not this query object is a subquery of another
      *                                      query object
      */
     protected $_isSubquery;
@@ -305,7 +305,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      * If null is given as the first parameter this method retrieves the current
      * value of Doctrine_Query::$isSubquery.
      *
-     * @param boolean $bool     whether or not this query acts as a subquery
+     * @param bool $bool     whether or not this query acts as a subquery
      * @return static|bool
      */
     public function isSubquery($bool = null)
@@ -346,7 +346,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      * Check if a dql alias has a sql aggregate alias
      *
      * @param string $dqlAlias
-     * @return boolean
+     * @return bool
      */
     public function hasSqlAggregateAlias($dqlAlias)
     {
@@ -419,7 +419,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      * Method to check if a arbitrary piece of dql exists
      *
      * @param string $dql Arbitrary piece of dql to check for
-     * @return boolean
+     * @return bool
      */
     public function contains($dql)
     {
@@ -1586,7 +1586,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      * parsers for each part
      *
      * @param string $query                 DQL query
-     * @param boolean $clear                whether or not to clear the aliases
+     * @param bool $clear                whether or not to clear the aliases
      * @throws Doctrine_Query_Exception     if some generic parsing error occurs
      * @return static
      */
@@ -1648,7 +1648,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
     /**
      * @todo Describe & refactor... too long and nested.
      * @param string $path          component alias
-     * @param boolean $loadFields
+     * @param bool $loadFields
      */
     public function load($path, $loadFields = true)
     {
@@ -2095,7 +2095,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      *          WHERE p.phonenumber = '123 123'
      *
      * @param array $executeParams        an array of prepared statement parameters
-     * @return integer             the count of this query
+     * @return int             the count of this query
      */
     public function count($executeParams = []): int
     {

@@ -267,7 +267,7 @@ class Doctrine_Data_Import extends Doctrine_Data
      *
      * @param $className
      * @param $data
-     * @return boolean
+     * @return bool
      */
     protected function _hasNaturalNestedSetFormat($className, array &$data)
     {

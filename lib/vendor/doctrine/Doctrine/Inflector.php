@@ -83,7 +83,7 @@ class Doctrine_Inflector
      * By bmorel at ssi dot fr
      *
      * @param  string $string
-     * @return boolean $bool
+     * @return bool $bool
      */
     public static function seemsUtf8($string)
     {

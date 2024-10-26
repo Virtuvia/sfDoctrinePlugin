@@ -38,7 +38,7 @@ class Doctrine_Sequence_Mysql extends Doctrine_Sequence
      * @param string $seqName   name of the sequence
      * @param bool              when true missing sequences are automatic created
      *
-     * @return integer          next id in the given sequence
+     * @return int          next id in the given sequence
      */
     public function nextId($seqName, $onDemand = true)
     {
@@ -82,7 +82,7 @@ class Doctrine_Sequence_Mysql extends Doctrine_Sequence
      *
      * @param string  name of the table into which a new row was inserted
      * @param string  name of the field into which a new row was inserted
-     * @return integer|boolean
+     * @return int|bool
      */
     public function lastInsertId($table = null, $field = null)
     {
@@ -94,7 +94,7 @@ class Doctrine_Sequence_Mysql extends Doctrine_Sequence
      *
      * @param string $seqName   name of the sequence
      *
-     * @return integer          current id in the given sequence
+     * @return int          current id in the given sequence
      */
     public function currId($seqName)
     {

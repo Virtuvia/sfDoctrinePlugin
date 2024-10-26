@@ -73,7 +73,7 @@ class Doctrine_Connection_Exception extends Doctrine_Exception
     /**
      * @see Doctrine_Core::ERR_* constants
      * @since 1.0
-     * @var integer $portableCode           portable error code
+     * @var int $portableCode           portable error code
      */
     protected $portableCode;
 
@@ -81,7 +81,7 @@ class Doctrine_Connection_Exception extends Doctrine_Exception
      * getPortableCode
      * returns portable error code
      *
-     * @return integer      portable error code
+     * @return int      portable error code
      */
     public function getPortableCode()
     {
@@ -122,7 +122,7 @@ class Doctrine_Connection_Exception extends Doctrine_Exception
      *
      * @param array $errorInfo      error info array
      * @since 1.0
-     * @return boolean              whether or not the error info processing was successfull
+     * @return bool              whether or not the error info processing was successfull
      *                              (the process is successfull if portable error code was found)
      */
     public function processErrorInfo(array $errorInfo)

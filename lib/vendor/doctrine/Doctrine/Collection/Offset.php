@@ -34,7 +34,7 @@
 class Doctrine_Collection_Offset extends Doctrine_Collection
 {
     /**
-     * @var integer $limit
+     * @var int $limit
      */
     private $limit;
 
@@ -48,7 +48,7 @@ class Doctrine_Collection_Offset extends Doctrine_Collection
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getLimit()
     {

@@ -48,7 +48,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
 
     /**
      * @see Doctrine_Identifier constants
-     * @var integer $identifierType                     the type of identifier this table uses
+     * @var int $identifierType                     the type of identifier this table uses
      */
     protected $_identifierType;
 
@@ -109,13 +109,13 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     protected $_columnNames = [];
 
     /**
-     * @var integer $columnCount            cached column count, Doctrine_Record uses this column count in when
+     * @var int $columnCount            cached column count, Doctrine_Record uses this column count in when
      *                                      determining its state
      */
     protected $columnCount;
 
     /**
-     * @var boolean $hasDefaultValues       whether or not this table has default values
+     * @var bool $hasDefaultValues       whether or not this table has default values
      */
     protected $hasDefaultValues;
 
@@ -233,7 +233,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * @throws Doctrine_Connection_Exception    if there are no opened connections
      * @param string $name                      the name of the component
      * @param Doctrine_Connection $conn         the connection associated with this table
-     * @param boolean $initDefinition           whether to init the in-memory schema
+     * @param bool $initDefinition           whether to init the in-memory schema
      */
     public function __construct($name, Doctrine_Connection $conn, $initDefinition = false)
     {
@@ -575,7 +575,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * Checks whether a column is inherited from a component further up in the hierarchy.
      *
      * @param string $columnName  The column name
-     * @return boolean            TRUE if column is inherited, FALSE otherwise.
+     * @return bool            TRUE if column is inherited, FALSE otherwise.
      */
     public function isInheritedColumn($columnName)
     {
@@ -589,7 +589,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * the one-column or multi-column primary key.
      *
      * @param string $fieldName  The field name
-     * @return boolean           TRUE if the field is part of the table identifier/primary key field(s),
+     * @return bool           TRUE if the field is part of the table identifier/primary key field(s),
      */
     public function isIdentifier($fieldName)
     {
@@ -603,7 +603,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * This method checks if the primary key is a AUTOINCREMENT column or
      * if the table uses a natural key.
      *
-     * @return boolean TRUE  if the identifier is autoincrement
+     * @return bool TRUE  if the identifier is autoincrement
      *                 FALSE otherwise
      */
     public function isIdentifierAutoincrement()
@@ -614,7 +614,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     /**
      * Checks whether a field identifier is a composite key.
      *
-     * @return boolean TRUE  if the identifier is a composite key,
+     * @return bool TRUE  if the identifier is a composite key,
      *                 FALSE otherwise
      */
     public function isIdentifierComposite()
@@ -653,7 +653,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      *
      * @throws Doctrine_Connection_Exception    if some error other than Doctrine_Core::ERR_ALREADY_EXISTS
      *                                          occurred during the create table operation
-     * @return boolean                          whether or not the export operation was successful
+     * @return bool                          whether or not the export operation was successful
      *                                          false if table already existed in the database
      */
     public function export()
@@ -668,7 +668,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * keys are tableName, columns (@see $_columns) and options.
      * The options subarray contains 'primary' and 'foreignKeys'.
      *
-     * @param boolean $parseForeignKeys     whether to include foreign keys definition in the options
+     * @param bool $parseForeignKeys     whether to include foreign keys definition in the options
      * @param bool $forGenerator include some extra columns used by a Generator/Builder
      * @return array
      */
@@ -772,7 +772,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      *
      * @param  array $def          Foreign key definition to check for
      * @param  array $foreignKeys  Array of existing foreign key definitions to check in
-     * @return boolean $result     Whether or not the foreign key was found
+     * @return bool $result     Whether or not the foreign key was found
      */
     protected function _checkForeignKeyExists($def, $foreignKeys)
     {
@@ -930,7 +930,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * This method returns a given index definition: @see addIndex().
      *
      * @param string $index         index name; @see addIndex()
-     * @return array|boolean        array on success, FALSE on failure
+     * @return array|bool        array on success, FALSE on failure
      */
     public function getIndex($index)
     {
@@ -973,7 +973,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * @param array $args       first value is a string, name of related component;
      *                          second value is array, options for the relation.
      *                          @see Doctrine_Relation::_$definition
-     * @param integer $type     Doctrine_Relation::ONE or Doctrine_Relation::MANY
+     * @param int $type     Doctrine_Relation::ONE or Doctrine_Relation::MANY
      * @return void
      * @todo Name proposal: addRelation
      */
@@ -1020,7 +1020,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * side.
      *
      * @param string $alias      the relation alias to search for.
-     * @return boolean           true if the relation exists. Otherwise false.
+     * @return bool           true if the relation exists. Otherwise false.
      */
     public function hasRelation($alias)
     {
@@ -1132,7 +1132,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * Get the table orderby statement
      *
      * @param string $alias        The alias to use
-     * @param boolean $columnNames Whether or not to use column names instead of field names
+     * @param bool $columnNames Whether or not to use column names instead of field names
      * @return string $orderByStatement
      */
     public function getOrderByStatement($alias = null, $columnNames = false)
@@ -1312,9 +1312,9 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * @see $_columns;
      * @param string $name      column physical name
      * @param string $type      type of data
-     * @param integer $length   maximum length
+     * @param int $length   maximum length
      * @param mixed $options
-     * @param boolean $prepend  Whether to prepend or append the new column to the column list.
+     * @param bool $prepend  Whether to prepend or append the new column to the column list.
      *                          By default the column gets appended.
      * @throws Doctrine_Table_Exception     if trying use wrongly typed parameter
      * @return void
@@ -1445,7 +1445,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     /**
      * Finds out whether this table has default values for columns.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasDefaultValues()
     {
@@ -1485,7 +1485,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      *
      * This method finds out if the primary key is multifield.
      * @see Doctrine_Identifier constants
-     * @return integer
+     * @return int
      */
     public function getIdentifierType()
     {
@@ -1495,7 +1495,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     /**
      * Finds out whether the table definition contains a given column.
      * @param string $columnName
-     * @return boolean
+     * @return bool
      */
     public function hasColumn($columnName)
     {
@@ -1508,7 +1508,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * This method returns true if @see hasColumn() returns true or if an alias
      * named $fieldName exists.
      * @param string $fieldName
-     * @return boolean
+     * @return bool
      */
     public function hasField($fieldName)
     {
@@ -1805,7 +1805,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * object that represents a sql record exists in all scopes.
      *
      * @param Doctrine_Record $record       record to be added
-     * @return boolean                      true if record was not present in the map
+     * @return bool                      true if record was not present in the map
      * @todo Better name? registerRecord?
      */
     public function addRecord(Doctrine_Record $record)
@@ -1828,7 +1828,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * force reloading of an object from database.
      *
      * @param Doctrine_Record $record   record to remove from cache
-     * @return boolean                  true if the record was found and removed,
+     * @return bool                  true if the record was found and removed,
      *                                  false if the record wasn't found.
      */
     public function removeRecord(Doctrine_Record $record)
@@ -1987,7 +1987,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     /**
      * Implements Countable interface.
      *
-     * @return integer number of records in the table
+     * @return int number of records in the table
      */
     public function count(): int
     {
@@ -2027,7 +2027,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * on the connection, index and value are the same thing.
      *
      * @param string $fieldName
-     * @param integer $index        numeric index of the enum
+     * @param int $index        numeric index of the enum
      * @return mixed
      */
     public function enumValue($fieldName, $index)
@@ -2051,7 +2051,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      *
      * @param string $fieldName
      * @param mixed $value          value of the enum considered
-     * @return integer              can be string if native enums are used.
+     * @return int              can be string if native enums are used.
      */
     public function enumIndex($fieldName, $value)
     {
@@ -2180,7 +2180,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     }
 
     /**
-     * @return integer      the number of columns in this table
+     * @return int      the number of columns in this table
      */
     public function getColumnCount()
     {
@@ -2202,7 +2202,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * Removes a field name from the table schema information.
      *
      * @param string $fieldName
-     * @return boolean      true if the field is found and removed.
+     * @return bool      true if the field is found and removed.
      *                      False otherwise.
      */
     public function removeColumn($fieldName)
@@ -2456,7 +2456,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     /**
      * Determines if table acts as tree.
      *
-     * @return boolean  if tree return true, otherwise returns false
+     * @return bool  if tree return true, otherwise returns false
      */
     public function isTree()
     {
@@ -2499,7 +2499,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * Checks if the table has a given template.
      *
      * @param string $template  name of template; @see getTemplate()
-     * @return boolean
+     * @return bool
      */
     public function hasTemplate($template)
     {
@@ -2587,7 +2587,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     /**
      * Check whether this table was created by a record generator or not
      *
-     * @return boolean
+     * @return bool
      */
     public function isGenerator()
     {
@@ -2686,7 +2686,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * For decimal fields, it is the total number of cyphers
      *
      * @param string $fieldName
-     * @return integer
+     * @return int
      */
     public function getFieldLength($fieldName)
     {

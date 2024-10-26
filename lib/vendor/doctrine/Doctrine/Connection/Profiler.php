@@ -64,8 +64,8 @@ class Doctrine_Connection_Profiler implements Doctrine_Overloadable, IteratorAgg
     /**
      * setFilterQueryType
      *
-     * @param integer $filter
-     * @return boolean
+     * @param int $filter
+     * @return bool
      */
     public function setFilterQueryType()
     {
@@ -78,7 +78,7 @@ class Doctrine_Connection_Profiler implements Doctrine_Overloadable, IteratorAgg
      * @param string $m     the name of the method
      * @param array $a      method arguments
      * @see Doctrine_EventListener
-     * @return boolean
+     * @return bool
      */
     public function __call($m, $a)
     {
@@ -141,7 +141,7 @@ class Doctrine_Connection_Profiler implements Doctrine_Overloadable, IteratorAgg
     /**
      * count
      *
-     * @return integer
+     * @return int
      */
     public function count(): int
     {

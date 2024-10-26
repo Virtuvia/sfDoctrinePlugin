@@ -96,7 +96,7 @@ class Doctrine_Validator_Usstate extends Doctrine_Validator_Driver
      * checks if given value is a valid US state code
      *
      * @param string $args
-     * @return boolean
+     * @return bool
      */
     public function validate($value)
     {

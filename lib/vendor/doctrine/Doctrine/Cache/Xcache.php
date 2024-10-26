@@ -77,7 +77,7 @@ class Doctrine_Cache_Xcache extends Doctrine_Cache_Driver
      * @param string $id        cache id
      * @param string $data      data to cache
      * @param int $lifeTime     if != false, set a specific lifetime for this cache record (null => infinite lifeTime)
-     * @return boolean true if no problem
+     * @return bool true if no problem
      */
     protected function _doSave($id, $data, $lifeTime = false)
     {
@@ -89,7 +89,7 @@ class Doctrine_Cache_Xcache extends Doctrine_Cache_Driver
      * drivers and used in Doctrine_Cache_Driver::delete()
      *
      * @param string $id cache id
-     * @return boolean true if no problem
+     * @return bool true if no problem
      */
     protected function _doDelete($id)
     {

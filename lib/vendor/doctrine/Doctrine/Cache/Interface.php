@@ -37,7 +37,7 @@ interface Doctrine_Cache_Interface
      * Fetch a cache record from this cache driver instance
      *
      * @param string $id cache id
-     * @param boolean $testCacheValidity        if set to false, the cache validity won't be tested
+     * @param bool $testCacheValidity        if set to false, the cache validity won't be tested
      * @return mixed  Returns either the cached data or false
      */
     public function fetch($id, $testCacheValidity = true);
@@ -56,7 +56,7 @@ interface Doctrine_Cache_Interface
      * @param string $id        cache id
      * @param string $data      data to cache
      * @param int $lifeTime     if != false, set a specific lifetime for this cache record (null => infinite lifeTime)
-     * @return boolean true if no problem
+     * @return bool true if no problem
      */
     public function save($id, $data, $lifeTime = false);
 
@@ -64,7 +64,7 @@ interface Doctrine_Cache_Interface
      * Remove a cache record
      *
      * @param string $id cache id
-     * @return boolean true if no problem
+     * @return bool true if no problem
      */
     public function delete($id);
 }

@@ -95,7 +95,7 @@ abstract class Doctrine_Query_Abstract
     protected $_tableAliasMap = [];
 
     /**
-     * @var integer $_state   The current state of this query.
+     * @var int $_state   The current state of this query.
      */
     protected $_state = Doctrine_Query::STATE_CLEAN;
 
@@ -125,7 +125,7 @@ abstract class Doctrine_Query_Abstract
     protected $_resultCacheHash;
 
     /**
-     * @var boolean $_expireResultCache  A boolean value that indicates whether or not
+     * @var bool $_expireResultCache  A boolean value that indicates whether or not
      *                                   expire the result cache.
      */
     protected $_expireResultCache = false;
@@ -211,7 +211,7 @@ abstract class Doctrine_Query_Abstract
     protected $_rootAlias = '';
 
     /**
-     * @var integer $type                   the query type
+     * @var int $type                   the query type
      *
      * @see Doctrine_Query::* constants
      */
@@ -247,7 +247,7 @@ abstract class Doctrine_Query_Abstract
     ];
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $_isLimitSubqueryUsed = false;
 
@@ -322,7 +322,7 @@ abstract class Doctrine_Query_Abstract
      * whether or not this object has given tableAlias
      *
      * @param string $tableAlias    the table alias to be checked
-     * @return boolean              true if this object has given alias, otherwise false
+     * @return bool              true if this object has given alias, otherwise false
      */
     public function hasSqlTableAlias($sqlTableAlias)
     {
@@ -585,7 +585,7 @@ abstract class Doctrine_Query_Abstract
     /**
      * limitSubqueryUsed
      *
-     * @return boolean
+     * @return bool
      */
     public function isLimitSubqueryUsed()
     {
@@ -695,7 +695,7 @@ abstract class Doctrine_Query_Abstract
      * returns the alias seed for given table alias
      *
      * @param string $tableAlias    table alias that identifies the alias seed
-     * @return integer              table alias seed
+     * @return int              table alias seed
      */
     public function getSqlTableAliasSeed($sqlTableAlias)
     {
@@ -710,7 +710,7 @@ abstract class Doctrine_Query_Abstract
      * whether or not this object has a declaration for given component alias
      *
      * @param string $componentAlias    the component alias the retrieve the declaration from
-     * @return boolean
+     * @return bool
      */
     public function hasAliasDeclaration($componentAlias)
     {
@@ -1314,7 +1314,7 @@ abstract class Doctrine_Query_Abstract
      *
      * @param string $expr          the operand of the IN
      * @param mixed $params         an array of parameters or a simple scalar
-     * @param boolean $not          whether or not to use NOT in front of IN
+     * @param bool $not          whether or not to use NOT in front of IN
      * @return static
      */
     public function whereIn($expr, $params = [], $not = false)
@@ -1330,7 +1330,7 @@ abstract class Doctrine_Query_Abstract
      *
      * @param string $expr      The operand of the IN
      * @param mixed $params     An array of parameters or a simple scalar
-     * @param boolean $not      Whether or not to use NOT in front of IN. Defaults to false (simple IN clause)
+     * @param bool $not      Whether or not to use NOT in front of IN. Defaults to false (simple IN clause)
      * @return static
      */
     public function andWhereIn($expr, $params = [], $not = false)
@@ -1360,7 +1360,7 @@ abstract class Doctrine_Query_Abstract
      *
      * @param string $expr The operand of the IN
      * @param mixed $params An array of parameters or a simple scalar
-     * @param boolean $not Whether or not to use NOT in front of IN
+     * @param bool $not Whether or not to use NOT in front of IN
      * @return static
      */
     public function orWhereIn($expr, $params = [], $not = false)
@@ -1725,7 +1725,7 @@ abstract class Doctrine_Query_Abstract
      * limit
      * sets the Query query limit
      *
-     * @param integer $limit        limit to be used for limiting the query results
+     * @param int $limit        limit to be used for limiting the query results
      * @return static
      */
     public function limit($limit)
@@ -1737,7 +1737,7 @@ abstract class Doctrine_Query_Abstract
      * offset
      * sets the Query query offset
      *
-     * @param integer $offset       offset to be used for paginating the query
+     * @param int $offset       offset to be used for paginating the query
      * @return static
      */
     public function offset($offset)
@@ -1857,7 +1857,7 @@ abstract class Doctrine_Query_Abstract
      * @see Doctrine_Query_Abstract::UPDATE
      * @see Doctrine_Query_Abstract::DELETE
      *
-     * @return integer      return the query type
+     * @return int      return the query type
      */
     public function getType()
     {
@@ -1868,7 +1868,7 @@ abstract class Doctrine_Query_Abstract
      * useResultCache
      *
      * @param Doctrine_Cache_Interface|bool $driver      cache driver
-     * @param integer $timeToLive                        how long the cache entry is valid
+     * @param int $timeToLive                        how long the cache entry is valid
      * @param string $resultCacheHash                     The key to use for storing the queries result cache entry
      * @return static
      */
@@ -1917,7 +1917,7 @@ abstract class Doctrine_Query_Abstract
      * useQueryCache
      *
      * @param Doctrine_Cache_Interface|bool $driver      cache driver
-     * @param integer $timeToLive                        how long the cache entry is valid
+     * @param int $timeToLive                        how long the cache entry is valid
      * @return static
      */
     public function useQueryCache($driver = true, $timeToLive = null)
@@ -1937,7 +1937,7 @@ abstract class Doctrine_Query_Abstract
     /**
      * expireCache
      *
-     * @param boolean $expire       whether or not to force cache expiration
+     * @param bool $expire       whether or not to force cache expiration
      * @return static
      */
     public function expireResultCache($expire = true)
@@ -1949,7 +1949,7 @@ abstract class Doctrine_Query_Abstract
     /**
      * expireQueryCache
      *
-     * @param boolean $expire       whether or not to force cache expiration
+     * @param bool $expire       whether or not to force cache expiration
      * @return static
      */
     public function expireQueryCache($expire = true)
@@ -1961,7 +1961,7 @@ abstract class Doctrine_Query_Abstract
     /**
      * setResultCacheLifeSpan
      *
-     * @param integer $timeToLive   how long the cache entry is valid (in seconds)
+     * @param int $timeToLive   how long the cache entry is valid (in seconds)
      * @return static
      */
     public function setResultCacheLifeSpan($timeToLive)
@@ -1977,7 +1977,7 @@ abstract class Doctrine_Query_Abstract
     /**
      * Gets the life span of the result cache in seconds.
      *
-     * @return integer
+     * @return int
      */
     public function getResultCacheLifeSpan()
     {
@@ -1987,7 +1987,7 @@ abstract class Doctrine_Query_Abstract
     /**
      * setQueryCacheLifeSpan
      *
-     * @param integer $timeToLive   how long the cache entry is valid
+     * @param int $timeToLive   how long the cache entry is valid
      * @return static
      */
     public function setQueryCacheLifeSpan($timeToLive)
@@ -2003,7 +2003,7 @@ abstract class Doctrine_Query_Abstract
     /**
      * Gets the life span of the query cache the Query object is using.
      *
-     * @return integer  The life span in seconds.
+     * @return int  The life span in seconds.
      */
     public function getQueryCacheLifeSpan()
     {
@@ -2014,7 +2014,7 @@ abstract class Doctrine_Query_Abstract
      * getResultCacheDriver
      * returns the cache driver used for caching result sets
      *
-     * @return Doctrine_Cache_Interface|boolean|null    cache driver
+     * @return Doctrine_Cache_Interface|bool|null    cache driver
      */
     public function getResultCacheDriver()
     {
@@ -2029,7 +2029,7 @@ abstract class Doctrine_Query_Abstract
      * getQueryCacheDriver
      * returns the cache driver used for caching queries
      *
-     * @return Doctrine_Cache_Interface|boolean|null    cache driver
+     * @return Doctrine_Cache_Interface|bool|null    cache driver
      */
     public function getQueryCacheDriver()
     {
@@ -2054,7 +2054,7 @@ abstract class Doctrine_Query_Abstract
      * Checks if there's at least one DQL part defined to the internal parts collection.
      *
      * @param string $queryPartName  The name of the query part.
-     * @return boolean
+     * @return bool
      */
     protected function _hasDqlQueryPart($queryPartName)
     {
@@ -2075,7 +2075,7 @@ abstract class Doctrine_Query_Abstract
      * @see Doctrine_Query::getDqlPart()
      * @param string $queryPartName  The name of the query part.
      * @param string $queryPart      The actual query part to add.
-     * @param boolean $append        Whether to append $queryPart to already existing
+     * @param bool $append        Whether to append $queryPart to already existing
      *                               parts under the same $queryPartName. Defaults to FALSE
      *                               (previously added parts with the same name get overridden).
      */
@@ -2189,7 +2189,7 @@ abstract class Doctrine_Query_Abstract
     /**
      * Gets the disableLimitSubquery property.
      *
-     * @return boolean
+     * @return bool
      */
     public function getDisableLimitSubquery()
     {
@@ -2200,7 +2200,7 @@ abstract class Doctrine_Query_Abstract
      * Allows you to set the disableLimitSubquery property -- setting this to true will
      * restrict the query object from using the limit sub query method of tranversing many relationships.
      *
-     * @param boolean $disableLimitSubquery
+     * @param bool $disableLimitSubquery
      */
     public function setDisableLimitSubquery($disableLimitSubquery)
     {

@@ -94,7 +94,7 @@ class Doctrine_Locking_Manager_Pessimistic
      *
      * @param  Doctrine_Record $record     The record that has to be locked
      * @param  mixed           $userIdent  A unique identifier of the locking user
-     * @return boolean  TRUE if the locking was successful, FALSE if another user
+     * @return bool  TRUE if the locking was successful, FALSE if another user
      *                  holds a lock on this record
      * @throws Doctrine_Locking_Exception  If the locking failed due to database errors
      */
@@ -164,7 +164,7 @@ class Doctrine_Locking_Manager_Pessimistic
      *
      * @param  Doctrine_Record $record    The record for which the lock has to be released
      * @param  mixed           $userIdent The unique identifier of the locking user
-     * @return boolean  TRUE if a lock was released, FALSE if no lock was released
+     * @return bool  TRUE if a lock was released, FALSE if no lock was released
      * @throws Doctrine_Locking_Exception If the release procedure failed due to database errors
      */
     public function releaseLock(Doctrine_Record $record, $userIdent)
@@ -250,10 +250,10 @@ class Doctrine_Locking_Manager_Pessimistic
      *
      * When called without parameters all locks older than 15 minutes are released.
      *
-     * @param  integer $age  The maximum valid age of locks in seconds
+     * @param  int $age  The maximum valid age of locks in seconds
      * @param  string  $objectType  The type of the object (component name)
      * @param  mixed   $userIdent The unique identifier of the locking user
-     * @return integer The number of locks that have been released
+     * @return int The number of locks that have been released
      * @throws Doctrine_Locking_Exception If the release process failed due to database errors
      */
     public function releaseAgedLocks($age = 900, $objectType = null, $userIdent = null)

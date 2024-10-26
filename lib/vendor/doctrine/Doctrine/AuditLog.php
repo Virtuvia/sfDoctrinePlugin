@@ -123,9 +123,9 @@ class Doctrine_AuditLog extends Doctrine_Record_Generator
      * Get array of information for the passed record and the specified version
      *
      * @param   Doctrine_Record $record
-     * @param   integer         $version
-     * @param   integer         $hydrationMode
-     * @param	boolean			$asCollection
+     * @param   int         $version
+     * @param   int         $hydrationMode
+     * @param	bool			$asCollection
      * @return  array           An array or Doctrine_Collection or a Doctrine_Record
      */
     public function getVersion(Doctrine_Record $record, $version, $hydrationMode = Doctrine_Core::HYDRATE_ARRAY, $asCollection = true)
@@ -155,7 +155,7 @@ class Doctrine_AuditLog extends Doctrine_Record_Generator
      * Get the max version number for a given Doctrine_Record
      *
      * @param Doctrine_Record $record
-     * @return Integer $versionnumber
+     * @return int $versionnumber
      */
     public function getMaxVersion(Doctrine_Record $record)
     {

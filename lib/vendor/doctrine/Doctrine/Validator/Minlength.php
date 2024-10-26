@@ -36,7 +36,7 @@ class Doctrine_Validator_Minlength extends Doctrine_Validator_Driver
      * checks if given value is more length than the minimum length required
      *
      * @param mixed $value
-     * @return boolean
+     * @return bool
      */
     public function validate($value)
     {

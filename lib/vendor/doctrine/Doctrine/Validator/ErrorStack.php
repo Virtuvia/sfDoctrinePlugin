@@ -125,7 +125,7 @@ class Doctrine_Validator_ErrorStack extends Doctrine_Access implements Countable
      * Check if a field has an error
      *
      * @param string $fieldName
-     * @return boolean
+     * @return bool
      */
     public function contains($fieldName)
     {
@@ -156,7 +156,7 @@ class Doctrine_Validator_ErrorStack extends Doctrine_Access implements Countable
     /**
      * Count the number of errors
      *
-     * @return integer
+     * @return int
      */
     public function count(): int
     {

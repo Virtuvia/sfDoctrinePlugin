@@ -127,7 +127,7 @@ class Doctrine_Query_Where extends Doctrine_Query_Condition
      * parses an EXISTS expression
      *
      * @param string $where         query where part to be parsed
-     * @param boolean $negation     whether or not to use the NOT keyword
+     * @param bool $negation     whether or not to use the NOT keyword
      * @return string
      */
     public function parseExists($where, $negation)

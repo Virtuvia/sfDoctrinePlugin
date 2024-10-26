@@ -189,7 +189,7 @@ EOF
      * @param string $model  A model name
      * @param string $module A module name
      *
-     * @return boolean
+     * @return bool
      */
     protected function checkRoute($route, $model, $module)
     {

@@ -70,7 +70,7 @@ class Doctrine_Cache_Db extends Doctrine_Cache_Driver
      * Fetch a cache record from this cache driver instance
      *
      * @param string $id cache id
-     * @param boolean $testCacheValidity        if set to false, the cache validity won't be tested
+     * @param bool $testCacheValidity        if set to false, the cache validity won't be tested
      * @return mixed  Returns either the cached data or false
      */
     protected function _doFetch($id, $testCacheValidity = true)
@@ -117,7 +117,7 @@ class Doctrine_Cache_Db extends Doctrine_Cache_Driver
      * @param string $id        cache id
      * @param string $data      data to cache
      * @param int $lifeTime     if != false, set a specific lifetime for this cache record (null => infinite lifeTime)
-     * @return boolean true if no problem
+     * @return bool true if no problem
      */
     protected function _doSave($id, $data, $lifeTime = false, $saveKey = true)
     {
@@ -156,7 +156,7 @@ class Doctrine_Cache_Db extends Doctrine_Cache_Driver
      * drivers and used in Doctrine_Cache_Driver::delete()
      *
      * @param string $id cache id
-     * @return boolean true if no problem
+     * @return bool true if no problem
      */
     protected function _doDelete($id)
     {

@@ -92,7 +92,7 @@ class Doctrine_Connection_Pgsql_Exception extends Doctrine_Connection_Exception
      * @since 1.0
      * @see Doctrine_Core::ERR_* constants
      * @see Doctrine_Connection::$portableCode
-     * @return boolean              whether or not the error info processing was successfull
+     * @return bool              whether or not the error info processing was successfull
      *                              (the process is successfull if portable error code was found)
      */
     public function processErrorInfo(array $errorInfo)

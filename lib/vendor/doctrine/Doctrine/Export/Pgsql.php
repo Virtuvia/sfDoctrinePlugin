@@ -101,7 +101,7 @@ class Doctrine_Export_Pgsql extends Doctrine_Export
      *
      * @param string $name          name of the table that is intended to be changed.
      * @param array $changes        associative array that contains the details of each type      *
-     * @param boolean $check        indicates whether the function should just check if the DBMS driver
+     * @param bool $check        indicates whether the function should just check if the DBMS driver
      *                              can perform the requested table alterations if the value is true or
      *                              actually perform them otherwise.
      * @see Doctrine_Export::alterTable()
@@ -265,11 +265,11 @@ class Doctrine_Export_Pgsql extends Doctrine_Export
      *                                    )
      *                                )
      *
-     * @param boolean $check     indicates whether the function should just check if the DBMS driver
+     * @param bool $check     indicates whether the function should just check if the DBMS driver
      *                             can perform the requested table alterations if the value is true or
      *                             actually perform them otherwise.
      * @throws Doctrine_Connection_Exception
-     * @return boolean
+     * @return bool
      */
     public function alterTable($name, array $changes, $check = false)
     {

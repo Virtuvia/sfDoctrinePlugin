@@ -94,7 +94,7 @@ class Doctrine_Connection_Mysql extends Doctrine_Connection_Common
      * when trying to prepare DROP DATABASE or CREATE DATABASE statements
      *
      * @see Doctrine_Connection :: connect();
-     * @return boolean connected
+     * @return bool connected
      */
     public function connect()
     {
@@ -188,7 +188,7 @@ class Doctrine_Connection_Mysql extends Doctrine_Connection_Common
      *
      *    Default: 0
      *
-     * @return integer      the number of affected rows
+     * @return int      the number of affected rows
      */
     public function replace(Doctrine_Table $table, array $fields, array $keys)
     {

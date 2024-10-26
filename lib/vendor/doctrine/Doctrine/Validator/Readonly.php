@@ -32,7 +32,7 @@ class Doctrine_Validator_Readonly extends Doctrine_Validator_Driver
      * checks if value has been modified
      *
      * @param mixed $value
-     * @return boolean
+     * @return bool
      */
     public function validate($value)
     {

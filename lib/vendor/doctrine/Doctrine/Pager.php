@@ -48,27 +48,27 @@ class Doctrine_Pager
     protected $_countQueryParams;
 
     /**
-     * @var integer $_numResults        Number of results found
+     * @var int $_numResults        Number of results found
      */
     protected $_numResults;
 
     /**
-     * @var integer $_maxPerPage        Maximum number of itens per page
+     * @var int $_maxPerPage        Maximum number of itens per page
      */
     protected $_maxPerPage;
 
     /**
-     * @var integer $page               Current page
+     * @var int $page               Current page
      */
     protected $_page;
 
     /**
-     * @var integer $_lastPage          Last page (total of pages)
+     * @var int $_lastPage          Last page (total of pages)
      */
     protected $_lastPage;
 
     /**
-     * @var boolean $_executed          Pager was initialized (called "execute" at least once)
+     * @var bool $_executed          Pager was initialized (called "execute" at least once)
      */
     protected $_executed;
 
@@ -510,7 +510,7 @@ class Doctrine_Pager
      *
      * @param array       Optional params to be used by counter Doctrine_Query.
      *                    If not defined, the params passed to execute method will be used.
-     * @param boolean     Optional argument that append the query param instead of overriding the existent ones.
+     * @param bool     Optional argument that append the query param instead of overriding the existent ones.
      * @return void
      */
     public function setCountQueryParams($params = [], $append = false)

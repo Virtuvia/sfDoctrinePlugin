@@ -323,7 +323,7 @@ abstract class Doctrine_Configurable extends Doctrine_Locator_Injectable
     /**
      * returns the value of an attribute
      *
-     * @param integer $attribute
+     * @param int $attribute
      * @return mixed
      */
     public function getAttribute($attribute)
@@ -341,7 +341,7 @@ abstract class Doctrine_Configurable extends Doctrine_Locator_Injectable
     /**
      * Unset an attribute from this levels attributes
      *
-     * @param integer $attribute
+     * @param int $attribute
      * @return void
      */
     public function unsetAttribute($attribute)

@@ -607,7 +607,7 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
      *                                    )
      *                                )
      *
-     * @param boolean $check     indicates whether the function should just check if the DBMS driver
+     * @param bool $check     indicates whether the function should just check if the DBMS driver
      *                             can perform the requested table alterations if the value is true or
      *                             actually perform them otherwise.
      * @return void
@@ -627,7 +627,7 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
      *
      * @param string $name          name of the table that is intended to be changed.
      * @param array $changes        associative array that contains the details of each type      *
-     * @param boolean $check        indicates whether the function should just check if the DBMS driver
+     * @param bool $check        indicates whether the function should just check if the DBMS driver
      *                              can perform the requested table alterations if the value is true or
      *                              actually perform them otherwise.
      * @see Doctrine_Export::alterTable()
@@ -1355,7 +1355,7 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
      *
      * @throws Doctrine_Connection_Exception    if some error other than Doctrine_Core::ERR_ALREADY_EXISTS
      *                                          occurred during the create table operation
-     * @return boolean                          whether or not the export operation was successful
+     * @return bool                          whether or not the export operation was successful
      *                                          false if table already existed in the database
      */
     public function exportTable(Doctrine_Table $table)

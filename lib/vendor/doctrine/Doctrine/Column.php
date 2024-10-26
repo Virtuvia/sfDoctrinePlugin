@@ -66,7 +66,7 @@ class Doctrine_Column extends Doctrine_Access implements IteratorAggregate, Coun
     /**
      * contains
      *
-     * @return boolean
+     * @return bool
      */
     public function contains($name)
     {
@@ -115,7 +115,7 @@ class Doctrine_Column extends Doctrine_Access implements IteratorAggregate, Coun
     /**
      * Retrieves an enum value.
      *
-     * @param integer $index
+     * @param int $index
      * @return string       integer ($index) if not present
      */
     public function enumValue($index)
@@ -144,7 +144,7 @@ class Doctrine_Column extends Doctrine_Access implements IteratorAggregate, Coun
     /**
      * count
      *
-     * @return integer
+     * @return int
      */
     public function count(): int
     {

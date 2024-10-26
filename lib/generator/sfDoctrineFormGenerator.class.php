@@ -169,7 +169,7 @@ class sfDoctrineFormGenerator extends sfGenerator
      * Check to see if a model is part of a plugin
      *
      * @param string $modelName
-     * @return boolean $bool
+     * @return bool $bool
      */
     public function isPluginModel($modelName)
     {
@@ -423,7 +423,7 @@ class sfDoctrineFormGenerator extends sfGenerator
     /**
      * Returns the maximum length for a column name.
      *
-     * @return integer The length of the longer column name
+     * @return int The length of the longer column name
      */
     public function getColumnNameMaxLength()
     {

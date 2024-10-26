@@ -96,17 +96,17 @@ class Doctrine_Event
 
     /**
      * @see Doctrine_Event constants
-     * @var integer $_code              the event code
+     * @var int $_code              the event code
      */
     protected $_code;
 
     /**
-     * @var integer $_startedMicrotime  the time point in which this event was started
+     * @var int $_startedMicrotime  the time point in which this event was started
      */
     protected $_startedMicrotime;
 
     /**
-     * @var integer $_endedMicrotime    the time point in which this event was ended
+     * @var int $_endedMicrotime    the time point in which this event was ended
      */
     protected $_endedMicrotime;
 
@@ -120,7 +120,7 @@ class Doctrine_Event
      *
      * @param Doctrine_Connection|Doctrine_Connection_Statement|
               Doctrine_Connection_UnitOfWork|Doctrine_Transaction $invoker   the handler which invoked this event
-     * @param integer $code                                                  the event code
+     * @param int $code                                                  the event code
      * @param string $query                                                  the sql query associated with this event (if any)
      */
     public function __construct($invoker, $code, $query = null, $params = [])
@@ -211,7 +211,7 @@ class Doctrine_Event
     /**
      * getCode
      *
-     * @return integer      returns the code associated with this event
+     * @return int      returns the code associated with this event
      */
     public function getCode()
     {
@@ -293,7 +293,7 @@ class Doctrine_Event
      * hasEnded
      * whether or not this event has ended
      *
-     * @return boolean
+     * @return bool
      */
     public function hasEnded()
     {
@@ -317,7 +317,7 @@ class Doctrine_Event
      * getSequence
      * returns the sequence of this event
      *
-     * @return integer
+     * @return int
      */
     public function getSequence()
     {
@@ -363,7 +363,7 @@ class Doctrine_Event
      * Get the elapsed time (in microseconds) that the event ran.  If the event has
      * not yet ended, return false.
      *
-     * @return integer
+     * @return int
      */
     public function getElapsedSecs()
     {
