@@ -118,7 +118,7 @@ class Doctrine_Compiler
             throw new Doctrine_Compiler_Exception("Couldn't write compiled data. Failed to open $target");
         }
 
-        fwrite($fp, "<?php ". implode('', $ret));
+        fwrite($fp, "<?php " . implode('', $ret));
         fclose($fp);
 
         $stripped = php_strip_whitespace($target);

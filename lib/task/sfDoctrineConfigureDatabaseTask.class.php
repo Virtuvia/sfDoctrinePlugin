@@ -69,9 +69,9 @@ EOF;
     {
         // update databases.yml
         if (null !== $options['app']) {
-            $file = sfConfig::get('sf_apps_dir').'/'.$options['app'].'/config/databases.yml';
+            $file = sfConfig::get('sf_apps_dir') . '/' . $options['app'] . '/config/databases.yml';
         } else {
-            $file = sfConfig::get('sf_config_dir').'/databases.yml';
+            $file = sfConfig::get('sf_config_dir') . '/databases.yml';
         }
 
         $config = file_exists($file) ? sfYaml::load($file) : [];

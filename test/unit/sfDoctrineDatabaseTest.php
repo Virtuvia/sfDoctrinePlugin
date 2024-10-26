@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-include(dirname(__FILE__).'/../bootstrap/unit.php');
+include(dirname(__FILE__) . '/../bootstrap/unit.php');
 
 $t = new lime_test(4);
 
@@ -16,7 +16,7 @@ class testProjectConfiguration extends sfProjectConfiguration
 {
 }
 
-$configuration = new testProjectConfiguration(dirname(__FILE__).'/../../lib', new sfEventDispatcher());
+$configuration = new testProjectConfiguration(dirname(__FILE__) . '/../../lib', new sfEventDispatcher());
 
 $parameters = [
     'name'        => 'doctrine',

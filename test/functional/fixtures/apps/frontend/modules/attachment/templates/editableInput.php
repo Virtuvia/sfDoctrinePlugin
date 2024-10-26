@@ -1,4 +1,4 @@
-<form action="<?php echo url_for('attachment/editable?id='.$form->getObject()->id) ?>" method="post">
+<form action="<?php echo url_for('attachment/editable?id=' . $form->getObject()->id) ?>" method="post">
   <table>
     <?php echo $form ?>
   </table>

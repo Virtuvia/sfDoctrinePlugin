@@ -193,19 +193,19 @@ class Doctrine_Expression_Pgsql extends Doctrine_Expression_Driver
     {
         $match = '';
         if (! is_null($operator)) {
-            $field = is_null($field) ? '' : $field.' ';
+            $field = is_null($field) ? '' : $field . ' ';
             $operator = strtoupper($operator);
             switch ($operator) {
                 // case insensitive
                 case 'ILIKE':
-                    $match = $field.'ILIKE ';
+                    $match = $field . 'ILIKE ';
                     break;
                     // case sensitive
                 case 'LIKE':
-                    $match = $field.'LIKE ';
+                    $match = $field . 'LIKE ';
                     break;
                 default:
-                    throw new Doctrine_Expression_Pgsql_Exception('not a supported operator type:'. $operator);
+                    throw new Doctrine_Expression_Pgsql_Exception('not a supported operator type:' . $operator);
             }
         }
         $match .= "'";

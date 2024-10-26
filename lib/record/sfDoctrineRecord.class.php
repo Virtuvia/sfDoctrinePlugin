@@ -157,7 +157,7 @@ abstract class sfDoctrineRecord extends Doctrine_Record
                         $entityName = strtolower($name);
                     } else {
                         $camelCase = $table->getFieldName(sfInflector::camelize($name));
-                        $camelCase = strtolower($camelCase[0]).substr($camelCase, 1, strlen($camelCase));
+                        $camelCase = strtolower($camelCase[0]) . substr($camelCase, 1, strlen($camelCase));
                         if ($table->hasField($camelCase) || $table->hasRelation($camelCase)) {
                             $entityName = $camelCase;
                         } else {

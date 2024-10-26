@@ -58,7 +58,7 @@ class ArticleTable extends Doctrine_Table
             $q = $this->createQuery('a');
         }
         $alias = $q->getRootAlias();
-        return $q->addWhere($alias.'.is_on_homepage = 1');
+        return $q->addWhere($alias . '.is_on_homepage = 1');
     }
 
     public function filterSuppliedQuery($query)

@@ -10,7 +10,7 @@
 
 $app = 'backend';
 $fixtures = 'fixtures';
-require_once(dirname(__FILE__).'/../bootstrap/functional.php');
+require_once(dirname(__FILE__) . '/../bootstrap/functional.php');
 
 $tests = [
     '/doctrine/route/test1' => '/Article/',

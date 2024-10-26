@@ -439,7 +439,7 @@ class Doctrine_Pager_Layout
         $replacements = [];
 
         foreach ($options as $k => $v) {
-            $replacements['{%'.$k.'}'] = $v;
+            $replacements['{%' . $k . '}'] = $v;
         }
 
         return $replacements;
@@ -460,7 +460,7 @@ class Doctrine_Pager_Layout
         $replacements = [];
 
         foreach ($options as $k => $v) {
-            $replacements['{%'.$k.'}'] = $v;
+            $replacements['{%' . $k . '}'] = $v;
         }
 
         return strtr($str, $replacements);
@@ -479,7 +479,7 @@ class Doctrine_Pager_Layout
         $replacements = [];
 
         foreach ($this->_maskReplacements as $k => $v) {
-            $replacements['{%'.$k.'}'] = ($v['asValue'] === true) ? $v['newMask'] : '{%'.$v['newMask'].'}';
+            $replacements['{%' . $k . '}'] = ($v['asValue'] === true) ? $v['newMask'] : '{%' . $v['newMask'] . '}';
         }
 
         return strtr($str, $replacements);

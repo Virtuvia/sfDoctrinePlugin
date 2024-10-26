@@ -38,7 +38,7 @@ function sf_functional_test_shutdown()
     try {
         sf_functional_test_shutdown_cleanup();
     } catch (Exception $e) {
-        echo $e.PHP_EOL;
+        echo $e . PHP_EOL;
     }
 }
 

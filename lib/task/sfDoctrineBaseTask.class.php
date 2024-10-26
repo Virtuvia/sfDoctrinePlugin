@@ -125,7 +125,7 @@ abstract class sfDoctrineBaseTask extends sfBaseTask
         // plugin models
         foreach ($this->configuration->getPlugins() as $name) {
             $plugin = $this->configuration->getPluginConfiguration($name);
-            foreach ($finder->in($plugin->getRootDir().'/config/doctrine') as $schema) {
+            foreach ($finder->in($plugin->getRootDir() . '/config/doctrine') as $schema) {
                 $pluginModels = (array) sfYaml::load($schema);
                 $globals = $this->filterSchemaGlobals($pluginModels);
 
@@ -141,11 +141,11 @@ abstract class sfDoctrineBaseTask extends sfBaseTask
 
                     // the first plugin to define this model gets the package
                     if (!isset($models[$model]['package'])) {
-                        $models[$model]['package'] = $plugin->getName().'.lib.model.doctrine';
+                        $models[$model]['package'] = $plugin->getName() . '.lib.model.doctrine';
                     }
 
                     if (!isset($models[$model]['package_custom_path']) && 0 === strpos($models[$model]['package'], $plugin->getName())) {
-                        $models[$model]['package_custom_path'] = $plugin->getRootDir().'/lib/model/doctrine';
+                        $models[$model]['package_custom_path'] = $plugin->getRootDir() . '/lib/model/doctrine';
                     }
                 }
             }
@@ -169,7 +169,7 @@ abstract class sfDoctrineBaseTask extends sfBaseTask
         }
 
         // create one consolidated schema file
-        $file = realpath(sys_get_temp_dir()).'/doctrine_schema_'.rand(11111, 99999).'.yml';
+        $file = realpath(sys_get_temp_dir()) . '/doctrine_schema_' . rand(11111, 99999) . '.yml';
         $this->logSection('file+', $file);
         file_put_contents($file, sfYaml::dump($models, 4));
 

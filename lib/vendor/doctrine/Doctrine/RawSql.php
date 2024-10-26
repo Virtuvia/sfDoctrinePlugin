@@ -171,7 +171,7 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
                         // why does this add to index 0 and not append to the
                         // array. If it had done that one could have used
                         // parseQueryPart.
-                        $parts[$type][0] .= ' '.$part;
+                        $parts[$type][0] .= ' ' . $part;
                     }
             }
         }
@@ -273,10 +273,10 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
             $this->_sqlParts['where'][] = $string;
         }
 
-        $q .= (! empty($this->_sqlParts['from'])) ? ' FROM '     . implode(' ', $this->_sqlParts['from']) : '';
-        $q .= (! empty($this->_sqlParts['where'])) ? ' WHERE '    . implode(' AND ', $this->_sqlParts['where']) : '';
+        $q .= (! empty($this->_sqlParts['from'])) ? ' FROM ' . implode(' ', $this->_sqlParts['from']) : '';
+        $q .= (! empty($this->_sqlParts['where'])) ? ' WHERE ' . implode(' AND ', $this->_sqlParts['where']) : '';
         $q .= (! empty($this->_sqlParts['groupby'])) ? ' GROUP BY ' . implode(', ', $this->_sqlParts['groupby']) : '';
-        $q .= (! empty($this->_sqlParts['having'])) ? ' HAVING '   . implode(' AND ', $this->_sqlParts['having']) : '';
+        $q .= (! empty($this->_sqlParts['having'])) ? ' HAVING ' . implode(' AND ', $this->_sqlParts['having']) : '';
         $q .= (! empty($this->_sqlParts['orderby'])) ? ' ORDER BY ' . implode(', ', $this->_sqlParts['orderby']) : '';
         $q .= (! empty($this->_sqlParts['limit'])) ? ' LIMIT ' . implode(' ', $this->_sqlParts['limit']) : '';
         $q .= (! empty($this->_sqlParts['offset'])) ? ' OFFSET ' . implode(' ', $this->_sqlParts['offset']) : '';
@@ -309,17 +309,17 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
             $fields[] = $tableAlias . '.' . $key;
         }
 
-        $q = 'SELECT COUNT(*) as num_results FROM (SELECT DISTINCT '.implode(', ', $fields);
+        $q = 'SELECT COUNT(*) as num_results FROM (SELECT DISTINCT ' . implode(', ', $fields);
 
         $string = $this->getInheritanceCondition($this->getRootAlias());
         if (! empty($string)) {
             $this->_sqlParts['where'][] = $string;
         }
 
-        $q .= (! empty($this->_sqlParts['from'])) ? ' FROM '     . implode(' ', $this->_sqlParts['from']) : '';
-        $q .= (! empty($this->_sqlParts['where'])) ? ' WHERE '    . implode(' AND ', $this->_sqlParts['where']) : '';
+        $q .= (! empty($this->_sqlParts['from'])) ? ' FROM ' . implode(' ', $this->_sqlParts['from']) : '';
+        $q .= (! empty($this->_sqlParts['where'])) ? ' WHERE ' . implode(' AND ', $this->_sqlParts['where']) : '';
         $q .= (! empty($this->_sqlParts['groupby'])) ? ' GROUP BY ' . implode(', ', $this->_sqlParts['groupby']) : '';
-        $q .= (! empty($this->_sqlParts['having'])) ? ' HAVING '   . implode(' AND ', $this->_sqlParts['having']) : '';
+        $q .= (! empty($this->_sqlParts['having'])) ? ' HAVING ' . implode(' AND ', $this->_sqlParts['having']) : '';
 
         $q .= ') as results';
 

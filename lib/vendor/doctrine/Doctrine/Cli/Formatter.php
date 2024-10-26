@@ -101,7 +101,7 @@ class Doctrine_Cli_Formatter
 
         $subsize = floor(($size - 3) / 2);
 
-        return substr($text, 0, $subsize).'...'.substr($text, -$subsize);
+        return substr($text, 0, $subsize) . '...' . substr($text, -$subsize);
     }
 
     /**

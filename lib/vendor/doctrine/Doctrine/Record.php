@@ -1090,7 +1090,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
             $exists = $reference->exists();
         } elseif ($reference instanceof Doctrine_Collection) {
             throw new Doctrine_Record_Exception(
-                'You can only call relatedExists() on a relationship that '.
+                'You can only call relatedExists() on a relationship that ' .
                 'returns an instance of Doctrine_Record'
             );
         } else {
@@ -1135,7 +1135,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     public function rawGet($fieldName)
     {
         if (! array_key_exists($fieldName, $this->_data)) {
-            throw new Doctrine_Record_Exception('Unknown property '. $fieldName);
+            throw new Doctrine_Record_Exception('Unknown property ' . $fieldName);
         }
         if ($this->_data[$fieldName] === self::$_null) {
             return null;

@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-require_once(dirname(__FILE__).'/sfDoctrineBaseTask.class.php');
+require_once(dirname(__FILE__) . '/sfDoctrineBaseTask.class.php');
 
 /**
  * Delete all generated model classes for models which no longer exist in your YAML schema
@@ -61,12 +61,12 @@ EOF;
 
         // remove form classes whose generation is disabled
         foreach ($yamlSchema as $model => $definition) {
-            if (isset($definition['options']['symfony']['form']) && !$definition['options']['symfony']['form'] && class_exists($model.'Form')) {
+            if (isset($definition['options']['symfony']['form']) && !$definition['options']['symfony']['form'] && class_exists($model . 'Form')) {
                 $deleteModelFiles->run([$model], ['suffix' => ['Form'], 'no-confirmation' => $options['no-confirmation']]);
                 $changed = true;
             }
 
-            if (isset($definition['options']['symfony']['filter']) && !$definition['options']['symfony']['filter'] && class_exists($model.'FormFilter')) {
+            if (isset($definition['options']['symfony']['filter']) && !$definition['options']['symfony']['filter'] && class_exists($model . 'FormFilter')) {
                 $deleteModelFiles->run([$model], ['suffix' => ['FormFilter'], 'no-confirmation' => $options['no-confirmation']]);
                 $changed = true;
             }

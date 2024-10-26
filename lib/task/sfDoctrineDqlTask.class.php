@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-require_once(dirname(__FILE__).'/sfDoctrineBaseTask.class.php');
+require_once(dirname(__FILE__) . '/sfDoctrineBaseTask.class.php');
 
 /**
  * Creates database for current model.
@@ -113,8 +113,8 @@ EOF;
                         $length = strlen($field);
                     }
 
-                    $hdr .= ' '.str_pad($field, $length).' |';
-                    $div .= str_repeat('-', $length + 2).'+';
+                    $hdr .= ' ' . str_pad($field, $length) . ' |';
+                    $div .= str_repeat('-', $length + 2) . '+';
                 }
 
                 $this->log([$div, $hdr, $div]);
@@ -123,7 +123,7 @@ EOF;
                 foreach ($results as $result) {
                     $line = '|';
                     foreach ($result as $field => $value) {
-                        $line .= ' '.str_pad($this->renderValue($value), $headers[$field]).' |';
+                        $line .= ' ' . str_pad($this->renderValue($value), $headers[$field]) . ' |';
                     }
                     $this->log($line);
                 }

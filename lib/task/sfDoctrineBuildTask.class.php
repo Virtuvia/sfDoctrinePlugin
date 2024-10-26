@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-require_once(dirname(__FILE__).'/sfDoctrineBaseTask.class.php');
+require_once(dirname(__FILE__) . '/sfDoctrineBaseTask.class.php');
 
 /**
  * Generates code based on your schema.
@@ -265,7 +265,7 @@ EOF;
     {
         $options = [];
         foreach ($this->options as $option) {
-            if (defined($constant = __CLASS__.'::OPTION_'.str_replace('-', '_', strtoupper($option->getName())))) {
+            if (defined($constant = __CLASS__ . '::OPTION_' . str_replace('-', '_', strtoupper($option->getName())))) {
                 $options[$option->getName()] = constant($constant);
             }
         }

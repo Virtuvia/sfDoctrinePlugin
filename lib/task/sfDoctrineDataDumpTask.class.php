@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-require_once(dirname(__FILE__).'/sfDoctrineBaseTask.class.php');
+require_once(dirname(__FILE__) . '/sfDoctrineBaseTask.class.php');
 
 /**
  * Dumps data to the fixtures directory.
@@ -74,7 +74,7 @@ EOF;
             $filename = $arguments['target'];
 
             if (!sfToolkit::isPathAbsolute($filename)) {
-                $filename = $args['data_fixtures_path'].'/'.$filename;
+                $filename = $args['data_fixtures_path'] . '/' . $filename;
             }
 
             $this->getFilesystem()->mkdirs(dirname($filename));

@@ -30,7 +30,7 @@ class sfDoctrinePluginConfiguration extends sfPluginConfiguration
         }
 
         if (sfConfig::get('sf_web_debug')) {
-            require_once dirname(__FILE__).'/../lib/debug/sfWebDebugPanelDoctrine.class.php';
+            require_once dirname(__FILE__) . '/../lib/debug/sfWebDebugPanelDoctrine.class.php';
 
             $this->dispatcher->connect('debug.web.load_panels', ['sfWebDebugPanelDoctrine', 'listenToAddPanelEvent']);
         }
@@ -87,11 +87,11 @@ class sfDoctrinePluginConfiguration extends sfPluginConfiguration
     public function getCliConfig()
     {
         $config = [
-            'data_fixtures_path' => array_merge([sfConfig::get('sf_data_dir').'/fixtures'], $this->configuration->getPluginSubPaths('/data/fixtures')),
-            'models_path'        => sfConfig::get('sf_lib_dir').'/model/doctrine',
-            'migrations_path'    => sfConfig::get('sf_lib_dir').'/migration/doctrine',
-            'sql_path'           => sfConfig::get('sf_data_dir').'/sql',
-            'yaml_schema_path'   => sfConfig::get('sf_config_dir').'/doctrine',
+            'data_fixtures_path' => array_merge([sfConfig::get('sf_data_dir') . '/fixtures'], $this->configuration->getPluginSubPaths('/data/fixtures')),
+            'models_path'        => sfConfig::get('sf_lib_dir') . '/model/doctrine',
+            'migrations_path'    => sfConfig::get('sf_lib_dir') . '/migration/doctrine',
+            'sql_path'           => sfConfig::get('sf_data_dir') . '/sql',
+            'yaml_schema_path'   => sfConfig::get('sf_config_dir') . '/doctrine',
         ];
 
         // filter config through the dispatcher

@@ -73,19 +73,19 @@ class Doctrine_Expression_Mysql extends Doctrine_Expression_Driver
     {
         $match = '';
         if (! is_null($operator)) {
-            $field = is_null($field) ? '' : $field.' ';
+            $field = is_null($field) ? '' : $field . ' ';
             $operator = strtoupper($operator);
             switch ($operator) {
                 // case insensitive
                 case 'ILIKE':
-                    $match = $field.'LIKE ';
+                    $match = $field . 'LIKE ';
                     break;
                     // case sensitive
                 case 'LIKE':
-                    $match = $field.'LIKE BINARY ';
+                    $match = $field . 'LIKE BINARY ';
                     break;
                 default:
-                    throw new Doctrine_Expression_Mysql_Exception('not a supported operator type:'. $operator);
+                    throw new Doctrine_Expression_Mysql_Exception('not a supported operator type:' . $operator);
             }
         }
         $match .= "'";
@@ -120,7 +120,7 @@ class Doctrine_Expression_Mysql extends Doctrine_Expression_Driver
     public function year($column)
     {
         $column = $this->getIdentifier($column);
-        return 'YEAR(' .  $column . ')';
+        return 'YEAR(' . $column . ')';
     }
 
     /**
@@ -132,7 +132,7 @@ class Doctrine_Expression_Mysql extends Doctrine_Expression_Driver
     public function month($column)
     {
         $column = $this->getIdentifier($column);
-        return 'MONTH(' .  $column . ')';
+        return 'MONTH(' . $column . ')';
     }
 
     /**
@@ -144,7 +144,7 @@ class Doctrine_Expression_Mysql extends Doctrine_Expression_Driver
     public function day($column)
     {
         $column = $this->getIdentifier($column);
-        return 'DAY(' .  $column . ')';
+        return 'DAY(' . $column . ')';
     }
 
     /**

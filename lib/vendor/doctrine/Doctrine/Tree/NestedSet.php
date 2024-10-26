@@ -299,7 +299,7 @@ class Doctrine_Tree_NestedSet extends Doctrine_Tree implements Doctrine_Tree_Int
     public function setBaseQuery(Doctrine_Query $query)
     {
         $this->_baseAlias = $query->getRootAlias();
-        $query->addSelect($this->_baseAlias . ".lft, " . $this->_baseAlias . ".rgt, ". $this->_baseAlias . ".level");
+        $query->addSelect($this->_baseAlias . ".lft, " . $this->_baseAlias . ".rgt, " . $this->_baseAlias . ".level");
         if ($this->getAttribute('rootColumnName')) {
             $query->addSelect($this->_baseAlias . "." . $this->getAttribute('rootColumnName'));
         }

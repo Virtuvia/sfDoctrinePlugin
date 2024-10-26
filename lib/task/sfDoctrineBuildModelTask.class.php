@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-require_once(dirname(__FILE__).'/sfDoctrineBaseTask.class.php');
+require_once(dirname(__FILE__) . '/sfDoctrineBaseTask.class.php');
 
 /**
  * Create classes for the current model.
@@ -61,7 +61,7 @@ EOF;
         $config = $this->getCliConfig();
         $builderOptions = $this->configuration->getPluginConfiguration('sfDoctrinePlugin')->getModelBuilderOptions();
 
-        $stubFinder = sfFinder::type('file')->prune('base')->name('*'.$builderOptions['suffix']);
+        $stubFinder = sfFinder::type('file')->prune('base')->name('*' . $builderOptions['suffix']);
         $before = $stubFinder->in($config['models_path']);
 
         $schema = $this->prepareSchemaFile($config['yaml_schema_path']);
@@ -74,7 +74,7 @@ EOF;
 
         // markup base classes with magic methods
         foreach (sfYaml::load($schema) as $model => $definition) {
-            $packagePath = isset($definition['package']) ? '/'.substr($definition['package'], 0, strpos($definition['package'], '.')) : '';
+            $packagePath = isset($definition['package']) ? '/' . substr($definition['package'], 0, strpos($definition['package'], '.')) : '';
             $modelPackagePaths[$model] = $packagePath;
 
             if (isset($definition['concrete_accessors']) && $definition['concrete_accessors']) {
@@ -100,17 +100,17 @@ EOF;
                     $camelized = sfInflector::camelize($name);
                     $collection = 'Doctrine_Collection' == $type;
 
-                    $getters[] = sprintf('@method %-'.$typePad.'s %s%-'.($namePad + 2).'s Returns the current record\'s "%s" %s', $type, 'get', $camelized.'($load = true)', $name, $collection ? 'collection' : 'value');
-                    $setters[] = sprintf('@method %-'.$typePad.'s %s%-'.($namePad + 2).'s Sets the current record\'s "%s" %s', $model, 'set', $camelized.'($value, $load = true)', $name, $collection ? 'collection' : 'value');
+                    $getters[] = sprintf('@method %-' . $typePad . 's %s%-' . ($namePad + 2) . 's Returns the current record\'s "%s" %s', $type, 'get', $camelized . '($load = true)', $name, $collection ? 'collection' : 'value');
+                    $setters[] = sprintf('@method %-' . $typePad . 's %s%-' . ($namePad + 2) . 's Sets the current record\'s "%s" %s', $model, 'set', $camelized . '($value, $load = true)', $name, $collection ? 'collection' : 'value');
                 }
 
                 // use the last match as a search string
-                $code = str_replace($match[0], $match[0].PHP_EOL.' *'.PHP_EOL.' * '.implode(PHP_EOL.' * ', array_merge($getters, $setters)), $code);
+                $code = str_replace($match[0], $match[0] . PHP_EOL . ' *' . PHP_EOL . ' * ' . implode(PHP_EOL . ' * ', array_merge($getters, $setters)), $code);
                 file_put_contents($file, $code);
             }
         }
 
-        $properties = parse_ini_file(sfConfig::get('sf_config_dir').'/properties.ini', true);
+        $properties = parse_ini_file(sfConfig::get('sf_config_dir') . '/properties.ini', true);
         $tokens = [
             '##PACKAGE##'    => isset($properties['symfony']['name']) ? $properties['symfony']['name'] : 'symfony',
             '##SUBPACKAGE##' => 'model',
@@ -127,7 +127,7 @@ EOF;
         $this->getFilesystem()->replaceTokens(array_diff($after, $before), '', '', $tokens);
 
         // cleanup base classes
-        $baseFinder = sfFinder::type('file')->name('Base*'.$builderOptions['suffix']);
+        $baseFinder = sfFinder::type('file')->name('Base*' . $builderOptions['suffix']);
         $baseDirFinder = sfFinder::type('dir')->name('base');
         $this->getFilesystem()->replaceTokens($baseFinder->in($baseDirFinder->in($config['models_path'])), '', '', $tokens);
     }

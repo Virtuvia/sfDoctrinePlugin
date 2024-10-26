@@ -125,7 +125,7 @@ class Doctrine_Data_Export extends Doctrine_Data
 
             foreach ($data as $className => $classData) {
                 if (! empty($classData)) {
-                    Doctrine_Parser::dump([$className => $classData], $format, $directory.DIRECTORY_SEPARATOR.$className.'.'.$format);
+                    Doctrine_Parser::dump([$className => $classData], $format, $directory . DIRECTORY_SEPARATOR . $className . '.' . $format);
                 }
             }
         } else {

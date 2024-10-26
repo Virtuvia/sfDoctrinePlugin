@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-require_once(dirname(__FILE__).'/sfDoctrineBaseTask.class.php');
+require_once(dirname(__FILE__) . '/sfDoctrineBaseTask.class.php');
 
 /**
  * Create filter form classes for the current model.
@@ -63,7 +63,7 @@ EOF;
             'filter_dir_name' => $options['filter-dir-name'],
         ]);
 
-        $properties = parse_ini_file(sfConfig::get('sf_config_dir').DIRECTORY_SEPARATOR.'properties.ini', true);
+        $properties = parse_ini_file(sfConfig::get('sf_config_dir') . DIRECTORY_SEPARATOR . 'properties.ini', true);
 
         $constants = [
             'PROJECT_NAME' => isset($properties['symfony']['name']) ? $properties['symfony']['name'] : 'symfony',
@@ -72,6 +72,6 @@ EOF;
 
         // customize php and yml files
         $finder = sfFinder::type('file')->name('*.php');
-        $this->getFilesystem()->replaceTokens($finder->in(sfConfig::get('sf_lib_dir').'/filter/'), '##', '##', $constants);
+        $this->getFilesystem()->replaceTokens($finder->in(sfConfig::get('sf_lib_dir') . '/filter/'), '##', '##', $constants);
     }
 }

@@ -62,7 +62,7 @@ class Doctrine_Expression_Driver extends Doctrine_Connection_Module
     public function avg($column)
     {
         $column = $this->getIdentifier($column);
-        return 'AVG(' .  $column . ')';
+        return 'AVG(' . $column . ')';
     }
 
     /**
@@ -564,7 +564,7 @@ class Doctrine_Expression_Driver extends Doctrine_Connection_Module
         $expression = $this->getIdentifier($expression);
         $value1 = $this->getIdentifier($value1);
         $value2 = $this->getIdentifier($value2);
-        return $expression . ' BETWEEN ' .$value1 . ' AND ' . $value2;
+        return $expression . ' BETWEEN ' . $value1 . ' AND ' . $value2;
     }
 
     /**

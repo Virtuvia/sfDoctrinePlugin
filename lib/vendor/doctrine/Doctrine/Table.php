@@ -1462,7 +1462,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     {
         $columnName = $this->getColumnName($fieldName);
         if (! isset($this->_columns[$columnName])) {
-            throw new Doctrine_Table_Exception("Couldn't get default value. Column ".$columnName." doesn't exist.");
+            throw new Doctrine_Table_Exception("Couldn't get default value. Column " . $columnName . " doesn't exist.");
         }
         if (isset($this->_columns[$columnName]['default'])) {
             return $this->_columns[$columnName]['default'];

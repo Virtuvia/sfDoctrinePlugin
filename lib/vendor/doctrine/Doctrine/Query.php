@@ -1382,7 +1382,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
         }
 
         $q .= (! empty($this->_sqlParts['groupby'])) ? ' GROUP BY ' . implode(', ', $this->_sqlParts['groupby']) : '';
-        $q .= (! empty($this->_sqlParts['having'])) ? ' HAVING '   . implode(' AND ', $this->_sqlParts['having']) : '';
+        $q .= (! empty($this->_sqlParts['having'])) ? ' HAVING ' . implode(' AND ', $this->_sqlParts['having']) : '';
         $q .= (! empty($this->_sqlParts['orderby'])) ? ' ORDER BY ' . implode(', ', $this->_sqlParts['orderby']) : '';
 
         if ($modifyLimit) {
@@ -1501,9 +1501,9 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
         }
 
         // all conditions must be preserved in subquery
-        $subquery .= (! empty($this->_sqlParts['where'])) ? ' WHERE '    . implode(' ', $this->_sqlParts['where']) : '';
+        $subquery .= (! empty($this->_sqlParts['where'])) ? ' WHERE ' . implode(' ', $this->_sqlParts['where']) : '';
         $subquery .= (! empty($this->_sqlParts['groupby'])) ? ' GROUP BY ' . implode(', ', $this->_sqlParts['groupby']) : '';
-        $subquery .= (! empty($having)) ? ' HAVING '   . implode(' AND ', $having) : '';
+        $subquery .= (! empty($having)) ? ' HAVING ' . implode(' AND ', $having) : '';
         $subquery .= (! empty($orderby)) ? ' ORDER BY ' . implode(', ', $orderby) : '';
 
         // add driver specific limit clause
@@ -1521,7 +1521,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
             // Fix DC-645, Table aliases ending with ')' where not replaced properly
             preg_match('/^(\(?)(.*?)(\)?)$/', $part, $matches);
             if ($this->hasSqlTableAlias($matches[2])) {
-                $parts[$k] = $matches[1].$this->_conn->quoteIdentifier($this->generateNewSqlTableAlias($matches[2])).$matches[3];
+                $parts[$k] = $matches[1] . $this->_conn->quoteIdentifier($this->generateNewSqlTableAlias($matches[2])) . $matches[3];
                 continue;
             }
 
@@ -2107,7 +2107,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
         if ($this->_resultCache) {
             $conn = $this->getConnection();
             $cacheDriver = $this->getResultCacheDriver();
-            $hash = $this->getResultCacheHash($sqlParams).'_count';
+            $hash = $this->getResultCacheHash($sqlParams) . '_count';
             $cached = ($this->_expireResultCache) ? false : $cacheDriver->fetch($hash);
 
             if ($cached === false) {

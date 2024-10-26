@@ -60,11 +60,11 @@ class AdminGenBrowser extends sfTestBrowser
         $this->info('Test valid sort_type parameter');
 
         foreach (['asc', 'desc', 'ASC', 'DESC'] as $sortType) {
-            $this->get('/users?sort=username&sort_type='.$sortType);
+            $this->get('/users?sort=username&sort_type=' . $sortType);
 
             $matches = 0;
             foreach ($this->_getQueryExecutionEvents() as $event) {
-                if (false !== strpos($event->getQuery(), 'ORDER BY u.username '.$sortType)) {
+                if (false !== strpos($event->getQuery(), 'ORDER BY u.username ' . $sortType)) {
                     ++$matches;
                 }
             }

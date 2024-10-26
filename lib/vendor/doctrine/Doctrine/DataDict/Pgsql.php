@@ -383,8 +383,8 @@ class Doctrine_DataDict_Pgsql extends Doctrine_DataDict
 
                 $fixed  = ((isset($field['fixed']) && $field['fixed']) || $field['type'] == 'char') ? true : false;
 
-                return $fixed ? ($length ? 'CHAR(' . $length . ')' : 'CHAR('.$this->conn->varchar_max_length.')')
-                    : ($length ? 'VARCHAR(' .$length . ')' : 'TEXT');
+                return $fixed ? ($length ? 'CHAR(' . $length . ')' : 'CHAR(' . $this->conn->varchar_max_length . ')')
+                    : ($length ? 'VARCHAR(' . $length . ')' : 'TEXT');
 
             case 'clob':
                 return 'TEXT';
@@ -431,9 +431,9 @@ class Doctrine_DataDict_Pgsql extends Doctrine_DataDict
             case 'decimal':
                 $length = !empty($field['length']) ? $field['length'] : 18;
                 $scale = !empty($field['scale']) ? $field['scale'] : $this->conn->getAttribute(Doctrine_Core::ATTR_DECIMAL_PLACES);
-                return 'NUMERIC('.$length.','.$scale.')';
+                return 'NUMERIC(' . $length . ',' . $scale . ')';
         }
-        return $field['type'] . (isset($field['length']) ? '('.$field['length'].')' : null);
+        return $field['type'] . (isset($field['length']) ? '(' . $field['length'] . ')' : null);
     }
 
     /**

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-require_once(dirname(__FILE__).'/sfDoctrineBaseTask.class.php');
+require_once(dirname(__FILE__) . '/sfDoctrineBaseTask.class.php');
 
 /**
  * Create SQL for the current model.
@@ -54,7 +54,7 @@ EOF;
     {
         $this->logSection('doctrine', 'generating sql for models');
 
-        $path = sfConfig::get('sf_data_dir').'/sql';
+        $path = sfConfig::get('sf_data_dir') . '/sql';
         if (!is_dir($path)) {
             $this->getFilesystem()->mkdirs($path);
         }

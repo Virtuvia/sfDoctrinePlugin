@@ -150,7 +150,7 @@ class Doctrine_Export_Pgsql extends Doctrine_Export
                     $serverInfo = $this->conn->getServerVersion();
 
                     if (is_array($serverInfo) && $serverInfo['major'] < 8) {
-                        throw new Doctrine_Export_Exception('changing column type for "'.$field['type'].'\" requires PostgreSQL 8.0 or above');
+                        throw new Doctrine_Export_Exception('changing column type for "' . $field['type'] . '\" requires PostgreSQL 8.0 or above');
                     }
                     $query = 'ALTER ' . $fieldName . ' TYPE ' . $this->conn->dataDict->getNativeDeclaration($field['definition']);
                     $sql[] = 'ALTER TABLE ' . $this->conn->quoteIdentifier($name, true) . ' ' . $query;

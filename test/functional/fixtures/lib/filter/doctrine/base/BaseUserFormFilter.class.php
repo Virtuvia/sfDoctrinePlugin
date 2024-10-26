@@ -48,7 +48,7 @@ abstract class BaseUserFormFilter extends BaseFormFilterDoctrine
         }
 
         $query
-            ->leftJoin($query->getRootAlias().'.UserGroup UserGroup')
+            ->leftJoin($query->getRootAlias() . '.UserGroup UserGroup')
             ->andWhereIn('UserGroup.group_id', $values)
         ;
     }
@@ -64,7 +64,7 @@ abstract class BaseUserFormFilter extends BaseFormFilterDoctrine
         }
 
         $query
-            ->leftJoin($query->getRootAlias().'.UserPermission UserPermission')
+            ->leftJoin($query->getRootAlias() . '.UserPermission UserPermission')
             ->andWhereIn('UserPermission.permission_id', $values)
         ;
     }

@@ -87,7 +87,7 @@ abstract class Doctrine_Query_Condition extends Doctrine_Query_Part
                 } else {
                     // Processing NOT here
                     if (strtoupper(substr($parts[0], 0, 4)) === 'NOT ') {
-                        $r = 'NOT ('.$this->parse(substr($parts[0], 4)).')';
+                        $r = 'NOT (' . $this->parse(substr($parts[0], 4)) . ')';
                     } else {
                         return $this->load($parts[0]);
                     }
@@ -125,7 +125,7 @@ abstract class Doctrine_Query_Condition extends Doctrine_Query_Part
                     $field     = array_pop($a);
                     $reference = implode('.', $a);
                     $value     = $this->query->getConnection()->quoteIdentifier(
-                        $this->query->getSqlTableAlias($reference). '.' . $field
+                        $this->query->getSqlTableAlias($reference) . '.' . $field
                     );
                 }
             }

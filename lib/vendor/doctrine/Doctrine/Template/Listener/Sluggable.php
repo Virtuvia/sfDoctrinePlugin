@@ -172,7 +172,7 @@ class Doctrine_Template_Listener_Sluggable extends Doctrine_Record_Listener
         $slug = $proposal;
 
         $whereString = 'r.' . $name . ' LIKE ?';
-        $whereParams = [$proposal.'%'];
+        $whereParams = [$proposal . '%'];
 
         if ($record->exists()) {
             $identifier = $record->identifier();
@@ -182,9 +182,9 @@ class Doctrine_Template_Listener_Sluggable extends Doctrine_Record_Listener
 
         foreach ($this->_options['uniqueBy'] as $uniqueBy) {
             if (is_null($record->$uniqueBy)) {
-                $whereString .= ' AND r.'.$uniqueBy.' IS NULL';
+                $whereString .= ' AND r.' . $uniqueBy . ' IS NULL';
             } else {
-                $whereString .= ' AND r.'.$uniqueBy.' = ?';
+                $whereString .= ' AND r.' . $uniqueBy . ' = ?';
                 $value = $record->$uniqueBy;
                 if ($value instanceof Doctrine_Record) {
                     $value = current((array) $value->identifier());
@@ -232,7 +232,7 @@ class Doctrine_Template_Listener_Sluggable extends Doctrine_Record_Listener
 
         $i = 1;
         while (in_array(strtolower($slug), $similarSlugs)) {
-            $slug = call_user_func_array($this->_options['builder'], [$proposal.'-'.$i, $record]);
+            $slug = call_user_func_array($this->_options['builder'], [$proposal . '-' . $i, $record]);
             $i++;
         }
 

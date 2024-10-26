@@ -741,7 +741,7 @@ class Doctrine_Import_Schema
      */
     protected function _buildUniqueRelationKey($relation)
     {
-        return md5($relation['local'].$relation['foreign'].$relation['class'].(isset($relation['refClass']) ? $relation['refClass'] : null));
+        return md5($relation['local'] . $relation['foreign'] . $relation['class'] . (isset($relation['refClass']) ? $relation['refClass'] : null));
     }
 
     /**

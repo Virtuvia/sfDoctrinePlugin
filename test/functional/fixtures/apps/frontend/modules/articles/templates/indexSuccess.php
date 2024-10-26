@@ -12,7 +12,7 @@
   <tbody>
     <?php foreach ($articleList as $article): ?>
     <tr>
-      <td><a href="<?php echo url_for('articles/edit?id='.$article->get('id')) ?>"><?php echo $article->getid() ?></a></td>
+      <td><a href="<?php echo url_for('articles/edit?id=' . $article->get('id')) ?>"><?php echo $article->getid() ?></a></td>
       <td><?php echo $article->getAuthor() ?></td>
       <td><?php echo $article->getcreated_at() ?></td>
       <td><?php echo $article->getupdated_at() ?></td>

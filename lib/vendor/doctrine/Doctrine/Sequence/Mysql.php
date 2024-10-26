@@ -62,7 +62,7 @@ class Doctrine_Sequence_Mysql extends Doctrine_Sequence
                 // First ID of a newly created sequence is 1
                 return 1;
             } else {
-                throw new Doctrine_Sequence_Exception('sequence ' .$seqName . ' does not exist');
+                throw new Doctrine_Sequence_Exception('sequence ' . $seqName . ' does not exist');
             }
         }
 

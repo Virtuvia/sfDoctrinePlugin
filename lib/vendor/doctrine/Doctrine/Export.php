@@ -252,7 +252,7 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
                 $indexDeclaration = $this->getIndexDeclaration($index, $definition);
                 // append only created index declarations
                 if (! is_null($indexDeclaration)) {
-                    $queryFields .= ', '.$indexDeclaration;
+                    $queryFields .= ', ' . $indexDeclaration;
                 }
             }
         }
@@ -416,7 +416,7 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
         foreach (array_keys($definition['fields']) as $field) {
             $fields[] = $this->conn->quoteIdentifier($field, true);
         }
-        $query .= ' ('. implode(', ', $fields) . ')';
+        $query .= ' (' . implode(', ', $fields) . ')';
 
         return $query;
     }

@@ -100,7 +100,7 @@ class Doctrine_Cli_AnsiColorFormatter extends Doctrine_Cli_Formatter
             }
         }
 
-        return "\033[".implode(';', $codes).'m'.$text."\033[0m";
+        return "\033[" . implode(';', $codes) . 'm' . $text . "\033[0m";
     }
 
     /**
@@ -137,7 +137,7 @@ class Doctrine_Cli_AnsiColorFormatter extends Doctrine_Cli_Formatter
 
         $subsize = floor(($size - 3) / 2);
 
-        return substr($text, 0, $subsize) . $this->format('...', 'INFO').substr($text, -$subsize);
+        return substr($text, 0, $subsize) . $this->format('...', 'INFO') . substr($text, -$subsize);
     }
 
     /**

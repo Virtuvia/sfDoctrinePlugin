@@ -427,7 +427,7 @@ class Doctrine_Migration
             return new $className();
         }
 
-        throw new Doctrine_Migration_Exception('Could not find migration class for migration step: '.$num);
+        throw new Doctrine_Migration_Exception('Could not find migration class for migration step: ' . $num);
     }
 
     /**
@@ -442,7 +442,7 @@ class Doctrine_Migration
         $num = 0;
         foreach ($this->getErrors() as $error) {
             $num++;
-            $messages[] = ' Error #' . $num . ' - ' .$error->getMessage() . "\n" . $error->getTraceAsString() . "\n";
+            $messages[] = ' Error #' . $num . ' - ' . $error->getMessage() . "\n" . $error->getTraceAsString() . "\n";
         }
 
         $title = $this->getNumErrors() . ' error(s) encountered during migration';

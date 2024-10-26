@@ -121,7 +121,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
         }
 
         if (empty($fields)) {
-            throw new Doctrine_Export_Exception('no fields specified for table "'.$name.'"');
+            throw new Doctrine_Export_Exception('no fields specified for table "' . $name . '"');
         }
         $queryFields = $this->getFieldDeclarationList($fields);
 
@@ -200,7 +200,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
         }
 
         if (! empty($optionStrings)) {
-            $query .= ' '.implode(' ', $optionStrings);
+            $query .= ' ' . implode(' ', $optionStrings);
         }
         $sql[] = $query;
 

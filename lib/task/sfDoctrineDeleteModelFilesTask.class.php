@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-require_once(dirname(__FILE__).'/sfDoctrineBaseTask.class.php');
+require_once(dirname(__FILE__) . '/sfDoctrineBaseTask.class.php');
 
 /**
  * Delete all generated files associated with a Doctrine model. Forms, filters, etc.
@@ -52,9 +52,9 @@ EOF;
     {
         $paths = array_merge(
             [
-                sfConfig::get('sf_lib_dir').'/model/doctrine',
-                sfConfig::get('sf_lib_dir').'/form/doctrine',
-                sfConfig::get('sf_lib_dir').'/filter/doctrine',
+                sfConfig::get('sf_lib_dir') . '/model/doctrine',
+                sfConfig::get('sf_lib_dir') . '/form/doctrine',
+                sfConfig::get('sf_lib_dir') . '/filter/doctrine',
             ],
             $this->configuration->getPluginSubPaths('/lib/model/doctrine'),
             $this->configuration->getPluginSubPaths('/lib/form/doctrine'),
@@ -68,29 +68,29 @@ EOF;
         $total = 0;
 
         foreach ($arguments['name'] as $modelName) {
-            $finder = sfFinder::type('file')->name('/^'.$prefixPattern.$modelName.$suffixPattern.$extensionPattern.'$/');
+            $finder = sfFinder::type('file')->name('/^' . $prefixPattern . $modelName . $suffixPattern . $extensionPattern . '$/');
             $files = $finder->in($paths);
 
             if ($files) {
                 if (!$options['no-confirmation'] && !$this->askConfirmation(array_merge(
-                    ['The following '.$modelName.' files will be deleted:', ''],
-                    array_map(function ($v) { return ' - '.sfDebug::shortenFilePath($v); }, $files),
+                    ['The following ' . $modelName . ' files will be deleted:', ''],
+                    array_map(function ($v) { return ' - ' . sfDebug::shortenFilePath($v); }, $files),
                     ['', 'Continue? (y/N)']
                 ), 'QUESTION_LARGE', false)) {
-                    $this->logSection('doctrine', 'Aborting delete of "'.$modelName.'" files');
+                    $this->logSection('doctrine', 'Aborting delete of "' . $modelName . '" files');
                     continue;
                 }
 
-                $this->logSection('doctrine', 'Deleting "'.$modelName.'" files');
+                $this->logSection('doctrine', 'Deleting "' . $modelName . '" files');
                 $this->getFilesystem()->remove($files);
 
                 $total += count($files);
             } else {
-                $this->logSection('doctrine', 'No files found for the model named "'.$modelName.'"');
+                $this->logSection('doctrine', 'No files found for the model named "' . $modelName . '"');
             }
         }
 
-        $this->logSection('doctrine', 'Deleted a total of '.$total.' file(s)');
+        $this->logSection('doctrine', 'Deleted a total of ' . $total . ' file(s)');
     }
 
     /**

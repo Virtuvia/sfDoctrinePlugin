@@ -83,7 +83,7 @@ class Doctrine_Lib
         $r[] = 'data       : ' . Doctrine_Core::dump($record->getData(), false);
         $r[] = '</pre>';
 
-        return implode("\n", $r)."<br />";
+        return implode("\n", $r) . "<br />";
     }
 
     /**
@@ -129,7 +129,7 @@ class Doctrine_Lib
         $r[] = 'Driver name         : ' . $connection->getAttribute(Doctrine_Core::ATTR_DRIVER_NAME);
         $r[] = "</pre>";
 
-        return implode("\n", $r)."<br>";
+        return implode("\n", $r) . "<br>";
     }
 
     /**
@@ -143,11 +143,11 @@ class Doctrine_Lib
     public static function getTableAsString(Doctrine_Table $table)
     {
         $r[] = "<pre>";
-        $r[] = "Component   : ".$table->getComponentName();
-        $r[] = "Table       : ".$table->getTableName();
+        $r[] = "Component   : " . $table->getComponentName();
+        $r[] = "Table       : " . $table->getTableName();
         $r[] = "</pre>";
 
-        return implode("\n", $r)."<br>";
+        return implode("\n", $r) . "<br>";
     }
 
     /**

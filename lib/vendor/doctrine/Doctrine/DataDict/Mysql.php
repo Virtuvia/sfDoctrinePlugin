@@ -149,14 +149,14 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
             case 'char':
                 $length = (! empty($field['length'])) ? $field['length'] : false;
 
-                return $length ? 'CHAR('.$length.')' : 'CHAR(255)';
+                return $length ? 'CHAR(' . $length . ')' : 'CHAR(255)';
             case 'enum':
                 if ($this->conn->getAttribute(Doctrine_Core::ATTR_USE_NATIVE_ENUM)) {
                     $values = [];
                     foreach ($field['values'] as $value) {
                         $values[] = $this->conn->quote($value, 'varchar');
                     }
-                    return 'ENUM('.implode(', ', $values).')';
+                    return 'ENUM(' . implode(', ', $values) . ')';
                 } else {
                     $field['length'] = isset($field['length']) && $field['length'] ? $field['length'] : 255;
                 }
@@ -167,7 +167,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
                     foreach ($field['values'] as $value) {
                         $values[] = $this->conn->quote($value, 'varchar');
                     }
-                    return 'SET('.implode(', ', $values).')';
+                    return 'SET(' . implode(', ', $values) . ')';
                 } else {
                     $field['length'] = isset($field['length']) && $field['length'] ? $field['length'] : 255;
                 }
@@ -242,19 +242,19 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
             case 'float':
                 $length = !empty($field['length']) ? $field['length'] : 18;
                 $scale = !empty($field['scale']) ? $field['scale'] : $this->conn->getAttribute(Doctrine_Core::ATTR_DECIMAL_PLACES);
-                return 'FLOAT('.$length.', '.$scale.')';
+                return 'FLOAT(' . $length . ', ' . $scale . ')';
             case 'double':
                 $length = !empty($field['length']) ? $field['length'] : 18;
                 $scale = !empty($field['scale']) ? $field['scale'] : $this->conn->getAttribute(Doctrine_Core::ATTR_DECIMAL_PLACES);
-                return 'DOUBLE('.$length.', '.$scale.')';
+                return 'DOUBLE(' . $length . ', ' . $scale . ')';
             case 'decimal':
                 $length = !empty($field['length']) ? $field['length'] : 18;
                 $scale = !empty($field['scale']) ? $field['scale'] : $this->conn->getAttribute(Doctrine_Core::ATTR_DECIMAL_PLACES);
-                return 'DECIMAL('.$length.', '.$scale.')';
+                return 'DECIMAL(' . $length . ', ' . $scale . ')';
             case 'bit':
                 return 'BIT';
         }
-        return $field['type'] . (isset($field['length']) ? '('.$field['length'].')' : null);
+        return $field['type'] . (isset($field['length']) ? '(' . $field['length'] . ')' : null);
     }
 
     /**

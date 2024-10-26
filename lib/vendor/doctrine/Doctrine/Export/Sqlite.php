@@ -193,7 +193,7 @@ class Doctrine_Export_Sqlite extends Doctrine_Export
         }
 
         if (empty($fields)) {
-            throw new Doctrine_Export_Exception('no fields specified for table '.$name);
+            throw new Doctrine_Export_Exception('no fields specified for table ' . $name);
         }
         $queryFields = $this->getFieldDeclarationList($fields);
 
@@ -209,7 +209,7 @@ class Doctrine_Export_Sqlite extends Doctrine_Export
         if (! $autoinc && isset($options['primary']) && ! empty($options['primary'])) {
             $keyColumns = array_values($options['primary']);
             $keyColumns = array_map([$this->conn, 'quoteIdentifier'], $keyColumns);
-            $queryFields .= ', PRIMARY KEY('.implode(', ', $keyColumns).')';
+            $queryFields .= ', PRIMARY KEY(' . implode(', ', $keyColumns) . ')';
         }
 
         $name  = $this->conn->quoteIdentifier($name, true);

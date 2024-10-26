@@ -28,7 +28,7 @@ class sfWebDebugPanelDoctrine extends sfWebDebugPanel
     public function getTitle()
     {
         if ($events = $this->getDoctrineEvents()) {
-            return '<img src="'.$this->webDebug->getOption('image_root_path').'/database.png" alt="SQL queries" /> '.count($events);
+            return '<img src="' . $this->webDebug->getOption('image_root_path') . '/database.png" alt="SQL queries" /> ' . count($events);
         }
     }
 
@@ -51,8 +51,8 @@ class sfWebDebugPanelDoctrine extends sfWebDebugPanel
     {
         return '
       <div id="sfWebDebugDatabaseLogs">
-        <h3>Doctrine Version: '.Doctrine_Core::VERSION.'</h3>
-        <ol>'.implode("\n", $this->getSqlLogs()).'</ol>
+        <h3>Doctrine Version: ' . Doctrine_Core::VERSION . '</h3>
+        <ol>' . implode("\n", $this->getSqlLogs()) . '</ol>
       </div>
     ';
     }
@@ -129,7 +129,7 @@ class sfWebDebugPanelDoctrine extends sfWebDebugPanel
                 if (false !== strpos($log['message'], $event->getQuery())) {
                     // assume queries are being requested in order
                     unset($logs[$i]);
-                    $backtrace = '&nbsp;'.$this->getToggleableDebugStack($log['debug_backtrace']);
+                    $backtrace = '&nbsp;' . $this->getToggleableDebugStack($log['debug_backtrace']);
                     break;
                 }
             }

@@ -74,11 +74,11 @@ class sfDoctrineDatabase extends sfDatabase
         foreach ($attributes as $name => $value) {
             if (is_string($name)) {
                 $stringName = $name;
-                $name = constant('Doctrine_Core::ATTR_'.strtoupper($name));
+                $name = constant('Doctrine_Core::ATTR_' . strtoupper($name));
             }
 
             if (is_string($value)) {
-                $valueConstantName = 'Doctrine_Core::'.strtoupper($stringName).'_'.strtoupper($value);
+                $valueConstantName = 'Doctrine_Core::' . strtoupper($stringName) . '_' . strtoupper($value);
                 $value = defined($valueConstantName) ? constant($valueConstantName) : $value;
             }
 

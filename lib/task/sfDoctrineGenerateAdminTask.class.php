@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-require_once(dirname(__FILE__).'/sfDoctrineBaseTask.class.php');
+require_once(dirname(__FILE__) . '/sfDoctrineBaseTask.class.php');
 
 /**
  * Generates a Doctrine admin module.
@@ -101,11 +101,11 @@ EOF;
         if (isset($options['module'])) {
             $route = $this->getRouteFromName($name);
             if ($route && !$this->checkRoute($route, $model, $options['module'])) {
-                $name .= '_'.$options['module'];
+                $name .= '_' . $options['module'];
             }
         }
 
-        $routing = sfConfig::get('sf_app_config_dir').'/routing.yml';
+        $routing = sfConfig::get('sf_app_config_dir') . '/routing.yml';
         $content = file_get_contents($routing);
         $routesArray = sfYaml::load($content);
 
@@ -125,7 +125,7 @@ EOF;
 
 
 EOF
-                , $name, $model, $module, isset($options['plural']) ? $options['plural'] : $module, $primaryKey).$content;
+                , $name, $model, $module, isset($options['plural']) ? $options['plural'] : $module, $primaryKey) . $content;
 
             $this->logSection('file+', $routing);
 

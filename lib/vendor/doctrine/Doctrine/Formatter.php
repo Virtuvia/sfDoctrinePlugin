@@ -197,7 +197,7 @@ class Doctrine_Formatter extends Doctrine_Connection_Module
      */
     public function fixSequenceName($sqn)
     {
-        $seqPattern = '/^'.preg_replace('/%s/', '([a-z0-9_]+)', $this->conn->getAttribute(Doctrine_Core::ATTR_SEQNAME_FORMAT)).'$/i';
+        $seqPattern = '/^' . preg_replace('/%s/', '([a-z0-9_]+)', $this->conn->getAttribute(Doctrine_Core::ATTR_SEQNAME_FORMAT)) . '$/i';
         $seqName    = preg_replace($seqPattern, '\\1', $sqn);
 
         if ($seqName && ! strcasecmp($sqn, $this->getSequenceName($seqName))) {
@@ -214,7 +214,7 @@ class Doctrine_Formatter extends Doctrine_Connection_Module
      */
     public function fixIndexName($idx)
     {
-        $indexPattern   = '/^'.preg_replace('/%s/', '([a-z0-9_]+)', $this->conn->getAttribute(Doctrine_Core::ATTR_IDXNAME_FORMAT)).'$/i';
+        $indexPattern   = '/^' . preg_replace('/%s/', '([a-z0-9_]+)', $this->conn->getAttribute(Doctrine_Core::ATTR_IDXNAME_FORMAT)) . '$/i';
         $indexName      = preg_replace($indexPattern, '\\1', $idx);
         if ($indexName && ! strcasecmp($idx, $this->getIndexName($indexName))) {
             return $indexName;

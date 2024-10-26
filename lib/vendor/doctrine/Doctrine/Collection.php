@@ -483,7 +483,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
         if (isset($this->keyColumn)) {
             $value = $record->get($this->keyColumn);
             if ($value === null) {
-                throw new Doctrine_Collection_Exception("Couldn't create collection index. Record field '".$this->keyColumn."' was null.");
+                throw new Doctrine_Collection_Exception("Couldn't create collection index. Record field '" . $this->keyColumn . "' was null.");
             }
             $this->data[$value] = $record;
         } else {
@@ -695,7 +695,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
         $data = [];
         foreach ($this as $key => $record) {
 
-            $key = $prefixKey ? get_class($record) . '_' .$key : $key;
+            $key = $prefixKey ? get_class($record) . '_' . $key : $key;
 
             $data[$key] = $record->toArray($deep, $prefixKey);
         }

@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-require_once(dirname(__FILE__).'/sfDoctrineBaseTask.class.php');
+require_once(dirname(__FILE__) . '/sfDoctrineBaseTask.class.php');
 
 /**
  * Create tables for specified list of models
@@ -60,7 +60,7 @@ EOF;
         }
 
         foreach ($connections as $name => $models) {
-            $this->logSection('doctrine', 'dropping model tables for connection "'.$name.'"');
+            $this->logSection('doctrine', 'dropping model tables for connection "' . $name . '"');
 
             $conn = Doctrine_Manager::getInstance()->getConnection($name);
             $models = $conn->unitOfWork->buildFlushTree($models);
@@ -69,12 +69,12 @@ EOF;
             foreach ($models as $model) {
                 $tableName = Doctrine_Core::getTable($model)->getOption('tableName');
 
-                $this->logSection('doctrine', 'dropping table "'.$tableName.'"');
+                $this->logSection('doctrine', 'dropping table "' . $tableName . '"');
 
                 try {
                     $conn->export->dropTable($tableName);
                 } catch (Exception $e) {
-                    $this->logSection('doctrine', 'dropping table failed: '.$e->getMessage());
+                    $this->logSection('doctrine', 'dropping table failed: ' . $e->getMessage());
                 }
             }
 

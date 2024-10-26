@@ -67,7 +67,7 @@ abstract class Doctrine_Parser
      */
     public static function getParser($type)
     {
-        $class = 'Doctrine_Parser_'.ucfirst($type);
+        $class = 'Doctrine_Parser_' . ucfirst($type);
 
         return new $class();
     }

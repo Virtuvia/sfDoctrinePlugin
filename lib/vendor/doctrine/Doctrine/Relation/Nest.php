@@ -48,7 +48,7 @@ class Doctrine_Relation_Nest extends Doctrine_Relation_Association
             $identifier = $formatter->quoteIdentifier(array_pop($identifierColumnNames));
 
             $sub = 'SELECT ' . $formatter->quoteIdentifier($this->getForeignRefColumnName())
-                 . ' FROM '  . $formatter->quoteIdentifier($assocTable)
+                 . ' FROM ' . $formatter->quoteIdentifier($assocTable)
                  . ' WHERE ' . $formatter->quoteIdentifier($this->getLocalRefColumnName())
                  . ' = ?';
 
@@ -57,14 +57,14 @@ class Doctrine_Relation_Nest extends Doctrine_Relation_Association
 
             if ($this->definition['equal']) {
                 $sub2   = 'SELECT ' . $formatter->quoteIdentifier($this->getLocalRefColumnName())
-                        . ' FROM '  . $formatter->quoteIdentifier($assocTable)
+                        . ' FROM ' . $formatter->quoteIdentifier($assocTable)
                         . ' WHERE ' . $formatter->quoteIdentifier($this->getForeignRefColumnName())
                         . ' = ?';
 
                 $condition[] = $formatter->quoteIdentifier($tableName) . '.' . $identifier . ' IN (' . $sub2 . ')';
                 $joinCondition[] = $formatter->quoteIdentifier($tableName) . '.' . $identifier . ' = ' . $formatter->quoteIdentifier($assocTable) . '.' . $formatter->quoteIdentifier($this->getLocalRefColumnName());
             }
-            $q->select('{'.$tableName.'.*}, {'.$assocTable.'.*}')
+            $q->select('{' . $tableName . '.*}, {' . $assocTable . '.*}')
               ->from($formatter->quoteIdentifier($tableName) . ' INNER JOIN ' . $formatter->quoteIdentifier($assocTable) . ' ON ' . implode(' OR ', $joinCondition))
               ->where(implode(' OR ', $condition));
             if ($orderBy = $this->getOrderByStatement($tableName, true)) {
@@ -74,9 +74,9 @@ class Doctrine_Relation_Nest extends Doctrine_Relation_Association
             }
             $q->addComponent($tableName, $this->getClass());
 
-            $path = $this->getClass(). '.' . $this->getAssociationFactory()->getComponentName();
+            $path = $this->getClass() . '.' . $this->getAssociationFactory()->getComponentName();
             if ($this->definition['refClassRelationAlias']) {
-                $path = $this->getClass(). '.' . $this->definition['refClassRelationAlias'];
+                $path = $this->getClass() . '.' . $this->definition['refClassRelationAlias'];
             }
             $q->addComponent($assocTable, $path);
 

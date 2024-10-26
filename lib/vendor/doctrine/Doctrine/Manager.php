@@ -688,7 +688,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
     {
         $r[] = "<pre>";
         $r[] = "Doctrine_Manager";
-        $r[] = "Connections : ".count($this->_connections);
+        $r[] = "Connections : " . count($this->_connections);
         $r[] = "</pre>";
         return implode("\n", $r);
     }

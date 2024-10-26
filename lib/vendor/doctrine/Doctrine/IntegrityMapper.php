@@ -106,7 +106,7 @@ class Doctrine_IntegrityMapper
         $components[] = $root;
         $this->buildIntegrityRelations($record->getTable(), $aliases, $fields, $indexes, $components);
 
-        $q->select($fields)->from($root. ' ' . $rootAlias);
+        $q->select($fields)->from($root . ' ' . $rootAlias);
 
         foreach ($aliases as $alias => $name) {
             $q->leftJoin($rootAlias . '.' . $name . ' ' . $alias);

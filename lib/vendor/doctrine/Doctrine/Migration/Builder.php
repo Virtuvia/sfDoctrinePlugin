@@ -415,7 +415,7 @@ END;
         $length = $column['length'];
         $type = $column['type'];
         unset($column['length'], $column['type']);
-        return "        \$this->addColumn('" . $tableName . "', '" . $columnName. "', '" . $type . "', '" . $length . "', " . $this->varExport($column) . ");";
+        return "        \$this->addColumn('" . $tableName . "', '" . $columnName . "', '" . $type . "', '" . $length . "', " . $this->varExport($column) . ");";
     }
 
     /**
@@ -428,7 +428,7 @@ END;
      */
     public function buildRemoveColumn($tableName, $columnName, $column)
     {
-        return "        \$this->removeColumn('" . $tableName . "', '" . $columnName. "');";
+        return "        \$this->removeColumn('" . $tableName . "', '" . $columnName . "');";
     }
 
     /**
@@ -444,7 +444,7 @@ END;
         $length = $column['length'];
         $type = $column['type'];
         unset($column['length'], $column['type']);
-        return "        \$this->changeColumn('" . $tableName . "', '" . $columnName. "', '" . $type . "', '" . $length . "', " . $this->varExport($column) . ");";
+        return "        \$this->changeColumn('" . $tableName . "', '" . $columnName . "', '" . $type . "', '" . $length . "', " . $this->varExport($column) . ");";
     }
 
     /**

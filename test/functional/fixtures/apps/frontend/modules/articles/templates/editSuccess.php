@@ -1,14 +1,14 @@
 <?php $article = $form->getObject() ?>
 <h1><?php echo $form->isNew() ? 'New' : 'Edit' ?> Articles</h1>
 
-<form action="<?php echo url_for('articles/update'.(!$form->isNew() ? '?id='.$article->get('id') : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+<form action="<?php echo url_for('articles/update' . (!$form->isNew() ? '?id=' . $article->get('id') : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
   <table>
     <tfoot>
       <tr>
         <td colspan="2">
           &nbsp;<a href="<?php echo url_for('articles/index') ?>">Back to list</a>
           <?php if (!$form->isNew()): ?>
-            &nbsp;<?php echo link_to('Delete', 'articles/delete?id='.$article->get('id'), ['post' => true, 'confirm' => 'Are you sure?']) ?>
+            &nbsp;<?php echo link_to('Delete', 'articles/delete?id=' . $article->get('id'), ['post' => true, 'confirm' => 'Are you sure?']) ?>
           <?php endif; ?>
           <input type="submit" value="Save" />
         </td>

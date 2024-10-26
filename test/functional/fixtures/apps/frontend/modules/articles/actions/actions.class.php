@@ -47,7 +47,7 @@ class articlesActions extends sfActions
         if ($this->form->isValid()) {
             $article = $this->form->save();
 
-            $this->redirect('articles/edit?id='.$article->get('id'));
+            $this->redirect('articles/edit?id=' . $article->get('id'));
         }
 
         $this->setTemplate('edit');

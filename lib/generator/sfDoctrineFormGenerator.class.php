@@ -71,7 +71,7 @@ class sfDoctrineFormGenerator extends sfGenerator
         $models = $this->loadModels();
 
         // create the project base class for all forms
-        $file = sfConfig::get('sf_lib_dir').'/form/doctrine/BaseFormDoctrine.class.php';
+        $file = sfConfig::get('sf_lib_dir') . '/form/doctrine/BaseFormDoctrine.class.php';
         if (!file_exists($file)) {
             if (!is_dir($directory = dirname($file))) {
                 mkdir($directory, 0777, true);
@@ -95,22 +95,22 @@ class sfDoctrineFormGenerator extends sfGenerator
                 $baseDir .= '/' . $pluginName;
             }
 
-            if (!is_dir($baseDir.'/base')) {
-                mkdir($baseDir.'/base', 0777, true);
+            if (!is_dir($baseDir . '/base')) {
+                mkdir($baseDir . '/base', 0777, true);
             }
 
-            file_put_contents($baseDir.'/base/Base'.$model.'Form.class.php', $this->evalTemplate(null === $this->getParentModel() ? 'sfDoctrineFormGeneratedTemplate.php' : 'sfDoctrineFormGeneratedInheritanceTemplate.php'));
+            file_put_contents($baseDir . '/base/Base' . $model . 'Form.class.php', $this->evalTemplate(null === $this->getParentModel() ? 'sfDoctrineFormGeneratedTemplate.php' : 'sfDoctrineFormGeneratedInheritanceTemplate.php'));
 
             if ($isPluginModel) {
-                $pluginBaseDir = $pluginPaths[$pluginName].'/lib/form/doctrine';
-                if (!file_exists($classFile = $pluginBaseDir.'/Plugin'.$model.'Form.class.php')) {
+                $pluginBaseDir = $pluginPaths[$pluginName] . '/lib/form/doctrine';
+                if (!file_exists($classFile = $pluginBaseDir . '/Plugin' . $model . 'Form.class.php')) {
                     if (!is_dir($pluginBaseDir)) {
                         mkdir($pluginBaseDir, 0777, true);
                     }
                     file_put_contents($classFile, $this->evalTemplate('sfDoctrineFormPluginTemplate.php'));
                 }
             }
-            if (!file_exists($classFile = $baseDir.'/'.$model.'Form.class.php')) {
+            if (!file_exists($classFile = $baseDir . '/' . $model . 'Form.class.php')) {
                 if ($isPluginModel) {
                     file_put_contents($classFile, $this->evalTemplate('sfDoctrinePluginFormTemplate.php'));
                 } else {
@@ -139,7 +139,7 @@ class sfDoctrineFormGenerator extends sfGenerator
                     continue;
                 }
 
-                foreach (sfFinder::type('file')->name('*.php')->in($path.'/lib/model/doctrine') as $path) {
+                foreach (sfFinder::type('file')->name('*.php')->in($path . '/lib/model/doctrine') as $path) {
                     $info = pathinfo($path);
                     $e = explode('.', $info['filename']);
                     $modelName = substr($e[0], 6, strlen($e[0]));
@@ -314,7 +314,7 @@ class sfDoctrineFormGenerator extends sfGenerator
         if ($column->isForeignKey()) {
             $options[] = sprintf('\'model\' => $this->getRelatedModelName(\'%s\'), \'add_empty\' => %s', $column->getRelationKey('alias'), $column->isNotNull() ? 'false' : 'true');
         } elseif ('enum' == $column->getDoctrineType() && is_subclass_of($this->getWidgetClassForColumn($column), 'sfWidgetFormChoiceBase')) {
-            $options[] = '\'choices\' => '.$this->arrayExport(array_combine($column['values'], $column['values']));
+            $options[] = '\'choices\' => ' . $this->arrayExport(array_combine($column['values'], $column['values']));
         }
 
         return count($options) ? sprintf('array(%s)', implode(', ', $options)) : '';
@@ -406,7 +406,7 @@ class sfDoctrineFormGenerator extends sfGenerator
                     }
                     break;
                 case 'enum':
-                    $options[] = '\'choices\' => '.$this->arrayExport($column['values']);
+                    $options[] = '\'choices\' => ' . $this->arrayExport($column['values']);
                     break;
             }
         }
@@ -435,7 +435,7 @@ class sfDoctrineFormGenerator extends sfGenerator
         }
 
         foreach ($this->getManyToManyRelations() as $relation) {
-            if (($m = strlen($this->underscore($relation['alias']).'_list')) > $max) {
+            if (($m = strlen($this->underscore($relation['alias']) . '_list')) > $max) {
                 $max = $m;
             }
         }

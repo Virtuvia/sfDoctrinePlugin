@@ -101,7 +101,7 @@ class Doctrine_Hydrator
         }
 
         if (! isset($this->_hydrators[$mode])) {
-            throw new Doctrine_Hydrator_Exception('Invalid hydration mode specified: '.$this->_hydrationMode);
+            throw new Doctrine_Hydrator_Exception('Invalid hydration mode specified: ' . $this->_hydrationMode);
         }
 
         return $this->_hydrators[$mode];
@@ -119,7 +119,7 @@ class Doctrine_Hydrator
         $driverClass = $this->getHydratorDriverClassName($mode);
         if (is_object($driverClass)) {
             if (!$driverClass instanceof Doctrine_Hydrator_Abstract) {
-                throw new Doctrine_Hydrator_Exception('Invalid hydration class specified: '.get_class($driverClass));
+                throw new Doctrine_Hydrator_Exception('Invalid hydration class specified: ' . get_class($driverClass));
             }
             $driver = $driverClass;
             $driver->setQueryComponents($this->_queryComponents);

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-require_once(dirname(__FILE__).'/sfDoctrineBaseTask.class.php');
+require_once(dirname(__FILE__) . '/sfDoctrineBaseTask.class.php');
 
 /**
  * Drops database for current model.
@@ -73,7 +73,7 @@ EOF;
             &&
             !$this->askConfirmation(array_merge(
                 [sprintf('This command will remove all data in the following "%s" connection(s):', $environment), ''],
-                array_map(function ($v) { return ' - '.$v; }, array_keys($databases)),
+                array_map(function ($v) { return ' - ' . $v; }, array_keys($databases)),
                 ['', 'Are you sure you want to proceed? (y/N)']
             ), 'QUESTION_LARGE', false)
         ) {
