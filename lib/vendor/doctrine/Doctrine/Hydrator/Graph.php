@@ -128,7 +128,7 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
             $nonemptyComponents = array();
             $rowData = $this->_gatherRowData($data, $cache, $id, $nonemptyComponents);
 
-            if ($this->_hydrationMode == Doctrine_Core::HYDRATE_ON_DEMAND)  {
+            if ($this->_hydrationMode == Doctrine_Core::HYDRATE_ON_DEMAND) {
                 if (is_null($activeRootIdentifier)) {
                     // first row for this record
                     $activeRootIdentifier = $id[$rootAlias];

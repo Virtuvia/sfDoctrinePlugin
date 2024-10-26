@@ -46,14 +46,10 @@ abstract class sfDoctrineBaseTask extends sfBaseTask
 
         $arguments = array('./symfony', $task);
 
-        foreach ($args as $key => $arg)
-        {
-            if (isset($config[$key]))
-            {
+        foreach ($args as $key => $arg) {
+            if (isset($config[$key])) {
                 $config[$key] = $arg;
-            }
-            else
-            {
+            } else {
                 $arguments[] = $arg;
             }
         }
@@ -78,26 +74,19 @@ abstract class sfDoctrineBaseTask extends sfBaseTask
     {
         $databases = array();
 
-        if (null === $names)
-        {
-            foreach ($databaseManager->getNames() as $name)
-            {
+        if (null === $names) {
+            foreach ($databaseManager->getNames() as $name) {
                 $database = $databaseManager->getDatabase($name);
 
-                if ($database instanceof sfDoctrineDatabase)
-                {
+                if ($database instanceof sfDoctrineDatabase) {
                     $databases[$name] = $database;
                 }
             }
-        }
-        else
-        {
-            foreach ($names as $name)
-            {
+        } else {
+            foreach ($names as $name) {
                 $database = $databaseManager->getDatabase($name);
 
-                if (!$database instanceof sfDoctrineDatabase)
-                {
+                if (!$database instanceof sfDoctrineDatabase) {
                     throw new InvalidArgumentException(sprintf('The database "%s" is not a Doctrine database.', $name));
                 }
 
@@ -134,16 +123,13 @@ abstract class sfDoctrineBaseTask extends sfBaseTask
         $finder = sfFinder::type('file')->name('*.yml')->sort_by_name()->follow_link();
 
         // plugin models
-        foreach ($this->configuration->getPlugins() as $name)
-        {
+        foreach ($this->configuration->getPlugins() as $name) {
             $plugin = $this->configuration->getPluginConfiguration($name);
-            foreach ($finder->in($plugin->getRootDir().'/config/doctrine') as $schema)
-            {
+            foreach ($finder->in($plugin->getRootDir().'/config/doctrine') as $schema) {
                 $pluginModels = (array) sfYaml::load($schema);
                 $globals = $this->filterSchemaGlobals($pluginModels);
 
-                foreach ($pluginModels as $model => $definition)
-                {
+                foreach ($pluginModels as $model => $definition) {
                     // canonicalize this definition
                     $definition = $this->canonicalizeModelDefinition($model, $definition);
 
@@ -154,13 +140,11 @@ abstract class sfDoctrineBaseTask extends sfBaseTask
                     $models[$model] = isset($models[$model]) ? sfToolkit::arrayDeepMerge($models[$model], $definition) : $definition;
 
                     // the first plugin to define this model gets the package
-                    if (!isset($models[$model]['package']))
-                    {
+                    if (!isset($models[$model]['package'])) {
                         $models[$model]['package'] = $plugin->getName().'.lib.model.doctrine';
                     }
 
-                    if (!isset($models[$model]['package_custom_path']) && 0 === strpos($models[$model]['package'], $plugin->getName()))
-                    {
+                    if (!isset($models[$model]['package_custom_path']) && 0 === strpos($models[$model]['package'], $plugin->getName())) {
                         $models[$model]['package_custom_path'] = $plugin->getRootDir().'/lib/model/doctrine';
                     }
                 }
@@ -168,13 +152,11 @@ abstract class sfDoctrineBaseTask extends sfBaseTask
         }
 
         // project models
-        foreach ($finder->in($yamlSchemaPath) as $schema)
-        {
+        foreach ($finder->in($yamlSchemaPath) as $schema) {
             $projectModels = (array) sfYaml::load($schema);
             $globals = $this->filterSchemaGlobals($projectModels);
 
-            foreach ($projectModels as $model => $definition)
-            {
+            foreach ($projectModels as $model => $definition) {
                 // canonicalize this definition
                 $definition = $this->canonicalizeModelDefinition($model, $definition);
 
@@ -208,10 +190,8 @@ abstract class sfDoctrineBaseTask extends sfBaseTask
         $globals = array();
         $globalKeys = Doctrine_Import_Schema::getGlobalDefinitionKeys();
 
-        foreach ($models as $key => $value)
-        {
-            if (in_array($key, $globalKeys))
-            {
+        foreach ($models as $key => $value) {
+            if (in_array($key, $globalKeys)) {
                 $globals[$key] = $value;
                 unset($models[$key]);
             }
@@ -231,24 +211,19 @@ abstract class sfDoctrineBaseTask extends sfBaseTask
     protected function canonicalizeModelDefinition($model, $definition)
     {
         // expand short "type" syntax
-        if (isset($definition['columns']))
-        {
-            foreach ($definition['columns'] as $key => $value)
-            {
-                if (!is_array($value))
-                {
+        if (isset($definition['columns'])) {
+            foreach ($definition['columns'] as $key => $value) {
+                if (!is_array($value)) {
                     $definition['columns'][$key] = array('type' => $value);
                     $value = $definition['columns'][$key];
                 }
 
                 // expand short type(length, scale) syntax
-                if (isset($value['type']) && preg_match('/ *(\w+) *\( *(\d+)(?: *, *(\d+))? *\)/', $value['type'], $match))
-                {
+                if (isset($value['type']) && preg_match('/ *(\w+) *\( *(\d+)(?: *, *(\d+))? *\)/', $value['type'], $match)) {
                     $definition['columns'][$key]['type'] = $match[1];
                     $definition['columns'][$key]['length'] = $match[2];
 
-                    if (isset($match[3]))
-                    {
+                    if (isset($match[3])) {
                         $definition['columns'][$key]['scale'] = $match[3];
                     }
                 }
@@ -256,12 +231,9 @@ abstract class sfDoctrineBaseTask extends sfBaseTask
         }
 
         // expand short "actAs" syntax
-        if (isset($definition['actAs']))
-        {
-            foreach ($definition['actAs'] as $key => $value)
-            {
-                if (is_numeric($key))
-                {
+        if (isset($definition['actAs'])) {
+            foreach ($definition['actAs'] as $key => $value) {
+                if (is_numeric($key)) {
                     $definition['actAs'][$value] = array();
                     unset($definition['actAs'][$key]);
                 }
@@ -269,12 +241,9 @@ abstract class sfDoctrineBaseTask extends sfBaseTask
         }
 
         // expand short "listeners" syntax
-        if (isset($definition['listeners']))
-        {
-            foreach ($definition['listeners'] as $key => $value)
-            {
-                if (is_numeric($key))
-                {
+        if (isset($definition['listeners'])) {
+            foreach ($definition['listeners'] as $key => $value) {
+                if (is_numeric($key)) {
                     $definition['listeners'][$value] = array();
                     unset($definition['listeners'][$key]);
                 }

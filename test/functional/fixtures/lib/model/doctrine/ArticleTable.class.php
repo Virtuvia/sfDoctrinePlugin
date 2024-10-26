@@ -54,8 +54,7 @@ class ArticleTable extends Doctrine_Table
 
     public function addOnHomepage(Doctrine_Query $q = null)
     {
-        if (is_null($q))
-        {
+        if (is_null($q)) {
             $q = $this->createQuery('a');
         }
         $alias = $q->getRootAlias();

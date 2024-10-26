@@ -31,11 +31,9 @@ abstract class sfDoctrineRecord extends Doctrine_Record
      */
     public function construct()
     {
-        if ($this->getTable()->hasRelation('Translation'))
-        {
+        if ($this->getTable()->hasRelation('Translation')) {
             // only add filter to each table once
-            if (!$this->getTable()->getOption('has_symfony_i18n_filter'))
-            {
+            if (!$this->getTable()->getOption('has_symfony_i18n_filter')) {
                 $this->getTable()
                   ->unshiftFilter(new sfDoctrineRecordI18nFilter())
                   ->setOption('has_symfony_i18n_filter', true)
@@ -71,8 +69,7 @@ abstract class sfDoctrineRecord extends Doctrine_Record
      */
     static public function getDefaultCulture()
     {
-        if (!self::$_defaultCulture)
-        {
+        if (!self::$_defaultCulture) {
             throw new sfException('The default culture has not been set');
         }
 
@@ -118,12 +115,11 @@ abstract class sfDoctrineRecord extends Doctrine_Record
             'id');
 
         // we try to guess a column which would give a good description of the object
-        foreach ($guesses as $descriptionColumn)
-        {
-            try
-            {
+        foreach ($guesses as $descriptionColumn) {
+            try {
                 return (string) $this->get($descriptionColumn);
-            } catch (Exception $e) {}
+            } catch (Exception $e) {
+            }
         }
 
         return sprintf('No description for object of class "%s"', $this->getTable()->getComponentName());
@@ -141,38 +137,29 @@ abstract class sfDoctrineRecord extends Doctrine_Record
     {
         $failed = false;
         try {
-            if (in_array($verb = substr($method, 0, 3), array('set', 'get')))
-            {
+            if (in_array($verb = substr($method, 0, 3), array('set', 'get'))) {
                 $name = substr($method, 3);
 
                 $table = $this->getTable();
-                if ($table->hasRelation($name))
-                {
+                if ($table->hasRelation($name)) {
                     $entityName = $name;
-                }
-                else if ($table->hasField($fieldName = $table->getFieldName($name)))
-                {
+                } else if ($table->hasField($fieldName = $table->getFieldName($name))) {
                     $entityNameLower = strtolower($fieldName);
-                    if ($table->hasField($entityNameLower))
-                    {
+                    if ($table->hasField($entityNameLower)) {
                         $entityName = $entityNameLower;
                     } else {
                         $entityName = $fieldName;
                     }
-                }
-                else
-                {
+                } else {
                     $underScored = $table->getFieldName(sfInflector::underscore($name));
-                    if ($table->hasField($underScored) || $table->hasRelation($underScored))
-                    {
+                    if ($table->hasField($underScored) || $table->hasRelation($underScored)) {
                         $entityName = $underScored;
                     } else if ($table->hasField(strtolower($name)) || $table->hasRelation(strtolower($name))) {
                         $entityName = strtolower($name);
                     } else {
                         $camelCase = $table->getFieldName(sfInflector::camelize($name));
                         $camelCase = strtolower($camelCase[0]).substr($camelCase, 1, strlen($camelCase));
-                        if ($table->hasField($camelCase) || $table->hasRelation($camelCase))
-                        {
+                        if ($table->hasField($camelCase) || $table->hasRelation($camelCase)) {
                             $entityName = $camelCase;
                         } else {
                             $entityName = $underScored;
@@ -190,15 +177,13 @@ abstract class sfDoctrineRecord extends Doctrine_Record
         } catch (Exception $e) {
             $failed = true;
         }
-        if ($failed)
-        {
-            try
-            {
+        if ($failed) {
+            try {
                 return parent::__call($method, $arguments);
-            } catch (Doctrine_Record_UnknownPropertyException $e2) {}
+            } catch (Doctrine_Record_UnknownPropertyException $e2) {
+            }
 
-            if (isset($e) && $e)
-            {
+            if (isset($e) && $e) {
                 throw $e;
             } else if (isset($e2) && $e2) {
                 throw $e2;
@@ -215,12 +200,9 @@ abstract class sfDoctrineRecord extends Doctrine_Record
     public function getDateTimeObject($dateFieldName)
     {
         $type = $this->getTable()->getTypeOf($dateFieldName);
-        if ($type == 'date' || $type == 'timestamp' || $type == 'datetime')
-        {
+        if ($type == 'date' || $type == 'timestamp' || $type == 'datetime') {
             return new DateTime($this->get($dateFieldName));
-        }
-        else
-        {
+        } else {
             throw new sfException('Cannot call getDateTimeObject() on a field that is not of type date or timestamp.');
         }
     }
@@ -235,12 +217,9 @@ abstract class sfDoctrineRecord extends Doctrine_Record
     public function setDateTimeObject($dateFieldName, DateTime $dateTimeObject)
     {
         $type = $this->getTable()->getTypeOf($dateFieldName);
-        if ($type == 'date' || $type == 'timestamp' || $type == 'datetime')
-        {
+        if ($type == 'date' || $type == 'timestamp' || $type == 'datetime') {
             return $this->set($dateFieldName, $dateTimeObject->format('Y-m-d H:i:s'));
-        }
-        else
-        {
+        } else {
             throw new sfException('Cannot call setDateTimeObject() on a field that is not of type date or timestamp.');
         }
     }

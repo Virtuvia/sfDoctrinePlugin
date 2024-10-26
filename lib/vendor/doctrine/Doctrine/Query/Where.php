@@ -37,8 +37,7 @@ class Doctrine_Query_Where extends Doctrine_Query_Condition
         // Handle operator ("AND" | "OR"), reducing overhead of this method processment
         $possibleOp = strtolower($where);
 
-        if ($possibleOp == 'and' || $possibleOp == 'or')
-        {
+        if ($possibleOp == 'and' || $possibleOp == 'or') {
             return $where;
         }
 

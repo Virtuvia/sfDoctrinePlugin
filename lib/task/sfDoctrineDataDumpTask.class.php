@@ -66,17 +66,14 @@ EOF;
             'data_fixtures_path' => $config['data_fixtures_path'][0],
         );
 
-        if (!is_dir($args['data_fixtures_path']))
-        {
+        if (!is_dir($args['data_fixtures_path'])) {
             $this->getFilesystem()->mkdirs($args['data_fixtures_path']);
         }
 
-        if ($arguments['target'])
-        {
+        if ($arguments['target']) {
             $filename = $arguments['target'];
 
-            if (!sfToolkit::isPathAbsolute($filename))
-            {
+            if (!sfToolkit::isPathAbsolute($filename)) {
                 $filename = $args['data_fixtures_path'].'/'.$filename;
             }
 

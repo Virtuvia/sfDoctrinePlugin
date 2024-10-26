@@ -281,14 +281,18 @@ class Doctrine_Adapter_Mock implements Doctrine_Adapter_Interface, Countable
     }
 
     public function errorCode()
-    { }
+    {
+    }
 
     public function errorInfo()
-    { }
+    {
+    }
 
     public function setAttribute($attribute, $value)
-    { }
+    {
+    }
 
     public function sqliteCreateFunction()
-    { }
+    {
+    }
 }

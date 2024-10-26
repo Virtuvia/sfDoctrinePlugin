@@ -77,8 +77,7 @@ class Swift_DoctrineSpool extends Swift_ConfigurableSpool
     {
         $object = new $this->model;
 
-        if (!$object instanceof Doctrine_Record)
-        {
+        if (!$object instanceof Doctrine_Record) {
             throw new InvalidArgumentException('The mailer message object must be a Doctrine_Record object.');
         }
 
@@ -101,30 +100,24 @@ class Swift_DoctrineSpool extends Swift_ConfigurableSpool
         $table = Doctrine_Core::getTable($this->model);
         $objects = $table->{$this->method}()->limit($this->getMessageLimit())->execute();
 
-        if (!$transport->isStarted())
-        {
+        if (!$transport->isStarted()) {
             $transport->start();
         }
 
         $count = 0;
         $time = time();
-        foreach ($objects as $object)
-        {
+        foreach ($objects as $object) {
             $message = unserialize($object->{$this->column});
 
             $object->delete();
 
-            try
-            {
+            try {
                 $count += $transport->send($message, $failedRecipients);
-            }
-            catch (Exception $e)
-            {
+            } catch (Exception $e) {
                 // TODO: What to do with errors?
             }
 
-            if ($this->getTimeLimit() && (time() - $time) >= $this->getTimeLimit())
-            {
+            if ($this->getTimeLimit() && (time() - $time) >= $this->getTimeLimit()) {
                 break;
             }
         }

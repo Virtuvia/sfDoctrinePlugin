@@ -43,35 +43,28 @@ class sfTesterDoctrine extends sfTester
      */
     public function check($model, $query, $value = true)
     {
-        if (null === $query)
-        {
+        if (null === $query) {
             $query = Doctrine_Core::getTable($model)
               ->createQuery('a');
         }
 
-        if (is_array($query))
-        {
+        if (is_array($query)) {
             $conditions = $query;
             $query = $query = Doctrine_Core::getTable($model)
               ->createQuery('a');
-            foreach ($conditions as $column => $condition)
-            {
+            foreach ($conditions as $column => $condition) {
                 $column = Doctrine_Core::getTable($model)->getFieldName($column);
 
-                if (null === $condition)
-                {
+                if (null === $condition) {
                     $query->andWhere('a.'.$column.' IS NULL');
                     continue;
                 }
 
                 $operator = '=';
-                if (is_string($condition) && '!' === $condition[0])
-                {
+                if (is_string($condition) && '!' === $condition[0]) {
                     $operator = false !== strpos($condition, '%') ? 'NOT LIKE' : '!=';
                     $condition = substr($condition, 1);
-                }
-                else if (is_string($condition) && false !== strpos($condition, '%'))
-                {
+                } else if (is_string($condition) && false !== strpos($condition, '%')) {
                     $operator = 'LIKE';
                 }
 
@@ -81,20 +74,13 @@ class sfTesterDoctrine extends sfTester
 
         $objects = $query->execute();
 
-        if (false === $value)
-        {
+        if (false === $value) {
             $this->tester->is(count($objects), 0, sprintf('no %s object that matches the criteria has been found', $model));
-        }
-        else if (true === $value)
-        {
+        } else if (true === $value) {
             $this->tester->cmp_ok(count($objects), '>', 0, sprintf('%s objects that matches the criteria have been found', $model));
-        }
-        else if (is_int($value))
-        {
+        } else if (is_int($value)) {
             $this->tester->is(count($objects), $value, sprintf('"%s" %s objects have been found', $value, $model));
-        }
-        else
-        {
+        } else {
             throw new InvalidArgumentException('The "check()" method does not takes this kind of argument.');
         }
 
@@ -108,19 +94,15 @@ class sfTesterDoctrine extends sfTester
      */
     public function debug($limit = null)
     {
-        if (!$databaseManager = $this->browser->getContext()->getDatabaseManager())
-        {
+        if (!$databaseManager = $this->browser->getContext()->getDatabaseManager()) {
             throw new LogicConnection('The current context does not include a database manager.');
         }
 
         $events = array();
-        foreach ($databaseManager->getNames() as $name)
-        {
+        foreach ($databaseManager->getNames() as $name) {
             $database = $databaseManager->getDatabase($name);
-            if ($database instanceof sfDoctrineDatabase && $profiler = $database->getProfiler())
-            {
-                foreach ($profiler->getQueryExecutionEvents() as $event)
-                {
+            if ($database instanceof sfDoctrineDatabase && $profiler = $database->getProfiler()) {
+                foreach ($profiler->getQueryExecutionEvents() as $event) {
                     $events[$event->getSequence()] = $event;
                 }
             }
@@ -129,40 +111,30 @@ class sfTesterDoctrine extends sfTester
         // sequence events
         ksort($events);
 
-        if (is_integer($limit))
-        {
+        if (is_integer($limit)) {
             $events = array_slice($events, $limit * -1);
-        }
-        else if (preg_match('/^(!)?([^a-zA-Z0-9\\\\]).+?\\2[ims]?$/', $limit, $match))
-        {
-            if ($match[1] == '!')
-            {
+        } else if (preg_match('/^(!)?([^a-zA-Z0-9\\\\]).+?\\2[ims]?$/', $limit, $match)) {
+            if ($match[1] == '!') {
                 $pattern = substr($limit, 1);
                 $match = false;
-            }
-            else
-            {
+            } else {
                 $pattern = $limit;
                 $match = true;
             }
-        }
-        else if ($limit)
-        {
+        } else if ($limit) {
             $substring = $limit;
         }
 
         echo "\nDumping SQL executed in the current context:\n\n";
 
-        foreach ($events as $event)
-        {
+        foreach ($events as $event) {
             if (
                 (!isset($pattern) && !isset($substring))
                 ||
                 (isset($pattern) && $match == preg_match($pattern, $event->getQuery()))
                 ||
                 (isset($substring) && false !== stripos($event->getQuery(), $substring))
-            )
-            {
+            ) {
                 $conn = $event->getInvoker() instanceof Doctrine_Connection ? $event->getInvoker() : $event->getInvoker()->getConnection();
 
                 echo $event->getQuery()."\n";

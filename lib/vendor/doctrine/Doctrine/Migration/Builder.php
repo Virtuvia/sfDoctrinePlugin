@@ -320,7 +320,7 @@ END;
 
             $up = array();
             $down = array();
-            foreach ($foreignKeys as $tableName => $definitions)    {
+            foreach ($foreignKeys as $tableName => $definitions) {
                 $tableForeignKeyNames[$tableName] = array();
 
                 foreach ($definitions as $definition) {

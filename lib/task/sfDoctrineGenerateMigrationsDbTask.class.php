@@ -54,8 +54,7 @@ EOF;
 
         $this->logSection('doctrine', 'generating migration classes from database');
 
-        if (!is_dir($config['migrations_path']))
-        {
+        if (!is_dir($config['migrations_path'])) {
             $this->getFilesystem()->mkdirs($config['migrations_path']);
         }
 

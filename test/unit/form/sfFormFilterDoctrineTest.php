@@ -57,39 +57,30 @@ $t->ok($filter->getQuery() !== $query, '->getQuery() clones the query option');
 // BC with symfony 1.2
 $filter = new TestFormFilter();
 $filter->bind(array('nomethod_bc' => 'nomethod_bc'));
-try
-{
+try {
     $filter->getQuery();
     $t->fail('->getQuery() throws an exception if a field that is not a real column is specified in getFields() but a column method does not exist');
-}
-catch (Exception $e)
-{
+} catch (Exception $e) {
     $t->pass('->getQuery() throws an exception if a field that is not a real column is specified in getFields() but a column method does not exist');
 }
 
 // BC with symfony 1.2
 $filter = new TestFormFilter();
 $filter->bind(array('body' => 'body'));
-try
-{
+try {
     $filter->getQuery();
     $t->fail('->getQuery() throws an exception if a field is a real column and neither a column nor type method exists');
-}
-catch (Exception $e)
-{
+} catch (Exception $e) {
     $t->pass('->getQuery() throws an exception if a field is a real column and neither a column nor type method exists');
 }
 
 // BC with symfony 1.2
 $filter = new TestFormFilter();
 $filter->bind(array('nomethod' => 'nomethod'));
-try
-{
+try {
     $filter->getQuery();
     $t->pass('->getQuery() does not throw an exception when a value without a query method is passed');
-}
-catch (Exception $e)
-{
+} catch (Exception $e) {
     $t->fail('->getQuery() does not throw an exception when a value without a query method is passed');
 }
 

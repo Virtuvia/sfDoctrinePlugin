@@ -77,8 +77,7 @@ EOF;
     protected function execute($arguments = array(), $options = array())
     {
         // get configuration for the given route
-        if (false !== ($route = $this->getRouteFromName($arguments['route_or_model'])))
-        {
+        if (false !== ($route = $this->getRouteFromName($arguments['route_or_model']))) {
             $arguments['route'] = $route;
             $arguments['route_name'] = $arguments['route_or_model'];
 
@@ -86,14 +85,12 @@ EOF;
         }
 
         // is it a model class name
-        if (!class_exists($arguments['route_or_model']))
-        {
+        if (!class_exists($arguments['route_or_model'])) {
             throw new sfCommandException(sprintf('The route "%s" does not exist and there is no "%s" class.', $arguments['route_or_model'], $arguments['route_or_model']));
         }
 
         $r = new ReflectionClass($arguments['route_or_model']);
-        if (!$r->isSubclassOf('Doctrine_Record'))
-        {
+        if (!$r->isSubclassOf('Doctrine_Record')) {
             throw new sfCommandException(sprintf('"%s" is not a Doctrine class.', $arguments['route_or_model']));
         }
 
@@ -101,11 +98,9 @@ EOF;
         $model = $arguments['route_or_model'];
         $name = strtolower(preg_replace(array('/([A-Z]+)([A-Z][a-z])/', '/([a-z\d])([A-Z])/'), '\\1_\\2', $model));
 
-        if (isset($options['module']))
-        {
+        if (isset($options['module'])) {
             $route = $this->getRouteFromName($name);
-            if ($route && !$this->checkRoute($route, $model, $options['module']))
-            {
+            if ($route && !$this->checkRoute($route, $model, $options['module'])) {
                 $name .= '_'.$options['module'];
             }
         }
@@ -114,8 +109,7 @@ EOF;
         $content = file_get_contents($routing);
         $routesArray = sfYaml::load($content);
 
-        if (!isset($routesArray[$name]))
-        {
+        if (!isset($routesArray[$name])) {
             $databaseManager = new sfDatabaseManager($this->configuration);
             $primaryKey = Doctrine_Core::getTable($model)->getIdentifier();
             $module = $options['module'] ? $options['module'] : $name;
@@ -135,8 +129,7 @@ EOF
 
             $this->logSection('file+', $routing);
 
-            if (false === file_put_contents($routing, $content))
-            {
+            if (false === file_put_contents($routing, $content)) {
                 throw new sfCommandException(sprintf('Unable to write to file, %s.', $routing));
             }
         }
@@ -151,8 +144,7 @@ EOF
     {
         $routeOptions = $arguments['route']->getOptions();
 
-        if (!$arguments['route'] instanceof sfDoctrineRouteCollection)
-        {
+        if (!$arguments['route'] instanceof sfDoctrineRouteCollection) {
             throw new sfCommandException(sprintf('The route "%s" is not a Doctrine collection route.', $arguments['route_name']));
         }
 
@@ -183,8 +175,7 @@ EOF
         $config = new sfRoutingConfigHandler();
         $routes = $config->evaluate($this->configuration->getConfigPaths('config/routing.yml'));
 
-        if (isset($routes[$name]))
-        {
+        if (isset($routes[$name])) {
             return $routes[$name];
         }
 
@@ -202,8 +193,7 @@ EOF
      */
     protected function checkRoute($route, $model, $module)
     {
-        if ($route instanceof sfDoctrineRouteCollection)
-        {
+        if ($route instanceof sfDoctrineRouteCollection) {
             $options = $route->getOptions();
             return $model == $options['model'] && $module == $options['module'];
         }

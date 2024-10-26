@@ -51,12 +51,9 @@ class sfDoctrineRecordI18nFilter extends Doctrine_Record_Filter
     public function filterGet(Doctrine_Record $record, $name)
     {
         $culture = sfDoctrineRecord::getDefaultCulture();
-        if (isset($record['Translation'][$culture]))
-        {
+        if (isset($record['Translation'][$culture])) {
             return $record['Translation'][$culture][$name];
-        }
-        else
-        {
+        } else {
             $defaultCulture = sfConfig::get('sf_default_culture');
             return $record['Translation'][$defaultCulture][$name];
         }

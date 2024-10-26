@@ -191,10 +191,10 @@ class Doctrine_Import_Pgsql extends Doctrine_Import
             );
 
             // If postgres enum type
-            if ($val['typtype'] == 'e'){
+            if ($val['typtype'] == 'e') {
                 $description['default'] = isset($decl['default']) ? $decl['default'] : null;
                 $t_result = $this->conn->fetchAssoc(sprintf('select enum_range(null::%s) as range ', $decl['enum_name']));
-                if (isset($t_result[0])){
+                if (isset($t_result[0])) {
                     $range =  $t_result[0]['range'];
                     $range = str_replace('{','',$range);
                     $range = str_replace('}','',$range);

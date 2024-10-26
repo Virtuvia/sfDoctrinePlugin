@@ -67,8 +67,7 @@ EOF;
     {
         $databaseManager = new sfDatabaseManager($this->configuration);
 
-        if (!count($arguments['dir_or_file']))
-        {
+        if (!count($arguments['dir_or_file'])) {
             // pull default from CLI config array
             $config = $this->getCliConfig();
             $arguments['dir_or_file'] = $config['data_fixtures_path'];
@@ -79,8 +78,7 @@ EOF;
             'append'             => $options['append'],
         );
 
-        foreach ($arguments['dir_or_file'] as $target)
-        {
+        foreach ($arguments['dir_or_file'] as $target) {
             $this->logSection('doctrine', sprintf('Loading data fixtures from "%s"', $target));
         }
 

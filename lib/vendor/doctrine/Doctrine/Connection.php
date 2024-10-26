@@ -919,7 +919,8 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
 
             return new Doctrine_Connection_Statement($this, $stmt);
         } catch(Doctrine_Adapter_Exception $e) {
-        } catch(PDOException $e) { }
+        } catch(PDOException $e) {
+        }
 
         $this->rethrowException($e, $this, $statement);
     }
@@ -1015,7 +1016,8 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
                 return $stmt;
             }
         } catch (Doctrine_Adapter_Exception $e) {
-        } catch (PDOException $e) { }
+        } catch (PDOException $e) {
+        }
 
         $this->rethrowException($e, $this, $query);
     }
@@ -1051,7 +1053,8 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
                 return $count;
             }
         } catch (Doctrine_Adapter_Exception $e) {
-        } catch (PDOException $e) { }
+        } catch (PDOException $e) {
+        }
 
         $this->rethrowException($e, $this, $query);
     }
@@ -1439,7 +1442,8 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
         // the tmp connection
         try {
             $tmpConnection->export->createDatabase($info['dbname']);
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+        }
 
         // Close the temporary connection used to issue the drop database command
         $this->getManager()->closeConnection($tmpConnection);
@@ -1472,7 +1476,8 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
         // the tmp connection
         try {
             $tmpConnection->export->dropDatabase($info['dbname']);
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+        }
 
         // Close the temporary connection used to issue the drop database command
         $this->getManager()->closeConnection($tmpConnection);

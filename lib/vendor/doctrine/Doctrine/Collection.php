@@ -1051,7 +1051,8 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      *
      * @return boolean
      */
-    final public function isModified() {
+    final public function isModified()
+    {
         $dirty = (count($this->getInsertDiff()) > 0 || count($this->getDeleteDiff()) > 0);
         if ( ! $dirty) {
             foreach($this as $record) {

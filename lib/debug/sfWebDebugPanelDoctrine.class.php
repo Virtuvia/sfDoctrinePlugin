@@ -27,8 +27,7 @@ class sfWebDebugPanelDoctrine extends sfWebDebugPanel
      */
     public function getTitle()
     {
-        if ($events = $this->getDoctrineEvents())
-        {
+        if ($events = $this->getDoctrineEvents()) {
             return '<img src="'.$this->webDebug->getOption('image_root_path').'/database.png" alt="SQL queries" /> '.count($events);
         }
     }
@@ -76,15 +75,11 @@ class sfWebDebugPanelDoctrine extends sfWebDebugPanel
         $databaseManager = sfContext::getInstance()->getDatabaseManager();
 
         $events = array();
-        if ($databaseManager)
-        {
-            foreach ($databaseManager->getNames() as $name)
-            {
+        if ($databaseManager) {
+            foreach ($databaseManager->getNames() as $name) {
                 $database = $databaseManager->getDatabase($name);
-                if ($database instanceof sfDoctrineDatabase && $profiler = $database->getProfiler())
-                {
-                    foreach ($profiler->getQueryExecutionEvents() as $event)
-                    {
+                if ($database instanceof sfDoctrineDatabase && $profiler = $database->getProfiler()) {
+                    foreach ($profiler->getQueryExecutionEvents() as $event) {
                         $events[$event->getSequence()] = $event;
                     }
                 }
@@ -107,37 +102,31 @@ class sfWebDebugPanelDoctrine extends sfWebDebugPanel
         $logs = $this->webDebug->getLogger()->getLogs();
 
         $html = array();
-        foreach ($this->getDoctrineEvents() as $i => $event)
-        {
+        foreach ($this->getDoctrineEvents() as $i => $event) {
             $conn = $event->getInvoker() instanceof Doctrine_Connection ? $event->getInvoker() : $event->getInvoker()->getConnection();
             $params = sfDoctrineConnectionProfiler::fixParams($event->getParams());
             $query = $this->formatSql(htmlspecialchars($event->getQuery(), ENT_QUOTES, sfConfig::get('sf_charset')));
 
             // interpolate parameters
-            foreach ($params as $param)
-            {
+            foreach ($params as $param) {
                 $param = htmlspecialchars($param ?? '', ENT_QUOTES, sfConfig::get('sf_charset'));
                 $query = join(var_export(is_scalar($param) ? $param : (string) $param, true), explode('?', $query, 2));
             }
 
             // slow query
-            if ($event->slowQuery && $this->getStatus() > sfLogger::NOTICE)
-            {
+            if ($event->slowQuery && $this->getStatus() > sfLogger::NOTICE) {
                 $this->setStatus(sfLogger::NOTICE);
             }
 
             // backtrace
             $backtrace = null;
-            foreach ($logs as $i => $log)
-            {
-                if (!isset($log['debug_backtrace']) || !count($log['debug_backtrace']))
-                {
+            foreach ($logs as $i => $log) {
+                if (!isset($log['debug_backtrace']) || !count($log['debug_backtrace'])) {
                     // backtrace disabled
                     break;
                 }
 
-                if (false !== strpos($log['message'], $event->getQuery()))
-                {
+                if (false !== strpos($log['message'], $event->getQuery())) {
                     // assume queries are being requested in order
                     unset($logs[$i]);
                     $backtrace = '&nbsp;'.$this->getToggleableDebugStack($log['debug_backtrace']);

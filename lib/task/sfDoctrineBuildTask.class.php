@@ -118,20 +118,17 @@ EOF;
      */
     protected function execute($arguments = array(), $options = array())
     {
-        if (!$mode = $this->calculateMode($options))
-        {
+        if (!$mode = $this->calculateMode($options)) {
             throw new InvalidArgumentException(sprintf("You must include one or more of the following build options:\n--%s\n\nSee this task's help page for more information:\n\n  php symfony help doctrine:build", join(', --', array_keys($this->getBuildOptions()))));
         }
 
-        if (self::BUILD_DB == (self::BUILD_DB & $mode))
-        {
+        if (self::BUILD_DB == (self::BUILD_DB & $mode)) {
             $task = new sfDoctrineDropDbTask($this->dispatcher, $this->formatter);
             $task->setCommandApplication($this->commandApplication);
             $task->setConfiguration($this->configuration);
             $ret = $task->run(array(), array('no-confirmation' => $options['no-confirmation']));
 
-            if ($ret)
-            {
+            if ($ret) {
                 return $ret;
             }
 
@@ -140,119 +137,100 @@ EOF;
             $task->setConfiguration($this->configuration);
             $ret = $task->run();
 
-            if ($ret)
-            {
+            if ($ret) {
                 return $ret;
             }
 
             // :insert-sql (or :migrate) will also be run, below
         }
 
-        if (self::BUILD_MODEL == (self::BUILD_MODEL & $mode))
-        {
+        if (self::BUILD_MODEL == (self::BUILD_MODEL & $mode)) {
             $task = new sfDoctrineBuildModelTask($this->dispatcher, $this->formatter);
             $task->setCommandApplication($this->commandApplication);
             $task->setConfiguration($this->configuration);
             $ret = $task->run();
 
-            if ($ret)
-            {
+            if ($ret) {
                 return $ret;
             }
         }
 
-        if (self::BUILD_FORMS == (self::BUILD_FORMS & $mode))
-        {
+        if (self::BUILD_FORMS == (self::BUILD_FORMS & $mode)) {
             $task = new sfDoctrineBuildFormsTask($this->dispatcher, $this->formatter);
             $task->setCommandApplication($this->commandApplication);
             $task->setConfiguration($this->configuration);
             $ret = $task->run();
 
-            if ($ret)
-            {
+            if ($ret) {
                 return $ret;
             }
         }
 
-        if (self::BUILD_FILTERS == (self::BUILD_FILTERS & $mode))
-        {
+        if (self::BUILD_FILTERS == (self::BUILD_FILTERS & $mode)) {
             $task = new sfDoctrineBuildFiltersTask($this->dispatcher, $this->formatter);
             $task->setCommandApplication($this->commandApplication);
             $task->setConfiguration($this->configuration);
             $ret = $task->run();
 
-            if ($ret)
-            {
+            if ($ret) {
                 return $ret;
             }
         }
 
-        if (self::BUILD_SQL == (self::BUILD_SQL & $mode))
-        {
+        if (self::BUILD_SQL == (self::BUILD_SQL & $mode)) {
             $task = new sfDoctrineBuildSqlTask($this->dispatcher, $this->formatter);
             $task->setCommandApplication($this->commandApplication);
             $task->setConfiguration($this->configuration);
             $ret = $task->run();
 
-            if ($ret)
-            {
+            if ($ret) {
                 return $ret;
             }
         }
 
-        if ($options['and-migrate'])
-        {
+        if ($options['and-migrate']) {
             $task = new sfDoctrineMigrateTask($this->dispatcher, $this->formatter);
             $task->setCommandApplication($this->commandApplication);
             $task->setConfiguration($this->configuration);
             $ret = $task->run();
 
-            if ($ret)
-            {
+            if ($ret) {
                 return $ret;
             }
-        }
-        else if (self::BUILD_DB == (self::BUILD_DB & $mode))
-        {
+        } else if (self::BUILD_DB == (self::BUILD_DB & $mode)) {
             $task = new sfDoctrineInsertSqlTask($this->dispatcher, $this->formatter);
             $task->setCommandApplication($this->commandApplication);
             $task->setConfiguration($this->configuration);
             $ret = $task->run();
 
-            if ($ret)
-            {
+            if ($ret) {
                 return $ret;
             }
         }
 
-        if (count($options['and-load']) || count($options['and-append']))
-        {
+        if (count($options['and-load']) || count($options['and-append'])) {
             $task = new sfDoctrineDataLoadTask($this->dispatcher, $this->formatter);
             $task->setCommandApplication($this->commandApplication);
             $task->setConfiguration($this->configuration);
 
-            if (count($options['and-load']))
-            {
+            if (count($options['and-load'])) {
                 $ret = $task->run(array(
                     'dir_or_file' => in_array(array(), $options['and-load'], true) ? null : $options['and-load'],
                 ));
 
-                if ($ret)
-                {
+                if ($ret) {
                     return $ret;
                 }
             }
 
-            if (count($options['and-append']))
-            {
+            if (count($options['and-append'])) {
                 $ret = $task->run(array(
                     'dir_or_file' => in_array(array(), $options['and-append'], true) ? null : $options['and-append'],
                 ), array(
                     'append' => true,
                 ));
 
-                if ($ret)
-                {
+                if ($ret) {
                     return $ret;
                 }
             }
@@ -269,10 +247,8 @@ EOF;
     protected function calculateMode($options = array())
     {
         $mode = 0;
-        foreach ($this->getBuildOptions() as $name => $value)
-        {
-            if (isset($options[$name]) && true === $options[$name])
-            {
+        foreach ($this->getBuildOptions() as $name => $value) {
+            if (isset($options[$name]) && true === $options[$name]) {
                 $mode = $mode | $value;
             }
         }
@@ -288,10 +264,8 @@ EOF;
     protected function getBuildOptions()
     {
         $options = array();
-        foreach ($this->options as $option)
-        {
-            if (defined($constant = __CLASS__.'::OPTION_'.str_replace('-', '_', strtoupper($option->getName()))))
-            {
+        foreach ($this->options as $option) {
+            if (defined($constant = __CLASS__.'::OPTION_'.str_replace('-', '_', strtoupper($option->getName())))) {
                 $options[$option->getName()] = constant($constant);
             }
         }

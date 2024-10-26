@@ -73,8 +73,7 @@ EOF;
         $modelPackagePaths = [];
 
         // markup base classes with magic methods
-        foreach (sfYaml::load($schema) as $model => $definition)
-        {
+        foreach (sfYaml::load($schema) as $model => $definition) {
             $packagePath = isset($definition['package']) ? '/'.substr($definition['package'], 0, strpos($definition['package'], '.')) : '';
             $modelPackagePaths[$model] = $packagePath;
 
@@ -86,11 +85,9 @@ EOF;
             $code = file_get_contents($file);
 
             // introspect the model without loading the class
-            if (preg_match_all('/@property (\w+) \$(\w+)/', $code, $matches, PREG_SET_ORDER))
-            {
+            if (preg_match_all('/@property (\w+) \$(\w+)/', $code, $matches, PREG_SET_ORDER)) {
                 $properties = array();
-                foreach ($matches as $match)
-                {
+                foreach ($matches as $match) {
                     $properties[$match[2]] = $match[1];
                 }
 
@@ -99,8 +96,7 @@ EOF;
                 $setters = array();
                 $getters = array();
 
-                foreach ($properties as $name => $type)
-                {
+                foreach ($properties as $name => $type) {
                     $camelized = sfInflector::camelize($name);
                     $collection = 'Doctrine_Collection' == $type;
 

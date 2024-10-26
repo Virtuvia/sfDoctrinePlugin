@@ -96,7 +96,8 @@ class Doctrine_Expression_Pgsql extends Doctrine_Expression_Driver
      * @param string $timestamp2 optional; if given: subtract arguments
      * @return string
      */
-    public function age($timestamp1, $timestamp2 = null) {
+    public function age($timestamp1, $timestamp2 = null)
+    {
         if ( $timestamp2 == null ) {
             return 'AGE(' . $timestamp1 . ')';
         }
@@ -122,7 +123,8 @@ class Doctrine_Expression_Pgsql extends Doctrine_Expression_Driver
      * @param string $text how to the format the output
      * @return string
      */
-    public function to_char($time, $text) {
+    public function to_char($time, $text)
+    {
         return 'TO_CHAR(' . $time . ', ' . $text . ')';
     }
 

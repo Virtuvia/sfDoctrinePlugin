@@ -65,8 +65,7 @@ $methods = array(
     'widgetChoiceTableMethod3'
 );
 
-foreach ($methods as $method)
-{
+foreach ($methods as $method) {
     $widget = new sfWidgetFormDoctrineChoice(array('model' => 'User', 'table_method' => $method));
     $t->is($widget->getChoices(), array(1 => 1));
 }
@@ -106,8 +105,7 @@ $data = array(
 $userForm->bind($data);
 $t->is($userForm->isValid(), true);
 
-if ($userForm->isValid())
-{
+if ($userForm->isValid()) {
     $userForm->save();
 }
 

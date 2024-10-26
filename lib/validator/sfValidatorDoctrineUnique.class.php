@@ -70,25 +70,21 @@ class sfValidatorDoctrineUnique extends sfValidatorSchema
     {
         $originalValues = $value;
         $table = Doctrine_Core::getTable($this->getOption('model'));
-        if (!is_array($this->getOption('column')))
-        {
+        if (!is_array($this->getOption('column'))) {
             $this->setOption('column', array($this->getOption('column')));
         }
 
         //if $value isn't an array, make it one
-        if (!is_array($value))
-        {
+        if (!is_array($value)) {
             //use first column for key
             $columns = $this->getOption('column');
             $value = array($columns[0] => $value);
         }
 
         $q = Doctrine_Core::getTable($this->getOption('model'))->createQuery('a');
-        foreach ($this->getOption('column') as $column)
-        {
+        foreach ($this->getOption('column') as $column) {
             $colName = $table->getColumnName($column);
-            if (!array_key_exists($column, $value))
-            {
+            if (!array_key_exists($column, $value)) {
                 // one of the column has be removed from the form
                 return $originalValues;
             }
@@ -99,15 +95,13 @@ class sfValidatorDoctrineUnique extends sfValidatorSchema
         $object = $q->fetchOne();
 
         // if no object or if we're updating the object, it's ok
-        if (!$object || $this->isUpdate($object, $value))
-        {
+        if (!$object || $this->isUpdate($object, $value)) {
             return $originalValues;
         }
 
         $error = new sfValidatorError($this, 'invalid', array('column' => implode(', ', $this->getOption('column'))));
 
-        if ($this->getOption('throw_global_error'))
-        {
+        if ($this->getOption('throw_global_error')) {
             throw $error;
         }
 
@@ -126,10 +120,8 @@ class sfValidatorDoctrineUnique extends sfValidatorSchema
     protected function isUpdate(Doctrine_Record $object, $values)
     {
         // check each primary key column
-        foreach ($this->getPrimaryKeys() as $column)
-        {
-            if (!isset($values[$column]) || $object->$column != $values[$column])
-            {
+        foreach ($this->getPrimaryKeys() as $column) {
+            if (!isset($values[$column]) || $object->$column != $values[$column]) {
                 return false;
             }
         }
@@ -144,14 +136,12 @@ class sfValidatorDoctrineUnique extends sfValidatorSchema
      */
     protected function getPrimaryKeys()
     {
-        if (null === $this->getOption('primary_key'))
-        {
+        if (null === $this->getOption('primary_key')) {
             $primaryKeys = Doctrine_Core::getTable($this->getOption('model'))->getIdentifier();
             $this->setOption('primary_key', $primaryKeys);
         }
 
-        if (!is_array($this->getOption('primary_key')))
-        {
+        if (!is_array($this->getOption('primary_key'))) {
             $this->setOption('primary_key', array($this->getOption('primary_key')));
         }
 

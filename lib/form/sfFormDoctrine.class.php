@@ -34,14 +34,10 @@ abstract class sfFormDoctrine extends sfFormObject
     public function __construct($object = null, $options = array(), $CSRFSecret = null)
     {
         $class = $this->getModelName();
-        if (!$object)
-        {
+        if (!$object) {
             $this->object = new $class();
-        }
-        else
-        {
-            if (!$object instanceof $class)
-            {
+        } else {
+            if (!$object instanceof $class) {
                 throw new sfException(sprintf('The "%s" form only accepts a "%s" object.', get_class($this), $class));
             }
 
@@ -71,19 +67,16 @@ abstract class sfFormDoctrine extends sfFormObject
      */
     public function embedI18n($cultures, $decorator = null)
     {
-        if (!$this->isI18n())
-        {
+        if (!$this->isI18n()) {
             throw new sfException(sprintf('The model "%s" is not internationalized.', $this->getModelName()));
         }
 
         $class = $this->getI18nFormClass();
-        foreach ($cultures as $culture)
-        {
+        foreach ($cultures as $culture) {
             $i18nObject = $this->getObject()->Translation[$culture];
             $i18n = new $class($i18nObject);
 
-            if (false === $i18nObject->exists())
-            {
+            if (false === $i18nObject->exists()) {
                 unset($i18n[$this->getI18nModelPrimaryKeyName()], $i18n[$this->getI18nModelI18nField()]);
             }
 
@@ -108,13 +101,10 @@ abstract class sfFormDoctrine extends sfFormObject
      */
     public function embedRelation($relationName, $formClass = null, $formArgs = array(), $innerDecorator = null, $decorator = null)
     {
-        if (false !== $pos = stripos($relationName, ' as '))
-        {
+        if (false !== $pos = stripos($relationName, ' as ')) {
             $fieldName = substr($relationName, $pos + 4);
             $relationName = substr($relationName, 0, $pos);
-        }
-        else
-        {
+        } else {
             $fieldName = $relationName;
         }
 
@@ -122,16 +112,12 @@ abstract class sfFormDoctrine extends sfFormObject
 
         $r = new ReflectionClass(null === $formClass ? $relation->getClass().'Form' : $formClass);
 
-        if (Doctrine_Relation::ONE == $relation->getType())
-        {
+        if (Doctrine_Relation::ONE == $relation->getType()) {
             $this->embedForm($fieldName, $r->newInstanceArgs(array_merge(array($this->getObject()->$relationName), $formArgs)), $decorator);
-        }
-        else
-        {
+        } else {
             $subForm = new sfForm();
 
-            foreach ($this->getObject()->$relationName as $index => $childObject)
-            {
+            foreach ($this->getObject()->$relationName as $index => $childObject) {
                 $form = $r->newInstanceArgs(array_merge(array($childObject), $formArgs));
 
                 $subForm->embedForm($index, $form, $innerDecorator);
@@ -166,26 +152,18 @@ abstract class sfFormDoctrine extends sfFormObject
     {
         // see if the user has overridden some column setter
         $valuesToProcess = $values;
-        foreach ($valuesToProcess as $field => $value)
-        {
+        foreach ($valuesToProcess as $field => $value) {
             $method = sprintf('update%sColumn', $this->camelize($field));
 
-            if (method_exists($this, $method))
-            {
-                if (false === $ret = $this->$method($value))
-                {
+            if (method_exists($this, $method)) {
+                if (false === $ret = $this->$method($value)) {
                     unset($values[$field]);
-                }
-                else
-                {
+                } else {
                     $values[$field] = $ret;
                 }
-            }
-            else
-            {
+            } else {
                 // save files
-                if ($this->validatorSchema[$field] instanceof sfValidatorFile)
-                {
+                if ($this->validatorSchema[$field] instanceof sfValidatorFile) {
                     $values[$field] = $this->processUploadedFile($field, null, $valuesToProcess);
                 }
             }
@@ -233,8 +211,7 @@ abstract class sfFormDoctrine extends sfFormObject
     {
         $primaryKey = $this->getObject()->getTable()->getIdentifier();
 
-        if (is_array($primaryKey))
-        {
+        if (is_array($primaryKey)) {
             throw new sfException(sprintf('The model "%s" has composite primary keys and cannot be used with i18n..', $this->getModelName()));
         }
 
@@ -259,19 +236,14 @@ abstract class sfFormDoctrine extends sfFormObject
         $defaults = $this->getDefaults();
 
         // update defaults for the main object
-        if ($this->isNew())
-        {
+        if ($this->isNew()) {
             $defaults = $defaults + $this->getObject()->toArray(false);
-        }
-        else
-        {
+        } else {
             $defaults = $this->getObject()->toArray(false) + $defaults;
         }
 
-        foreach ($this->embeddedForms as $name => $form)
-        {
-            if ($form instanceof sfFormDoctrine)
-            {
+        foreach ($this->embeddedForms as $name => $form) {
+            if ($form instanceof sfFormDoctrine) {
                 $form->updateDefaultsFromObject();
                 $defaults[$name] = $form->getDefaults();
             }
@@ -291,25 +263,21 @@ abstract class sfFormDoctrine extends sfFormObject
      */
     protected function processUploadedFile($field, $filename = null, $values = null)
     {
-        if (!$this->validatorSchema[$field] instanceof sfValidatorFile)
-        {
+        if (!$this->validatorSchema[$field] instanceof sfValidatorFile) {
             throw new LogicException(sprintf('You cannot save the current file for field "%s" as the field is not a file.', $field));
         }
 
-        if (null === $values)
-        {
+        if (null === $values) {
             $values = $this->values;
         }
 
-        if (isset($values[$field.'_delete']) && $values[$field.'_delete'])
-        {
+        if (isset($values[$field.'_delete']) && $values[$field.'_delete']) {
             $this->removeFile($field);
 
             return '';
         }
 
-        if (!$values[$field])
-        {
+        if (!$values[$field]) {
             // this is needed if the form is embedded, in which case
             // the parent form has already changed the value of the field
             $oldValues = $this->getObject()->getModified(true, false);
@@ -318,8 +286,7 @@ abstract class sfFormDoctrine extends sfFormObject
         }
 
         // we need the base directory
-        if (!$this->validatorSchema[$field]->getOption('path'))
-        {
+        if (!$this->validatorSchema[$field]->getOption('path')) {
             return $values[$field];
         }
 
@@ -335,14 +302,12 @@ abstract class sfFormDoctrine extends sfFormObject
      */
     protected function removeFile($field)
     {
-        if (!$this->validatorSchema[$field] instanceof sfValidatorFile)
-        {
+        if (!$this->validatorSchema[$field] instanceof sfValidatorFile) {
             throw new LogicException(sprintf('You cannot remove the current file for field "%s" as the field is not a file.', $field));
         }
 
         $directory = $this->validatorSchema[$field]->getOption('path');
-        if ($directory && is_file($file = $directory.'/'.$this->getObject()->$field))
-        {
+        if ($directory && is_file($file = $directory.'/'.$this->getObject()->$field)) {
             unlink($file);
         }
     }
@@ -358,37 +323,26 @@ abstract class sfFormDoctrine extends sfFormObject
      */
     protected function saveFile($field, $filename = null, sfValidatedFile $file = null)
     {
-        if (!$this->validatorSchema[$field] instanceof sfValidatorFile)
-        {
+        if (!$this->validatorSchema[$field] instanceof sfValidatorFile) {
             throw new LogicException(sprintf('You cannot save the current file for field "%s" as the field is not a file.', $field));
         }
 
-        if (null === $file)
-        {
+        if (null === $file) {
             $file = $this->getValue($field);
         }
 
         $method = sprintf('generate%sFilename', $this->camelize($field));
 
-        if (null !== $filename)
-        {
+        if (null !== $filename) {
             return $file->save($filename);
-        }
-        else if (method_exists($this, $method))
-        {
+        } else if (method_exists($this, $method)) {
             return $file->save($this->$method($file));
-        }
-        else if (method_exists($this->getObject(), $method))
-        {
+        } else if (method_exists($this->getObject(), $method)) {
             return $file->save($this->getObject()->$method($file));
-        }
-        else if (method_exists($this->getObject(), $method = sprintf('generate%sFilename', $field)))
-        {
+        } else if (method_exists($this->getObject(), $method = sprintf('generate%sFilename', $field))) {
             // this non-camelized method name has been deprecated
             return $file->save($this->getObject()->$method($file));
-        }
-        else
-        {
+        } else {
             return $file->save();
         }
     }
@@ -413,8 +367,7 @@ abstract class sfFormDoctrine extends sfFormObject
     {
         $table = Doctrine_Core::getTable($this->getModelName());
 
-        if (!$table->hasRelation($alias))
-        {
+        if (!$table->hasRelation($alias)) {
             throw new InvalidArgumentException(sprintf('The "%s" model has no "%s" relation.', $this->getModelName(), $alias));
         }
 

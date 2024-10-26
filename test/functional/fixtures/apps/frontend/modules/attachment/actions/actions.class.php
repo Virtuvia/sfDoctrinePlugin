@@ -27,8 +27,7 @@ class attachmentActions extends sfActions
                 $request->getParameter($this->form->getName()),
                 $request->getFiles($this->form->getName())
             )
-        )
-        {
+        ) {
             return sfView::SUCCESS;
         }
 
@@ -48,8 +47,7 @@ class attachmentActions extends sfActions
                 $request->getParameter($this->form->getName()),
                 $request->getFiles($this->form->getName())
             )
-        )
-        {
+        ) {
             return sfView::SUCCESS;
         }
 

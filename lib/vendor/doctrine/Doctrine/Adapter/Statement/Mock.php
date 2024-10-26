@@ -69,7 +69,8 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      * @return boolean              Returns TRUE on success or FALSE on failure
      */
     public function bindColumn($column, $param, $type = null)
-    { }
+    {
+    }
 
     /**
      * bindValue
@@ -87,7 +88,8 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      * @return boolean              Returns TRUE on success or FALSE on failure.
      */
     public function bindValue($param, $value, $type = null)
-    { }
+    {
+    }
 
     /**
      * bindParam
@@ -340,7 +342,8 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      *          pdo_type                    The type of this column as represented by the PDO::PARAM_* constants.
      */
     public function getColumnMeta($column)
-    { }
+    {
+    }
 
     /**
      * getAttribute
@@ -352,7 +355,8 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      * @return mixed                        the attribute value
      */
     public function getAttribute($attribute)
-    { }
+    {
+    }
 
     /**
      * setAttribute
@@ -364,7 +368,8 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      * @return boolean                      Returns TRUE on success or FALSE on failure.
      */
     public function setAttribute($attribute, $value)
-    { }
+    {
+    }
 
     /**
      * setFetchMode
@@ -375,5 +380,6 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      * @return boolean                      Returns 1 on success or FALSE on failure.
      */
     public function setFetchMode($mode, $arg1 = null, $arg2 = null)
-    { }
+    {
+    }
 }

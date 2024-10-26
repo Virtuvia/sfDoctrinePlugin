@@ -74,71 +74,50 @@ EOF;
         $migration = new Doctrine_Migration($config['migrations_path']);
         $from = $migration->getCurrentVersion();
 
-        if (is_numeric($arguments['version']))
-        {
+        if (is_numeric($arguments['version'])) {
             $version = $arguments['version'];
-        }
-        else if ($options['up'])
-        {
+        } else if ($options['up']) {
             $version = $from + 1;
-        }
-        else if ($options['down'])
-        {
+        } else if ($options['down']) {
             $version = $from - 1;
-        }
-        else
-        {
+        } else {
             $version = $migration->getLatestVersion();
         }
 
-        if ($from == $version)
-        {
+        if ($from == $version) {
             $this->logSection('doctrine', sprintf('Already at migration version %s', $version));
             return;
         }
 
         $this->logSection('doctrine', sprintf('Migrating from version %s to %s%s', $from, $version, $options['dry-run'] ? ' (dry run)' : ''));
-        try
-        {
+        try {
             $migration_classes = $migration->getMigrationClasses();
-            if($version < $from)
-            {
-                for($i = (int)$from - 1; $i >= (int)$version; $i--)
-                {
+            if($version < $from) {
+                for($i = (int)$from - 1; $i >= (int)$version; $i--) {
                     $this->logSection('doctrine', 'executing migration : '.$i .', class: '.$migration_classes[$i]);
                     $migration->migrate($i, $options['dry-run']);
                 }
-            }
-            else
-            {
-                for($i = (int)$from + 1; $i <= (int)$version; $i++)
-                {
+            } else {
+                for($i = (int)$from + 1; $i <= (int)$version; $i++) {
                     $this->logSection('doctrine', 'executing migration : '.$i.', class: '.$migration_classes[$i]);
                     $migration->migrate($i, $options['dry-run']);
                 }
             }
-        }
-        catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
         }
 
         // render errors
-        if ($migration->hasErrors() || isset($exception))
-        {
+        if ($migration->hasErrors() || isset($exception)) {
             $errors = $migration->getErrors();
             if (isset($exception)) {
                 array_unshift($errors, $exception);
             }
-            if ($this->commandApplication && $this->commandApplication->withTrace())
-            {
+            if ($this->commandApplication && $this->commandApplication->withTrace()) {
                 $this->logSection('doctrine', 'The following errors occurred:');
-                foreach ($migration->getErrors() as $error)
-                {
+                foreach ($migration->getErrors() as $error) {
                     $this->commandApplication->renderException($error);
                 }
-            }
-            else
-            {
+            } else {
                 $this->logBlock(array_merge(
                     array('The following errors occurred:', ''),
                     array_map(function ($e) { return ' - '.$e->getMessage(); }, $migration->getErrors())

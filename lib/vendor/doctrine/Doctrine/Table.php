@@ -308,7 +308,8 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * @return void
      */
     public function construct()
-    { }
+    {
+    }
 
     /**
      * Initializes the in-memory table definition.
@@ -1334,8 +1335,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
         }
 
         // extract column name & field name
-        if (stripos($name, ' as '))
-        {
+        if (stripos($name, ' as ')) {
             if (strpos($name, ' as ')) {
                 $parts = explode(' as ', $name);
             } else {
@@ -1956,8 +1956,9 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
 
             $this->_data = $this->_conn->execute($query, $params)->fetch(PDO::FETCH_ASSOC);
 
-            if ($this->_data === false)
+            if ($this->_data === false) {
                 return false;
+            }
         }
         return $this->getRecord();
     }
@@ -2159,8 +2160,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
         $validator = Doctrine_Validator::getValidator('unique');
         $validator->invoker = $record;
 
-        foreach ($this->_uniques as $unique)
-        {
+        foreach ($this->_uniques as $unique) {
             list($fields, $options) = $unique;
             $validator->args = $options;
             $validator->field = $fields;
@@ -2754,7 +2754,9 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     private function isGreaterThan($a, $b)
     {
-        if (strlen($a) == strlen($b)) return 0;
+        if (strlen($a) == strlen($b)) {
+            return 0;
+        }
         return (strlen($a) > strlen($b)) ? 1 : -1;
     }
 
@@ -2861,8 +2863,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
 
             $fieldName = $this->_resolveFindByFieldName($by);
             $count = count(explode('Or', $by)) + (count(explode('And', $by)) - 1);
-            if (count($arguments) > $count)
-            {
+            if (count($arguments) > $count) {
                 $hydrationMode = end($arguments);
                 unset($arguments[count($arguments) - 1]);
             } else {
@@ -2886,7 +2887,8 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
         // Forward the method on to the record instance and see if it has anything or one of its behaviors
         try {
             return call_user_func_array(array($this->getRecordInstance(), $method . 'TableProxy'), $arguments);
-        } catch (Doctrine_Record_UnknownPropertyException $e) {}
+        } catch (Doctrine_Record_UnknownPropertyException $e) {
+        }
 
         throw new Doctrine_Table_Exception(sprintf('Unknown method %s::%s', get_class($this), $method));
     }

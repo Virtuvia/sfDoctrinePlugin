@@ -57,7 +57,8 @@ class Doctrine_Connection_Profiler implements Doctrine_Overloadable, IteratorAgg
     /**
      * constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
 
     }
 
@@ -67,7 +68,8 @@ class Doctrine_Connection_Profiler implements Doctrine_Overloadable, IteratorAgg
      * @param integer $filter
      * @return boolean
      */
-    public function setFilterQueryType() {
+    public function setFilterQueryType()
+    {
 
     }
     /**
@@ -156,8 +158,7 @@ class Doctrine_Connection_Profiler implements Doctrine_Overloadable, IteratorAgg
     public function pop()
     {
         $event = array_pop($this->events);
-        if ($event !== null)
-        {
+        if ($event !== null) {
             unset($this->eventSequences[$event->getSequence()]);
         }
         return $event;

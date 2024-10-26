@@ -27,8 +27,7 @@ class sfDoctrineRoute extends sfObjectRoute
 
     public function setListQuery(Doctrine_Query $query)
     {
-        if (!$this->isBound())
-        {
+        if (!$this->isBound()) {
             throw new LogicException('The route is not bound.');
         }
 
@@ -41,18 +40,15 @@ class sfDoctrineRoute extends sfObjectRoute
 
         // If query returned Doctrine_Collection with results inside then we
         // need to return the first Doctrine_Record
-        if ($results instanceof Doctrine_Collection)
-        {
-            if (count($results))
-            {
+        if ($results instanceof Doctrine_Collection) {
+            if (count($results)) {
                 $results = $results->getFirst();
             } else {
                 $results = null;
             }
         }
         // If an object is returned then lets return it otherwise return null
-        else if(!is_object($results))
-        {
+        else if(!is_object($results)) {
             $results = null;
         }
 
@@ -65,42 +61,30 @@ class sfDoctrineRoute extends sfObjectRoute
 
         $variables = array();
         $values = array();
-        foreach($this->getRealVariables() as $variable)
-        {
-            if($tableModel->hasColumn($tableModel->getColumnName($variable)))
-            {
+        foreach($this->getRealVariables() as $variable) {
+            if($tableModel->hasColumn($tableModel->getColumnName($variable))) {
                 $variables[] = $variable;
                 $values[$variable] = $parameters[$variable];
             }
         }
 
-        if (!isset($this->options['method']))
-        {
-            if (null === $this->query)
-            {
+        if (!isset($this->options['method'])) {
+            if (null === $this->query) {
                 $q = $tableModel->createQuery('a');
-                foreach ($values as $variable => $value)
-                {
+                foreach ($values as $variable => $value) {
                     $fieldName = $tableModel->getFieldName($variable);
                     $q->andWhere('a.'. $fieldName . ' = ?', $parameters[$variable]);
                 }
-            }
-            else
-            {
+            } else {
                 $q = $this->query;
             }
-            if (isset($this->options['method_for_query']))
-            {
+            if (isset($this->options['method_for_query'])) {
                 $method = $this->options['method_for_query'];
                 $results = $tableModel->$method($q);
-            }
-            else
-            {
+            } else {
                 $results = $q->execute();
             }
-        }
-        else
-        {
+        } else {
             $method = $this->options['method'];
             $results = $tableModel->$method($this->filterParameters($parameters));
         }
@@ -108,8 +92,7 @@ class sfDoctrineRoute extends sfObjectRoute
         // If query returned a Doctrine_Record instance instead of a
         // Doctrine_Collection then we need to create a new Doctrine_Collection with
         // one element inside and return that
-        if ($results instanceof Doctrine_Record)
-        {
+        if ($results instanceof Doctrine_Record) {
             $obj = $results;
             $results = new Doctrine_Collection($obj->getTable());
             $results[] = $obj;
@@ -120,21 +103,20 @@ class sfDoctrineRoute extends sfObjectRoute
 
     protected function doConvertObjectToArray($object)
     {
-        if (isset($this->options['convert']) || method_exists($object, 'toParams'))
-        {
+        if (isset($this->options['convert']) || method_exists($object, 'toParams')) {
             return parent::doConvertObjectToArray($object);
         }
 
         $parameters = array();
-        foreach ($this->getRealVariables() as $variable)
-        {
+        foreach ($this->getRealVariables() as $variable) {
             try {
                 $parameters[$variable] = $object->$variable;
             } catch (Exception $e) {
                 try {
                     $method = 'get'.sfInflector::camelize($variable);
                     $parameters[$variable] = $object->$method();
-                } catch (Exception $e) {}
+                } catch (Exception $e) {
+                }
             }
         }
 

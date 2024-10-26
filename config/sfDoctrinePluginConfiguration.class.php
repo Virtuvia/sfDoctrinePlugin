@@ -25,13 +25,11 @@ class sfDoctrinePluginConfiguration extends sfPluginConfiguration
     {
         sfConfig::set('sf_orm', 'doctrine');
 
-        if (!sfConfig::get('sf_admin_module_web_dir'))
-        {
+        if (!sfConfig::get('sf_admin_module_web_dir')) {
             sfConfig::set('sf_admin_module_web_dir', '/sfDoctrinePlugin');
         }
 
-        if (sfConfig::get('sf_web_debug'))
-        {
+        if (sfConfig::get('sf_web_debug')) {
             require_once dirname(__FILE__).'/../lib/debug/sfWebDebugPanelDoctrine.class.php';
 
             $this->dispatcher->connect('debug.web.load_panels', array('sfWebDebugPanelDoctrine', 'listenToAddPanelEvent'));
@@ -46,8 +44,7 @@ class sfDoctrinePluginConfiguration extends sfPluginConfiguration
         // apply default attributes
         $manager->setDefaultAttributes();
 
-        if (method_exists($this->configuration, 'configureDoctrine'))
-        {
+        if (method_exists($this->configuration, 'configureDoctrine')) {
             $this->configuration->configureDoctrine($manager);
         }
 

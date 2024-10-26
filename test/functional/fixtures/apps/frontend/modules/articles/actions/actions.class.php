@@ -44,8 +44,7 @@ class articlesActions extends sfActions
         $this->form = $this->getArticleForm($request->getParameter('id'));
 
         $this->form->bind($request->getParameter('article'));
-        if ($this->form->isValid())
-        {
+        if ($this->form->isValid()) {
             $article = $this->form->save();
 
             $this->redirect('articles/edit?id='.$article->get('id'));
@@ -77,12 +76,9 @@ class articlesActions extends sfActions
     {
         $article = $this->getArticleById($id);
 
-        if ($article instanceof Article)
-        {
+        if ($article instanceof Article) {
             return new ArticleForm($article);
-        }
-        else
-        {
+        } else {
             return new ArticleForm();
         }
     }

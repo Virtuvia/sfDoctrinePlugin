@@ -63,15 +63,11 @@ EOF;
 
         $environment = $this->configuration instanceof sfApplicationConfiguration ? $this->configuration->getEnvironment() : 'all';
 
-        foreach ($databases as $name => $database)
-        {
+        foreach ($databases as $name => $database) {
             $this->logSection('doctrine', sprintf('Creating "%s" environment "%s" database', $environment, $name));
-            try
-            {
+            try {
                 $database->getDoctrineConnection()->createDatabase();
-            }
-            catch (Exception $e)
-            {
+            } catch (Exception $e) {
                 $this->logSection('doctrine', $e->getMessage(), null, 'ERROR');
             }
         }

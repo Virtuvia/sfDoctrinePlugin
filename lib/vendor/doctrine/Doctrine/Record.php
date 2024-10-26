@@ -287,7 +287,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * @return void
      */
     public function setUp()
-    { }
+    {
+    }
     /**
      * construct
      * Empty template method to provide concrete Record classes with the possibility
@@ -296,7 +297,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * @return void
      */
     public function construct()
-    { }
+    {
+    }
 
     /**
      * @see $_oid;
@@ -434,7 +436,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * validations that are neccessary.
      */
     protected function validate()
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
@@ -442,7 +445,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * updated.
      */
     protected function validateOnUpdate()
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
@@ -450,63 +454,72 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * inserted into the data store the first time.
      */
     protected function validateOnInsert()
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
      * to hook into the serializing procedure.
      */
     public function preSerialize($event)
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
      * to hook into the serializing procedure.
      */
     public function postSerialize($event)
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
      * to hook into the serializing procedure.
      */
     public function preUnserialize($event)
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
      * to hook into the serializing procedure.
      */
     public function postUnserialize($event)
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
      * to hook into the saving procedure.
      */
     public function preSave($event)
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
      * to hook into the saving procedure.
      */
     public function postSave($event)
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
      * to hook into the deletion procedure.
      */
     public function preDelete($event)
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
      * to hook into the deletion procedure.
      */
     public function postDelete($event)
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
@@ -514,7 +527,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * updated.
      */
     public function preUpdate($event)
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
@@ -522,7 +536,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * updated.
      */
     public function postUpdate($event)
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
@@ -530,7 +545,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * inserted into the data store the first time.
      */
     public function preInsert($event)
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
@@ -538,7 +554,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * inserted into the data store the first time.
      */
     public function postInsert($event)
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide concrete Record classes with the possibility
@@ -546,48 +563,55 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * validating it.
      */
     public function preValidate($event)
-    { }
+    {
+    }
     /**
      * Empty template method to provide concrete Record classes with the possibility
      * to hook into the validation procedure.
      */
     public function postValidate($event)
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide Record classes with the ability to alter DQL select
      * queries at runtime
      */
     public function preDqlSelect($event)
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide Record classes with the ability to alter DQL update
      * queries at runtime
      */
     public function preDqlUpdate($event)
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide Record classes with the ability to alter DQL delete
      * queries at runtime
      */
     public function preDqlDelete($event)
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide Record classes with the ability to alter hydration
      * before it runs
      */
     public function preHydrate($event)
-    { }
+    {
+    }
 
     /**
      * Empty template method to provide Record classes with the ability to alter hydration
      * after it runs
      */
     public function postHydrate($event)
-    { }
+    {
+    }
 
     /**
      * Get the record error stack as a human readable string.
@@ -1246,7 +1270,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
                 try {
                     $value = $filter->filterGet($this, $fieldName);
                     $success = true;
-                } catch (Doctrine_Exception $e) {}
+                } catch (Doctrine_Exception $e) {
+                }
             }
             if ($success) {
                 return $value;
@@ -1350,7 +1375,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
                     try {
                         $value = $filter->filterSet($this, $fieldName, $value);
                         $success = true;
-                    } catch (Doctrine_Exception $e) {}
+                    } catch (Doctrine_Exception $e) {
+                    }
                 }
                 if (!$success) {
                     throw $e;
@@ -1588,7 +1614,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * @param Doctrine_Connection $conn                 optional connection parameter
      * @return TRUE if the record was saved sucessfully without errors, FALSE otherwise.
      */
-    public function trySave(Doctrine_Connection $conn = null) {
+    public function trySave(Doctrine_Connection $conn = null)
+    {
         try {
             $this->save($conn);
             return true;
@@ -1860,7 +1887,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
                     if (is_callable(array($this, $method))) {
                         $this->$method($value);
                     }
-                } catch (Doctrine_Record_Exception $e) {}
+                } catch (Doctrine_Record_Exception $e) {
+                }
             }
         }
 

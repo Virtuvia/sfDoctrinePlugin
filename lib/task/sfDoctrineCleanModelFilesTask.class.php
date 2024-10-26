@@ -54,23 +54,19 @@ EOF;
         $yamlSchema = $this->getYamlSchema($config['yaml_schema_path']);
 
         // remove any models present in the filesystem but not in the yaml schema
-        if ($modelsToRemove = array_diff($this->getFileModels($config['models_path']), array_keys($yamlSchema)))
-        {
+        if ($modelsToRemove = array_diff($this->getFileModels($config['models_path']), array_keys($yamlSchema))) {
             $deleteModelFiles->run($modelsToRemove, array('no-confirmation' => $options['no-confirmation']));
             $changed = true;
         }
 
         // remove form classes whose generation is disabled
-        foreach ($yamlSchema as $model => $definition)
-        {
-            if (isset($definition['options']['symfony']['form']) && !$definition['options']['symfony']['form'] && class_exists($model.'Form'))
-            {
+        foreach ($yamlSchema as $model => $definition) {
+            if (isset($definition['options']['symfony']['form']) && !$definition['options']['symfony']['form'] && class_exists($model.'Form')) {
                 $deleteModelFiles->run(array($model), array('suffix' => array('Form'), 'no-confirmation' => $options['no-confirmation']));
                 $changed = true;
             }
 
-            if (isset($definition['options']['symfony']['filter']) && !$definition['options']['symfony']['filter'] && class_exists($model.'FormFilter'))
-            {
+            if (isset($definition['options']['symfony']['filter']) && !$definition['options']['symfony']['filter'] && class_exists($model.'FormFilter')) {
                 $deleteModelFiles->run(array($model), array('suffix' => array('FormFilter'), 'no-confirmation' => $options['no-confirmation']));
                 $changed = true;
             }

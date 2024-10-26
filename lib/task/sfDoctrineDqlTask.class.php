@@ -74,37 +74,29 @@ EOF;
         $this->logSection('doctrine', 'executing dql query');
         $this->log(sprintf('DQL: %s', $dql));
 
-        if ($options['show-sql'])
-        {
+        if ($options['show-sql']) {
             $this->log(sprintf('SQL: %s', $q->getSqlQuery($arguments['parameter'])));
         }
 
         $count = $q->count($arguments['parameter']);
 
-        if ($count)
-        {
-            if (!$options['table'])
-            {
+        if ($count) {
+            if (!$options['table']) {
                 $results = $q->fetchArray($arguments['parameter']);
 
                 $this->log(array(
                     sprintf('found %s results', number_format($count)),
                     sfYaml::dump($results, 4),
                 ));
-            }
-            else
-            {
+            } else {
                 $results = $q->execute($arguments['parameter'], Doctrine_Core::HYDRATE_SCALAR);
 
                 $headers = array();
 
                 // calculate lengths
-                foreach ($results as $result)
-                {
-                    foreach ($result as $field => $value)
-                    {
-                        if (!isset($headers[$field]))
-                        {
+                foreach ($results as $result) {
+                    foreach ($result as $field => $value) {
+                        if (!isset($headers[$field])) {
                             $headers[$field] = 0;
                         }
 
@@ -116,10 +108,8 @@ EOF;
                 $hdr = '|';
                 $div = '+';
 
-                foreach ($headers as $field => & $length)
-                {
-                    if ($length < strlen($field))
-                    {
+                foreach ($headers as $field => & $length) {
+                    if ($length < strlen($field)) {
                         $length = strlen($field);
                     }
 
@@ -130,11 +120,9 @@ EOF;
                 $this->log(array($div, $hdr, $div));
 
                 // print results
-                foreach ($results as $result)
-                {
+                foreach ($results as $result) {
                     $line = '|';
-                    foreach ($result as $field => $value)
-                    {
+                    foreach ($result as $field => $value) {
                         $line .= ' '.str_pad($this->renderValue($value), $headers[$field]).' |';
                     }
                     $this->log($line);
@@ -143,22 +131,17 @@ EOF;
                 $this->log($div);
 
                 // find profiler
-                if ($profiler = $q->getConnection()->getListener()->get('symfony_profiler'))
-                {
+                if ($profiler = $q->getConnection()->getListener()->get('symfony_profiler')) {
                     $events = $profiler->getQueryExecutionEvents();
                     $event = array_pop($events);
                     $this->log(sprintf('%s results (%s sec)', number_format($count), number_format($event->getElapsedSecs(), 2)));
-                }
-                else
-                {
+                } else {
                     $this->log(sprintf('%s results', number_format($count)));
                 }
 
                 $this->log('');
             }
-        }
-        else
-        {
+        } else {
             $this->logSection('doctrine', 'no results found');
         }
     }

@@ -60,8 +60,7 @@ class sfDoctrinePager extends sfPager
      */
     public function __unserialize(array $data): void
     {
-        foreach ($data as $name => $values)
-        {
+        foreach ($data as $name => $values) {
             $this->$name = $values;
         }
 
@@ -102,12 +101,9 @@ class sfDoctrinePager extends sfPager
           ->limit(0)
         ;
 
-        if (0 == $this->getPage() || 0 == $this->getMaxPerPage() || 0 == $this->getNbResults())
-        {
+        if (0 == $this->getPage() || 0 == $this->getMaxPerPage() || 0 == $this->getNbResults()) {
             $this->setLastPage(0);
-        }
-        else
-        {
+        } else {
             $offset = ($this->getPage() - 1) * $this->getMaxPerPage();
 
             $this->setLastPage(ceil($this->getNbResults() / $this->getMaxPerPage()));
@@ -126,14 +122,11 @@ class sfDoctrinePager extends sfPager
      */
     public function getQuery()
     {
-        if (!$this->tableMethodCalled && $this->tableMethodName)
-        {
+        if (!$this->tableMethodCalled && $this->tableMethodName) {
             $method = $this->tableMethodName;
             $this->query = Doctrine_Core::getTable($this->getClass())->$method($this->query);
             $this->tableMethodCalled = true;
-        }
-        else if (!$this->query)
-        {
+        } else if (!$this->query) {
             $this->query = Doctrine_Core::getTable($this->getClass())->createQuery();
         }
 
@@ -189,8 +182,7 @@ class sfDoctrinePager extends sfPager
     {
         parent::initializeIterator();
 
-        if ($this->results instanceof Doctrine_Collection)
-        {
+        if ($this->results instanceof Doctrine_Collection) {
             $this->results = $this->results->getData();
         }
     }

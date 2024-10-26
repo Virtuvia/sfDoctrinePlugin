@@ -64,8 +64,7 @@ class Doctrine_Parser_Xml extends Doctrine_Parser
             $xml = new SimpleXmlElement("<?xml version=\"1.0\" encoding=\"utf-8\"?><$rootNodeName/>");
         }
 
-        foreach($array as $key => $value)
-        {
+        foreach($array as $key => $value) {
             $key = preg_replace('/[^a-z]/i', '', $key);
 
             if (is_array($value) && ! empty($value)) {

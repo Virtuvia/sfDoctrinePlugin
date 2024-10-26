@@ -34,4 +34,5 @@
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
 class Doctrine_Locking_Exception extends Doctrine_Exception
-{}
+{
+}

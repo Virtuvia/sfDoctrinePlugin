@@ -30,7 +30,8 @@
  * @version     $Revision: 7490 $
  * @author      Joe Simms <joe.simms@websites4.com>
  */
-interface Doctrine_Node_Interface {
+interface Doctrine_Node_Interface
+{
 
     /**
      * test if node has previous sibling

@@ -14,8 +14,7 @@ require_once(dirname(__FILE__).'/../bootstrap/functional.php');
 $t = new lime_test(23);
 
 $total = 50;
-for ($i = 0; $i < $total; $i++)
-{
+for ($i = 0; $i < $total; $i++) {
     $author = new Author();
     $author->name = 'Author #' . $i;
     $author->save();
@@ -74,7 +73,6 @@ $t->diag('iterator interface');
 
 $pager = new sfDoctrinePager('Author', 10);
 $pager->init();
-foreach ($pager as $author)
-{
+foreach ($pager as $author) {
     $t->isa_ok($author, 'Author');
 }

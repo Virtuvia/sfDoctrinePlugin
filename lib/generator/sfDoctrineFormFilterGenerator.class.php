@@ -43,13 +43,11 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
     {
         $this->params = $params;
 
-        if (!isset($this->params['model_dir_name']))
-        {
+        if (!isset($this->params['model_dir_name'])) {
             $this->params['model_dir_name'] = 'model';
         }
 
-        if (!isset($this->params['filter_dir_name']))
-        {
+        if (!isset($this->params['filter_dir_name'])) {
             $this->params['filter_dir_name'] = 'filter';
         }
 
@@ -57,10 +55,8 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
 
         // create the project base class for all forms
         $file = sfConfig::get('sf_lib_dir').'/filter/doctrine/BaseFormFilterDoctrine.class.php';
-        if (!file_exists($file))
-        {
-            if (!is_dir($directory = dirname($file)))
-            {
+        if (!file_exists($file)) {
+            if (!is_dir($directory = dirname($file))) {
                 mkdir($directory, 0777, true);
             }
 
@@ -70,43 +66,35 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
         $pluginPaths = $this->generatorManager->getConfiguration()->getAllPluginPaths();
 
         // create a form class for every Doctrine class
-        foreach ($models as $model)
-        {
+        foreach ($models as $model) {
             $this->table = Doctrine_Core::getTable($model);
             $this->modelName = $model;
 
             $baseDir = sfConfig::get('sf_lib_dir') . '/filter/doctrine';
 
             $isPluginModel = $this->isPluginModel($model);
-            if ($isPluginModel)
-            {
+            if ($isPluginModel) {
                 $pluginName = $this->getPluginNameForModel($model);
                 $baseDir .= '/' . $pluginName;
             }
 
-            if (!is_dir($baseDir.'/base'))
-            {
+            if (!is_dir($baseDir.'/base')) {
                 mkdir($baseDir.'/base', 0777, true);
             }
 
             file_put_contents($baseDir.'/base/Base'.$model.'FormFilter.class.php', $this->evalTemplate(null === $this->getParentModel() ? 'sfDoctrineFormFilterGeneratedTemplate.php' : 'sfDoctrineFormFilterGeneratedInheritanceTemplate.php'));
 
-            if ($isPluginModel)
-            {
+            if ($isPluginModel) {
                 $pluginBaseDir = $pluginPaths[$pluginName].'/lib/filter/doctrine';
-                if (!file_exists($classFile = $pluginBaseDir.'/Plugin'.$model.'FormFilter.class.php'))
-                {
-                    if (!is_dir($pluginBaseDir))
-                    {
+                if (!file_exists($classFile = $pluginBaseDir.'/Plugin'.$model.'FormFilter.class.php')) {
+                    if (!is_dir($pluginBaseDir)) {
                         mkdir($pluginBaseDir, 0777, true);
                     }
                     file_put_contents($classFile, $this->evalTemplate('sfDoctrineFormFilterPluginTemplate.php'));
                 }
             }
-            if (!file_exists($classFile = $baseDir.'/'.$model.'FormFilter.class.php'))
-            {
-                if ($isPluginModel)
-                {
+            if (!file_exists($classFile = $baseDir.'/'.$model.'FormFilter.class.php')) {
+                if ($isPluginModel) {
                     file_put_contents($classFile, $this->evalTemplate('sfDoctrinePluginFormFilterTemplate.php'));
                 } else {
                     file_put_contents($classFile, $this->evalTemplate('sfDoctrineFormFilterTemplate.php'));
@@ -123,8 +111,7 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
      */
     public function getWidgetClassForColumn($column)
     {
-        switch ($column->getDoctrineType())
-        {
+        switch ($column->getDoctrineType()) {
             case 'boolean':
                 $name = 'Choice';
                 break;
@@ -140,8 +127,7 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
                 $name = 'FilterInput';
         }
 
-        if ($column->isForeignKey())
-        {
+        if ($column->isForeignKey()) {
             $name = 'DoctrineChoice';
         }
 
@@ -159,8 +145,7 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
         $options = array();
 
         $withEmpty = $column->isNotNull() && !$column->isForeignKey() ? array("'with_empty' => false") : array();
-        switch ($column->getDoctrineType())
-        {
+        switch ($column->getDoctrineType()) {
             case 'boolean':
                 $options[] = "'choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no')";
                 break;
@@ -180,8 +165,7 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
                 $options = array_merge($options, $withEmpty);
         }
 
-        if ($column->isForeignKey())
-        {
+        if ($column->isForeignKey()) {
             $options[] = sprintf('\'model\' => $this->getRelatedModelName(\'%s\'), \'add_empty\' => true', $column->getRelationKey('alias'));
         }
 
@@ -196,8 +180,7 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
      */
     public function getValidatorClassForColumn($column)
     {
-        switch ($column->getDoctrineType())
-        {
+        switch ($column->getDoctrineType()) {
             case 'boolean':
                 $name = 'Choice';
                 break;
@@ -220,8 +203,7 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
                 $name = 'Pass';
         }
 
-        if ($column->isPrimarykey() || $column->isForeignKey())
-        {
+        if ($column->isPrimarykey() || $column->isForeignKey()) {
             $name = 'DoctrineChoice';
         }
 
@@ -238,27 +220,19 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
     {
         $options = array('\'required\' => false');
 
-        if ($column->isForeignKey())
-        {
+        if ($column->isForeignKey()) {
             $columns = $column->getForeignTable()->getColumns();
-            foreach ($columns as $name => $col)
-            {
-                if (isset($col['primary']) && $col['primary'])
-                {
+            foreach ($columns as $name => $col) {
+                if (isset($col['primary']) && $col['primary']) {
                     break;
                 }
             }
 
             $options[] = sprintf('\'model\' => $this->getRelatedModelName(\'%s\'), \'column\' => \'%s\'', $column->getRelationKey('alias'), $column->getForeignTable()->getFieldName($name));
-        }
-        else if ($column->isPrimaryKey())
-        {
+        } else if ($column->isPrimaryKey()) {
             $options[] = sprintf('\'model\' => \'%s\', \'column\' => \'%s\'', $this->table->getOption('name'), $column->getFieldName());
-        }
-        else
-        {
-            switch ($column->getDoctrineType())
-            {
+        } else {
+            switch ($column->getDoctrineType()) {
                 case 'boolean':
                     $options[] = "'choices' => array('', 1, 0)";
                     break;
@@ -283,8 +257,7 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
     {
         $format = 'new %s(%s)';
 
-        if (in_array($class = $this->getValidatorClassForColumn($column), array('sfValidatorInteger', 'sfValidatorNumber')))
-        {
+        if (in_array($class = $this->getValidatorClassForColumn($column), array('sfValidatorInteger', 'sfValidatorNumber'))) {
             $format = 'new sfValidatorSchemaFilter(\'text\', new %s(%s))';
         }
 
@@ -293,13 +266,11 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
 
     public function getType($column)
     {
-        if ($column->isForeignKey())
-        {
+        if ($column->isForeignKey()) {
             return 'ForeignKey';
         }
 
-        switch ($column->getDoctrineType())
-        {
+        switch ($column->getDoctrineType()) {
             case 'enum':
                 return 'Enum';
             case 'boolean':
@@ -340,18 +311,15 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
      */
     protected function filterModels($models)
     {
-        foreach ($models as $key => $model)
-        {
+        foreach ($models as $key => $model) {
             $table = Doctrine_Core::getTable($model);
             $symfonyOptions = (array) $table->getOption('symfony');
 
-            if ($table->isGenerator())
-            {
+            if ($table->isGenerator()) {
                 $symfonyOptions = array_merge((array) $table->getParentGenerator()->getOption('table')->getOption('symfony'), $symfonyOptions);
             }
 
-            if (isset($symfonyOptions['filter']) && !$symfonyOptions['filter'])
-            {
+            if (isset($symfonyOptions['filter']) && !$symfonyOptions['filter']) {
                 unset($models[$key]);
             }
         }

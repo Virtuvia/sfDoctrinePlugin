@@ -116,8 +116,9 @@ class Doctrine_Export_Mysql extends Doctrine_Export
      */
     public function createTableSql($name, array $fields, array $options = array())
     {
-        if ( ! $name)
+        if ( ! $name) {
             throw new Doctrine_Export_Exception('no valid table name specified');
+        }
 
         if (empty($fields)) {
             throw new Doctrine_Export_Exception('no fields specified for table "'.$name.'"');
@@ -510,16 +511,18 @@ class Doctrine_Export_Mysql extends Doctrine_Export
             throw new Doctrine_Export_Exception('could not create sequence table');
         }
 
-        if ($start == 1 && $res == 1)
+        if ($start == 1 && $res == 1) {
             return true;
+        }
 
         $query  = 'INSERT INTO ' . $sequenceName
                 . ' (' . $seqcolName . ') VALUES (' . ($start - 1) . ')';
 
         $res    = $this->conn->exec($query);
 
-        if ($res == 1)
+        if ($res == 1) {
             return true;
+        }
 
         // Handle error
         try {

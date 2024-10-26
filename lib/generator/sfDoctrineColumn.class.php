@@ -126,8 +126,7 @@ class sfDoctrineColumn implements ArrayAccess
         $doctrineType = $this->getDoctrineType();
 
         // we simulate the CHAR/VARCHAR types to generate input_tags
-        if ('string' == $doctrineType && null !== $this->getSize() && $this->getSize() <= 255)
-        {
+        if ('string' == $doctrineType && null !== $this->getSize() && $this->getSize() <= 255) {
             return 'VARCHAR';
         }
 
@@ -168,8 +167,7 @@ class sfDoctrineColumn implements ArrayAccess
      */
     public function getDefinitionKey($key)
     {
-        if ($this->hasDefinitionKey($key))
-        {
+        if ($this->hasDefinitionKey($key)) {
             return $this->definition[$key];
         } else {
             return false;
@@ -185,12 +183,10 @@ class sfDoctrineColumn implements ArrayAccess
      */
     public function getRelationKey($key)
     {
-        foreach ($this->table->getRelations() as $relation)
-        {
+        foreach ($this->table->getRelations() as $relation) {
             $local = (array) $relation['local'];
             $local = array_map('strtolower', $local);
-            if (in_array(strtolower($this->name), $local))
-            {
+            if (in_array(strtolower($this->name), $local)) {
                 return $relation[$key];
             }
         }
@@ -203,12 +199,10 @@ class sfDoctrineColumn implements ArrayAccess
      */
     public function isNotNull()
     {
-        if (isset($this->definition['notnull']))
-        {
+        if (isset($this->definition['notnull'])) {
             return $this->definition['notnull'];
         }
-        if (isset($this->definition['notblank']))
-        {
+        if (isset($this->definition['notblank'])) {
             return $this->definition['notblank'];
         }
         return false;
@@ -221,8 +215,7 @@ class sfDoctrineColumn implements ArrayAccess
      */
     public function isPrimaryKey()
     {
-        if (isset($this->definition['primary']))
-        {
+        if (isset($this->definition['primary'])) {
             return $this->definition['primary'];
         }
         return false;
@@ -235,22 +228,18 @@ class sfDoctrineColumn implements ArrayAccess
      */
     public function isForeignKey()
     {
-        if (isset($this->foreignClassName))
-        {
+        if (isset($this->foreignClassName)) {
             return true;
         }
 
-        if ($this->isPrimaryKey())
-        {
+        if ($this->isPrimaryKey()) {
             return false;
         }
 
-        foreach ($this->table->getRelations() as $relation)
-        {
+        foreach ($this->table->getRelations() as $relation) {
             $local = (array) $relation['local'];
             $local = array_map('strtolower', $local);
-            if (in_array(strtolower($this->name), $local))
-            {
+            if (in_array(strtolower($this->name), $local)) {
                 $this->foreignClassName = $relation['class'];
                 return true;
             }
@@ -265,8 +254,7 @@ class sfDoctrineColumn implements ArrayAccess
      */
     public function getForeignClassName()
     {
-        if ($this->isForeignKey())
-        {
+        if ($this->isForeignKey()) {
             return $this->foreignClassName;
         } else {
             return false;
@@ -280,8 +268,7 @@ class sfDoctrineColumn implements ArrayAccess
      */
     public function getForeignTable()
     {
-        if ($this->isForeignKey())
-        {
+        if ($this->isForeignKey()) {
             return Doctrine_Core::getTable($this->foreignClassName);
         } else {
             return false;

@@ -67,19 +67,16 @@ EOF;
 
         $total = 0;
 
-        foreach ($arguments['name'] as $modelName)
-        {
+        foreach ($arguments['name'] as $modelName) {
             $finder = sfFinder::type('file')->name('/^'.$prefixPattern.$modelName.$suffixPattern.$extensionPattern.'$/');
             $files = $finder->in($paths);
 
-            if ($files)
-            {
+            if ($files) {
                 if (!$options['no-confirmation'] && !$this->askConfirmation(array_merge(
                     array('The following '.$modelName.' files will be deleted:', ''),
                     array_map(function ($v) { return ' - '.sfDebug::shortenFilePath($v); }, $files),
                     array('', 'Continue? (y/N)')
-                ), 'QUESTION_LARGE', false))
-                {
+                ), 'QUESTION_LARGE', false)) {
                     $this->logSection('doctrine', 'Aborting delete of "'.$modelName.'" files');
                     continue;
                 }
@@ -88,9 +85,7 @@ EOF;
                 $this->getFilesystem()->remove($files);
 
                 $total += count($files);
-            }
-            else
-            {
+            } else {
                 $this->logSection('doctrine', 'No files found for the model named "'.$modelName.'"');
             }
         }
@@ -108,31 +103,24 @@ EOF;
      */
     protected function valuesToRegex($values, $delimiter = '/')
     {
-        if (false !== $pos = array_search('', $values))
-        {
+        if (false !== $pos = array_search('', $values)) {
             $required = false;
             unset($values[$pos]);
-        }
-        else
-        {
+        } else {
             $required = true;
         }
 
-        if (count($values))
-        {
+        if (count($values)) {
             $regex = '(';
-            foreach ($values as $i => $value)
-            {
+            foreach ($values as $i => $value) {
                 $regex .= preg_quote($value, $delimiter);
-                if (isset($values[$i + 1]))
-                {
+                if (isset($values[$i + 1])) {
                     $regex .= '|';
                 }
             }
             $regex .= ')';
 
-            if (!$required)
-            {
+            if (!$required) {
                 $regex .= '?';
             }
 

@@ -235,15 +235,12 @@ class Doctrine_Lib
                 $args = func_get_args();
                 $args[2] = array();
 
-                if (is_array($args[0]) && is_array($args[1]))
-                {
-                    foreach (array_unique(array_merge(array_keys($args[0]),array_keys($args[1]))) as $key)
-                    {
+                if (is_array($args[0]) && is_array($args[1])) {
+                    foreach (array_unique(array_merge(array_keys($args[0]),array_keys($args[1]))) as $key) {
                         $isKey0 = array_key_exists($key, $args[0]);
                         $isKey1 = array_key_exists($key, $args[1]);
 
-                        if ($isKey0 && $isKey1 && is_array($args[0][$key]) && is_array($args[1][$key]))
-                        {
+                        if ($isKey0 && $isKey1 && is_array($args[0][$key]) && is_array($args[1][$key])) {
                             $args[2][$key] = self::arrayDeepMerge($args[0][$key], $args[1][$key]);
                         } else if ($isKey0 && $isKey1) {
                             $args[2][$key] = $args[1][$key];
@@ -303,12 +300,9 @@ class Doctrine_Lib
      */
     public static function removeDirectories($folderPath)
     {
-        if (is_dir($folderPath))
-        {
-            foreach (scandir($folderPath) as $value)
-            {
-                if ($value != '.' && $value != '..')
-                {
+        if (is_dir($folderPath)) {
+            foreach (scandir($folderPath) as $value) {
+                if ($value != '.' && $value != '..') {
                     $value = $folderPath . "/" . $value;
 
                     if (is_dir($value)) {

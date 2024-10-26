@@ -53,52 +53,40 @@ class sfValidatorDoctrineChoice extends sfValidatorBase
      */
     protected function doClean($value)
     {
-        if ($query = $this->getOption('query'))
-        {
+        if ($query = $this->getOption('query')) {
             $query = clone $query;
-        }
-        else
-        {
+        } else {
             $query = Doctrine_Core::getTable($this->getOption('model'))->createQuery();
         }
 
-        if ($this->getOption('multiple'))
-        {
-            if (!is_array($value))
-            {
+        if ($this->getOption('multiple')) {
+            if (!is_array($value)) {
                 $value = array($value);
             }
 
-            if (isset($value[0]) && !$value[0])
-            {
+            if (isset($value[0]) && !$value[0]) {
                 unset($value[0]);
             }
 
             $count = count($value);
 
-            if ($this->hasOption('min') && $count < $this->getOption('min'))
-            {
+            if ($this->hasOption('min') && $count < $this->getOption('min')) {
                 throw new sfValidatorError($this, 'min', array('count' => $count, 'min' => $this->getOption('min')));
             }
 
-            if ($this->hasOption('max') && $count > $this->getOption('max'))
-            {
+            if ($this->hasOption('max') && $count > $this->getOption('max')) {
                 throw new sfValidatorError($this, 'max', array('count' => $count, 'max' => $this->getOption('max')));
             }
 
             $query->andWhereIn(sprintf('%s.%s', $query->getRootAlias(), $this->getColumn()), $value);
 
-            if ($query->count() != count($value))
-            {
+            if ($query->count() != count($value)) {
                 throw new sfValidatorError($this, 'invalid', array('value' => $value));
             }
-        }
-        else
-        {
+        } else {
             $query->andWhere(sprintf('%s.%s = ?', $query->getRootAlias(), $this->getColumn()), $value);
 
-            if (!$query->count())
-            {
+            if (!$query->count()) {
                 throw new sfValidatorError($this, 'invalid', array('value' => $value));
             }
         }
@@ -116,12 +104,9 @@ class sfValidatorDoctrineChoice extends sfValidatorBase
     protected function getColumn()
     {
         $table = Doctrine_Core::getTable($this->getOption('model'));
-        if ($this->getOption('column'))
-        {
+        if ($this->getOption('column')) {
             $columnName = $this->getOption('column');
-        }
-        else
-        {
+        } else {
             $identifier = (array) $table->getIdentifier();
             $columnName = current($identifier);
         }

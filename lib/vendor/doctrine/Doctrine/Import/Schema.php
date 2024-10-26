@@ -175,7 +175,7 @@ class Doctrine_Import_Schema
      */
     public function getOption($name)
     {
-        if (isset($this->_options[$name]))   {
+        if (isset($this->_options[$name])) {
             return $this->_options[$name];
         }
     }

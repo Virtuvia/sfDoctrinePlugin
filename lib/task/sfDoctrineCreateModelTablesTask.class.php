@@ -53,32 +53,27 @@ EOF;
 
         $connections = array();
         $models = $arguments['models'];
-        foreach ($models as $key => $model)
-        {
+        foreach ($models as $key => $model) {
             $model = trim($model);
             $conn = Doctrine_Core::getTable($model)->getConnection();
             $connections[$conn->getName()][] = $model;
         }
 
-        foreach ($connections as $name => $models)
-        {
+        foreach ($connections as $name => $models) {
             $this->logSection('doctrine', 'dropping model tables for connection "'.$name.'"');
 
             $conn = Doctrine_Manager::getInstance()->getConnection($name);
             $models = $conn->unitOfWork->buildFlushTree($models);
             $models = array_reverse($models);
 
-            foreach ($models as $model)
-            {
+            foreach ($models as $model) {
                 $tableName = Doctrine_Core::getTable($model)->getOption('tableName');
 
                 $this->logSection('doctrine', 'dropping table "'.$tableName.'"');
 
                 try {
                     $conn->export->dropTable($tableName);
-                }
-                catch (Exception $e)
-                {
+                } catch (Exception $e) {
                     $this->logSection('doctrine', 'dropping table failed: '.$e->getMessage());
                 }
             }

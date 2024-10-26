@@ -19,10 +19,8 @@ class AdminGenBrowser extends sfTestBrowser
         $this->info('Run sfDoctrinePlugin Admin Generator Tests');
 
         $methods = get_class_methods($this);
-        foreach ($methods as $method)
-        {
-            if (substr($method, 0, 5) == '_test')
-            {
+        foreach ($methods as $method) {
+            if (substr($method, 0, 5) == '_test') {
                 $this->$method();
             }
         }
@@ -35,10 +33,8 @@ class AdminGenBrowser extends sfTestBrowser
         $this->get('/users?sort=username');
 
         $matches = 0;
-        foreach ($this->_getQueryExecutionEvents() as $event)
-        {
-            if (false !== strpos($event->getQuery(), 'ORDER BY u.username asc'))
-            {
+        foreach ($this->_getQueryExecutionEvents() as $event) {
+            if (false !== strpos($event->getQuery(), 'ORDER BY u.username asc')) {
                 ++$matches;
             }
         }
@@ -53,8 +49,7 @@ class AdminGenBrowser extends sfTestBrowser
         $this->get('/users?sort=INVALID');
 
         // there should be no queries that match "INVALID"
-        foreach ($this->_getQueryExecutionEvents() as $event)
-        {
+        foreach ($this->_getQueryExecutionEvents() as $event) {
             $this->test()->unlike($event->getQuery(), '/INVALID/');
         }
     }
@@ -63,15 +58,12 @@ class AdminGenBrowser extends sfTestBrowser
     {
         $this->info('Test valid sort_type parameter');
 
-        foreach (array('asc', 'desc', 'ASC', 'DESC') as $sortType)
-        {
+        foreach (array('asc', 'desc', 'ASC', 'DESC') as $sortType) {
             $this->get('/users?sort=username&sort_type='.$sortType);
 
             $matches = 0;
-            foreach ($this->_getQueryExecutionEvents() as $event)
-            {
-                if (false !== strpos($event->getQuery(), 'ORDER BY u.username '.$sortType))
-                {
+            foreach ($this->_getQueryExecutionEvents() as $event) {
+                if (false !== strpos($event->getQuery(), 'ORDER BY u.username '.$sortType)) {
                     ++$matches;
                 }
             }
@@ -87,8 +79,7 @@ class AdminGenBrowser extends sfTestBrowser
         $this->get('/users?sort=username&sort_type=INVALID');
 
         // there should be no queries that match "INVALID"
-        foreach ($this->_getQueryExecutionEvents() as $event)
-        {
+        foreach ($this->_getQueryExecutionEvents() as $event) {
             $this->test()->unlike($event->getQuery(), '/INVALID/');
         }
     }
@@ -97,8 +88,7 @@ class AdminGenBrowser extends sfTestBrowser
     {
         $this->info('Admin Generator Sanity Checks');
 
-        foreach ($this->_modules as $model => $module)
-        {
+        foreach ($this->_modules as $model => $module) {
             $this->_runAdminGenModuleSanityCheck($model, $module);
         }
     }
@@ -249,8 +239,7 @@ class AdminGenBrowser extends sfTestBrowser
         // $task->run(array(), array('--no-confirmation'));
 
         // Generate the admin generator modules
-        foreach ($this->_modules as $model => $module)
-        {
+        foreach ($this->_modules as $model => $module) {
             $this->_generateAdminGenModule($model, $module);
         }
     }
@@ -258,8 +247,7 @@ class AdminGenBrowser extends sfTestBrowser
     protected function _cleanupAdminGenModules()
     {
         $fs = new sfFilesystem($this->getContext()->getEventDispatcher(), new sfFormatter());
-        foreach ($this->_modules as $module)
-        {
+        foreach ($this->_modules as $module) {
             $this->info('Removing admin gen module "' . $module . '"');
             $fs->execute('rm -rf ' . sfConfig::get('sf_app_module_dir') . '/' . $module);
         }
@@ -272,13 +260,10 @@ class AdminGenBrowser extends sfTestBrowser
         $events = array();
 
         $databaseManager = $this->browser->getContext()->getDatabaseManager();
-        foreach ($databaseManager->getNames() as $name)
-        {
+        foreach ($databaseManager->getNames() as $name) {
             $database = $databaseManager->getDatabase($name);
-            if ($database instanceof sfDoctrineDatabase && $profiler = $database->getProfiler())
-            {
-                foreach ($profiler->getQueryExecutionEvents() as $event)
-                {
+            if ($database instanceof sfDoctrineDatabase && $profiler = $database->getProfiler()) {
+                foreach ($profiler->getQueryExecutionEvents() as $event) {
                     $events[$event->getSequence()] = $event;
                 }
             }

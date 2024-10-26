@@ -335,7 +335,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
             $this->processPendingAggregates();
 
             return $this->getSqlAggregateAlias($dqlAlias);
-        } else if( ! ($this->_conn->getAttribute(Doctrine_Core::ATTR_PORTABILITY) & Doctrine_Core::PORTABILITY_EXPR)){
+        } else if( ! ($this->_conn->getAttribute(Doctrine_Core::ATTR_PORTABILITY) & Doctrine_Core::PORTABILITY_EXPR)) {
             return $dqlAlias;
         } else {
             throw new Doctrine_Query_Exception('Unknown aggregate alias: ' . $dqlAlias);
@@ -1215,15 +1215,15 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
                 $this->_isLimitSubqueryUsed = true;
                 $needsSubQuery = true;
             } else {
-                foreach( array_keys($this->_pendingFields) as $alias){
+                foreach( array_keys($this->_pendingFields) as $alias) {
                     //no subquery for root fields
-                    if($alias == $this->getRootAlias()){
+                    if($alias == $this->getRootAlias()) {
                         continue;
                     }
 
                     //no subquery for ONE relations
                     if(isset($this->_queryComponents[$alias]['relation']) &&
-                        $this->_queryComponents[$alias]['relation']->getType() == Doctrine_Relation::ONE){
+                        $this->_queryComponents[$alias]['relation']->getType() == Doctrine_Relation::ONE) {
                         continue;
                     }
 

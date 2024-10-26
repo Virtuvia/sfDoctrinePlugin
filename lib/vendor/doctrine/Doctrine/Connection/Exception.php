@@ -126,5 +126,6 @@ class Doctrine_Connection_Exception extends Doctrine_Exception
      *                              (the process is successfull if portable error code was found)
      */
     public function processErrorInfo(array $errorInfo)
-    { }
+    {
+    }
 }

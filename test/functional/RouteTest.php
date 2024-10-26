@@ -25,8 +25,7 @@ $tests = array(
 );
 
 $b = new sfTestBrowser();
-foreach ($tests as $url => $check)
-{
+foreach ($tests as $url => $check) {
     $b->
       get($url)->
       with('response')->begin()->
@@ -62,8 +61,7 @@ $routes = array(
     ),
 );
 
-foreach ($routes as $route => $check)
-{
+foreach ($routes as $route => $check) {
     $url = url_for2($route, $check['params']);
     $b->test()->is($url, $check['url'], 'Check "' . $route . '" generates correct url');
 }

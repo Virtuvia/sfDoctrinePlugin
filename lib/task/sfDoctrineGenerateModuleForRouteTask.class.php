@@ -62,15 +62,13 @@ EOF;
         $config = new sfRoutingConfigHandler();
         $routes = $config->evaluate($this->configuration->getConfigPaths('config/routing.yml'));
 
-        if (!isset($routes[$arguments['route']]))
-        {
+        if (!isset($routes[$arguments['route']])) {
             throw new sfCommandException(sprintf('The route "%s" does not exist.', $arguments['route']));
         }
 
         $routeOptions = $routes[$arguments['route']]->getOptions();
 
-        if (!$routes[$arguments['route']] instanceof sfDoctrineRouteCollection)
-        {
+        if (!$routes[$arguments['route']] instanceof sfDoctrineRouteCollection) {
             throw new sfCommandException(sprintf('The route "%s" is not a Doctrine collection route.', $arguments['route']));
         }
 

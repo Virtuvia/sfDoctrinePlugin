@@ -64,8 +64,7 @@ class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
      */
     public function preQuery(Doctrine_Event $event)
     {
-        if ($this->options['logging'])
-        {
+        if ($this->options['logging']) {
             $this->dispatcher->notify(new sfEvent($event->getInvoker(), 'application.log', array(sprintf('query : %s - (%s)', $event->getQuery(), join(', ', self::fixParams($event->getParams()))))));
         }
 
@@ -87,8 +86,7 @@ class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
         $args = func_get_args();
         $this->__call(__FUNCTION__, $args);
 
-        if ($event->getElapsedSecs() > $this->options['slow_query_threshold'])
-        {
+        if ($event->getElapsedSecs() > $this->options['slow_query_threshold']) {
             $event->slowQuery = true;
         }
     }
@@ -100,8 +98,7 @@ class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
      */
     public function preExec(Doctrine_Event $event)
     {
-        if ($this->options['logging'])
-        {
+        if ($this->options['logging']) {
             $this->dispatcher->notify(new sfEvent($event->getInvoker(), 'application.log', array(sprintf('exec : %s - (%s)', $event->getQuery(), join(', ', self::fixParams($event->getParams()))))));
         }
 
@@ -123,8 +120,7 @@ class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
         $args = func_get_args();
         $this->__call(__FUNCTION__, $args);
 
-        if ($event->getElapsedSecs() > $this->options['slow_query_threshold'])
-        {
+        if ($event->getElapsedSecs() > $this->options['slow_query_threshold']) {
             $event->slowQuery = true;
         }
     }
@@ -136,8 +132,7 @@ class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
      */
     public function preStmtExecute(Doctrine_Event $event)
     {
-        if ($this->options['logging'])
-        {
+        if ($this->options['logging']) {
             $this->dispatcher->notify(new sfEvent($event->getInvoker(), 'application.log', array(sprintf('execute : %s - (%s)', $event->getQuery(), join(', ', self::fixParams($event->getParams()))))));
         }
 
@@ -159,8 +154,7 @@ class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
         $args = func_get_args();
         $this->__call(__FUNCTION__, $args);
 
-        if ($event->getElapsedSecs() > $this->options['slow_query_threshold'])
-        {
+        if ($event->getElapsedSecs() > $this->options['slow_query_threshold']) {
             $event->slowQuery = true;
         }
     }
@@ -173,10 +167,8 @@ class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
     public function getQueryExecutionEvents()
     {
         $events = array();
-        foreach ($this as $event)
-        {
-            if (in_array($event->getCode(), array(Doctrine_Event::CONN_QUERY, Doctrine_Event::CONN_EXEC, Doctrine_Event::STMT_EXECUTE)))
-            {
+        foreach ($this as $event) {
+            if (in_array($event->getCode(), array(Doctrine_Event::CONN_QUERY, Doctrine_Event::CONN_EXEC, Doctrine_Event::STMT_EXECUTE))) {
                 $events[] = $event;
             }
         }
@@ -193,10 +185,8 @@ class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
      */
     static public function fixParams($params)
     {
-        foreach ($params as $key => $param)
-        {
-            if ($param !== null && strlen($param) >= 255)
-            {
+        foreach ($params as $key => $param) {
+            if ($param !== null && strlen($param) >= 255) {
                 $params[$key] = '['.number_format(strlen($param) / 1024, 2).'Kb]';
             }
         }

@@ -688,8 +688,7 @@ EOF;
             foreach ($definition['columns'] as $name => $column) {
                 $name = isset($column['name']) ? $column['name']:$name;
                 // extract column name & field name
-                if (stripos($name, ' as '))
-                {
+                if (stripos($name, ' as ')) {
                     if (strpos($name, ' as')) {
                         $parts = explode(' as ', $name);
                     } else {
@@ -914,8 +913,7 @@ EOF;
         foreach ($attributes as $key => $value) {
 
             $values = array();
-            if (is_bool($value))
-            {
+            if (is_bool($value)) {
                 $values[] = $value ? 'true':'false';
             } else {
                 if ( ! is_array($value)) {

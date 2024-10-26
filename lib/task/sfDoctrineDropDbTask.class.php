@@ -76,22 +76,17 @@ EOF;
                 array_map(function ($v) { return ' - '.$v; }, array_keys($databases)),
                 array('', 'Are you sure you want to proceed? (y/N)')
             ), 'QUESTION_LARGE', false)
-        )
-        {
+        ) {
             $this->logSection('doctrine', 'task aborted');
 
             return 1;
         }
 
-        foreach ($databases as $name => $database)
-        {
+        foreach ($databases as $name => $database) {
             $this->logSection('doctrine', sprintf('Dropping "%s" database', $name));
-            try
-            {
+            try {
                 $database->getDoctrineConnection()->dropDatabase();
-            }
-            catch (Exception $e)
-            {
+            } catch (Exception $e) {
                 $this->logSection('doctrine', $e->getMessage(), null, 'ERROR');
             }
         }

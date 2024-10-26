@@ -38,12 +38,10 @@ $pager = new sfDoctrinePager('Article', 10);
 $pager->init();
 $normal = 0;
 $iterated = 0;
-foreach ($pager->getResults() as $object)
-{
+foreach ($pager->getResults() as $object) {
     $normal++;
 }
-foreach ($pager as $object)
-{
+foreach ($pager as $object) {
     $iterated++;
 }
 $t->is($iterated, $normal, '"Iterator" interface loops over objects in the current pager');

@@ -121,8 +121,7 @@ EOF;
         // copy our generated module
         $this->getFilesystem()->mirror($tmpDir.DIRECTORY_SEPARATOR.'auto'.ucfirst($arguments['module']), $moduleDir, sfFinder::type('any'));
 
-        if (!$options['with-show'])
-        {
+        if (!$options['with-show']) {
             $this->getFilesystem()->remove($moduleDir.'/templates/showSuccess.php');
         }
 
@@ -146,37 +145,27 @@ EOF;
         $finder = sfFinder::type('any')->discard('.sf');
         $dirs = $this->configuration->getGeneratorSkeletonDirs('sfDoctrineModule', $options['theme']);
 
-        foreach ($dirs as $dir)
-        {
-            if (is_dir($dir))
-            {
+        foreach ($dirs as $dir) {
+            if (is_dir($dir)) {
                 $this->getFilesystem()->mirror($dir, $moduleDir, $finder);
                 break;
             }
         }
 
         // move configuration file
-        if (file_exists($config = $moduleDir.'/lib/configuration.php'))
-        {
-            if (file_exists($target = $moduleDir.'/lib/'.$arguments['module'].'GeneratorConfiguration.class.php'))
-            {
+        if (file_exists($config = $moduleDir.'/lib/configuration.php')) {
+            if (file_exists($target = $moduleDir.'/lib/'.$arguments['module'].'GeneratorConfiguration.class.php')) {
                 $this->getFilesystem()->remove($config);
-            }
-            else
-            {
+            } else {
                 $this->getFilesystem()->rename($config, $target);
             }
         }
 
         // move helper file
-        if (file_exists($config = $moduleDir.'/lib/helper.php'))
-        {
-            if (file_exists($target = $moduleDir.'/lib/'.$arguments['module'].'GeneratorHelper.class.php'))
-            {
+        if (file_exists($config = $moduleDir.'/lib/helper.php')) {
+            if (file_exists($target = $moduleDir.'/lib/'.$arguments['module'].'GeneratorHelper.class.php')) {
                 $this->getFilesystem()->remove($config);
-            }
-            else
-            {
+            } else {
                 $this->getFilesystem()->rename($config, $target);
             }
         }

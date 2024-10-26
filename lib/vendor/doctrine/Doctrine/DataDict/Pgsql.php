@@ -364,7 +364,7 @@ class Doctrine_DataDict_Pgsql extends Doctrine_DataDict
         }
 
         // Postgres enum type by name containing enum
-        if (strpos($field['type'], 'enum') !== false){
+        if (strpos($field['type'], 'enum') !== false) {
             $field['type'] = 'enum';
         }
 
@@ -463,7 +463,7 @@ class Doctrine_DataDict_Pgsql extends Doctrine_DataDict
         // Default from field for enum support
         $default = isset($field['default']) ? $field['default'] : null;
         $enumName = null;
-        if (strpos($dbType, 'enum') !== false){
+        if (strpos($dbType, 'enum') !== false) {
             $enumName = $dbType;
             $dbType = 'enum';
         }

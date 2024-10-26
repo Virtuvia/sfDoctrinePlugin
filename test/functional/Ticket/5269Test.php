@@ -33,8 +33,7 @@ unset($user);
 $user = Doctrine_Core::getTable('User')->findOneByUsername('nullvaluetest');
 $userForm = new TestUserForm($user);
 $userForm->bind(array('id' => $user->id, 'username' => 'nullvaluetest', 'password' => 'changeme2'));
-if ($userForm->isValid())
-{
+if ($userForm->isValid()) {
     $userForm->save();
 }
 
