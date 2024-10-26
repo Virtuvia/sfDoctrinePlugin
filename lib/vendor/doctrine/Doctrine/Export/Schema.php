@@ -62,7 +62,7 @@ class Doctrine_Export_Schema
         // we iterate through the diff of previously declared classes
         // and currently declared classes
         foreach ($loadedModels as $className) {
-            if ( ! empty($models) && !in_array($className, $models)) {
+            if (! empty($models) && !in_array($className, $models)) {
                 continue;
             }
 
@@ -74,7 +74,7 @@ class Doctrine_Export_Schema
             $table['connection'] = $recordTable->getConnection()->getName();
             $remove = array('ptype', 'ntype', 'alltypes');
             // Fix explicit length in schema, concat it to type in this format: type(length)
-            foreach ($data['columns'] AS $name => $column) {
+            foreach ($data['columns'] as $name => $column) {
                 if (isset($column['length']) && $column['length'] && isset($column['scale']) && $column['scale']) {
                     $data['columns'][$name]['type'] = $column['type'] . '(' . $column['length'] . ', ' . $column['scale'] . ')';
                     unset($data['columns'][$name]['length'], $data['columns'][$name]['scale']);
@@ -119,7 +119,7 @@ class Doctrine_Export_Schema
 
                 if ($relationData['type'] === Doctrine_Relation::ONE) {
                     $table['relations'][$relationKey]['type'] = 'one';
-                } else if ($relationData['type'] === Doctrine_Relation::MANY) {
+                } elseif ($relationData['type'] === Doctrine_Relation::MANY) {
                     $table['relations'][$relationKey]['type'] = 'many';
                 } else {
                     $table['relations'][$relationKey]['type'] = 'one';

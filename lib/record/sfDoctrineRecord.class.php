@@ -21,8 +21,7 @@
  */
 abstract class sfDoctrineRecord extends Doctrine_Record
 {
-    static protected
-        $_defaultCulture = 'en';
+    protected static $_defaultCulture = 'en';
 
     /**
      * Initializes internationalization.
@@ -47,7 +46,7 @@ abstract class sfDoctrineRecord extends Doctrine_Record
      *
      * @param sfEvent An sfEvent instance
      */
-    static public function listenToChangeCultureEvent(sfEvent $event)
+    public static function listenToChangeCultureEvent(sfEvent $event)
     {
         self::$_defaultCulture = $event['culture'];
     }
@@ -57,7 +56,7 @@ abstract class sfDoctrineRecord extends Doctrine_Record
      *
      * @param string $culture
      */
-    static public function setDefaultCulture($culture)
+    public static function setDefaultCulture($culture)
     {
         self::$_defaultCulture = $culture;
     }
@@ -67,7 +66,7 @@ abstract class sfDoctrineRecord extends Doctrine_Record
      *
      * @return string the default culture
      */
-    static public function getDefaultCulture()
+    public static function getDefaultCulture()
     {
         if (!self::$_defaultCulture) {
             throw new sfException('The default culture has not been set');
@@ -143,7 +142,7 @@ abstract class sfDoctrineRecord extends Doctrine_Record
                 $table = $this->getTable();
                 if ($table->hasRelation($name)) {
                     $entityName = $name;
-                } else if ($table->hasField($fieldName = $table->getFieldName($name))) {
+                } elseif ($table->hasField($fieldName = $table->getFieldName($name))) {
                     $entityNameLower = strtolower($fieldName);
                     if ($table->hasField($entityNameLower)) {
                         $entityName = $entityNameLower;
@@ -154,7 +153,7 @@ abstract class sfDoctrineRecord extends Doctrine_Record
                     $underScored = $table->getFieldName(sfInflector::underscore($name));
                     if ($table->hasField($underScored) || $table->hasRelation($underScored)) {
                         $entityName = $underScored;
-                    } else if ($table->hasField(strtolower($name)) || $table->hasRelation(strtolower($name))) {
+                    } elseif ($table->hasField(strtolower($name)) || $table->hasRelation(strtolower($name))) {
                         $entityName = strtolower($name);
                     } else {
                         $camelCase = $table->getFieldName(sfInflector::camelize($name));
@@ -185,7 +184,7 @@ abstract class sfDoctrineRecord extends Doctrine_Record
 
             if (isset($e) && $e) {
                 throw $e;
-            } else if (isset($e2) && $e2) {
+            } elseif (isset($e2) && $e2) {
                 throw $e2;
             }
         }

@@ -34,14 +34,14 @@
  */
 class Doctrine_Migration
 {
-    protected $_migrationTableName = 'migration_version',
-        $_migrationTableCreated = false,
-        $_connection,
-        $_migrationClassesDirectory = array(),
-        $_migrationClasses = array(),
-        $_reflectionClass,
-        $_errors = array(),
-        $_process;
+    protected $_migrationTableName = 'migration_version';
+    protected $_migrationTableCreated = false;
+    protected $_connection;
+    protected $_migrationClassesDirectory = array();
+    protected $_migrationClasses = array();
+    protected $_reflectionClass;
+    protected $_errors = array();
+    protected $_process;
 
     protected static $_migrationClassesForDirectories = array();
 
@@ -501,7 +501,7 @@ class Doctrine_Migration
 
             if (method_exists($migration, $direction)) {
                 $migration->$direction();
-            } else if (method_exists($migration, 'migrate')) {
+            } elseif (method_exists($migration, 'migrate')) {
                 $migration->migrate($direction);
             }
 
@@ -561,7 +561,7 @@ class Doctrine_Migration
             $this->_connection->export->createTable($this->_migrationTableName, array('version' => array('type' => 'integer', 'size' => 11)), $options);
 
             return true;
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }

@@ -32,10 +32,10 @@
  */
 class Doctrine_Task_GenerateMigrationsDiff extends Doctrine_Task
 {
-    public $description          =   'Generate migration classes from a generated difference between your models and yaml schema files',
-        $requiredArguments    =   array('migrations_path'  => 'Specify the path to your migration classes folder.',
-            'yaml_schema_path' => 'Specify the path to your yaml schema files folder.'),
-        $optionalArguments    =   array('models_path'      => 'Specify the path to your doctrine models folder.');
+    public $description          =   'Generate migration classes from a generated difference between your models and yaml schema files';
+    public $requiredArguments    =   array('migrations_path'  => 'Specify the path to your migration classes folder.',
+        'yaml_schema_path' => 'Specify the path to your yaml schema files folder.');
+    public $optionalArguments    =   array('models_path'      => 'Specify the path to your doctrine models folder.');
 
     public function execute()
     {
@@ -49,7 +49,7 @@ class Doctrine_Task_GenerateMigrationsDiff extends Doctrine_Task
 
         $numChanges = count($changes, true) - count($changes);
 
-        if ( ! $numChanges) {
+        if (! $numChanges) {
             throw new Doctrine_Task_Exception('Could not generate migration classes from difference');
         } else {
             $this->notify('Generated migration classes successfully from difference');

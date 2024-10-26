@@ -32,16 +32,16 @@
  */
 class Doctrine_Task_GenerateSql extends Doctrine_Task
 {
-    public $description          =   'Generate sql for all existing database connections.',
-        $requiredArguments    =   array('models_path'    =>  'Specify complete path to your Doctrine_Record definitions.',
-            'sql_path'       =>  'Path to write the generated sql.'),
-        $optionalArguments    =   array();
+    public $description          =   'Generate sql for all existing database connections.';
+    public $requiredArguments    =   array('models_path'    =>  'Specify complete path to your Doctrine_Record definitions.',
+        'sql_path'       =>  'Path to write the generated sql.');
+    public $optionalArguments    =   array();
 
     public function execute()
     {
         if (is_dir($this->getArgument('sql_path'))) {
             $path = $this->getArgument('sql_path') . DIRECTORY_SEPARATOR . 'schema.sql';
-        } else if (is_file($this->getArgument('sql_path'))) {
+        } elseif (is_file($this->getArgument('sql_path'))) {
             $path = $this->getArgument('sql_path');
         } else {
             throw new Doctrine_Task_Exception('Invalid sql path.');

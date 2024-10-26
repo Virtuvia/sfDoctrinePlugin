@@ -38,7 +38,7 @@ class Doctrine_Query_JoinCondition extends Doctrine_Query_Condition
         $e = $this->_tokenizer->sqlExplode($condition);
 
         foreach ($e as $k => $v) {
-            if ( ! $v) {
+            if (! $v) {
                 unset($e[$k]);
             }
         }
@@ -55,7 +55,7 @@ class Doctrine_Query_JoinCondition extends Doctrine_Query_Condition
                 $e[2] = $e[3]; // Move "(XXX)" to previous index
 
                 unset($e[3]); // Remove unused index
-            } else if ($l >= 5) {
+            } elseif ($l >= 5) {
                 // FIX: "field BETWEEN field2 AND field3" issue
                 // Related to ticket #1488
                 $e[2] .= ' ' . $e[3] . ' ' . $e[4];
@@ -101,7 +101,7 @@ class Doctrine_Query_JoinCondition extends Doctrine_Query_Condition
 
                     $value = '(' . implode(', ', $value) . ')';
                 }
-            } elseif ( ! $hasRightAggExpression) {
+            } elseif (! $hasRightAggExpression) {
                 // Possible expression found (field1 AND field2)
                 // In relation to ticket #1488
                 $e     = $this->_tokenizer->bracketExplode($value, array(' AND ', ' \&\& '), '(', ')');

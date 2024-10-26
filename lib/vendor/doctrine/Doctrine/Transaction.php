@@ -186,14 +186,14 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
 
         $listener = $this->conn->getAttribute(Doctrine_Core::ATTR_LISTENER);
 
-        if ( ! is_null($savepoint)) {
+        if (! is_null($savepoint)) {
             $this->savePoints[] = $savepoint;
 
             $event = new Doctrine_Event($this, Doctrine_Event::SAVEPOINT_CREATE);
 
             $listener->preSavepointCreate($event);
 
-            if ( ! $event->skipOperation) {
+            if (! $event->skipOperation) {
                 $this->createSavePoint($savepoint);
             }
 
@@ -204,7 +204,7 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
 
                 $listener->preTransactionBegin($event);
 
-                if ( ! $event->skipOperation) {
+                if (! $event->skipOperation) {
                     try {
                         $this->_doBeginTransaction();
                     } catch (Exception $e) {
@@ -242,14 +242,14 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
 
         $listener = $this->conn->getAttribute(Doctrine_Core::ATTR_LISTENER);
 
-        if ( ! is_null($savepoint)) {
+        if (! is_null($savepoint)) {
             $this->_nestingLevel -= $this->removeSavePoints($savepoint);
 
             $event = new Doctrine_Event($this, Doctrine_Event::SAVEPOINT_COMMIT);
 
             $listener->preSavepointCommit($event);
 
-            if ( ! $event->skipOperation) {
+            if (! $event->skipOperation) {
                 $this->releaseSavePoint($savepoint);
             }
 
@@ -257,7 +257,7 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
         } else {
 
             if ($this->_nestingLevel == 1 || $this->_internalNestingLevel == 1) {
-                if ( ! empty($this->invalid)) {
+                if (! empty($this->invalid)) {
                     if ($this->_internalNestingLevel == 1) {
                         $tmp = $this->invalid;
                         $this->invalid = array();
@@ -274,7 +274,7 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
                     $event = new Doctrine_Event($this, Doctrine_Event::TX_COMMIT);
 
                     $listener->preTransactionCommit($event);
-                    if ( ! $event->skipOperation) {
+                    if (! $event->skipOperation) {
                         $this->_doCommit();
                     }
                     $listener->postTransactionCommit($event);
@@ -324,21 +324,21 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
             $this->_internalNestingLevel--;
             $this->_nestingLevel--;
             return false;
-        } else if ($this->_nestingLevel > 1) {
+        } elseif ($this->_nestingLevel > 1) {
             $this->_nestingLevel--;
             return false;
         }
 
         $listener = $this->conn->getAttribute(Doctrine_Core::ATTR_LISTENER);
 
-        if ( ! is_null($savepoint)) {
+        if (! is_null($savepoint)) {
             $this->_nestingLevel -= $this->removeSavePoints($savepoint);
 
             $event = new Doctrine_Event($this, Doctrine_Event::SAVEPOINT_ROLLBACK);
 
             $listener->preSavepointRollback($event);
 
-            if ( ! $event->skipOperation) {
+            if (! $event->skipOperation) {
                 $this->rollbackSavePoint($savepoint);
             }
 
@@ -348,7 +348,7 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
 
             $listener->preTransactionRollback($event);
 
-            if ( ! $event->skipOperation) {
+            if (! $event->skipOperation) {
                 $this->_nestingLevel = 0;
                 $this->_internalNestingLevel = 0;
                 try {
@@ -440,7 +440,7 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
         $i = 0;
 
         foreach ($this->savePoints as $key => $sp) {
-            if ( ! $found) {
+            if (! $found) {
                 if ($sp === $savepoint) {
                     $found = true;
                 }

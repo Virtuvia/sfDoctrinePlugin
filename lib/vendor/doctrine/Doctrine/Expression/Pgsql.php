@@ -98,7 +98,7 @@ class Doctrine_Expression_Pgsql extends Doctrine_Expression_Driver
      */
     public function age($timestamp1, $timestamp2 = null)
     {
-        if ( $timestamp2 == null ) {
+        if ($timestamp2 == null) {
             return 'AGE(' . $timestamp1 . ')';
         }
         return 'AGE(' . $timestamp1 . ', ' . $timestamp2 . ')';
@@ -138,7 +138,7 @@ class Doctrine_Expression_Pgsql extends Doctrine_Expression_Driver
     {
         $args = func_get_args();
 
-        return join(' || ' , $args);
+        return join(' || ', $args);
     }
 
     /**
@@ -192,7 +192,7 @@ class Doctrine_Expression_Pgsql extends Doctrine_Expression_Driver
     public function matchPattern($pattern, $operator = null, $field = null)
     {
         $match = '';
-        if ( ! is_null($operator)) {
+        if (! is_null($operator)) {
             $field = is_null($field) ? '' : $field.' ';
             $operator = strtoupper($operator);
             switch ($operator) {

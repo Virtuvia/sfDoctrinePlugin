@@ -108,8 +108,8 @@ class Doctrine_I18n extends Doctrine_Record_Generator
         // Rewrite any relations to our original table
         $originalName = $this->_options['table']->getClassnameToReturn();
         $relations = $this->_options['table']->getRelationParser()->getPendingRelations();
-        foreach($relations as $table => $relation) {
-            if ($table != $this->_table->getTableName() ) {
+        foreach ($relations as $table => $relation) {
+            if ($table != $this->_table->getTableName()) {
                 // check that the localColumn is part of the moved col
                 if (isset($relation['local']) && in_array($relation['local'], $this->_options['fields'])) {
                     // found one, let's rewrite it
@@ -125,7 +125,7 @@ class Doctrine_I18n extends Doctrine_Record_Generator
                         $others['class'] = $this->_table->getClassnameToReturn();
                         $others['alias'] = $this->_table->getClassnameToReturn();
                         $rp->unsetPendingRelations($originalName);
-                        $rp->bind($this->_table->getClassnameToReturn() ,$others);
+                        $rp->bind($this->_table->getClassnameToReturn(), $others);
                     }
                 }
             }

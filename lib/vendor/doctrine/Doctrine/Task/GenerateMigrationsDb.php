@@ -32,9 +32,9 @@
  */
 class Doctrine_Task_GenerateMigrationsDb extends Doctrine_Task
 {
-    public $description          =   'Generate migration classes for an existing database',
-        $requiredArguments    =   array('migrations_path' => 'Specify the complete path to your migration classes folder.'),
-        $optionalArguments    =   array();
+    public $description          =   'Generate migration classes for an existing database';
+    public $requiredArguments    =   array('migrations_path' => 'Specify the complete path to your migration classes folder.');
+    public $optionalArguments    =   array();
 
     public function execute()
     {
@@ -43,7 +43,7 @@ class Doctrine_Task_GenerateMigrationsDb extends Doctrine_Task
             $yamlSchemaPath = $this->getArgument('yaml_schema_path');
             $migration = new Doctrine_Migration($migrationsPath);
             $result1 = false;
-            if ( ! count($migration->getMigrationClasses())) {
+            if (! count($migration->getMigrationClasses())) {
                 $result1 = Doctrine_Core::generateMigrationsFromDb($migrationsPath);
             }
             $connections = array();
@@ -56,7 +56,7 @@ class Doctrine_Task_GenerateMigrationsDb extends Doctrine_Task
         } catch (Exception $e) {
             $result = false;
         }
-        if ( ! $result) {
+        if (! $result) {
             throw new Doctrine_Task_Exception('Could not generate migration classes from database');
         } else {
             $this->notify('Generated migration classes successfully from database');

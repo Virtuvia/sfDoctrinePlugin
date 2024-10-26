@@ -25,10 +25,9 @@
  */
 class Swift_DoctrineSpool extends Swift_ConfigurableSpool
 {
-    protected
-        $model = null,
-        $column = null,
-        $method = null;
+    protected $model = null;
+    protected $column = null;
+    protected $method = null;
 
     /**
      * Constructor.

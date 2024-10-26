@@ -264,7 +264,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                 $this->getTree()->setUp();
             }
         } else {
-            if ( ! isset($this->_options['tableName'])) {
+            if (! isset($this->_options['tableName'])) {
                 $this->setTableName(Doctrine_Inflector::tableize($this->_options['name']));
             }
         }
@@ -319,7 +319,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     public function initDefinition()
     {
         $name = $this->_options['name'];
-        if ( ! class_exists($name) || empty($name)) {
+        if (! class_exists($name) || empty($name)) {
             throw new Doctrine_Exception("Couldn't find class " . $name);
         }
         $record = new $name($this);
@@ -378,12 +378,12 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
             $parentColumns = $parentTable->getColumns();
 
             foreach ($parentColumns as $columnName => $definition) {
-                if ( ! isset($definition['primary']) || $definition['primary'] === false) {
+                if (! isset($definition['primary']) || $definition['primary'] === false) {
                     if (isset($this->_columns[$columnName])) {
                         $found = true;
                         break;
                     } else {
-                        if ( ! isset($parentColumns[$columnName]['owner'])) {
+                        if (! isset($parentColumns[$columnName]['owner'])) {
                             $parentColumns[$columnName]['owner'] = $parentTable->getComponentName();
                         }
 
@@ -417,7 +417,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
 
         $this->columnCount = count($this->_columns);
 
-        if ( ! isset($this->_options['tableName'])) {
+        if (! isset($this->_options['tableName'])) {
             $this->setTableName(Doctrine_Inflector::tableize($class->getName()));
         }
 
@@ -437,7 +437,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     {
         switch (count($this->_identifier)) {
             case 0:
-                if ( ! empty($this->_options['joinedParents'])) {
+                if (! empty($this->_options['joinedParents'])) {
                     $root = current($this->_options['joinedParents']);
 
                     $table = $this->_conn->getTable($root);
@@ -473,7 +473,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
 
                     unset($identifierOptions['name'], $identifierOptions['type'], $identifierOptions['length']);
                     foreach ($identifierOptions as $key => $value) {
-                        if ( ! isset($definition[$key]) || ! $definition[$key]) {
+                        if (! isset($definition[$key]) || ! $definition[$key]) {
                             $definition[$key] = $value;
                         }
                     }
@@ -522,7 +522,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                                 break;
                         }
                     }
-                    if ( ! isset($this->_identifierType)) {
+                    if (! isset($this->_identifierType)) {
                         $this->_identifierType = Doctrine_Core::IDENTIFIER_NATURAL;
                     }
                 }
@@ -565,7 +565,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     public function getRecordInstance()
     {
-        if ( ! $this->record) {
+        if (! $this->record) {
             $this->record = new $this->_options['name'];
         }
         return $this->record;
@@ -979,7 +979,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     public function bind($args, $type)
     {
-        $options = ( ! isset($args[1])) ? array() : $args[1];
+        $options = (! isset($args[1])) ? array() : $args[1];
         $options['type'] = $type;
 
         $this->_parser->bind($args[0], $options);
@@ -1064,7 +1064,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     public function createQuery($alias = '')
     {
-        if ( ! empty($alias)) {
+        if (! empty($alias)) {
             $alias = ' ' . trim($alias);
         }
 
@@ -1105,7 +1105,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
             case 'inheritanceMap':
             case 'index':
             case 'treeOptions':
-                if ( ! is_array($value)) {
+                if (! is_array($value)) {
                     throw new Doctrine_Table_Exception($name . ' should be an array.');
                 }
                 break;
@@ -1153,11 +1153,11 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     public function processOrderBy($alias, $orderBy, $columnNames = false)
     {
-        if ( ! $alias) {
+        if (! $alias) {
             $alias = $this->getComponentName();
         }
 
-        if ( ! is_array($orderBy)) {
+        if (! is_array($orderBy)) {
             $e1 = explode(',', $orderBy ?? '');
         } else {
             $e1 = $orderBy;
@@ -1211,7 +1211,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     public function getColumnDefinition($columnName)
     {
-        if ( ! isset($this->_columns[$columnName])) {
+        if (! isset($this->_columns[$columnName])) {
             return false;
         }
         return $this->_columns[$columnName];
@@ -1281,7 +1281,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
 
             if ($value &&  ! in_array($columnName, $this->_identifier)) {
                 $this->_identifier[] = $columnName;
-            } else if (!$value && in_array($columnName, $this->_identifier)) {
+            } elseif (!$value && in_array($columnName, $this->_identifier)) {
                 $key = array_search($columnName, $this->_identifier);
                 unset($this->_identifier[$key]);
             }
@@ -1327,7 +1327,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
 
         foreach ($options as $k => $option) {
             if (is_numeric($k)) {
-                if ( ! empty($option)) {
+                if (! empty($option)) {
                     $options[$option] = true;
                 }
                 unset($options[$k]);
@@ -1395,12 +1395,15 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                     break;
                 case 'boolean':
                     $length = 1;
+                    // no break
                 case 'date':
                     // YYYY-MM-DD ISO 8601
                     $length = 10;
+                    // no break
                 case 'time':
                     // HH:NN:SS+00:00 ISO 8601
                     $length = 14;
+                    // no break
                 case 'timestamp':
                     // YYYY-MM-DDTHH:MM:SS+00:00 ISO 8601
                     $length = 25;
@@ -1415,7 +1418,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
         }
 
         foreach ($defaultOptions as $key => $value) {
-            if ( ! array_key_exists($key, $options) || is_null($options[$key])) {
+            if (! array_key_exists($key, $options) || is_null($options[$key])) {
                 $options[$key] = $value;
             }
         }
@@ -1430,7 +1433,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
             if (isset($this->_identifier)) {
                 $this->_identifier = (array) $this->_identifier;
             }
-            if ( ! in_array($fieldName, $this->_identifier)) {
+            if (! in_array($fieldName, $this->_identifier)) {
                 $this->_identifier[] = $fieldName;
             }
         }
@@ -1458,7 +1461,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     public function getDefaultValueOf($fieldName)
     {
         $columnName = $this->getColumnName($fieldName);
-        if ( ! isset($this->_columns[$columnName])) {
+        if (! isset($this->_columns[$columnName])) {
             throw new Doctrine_Table_Exception("Couldn't get default value. Column ".$columnName." doesn't exist.");
         }
         if (isset($this->_columns[$columnName]['default'])) {
@@ -1631,7 +1634,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
         $m = $name;
 
         // Check for possible cross-access
-        if ( ! is_array($name) && strpos($name, '/') !== false) {
+        if (! is_array($name) && strpos($name, '/') !== false) {
             list($ns, $m) = explode('/', $name);
         }
 
@@ -1850,16 +1853,16 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     public function getRecord()
     {
-        if ( ! empty($this->_data)) {
+        if (! empty($this->_data)) {
             $identifierFieldNames = $this->getIdentifier();
 
-            if ( ! is_array($identifierFieldNames)) {
+            if (! is_array($identifierFieldNames)) {
                 $identifierFieldNames = array($identifierFieldNames);
             }
 
             $found = false;
             foreach ($identifierFieldNames as $fieldName) {
-                if ( ! isset($this->_data[$fieldName])) {
+                if (! isset($this->_data[$fieldName])) {
                     // primary key column not found return new record
                     $found = true;
                     break;
@@ -1918,7 +1921,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     public function getClassnameToReturn()
     {
-        if ( ! isset($this->_options['subclasses'])) {
+        if (! isset($this->_options['subclasses'])) {
             return $this->_options['name'];
         }
         foreach ($this->_options['subclasses'] as $subclass) {
@@ -1926,12 +1929,12 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
             $inheritanceMap = $table->getOption('inheritanceMap');
             $nomatch = false;
             foreach ($inheritanceMap as $key => $value) {
-                if ( ! isset($this->_data[$key]) || $this->_data[$key] != $value) {
+                if (! isset($this->_data[$key]) || $this->_data[$key] != $value) {
                     $nomatch = true;
                     break;
                 }
             }
-            if ( ! $nomatch) {
+            if (! $nomatch) {
                 return $table->getComponentName();
             }
         }
@@ -1970,7 +1973,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     final public function applyInheritance($where)
     {
-        if ( ! empty($this->_options['inheritanceMap'])) {
+        if (! empty($this->_options['inheritanceMap'])) {
             $a = array();
             foreach ($this->_options['inheritanceMap'] as $field => $value) {
                 $a[] = $this->getColumnName($field) . ' = ?';
@@ -2080,10 +2083,10 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
 
         if ($value === self::$_null) {
             $value = null;
-        } else if ($value instanceof Doctrine_Record && $value->exists()) {
+        } elseif ($value instanceof Doctrine_Record && $value->exists()) {
             $value = $value->getIncremented();
-        } else if ($value instanceof Doctrine_Record && ! $value->exists()) {
-            foreach($this->getRelations() as $relation) {
+        } elseif ($value instanceof Doctrine_Record && ! $value->exists()) {
+            foreach ($this->getRelations() as $relation) {
                 if ($fieldName == $relation->getLocalFieldName() && (get_class($value) == $relation->getClass() || is_subclass_of($value, $relation->getClass()))) {
                     return $errorStack;
                 }
@@ -2094,7 +2097,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
 
         // Validate field type, if type validation is enabled
         if ($this->getAttribute(Doctrine_Core::ATTR_VALIDATE) & Doctrine_Core::VALIDATE_TYPES) {
-            if ( ! Doctrine_Validator::isValidType($value, $dataType)) {
+            if (! Doctrine_Validator::isValidType($value, $dataType)) {
                 $errorStack->add($fieldName, 'type');
             }
             if ($dataType == 'enum') {
@@ -2113,7 +2116,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                 }
                 // Make sure each set value is valid
                 foreach ($value as $k => $v) {
-                    if ( ! in_array($v, $values)) {
+                    if (! in_array($v, $values)) {
                         $errorStack->add($fieldName, 'set');
                     }
                 }
@@ -2122,14 +2125,14 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
 
         // Validate field length, if length validation is enabled
         if ($this->getAttribute(Doctrine_Core::ATTR_VALIDATE) & Doctrine_Core::VALIDATE_LENGTHS) {
-            if ( ! Doctrine_Validator::validateLength($value, $dataType, $this->getFieldLength($fieldName))) {
+            if (! Doctrine_Validator::validateLength($value, $dataType, $this->getFieldLength($fieldName))) {
                 $errorStack->add($fieldName, 'length');
             }
         }
 
         // Run all custom validators
         foreach ($this->getFieldValidators($fieldName) as $validatorName => $args) {
-            if ( ! is_string($validatorName)) {
+            if (! is_string($validatorName)) {
                 $validatorName = $args;
                 $args = array();
             }
@@ -2138,7 +2141,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
             $validator->invoker = $record;
             $validator->field = $fieldName;
             $validator->args = $args;
-            if ( ! $validator->validate($value)) {
+            if (! $validator->validate($value)) {
                 $errorStack->add($fieldName, $validator);
             }
         }
@@ -2168,7 +2171,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
             foreach ($fields as $field) {
                 $values[] = $record->$field;
             }
-            if ( ! $validator->validate($values)) {
+            if (! $validator->validate($values)) {
                 foreach ($fields as $field) {
                     $errorStack->add($field, $validator);
                 }
@@ -2204,7 +2207,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     public function removeColumn($fieldName)
     {
-        if ( ! $this->hasField($fieldName)) {
+        if (! $this->hasField($fieldName)) {
             return false;
         }
 
@@ -2356,7 +2359,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     {
         if ($value === self::$_null) {
             return self::$_null;
-        } else if ($value === null) {
+        } elseif ($value === null) {
             return null;
         } else {
             $type = is_null($typeHint) ? $this->getTypeOf($fieldName) : $typeHint;
@@ -2364,9 +2367,9 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
             switch ($type) {
                 case 'enum':
                 case 'integer':
-                case 'string';
-                // don't do any casting here PHP INT_MAX is smaller than what the databases support
-                break;
+                case 'string':
+                    // don't do any casting here PHP INT_MAX is smaller than what the databases support
+                    break;
                 case 'set':
                     return explode(',', $value);
                     break;
@@ -2407,7 +2410,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     public function getTree()
     {
         if (isset($this->_options['treeImpl'])) {
-            if ( ! $this->_tree) {
+            if (! $this->_tree) {
                 $options = isset($this->_options['treeOptions']) ? $this->_options['treeOptions'] : array();
                 $this->_tree = Doctrine_Tree::factory($this,
                     $this->_options['treeImpl'],
@@ -2457,7 +2460,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     public function isTree()
     {
-        return ( ! is_null($this->_options['treeImpl'])) ? true : false;
+        return (! is_null($this->_options['treeImpl'])) ? true : false;
     }
 
     /**
@@ -2485,7 +2488,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     {
         if (isset($this->_templates['Doctrine_Template_' . $template])) {
             return $this->_templates['Doctrine_Template_' . $template];
-        } else if (isset($this->_templates[$template])) {
+        } elseif (isset($this->_templates[$template])) {
             return $this->_templates[$template];
         }
 
@@ -2535,7 +2538,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     public function getGenerator($generator)
     {
-        if ( ! isset($this->_generators[$generator])) {
+        if (! isset($this->_generators[$generator])) {
             throw new Doctrine_Table_Exception('Generator ' . $generator . ' not loaded');
         }
 
@@ -2699,7 +2702,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     public function getBoundQueryPart($queryPart)
     {
-        if ( ! isset($this->_options['queryParts'][$queryPart])) {
+        if (! isset($this->_options['queryParts'][$queryPart])) {
             return null;
         }
 
@@ -2828,7 +2831,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
         $fieldName = Doctrine_Inflector::tableize($name);
         if ($this->hasColumn($name) || $this->hasField($name)) {
             return $this->getFieldName($this->getColumnName($name));
-        } else if ($this->hasColumn($fieldName) || $this->hasField($fieldName)) {
+        } elseif ($this->hasColumn($fieldName) || $this->hasField($fieldName)) {
             return $this->getFieldName($this->getColumnName($fieldName));
         } else {
             return false;
@@ -2851,13 +2854,13 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
         if (substr($lcMethod, 0, 6) == 'findby') {
             $by = substr($method, 6, strlen($method));
             $method = 'findBy';
-        } else if (substr($lcMethod, 0, 9) == 'findoneby') {
+        } elseif (substr($lcMethod, 0, 9) == 'findoneby') {
             $by = substr($method, 9, strlen($method));
             $method = 'findOneBy';
         }
 
         if (isset($by)) {
-            if ( ! isset($arguments[0])) {
+            if (! isset($arguments[0])) {
                 throw new Doctrine_Table_Exception('You must specify the value to ' . $method);
             }
 
@@ -2871,7 +2874,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
             }
             if ($this->hasField($fieldName)) {
                 return $this->$method($fieldName, $arguments[0], $hydrationMode);
-            } else if ($this->hasRelation($by)) {
+            } elseif ($this->hasRelation($by)) {
                 $relation = $this->getRelation($by);
 
                 if ($relation['type'] === Doctrine_Relation::MANY) {

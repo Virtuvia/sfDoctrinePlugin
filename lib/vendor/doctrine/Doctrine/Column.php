@@ -81,7 +81,7 @@ class Doctrine_Column extends Doctrine_Access implements IteratorAggregate, Coun
      */
     public function get($name)
     {
-        if ( ! isset($this->_definition[$name])) {
+        if (! isset($this->_definition[$name])) {
             return null;
         }
 

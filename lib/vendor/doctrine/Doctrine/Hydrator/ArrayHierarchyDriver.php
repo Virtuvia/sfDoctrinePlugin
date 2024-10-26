@@ -38,7 +38,7 @@ class Doctrine_Hydrator_ArrayHierarchyDriver extends Doctrine_Hydrator_ArrayDriv
 
         $table = $this->getRootComponent();
 
-        if ( ! $table->isTree() || ! $table->hasColumn('level')) {
+        if (! $table->isTree() || ! $table->hasColumn('level')) {
             throw new Doctrine_Exception('Cannot hydrate model that does not implements Tree behavior with `level` column');
         }
 
@@ -59,7 +59,7 @@ class Doctrine_Hydrator_ArrayHierarchyDriver extends Doctrine_Hydrator_ArrayDriv
                 $l = count($stack);
 
                 // Check if we're dealing with different levels
-                while($l > 0 && $stack[$l - 1]['level'] >= $item['level']) {
+                while ($l > 0 && $stack[$l - 1]['level'] >= $item['level']) {
                     array_pop($stack);
                     $l--;
                 }

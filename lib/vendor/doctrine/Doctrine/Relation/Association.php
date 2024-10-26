@@ -61,7 +61,7 @@ class Doctrine_Relation_Association extends Doctrine_Relation
 
         switch ($context) {
             case "record":
-                $sub  = substr(str_repeat("?, ", $count),0,-2);
+                $sub  = substr(str_repeat("?, ", $count), 0, -2);
                 $dql  = 'FROM ' . $this->getTable()->getComponentName();
                 $dql .= '.' . $component;
                 $dql .= ' WHERE ' . $this->getTable()->getComponentName()
@@ -69,7 +69,7 @@ class Doctrine_Relation_Association extends Doctrine_Relation
                 $dql .= $this->getOrderBy($this->getTable()->getComponentName(), false);
                 break;
             case "collection":
-                $sub  = substr(str_repeat("?, ", $count),0,-2);
+                $sub  = substr(str_repeat("?, ", $count), 0, -2);
                 $dql  = 'FROM ' . $component . '.' . $this->getTable()->getComponentName();
                 $dql .= ' WHERE ' . $component . '.' . $this->getLocalRefColumnName() . ' IN (' . $sub . ')';
                 $dql .= $this->getOrderBy($component, false);

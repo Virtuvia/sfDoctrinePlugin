@@ -170,7 +170,7 @@ class Doctrine_AuditLog extends Doctrine_Record_Generator
         $q = Doctrine_Core::getTable($className)
             ->createQuery()
             ->select($select)
-            ->where(implode(' AND ',$conditions));
+            ->where(implode(' AND ', $conditions));
 
         $result = $q->execute($values, Doctrine_Core::HYDRATE_ARRAY);
 

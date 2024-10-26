@@ -87,7 +87,7 @@ class Doctrine_Tree_NestedSet extends Doctrine_Tree implements Doctrine_Tree_Int
     public function createRoot(Doctrine_Record $record = null)
     {
         if ($this->getAttribute('hasManyRoots')) {
-            if ( ! $record || ( ! $record->exists() && ! $record->getNode()->getRootValue())
+            if (! $record || (! $record->exists() && ! $record->getNode()->getRootValue())
                     || $record->getTable()->isIdentifierComposite()) {
                 throw new Doctrine_Tree_Exception("Node must have a root id set or must "
                         . " be persistent and have a single-valued numeric primary key in order to"
@@ -102,7 +102,7 @@ class Doctrine_Tree_NestedSet extends Doctrine_Tree implements Doctrine_Tree_Int
             }
         }
 
-        if ( ! $record) {
+        if (! $record) {
             $record = $this->table->create();
         }
 
@@ -138,7 +138,7 @@ class Doctrine_Tree_NestedSet extends Doctrine_Tree implements Doctrine_Tree_Int
         if ($data instanceof Doctrine_Collection) {
             $root = $data->getFirst();
             $root['level'] = 0;
-        } else if (is_array($data)) {
+        } elseif (is_array($data)) {
             $root = array_shift($data);
             $root['level'] = 0;
         } else {
@@ -173,7 +173,7 @@ class Doctrine_Tree_NestedSet extends Doctrine_Tree implements Doctrine_Tree_Int
             $q->addOrderBy($this->_baseAlias . ".lft ASC");
         }
 
-        if ( ! is_null($depth)) {
+        if (! is_null($depth)) {
             $q->addWhere($this->_baseAlias . ".level BETWEEN ? AND ?", array(0, $depth));
         }
 
@@ -200,7 +200,7 @@ class Doctrine_Tree_NestedSet extends Doctrine_Tree implements Doctrine_Tree_Int
     public function fetchBranch($pk, $options = array(), $hydrationMode = null)
     {
         $record = $this->table->find($pk);
-        if ( ! ($record instanceof Doctrine_Record) || !$record->exists()) {
+        if (! ($record instanceof Doctrine_Record) || !$record->exists()) {
             // TODO: if record doesn't exist, throw exception or similar?
             return false;
         }
@@ -212,7 +212,7 @@ class Doctrine_Tree_NestedSet extends Doctrine_Tree implements Doctrine_Tree_Int
         $q->addWhere($this->_baseAlias . ".lft >= ? AND " . $this->_baseAlias . ".rgt <= ?", $params)
                 ->addOrderBy($this->_baseAlias . ".lft asc");
 
-        if ( ! is_null($depth)) {
+        if (! is_null($depth)) {
             $q->addWhere($this->_baseAlias . ".level BETWEEN ? AND ?", array($record->get('level'), $record->get('level')+$depth));
         }
 
@@ -263,7 +263,7 @@ class Doctrine_Tree_NestedSet extends Doctrine_Tree implements Doctrine_Tree_Int
      */
     public function getBaseQuery()
     {
-        if ( ! isset($this->_baseQuery)) {
+        if (! isset($this->_baseQuery)) {
             $this->_baseQuery = $this->_createBaseQuery();
         }
         return $this->_baseQuery->copy();

@@ -32,9 +32,9 @@
  */
 class Doctrine_Task_BuildAllLoad extends Doctrine_Task
 {
-    public $description          =   'Calls build-all, and load-data',
-        $requiredArguments    =   array(),
-        $optionalArguments    =   array();
+    public $description          =   'Calls build-all, and load-data';
+    public $requiredArguments    =   array();
+    public $optionalArguments    =   array();
 
     public function __construct($dispatcher = null)
     {

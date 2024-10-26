@@ -66,7 +66,7 @@ class Doctrine_Relation_Association_Self extends Doctrine_Relation_Association
                 $dql .= $this->getOrderBy($this->definition['table']->getComponentName(), false);
                 break;
             case 'collection':
-                $sub  = substr(str_repeat('?, ', $count),0,-2);
+                $sub  = substr(str_repeat('?, ', $count), 0, -2);
                 $dql  = 'FROM '.$this->definition['refTable']->getComponentName()
                       . '.' . $this->definition['table']->getComponentName()
                       . ' WHERE '.$this->definition['refTable']->getComponentName()
@@ -107,7 +107,7 @@ class Doctrine_Relation_Association_Self extends Doctrine_Relation_Association
           ->where($tableName.'.'.$identifier.' IN ('.$sub.') OR '.
            $tableName.'.'.$identifier.' IN ('.$sub2.')'
           );
-        $q->addComponent($tableName,  $record->getTable()->getComponentName());
+        $q->addComponent($tableName, $record->getTable()->getComponentName());
         $q->addComponent($assocTable, $record->getTable()->getComponentName(). '.' . $this->getAssociationFactory()->getComponentName());
         $q->orderBy($this->getOrderByStatement($tableName, true));
 

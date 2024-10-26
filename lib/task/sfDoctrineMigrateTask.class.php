@@ -76,9 +76,9 @@ EOF;
 
         if (is_numeric($arguments['version'])) {
             $version = $arguments['version'];
-        } else if ($options['up']) {
+        } elseif ($options['up']) {
             $version = $from + 1;
-        } else if ($options['down']) {
+        } elseif ($options['down']) {
             $version = $from - 1;
         } else {
             $version = $migration->getLatestVersion();
@@ -92,13 +92,13 @@ EOF;
         $this->logSection('doctrine', sprintf('Migrating from version %s to %s%s', $from, $version, $options['dry-run'] ? ' (dry run)' : ''));
         try {
             $migration_classes = $migration->getMigrationClasses();
-            if($version < $from) {
-                for($i = (int)$from - 1; $i >= (int)$version; $i--) {
+            if ($version < $from) {
+                for ($i = (int)$from - 1; $i >= (int)$version; $i--) {
                     $this->logSection('doctrine', 'executing migration : '.$i .', class: '.$migration_classes[$i]);
                     $migration->migrate($i, $options['dry-run']);
                 }
             } else {
-                for($i = (int)$from + 1; $i <= (int)$version; $i++) {
+                for ($i = (int)$from + 1; $i <= (int)$version; $i++) {
                     $this->logSection('doctrine', 'executing migration : '.$i.', class: '.$migration_classes[$i]);
                     $migration->migrate($i, $options['dry-run']);
                 }

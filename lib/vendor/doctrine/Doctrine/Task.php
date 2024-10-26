@@ -34,12 +34,13 @@
  */
 abstract class Doctrine_Task
 {
-    public $dispatcher           =   null,
-        $taskName             =   null,  /*Treat as protected*/
-        $description          =   null,
-        $arguments            =   array(),
-        $requiredArguments    =   array(),
-        $optionalArguments    =   array();
+    public $dispatcher           =   null;
+    public $taskName             =   null;
+    /*Treat as protected*/
+    public $description          =   null;
+    public $arguments            =   array();
+    public $requiredArguments    =   array();
+    public $optionalArguments    =   array();
 
     /**
      * __construct
@@ -103,7 +104,7 @@ abstract class Doctrine_Task
             $args = func_get_args();
 
             return call_user_func_array(array($this->dispatcher, 'notify'), $args);
-        } else if ( $notification !== null ) {
+        } elseif ($notification !== null) {
             return $notification;
         } else {
             return false;
@@ -134,7 +135,7 @@ abstract class Doctrine_Task
      * @return void
      * @abstract
      */
-    abstract function execute();
+    abstract public function execute();
 
     /**
      * validate
@@ -148,7 +149,7 @@ abstract class Doctrine_Task
         $requiredArguments = $this->getRequiredArguments();
 
         foreach ($requiredArguments as $arg) {
-            if ( ! isset($this->arguments[$arg])) {
+            if (! isset($this->arguments[$arg])) {
                 return false;
             }
         }

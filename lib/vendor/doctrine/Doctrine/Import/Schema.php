@@ -212,7 +212,7 @@ class Doctrine_Import_Schema
      */
     public function setOptions($options)
     {
-        if ( ! empty($options)) {
+        if (! empty($options)) {
             $this->_options = $options;
         }
     }
@@ -230,13 +230,13 @@ class Doctrine_Import_Schema
     {
         $array = array();
 
-        foreach ((array) $schema AS $s) {
+        foreach ((array) $schema as $s) {
             if (is_file($s)) {
                 $e = explode('.', $s);
                 if (end($e) === $format) {
                     $array = array_merge($array, $this->parseSchema($s, $format));
                 }
-            } else if (is_dir($s)) {
+            } elseif (is_dir($s)) {
                 $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($s),
                     RecursiveIteratorIterator::LEAVES_ONLY);
 
@@ -285,7 +285,7 @@ class Doctrine_Import_Schema
         }
 
         foreach ($array as $name => $definition) {
-            if ( ! empty($models) && !in_array($definition['className'], $models)) {
+            if (! empty($models) && !in_array($definition['className'], $models)) {
                 continue;
             }
 
@@ -363,11 +363,11 @@ class Doctrine_Import_Schema
 
             $columns = isset($table['columns']) ? $table['columns']:array();
 
-            if ( ! empty($columns)) {
+            if (! empty($columns)) {
                 foreach ($columns as $columnName => $field) {
 
                     // Support short syntax: my_column: integer(4)
-                    if ( ! is_array($field)) {
+                    if (! is_array($field)) {
                         $original = $field;
                         $field = array();
                         $field['type'] = $original;
@@ -464,11 +464,11 @@ class Doctrine_Import_Schema
     {
         // Apply default inheritance configuration
         foreach ($array as $className => $definition) {
-            if ( ! empty($array[$className]['inheritance'])) {
+            if (! empty($array[$className]['inheritance'])) {
                 $this->_validateSchemaElement('inheritance', array_keys($definition['inheritance']), $className . '->inheritance');
 
                 // Default inheritance to concrete inheritance
-                if ( ! isset($array[$className]['inheritance']['type'])) {
+                if (! isset($array[$className]['inheritance']['type'])) {
                     $array[$className]['inheritance']['type'] = 'concrete';
                 }
 
@@ -476,18 +476,18 @@ class Doctrine_Import_Schema
                 // Adds keyField to the parent class automatically
                 if ($array[$className]['inheritance']['type'] == 'column_aggregation') {
                     // Set the keyField to 'type' by default
-                    if ( ! isset($array[$className]['inheritance']['keyField'])) {
+                    if (! isset($array[$className]['inheritance']['keyField'])) {
                         $array[$className]['inheritance']['keyField'] = 'type';
                     }
 
                     // Set the keyValue to the name of the child class if it does not exist
-                    if ( ! isset($array[$className]['inheritance']['keyValue'])) {
+                    if (! isset($array[$className]['inheritance']['keyValue'])) {
                         $array[$className]['inheritance']['keyValue'] = $className;
                     }
 
                     $parent = $this->_findBaseSuperClass($array, $definition['className']);
                     // Add the keyType column to the parent if a definition does not already exist
-                    if ( ! isset($array[$parent]['columns'][$array[$className]['inheritance']['keyField']])) {
+                    if (! isset($array[$parent]['columns'][$array[$className]['inheritance']['keyField']])) {
                         $array[$parent]['columns'][$array[$className]['inheritance']['keyField']] = array('name' => $array[$className]['inheritance']['keyField'], 'type' => 'string', 'length' => 255);
                     }
                 }
@@ -526,7 +526,7 @@ class Doctrine_Import_Schema
                         $superClass = $multiInheritanceDef['inheritance']['extends'];
 
                         // keep original keyField with it's keyValue
-                        if ( ! isset($inheritanceFields[$multiInheritanceDef['inheritance']['keyField']])) {
+                        if (! isset($inheritanceFields[$multiInheritanceDef['inheritance']['keyField']])) {
                             $inheritanceFields[$multiInheritanceDef['inheritance']['keyField']] = $multiInheritanceDef['inheritance']['keyValue'];
                         }
                         $multiInheritanceDef = $array[$superClass];
@@ -593,7 +593,7 @@ class Doctrine_Import_Schema
         }
 
         foreach ($array as $name => $properties) {
-            if ( ! isset($properties['relations'])) {
+            if (! isset($properties['relations'])) {
                 continue;
             }
 
@@ -602,7 +602,7 @@ class Doctrine_Import_Schema
 
             foreach ($relations as $alias => $relation) {
                 $class = isset($relation['class']) ? $relation['class']:$alias;
-                if ( ! isset($array[$class])) {
+                if (! isset($array[$class])) {
                     continue;
                 }
                 $relation['class'] = $class;
@@ -663,8 +663,8 @@ class Doctrine_Import_Schema
      */
     protected function _autoCompleteOppositeRelations()
     {
-        foreach($this->_relations as $className => $relations) {
-            foreach ($relations AS $alias => $relation) {
+        foreach ($this->_relations as $className => $relations) {
+            foreach ($relations as $alias => $relation) {
                 if ((isset($relation['equal']) && $relation['equal']) || (isset($relation['autoComplete']) && $relation['autoComplete'] === false)) {
                     continue;
                 }
@@ -692,7 +692,7 @@ class Doctrine_Import_Schema
                 }
 
                 // Make sure it doesn't already exist
-                if ( ! isset($this->_relations[$relation['class']][$newRelation['alias']])) {
+                if (! isset($this->_relations[$relation['class']][$newRelation['alias']])) {
                     $newRelation['key'] = $this->_buildUniqueRelationKey($newRelation);
                     $this->_relations[$relation['class']][$newRelation['alias']] = $newRelation;
                 }
@@ -710,17 +710,17 @@ class Doctrine_Import_Schema
      */
     protected function _fixDuplicateRelations()
     {
-        foreach($this->_relations as $className => $relations) {
+        foreach ($this->_relations as $className => $relations) {
             // This is for checking for duplicates between alias-relations and a auto-generated relations to ensure the result set of unique relations
             $existingRelations = array();
             $uniqueRelations = array();
             foreach ($relations as $relation) {
-                if ( ! in_array($relation['key'], $existingRelations)) {
+                if (! in_array($relation['key'], $existingRelations)) {
                     $existingRelations[] = $relation['key'];
                     $uniqueRelations = array_merge($uniqueRelations, array($relation['alias'] => $relation));
                 } else {
                     // check to see if this relationship is not autogenerated, if it's not, then the user must have explicitly declared it
-                    if ( ! isset($relation['autogenerated']) || $relation['autogenerated'] != true) {
+                    if (! isset($relation['autogenerated']) || $relation['autogenerated'] != true) {
                         $uniqueRelations = array_merge($uniqueRelations, array($relation['alias'] => $relation));
                     }
                 }
@@ -766,7 +766,7 @@ class Doctrine_Import_Schema
 
         $validation = array_flip($validation);
         foreach ($element as $key => $value) {
-            if ( ! isset($validation[$value])) {
+            if (! isset($validation[$value])) {
                 throw new Doctrine_Import_Exception(
                     sprintf('Invalid schema element named "' . $value . '" at path "' . $path . '"')
                 );

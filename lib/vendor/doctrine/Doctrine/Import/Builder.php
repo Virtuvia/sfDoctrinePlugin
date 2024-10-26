@@ -188,7 +188,7 @@ class Doctrine_Import_Builder extends Doctrine_Builder
     public function setTargetPath($path)
     {
         if ($path) {
-            if ( ! $this->_packagesPath) {
+            if (! $this->_packagesPath) {
                 $this->setOption('packagesPath', $path . DIRECTORY_SEPARATOR . $this->_packagesFolderName);
             }
 
@@ -248,7 +248,7 @@ class Doctrine_Import_Builder extends Doctrine_Builder
      */
     public function setOptions($options)
     {
-        if ( ! empty($options)) {
+        if (! empty($options)) {
             foreach ($options as $key => $value) {
                 $this->setOption($key, $value);
             }
@@ -395,7 +395,7 @@ EOF;
                 $class = isset($relation['class']) ? $relation['class']:$name;
                 $alias = (isset($relation['alias']) && $relation['alias'] !== $this->_classPrefix . $relation['class']) ? ' as ' . $relation['alias'] : '';
 
-                if ( ! isset($relation['type'])) {
+                if (! isset($relation['type'])) {
                     $relation['type'] = Doctrine_Relation::ONE;
                 }
 
@@ -459,7 +459,7 @@ EOF;
                     $a[] = '\'skipImplicitIndex\' => ' . $this->varExport($relation['skipImplicitIndex']);
                 }
 
-                if ( ! empty($a)) {
+                if (! empty($a)) {
                     $ret[$i] .= ', ' . 'array(' . PHP_EOL . str_repeat(' ', 13);
                     $length = strlen($ret[$i]);
                     $ret[$i] .= implode(',' . PHP_EOL . str_repeat(' ', 13), $a) . ')';
@@ -711,7 +711,7 @@ EOF;
                 $fieldName = trim($fieldName);
 
                 // check for primary
-                if(isset($column['primary']) && $column['primary']) {
+                if (isset($column['primary']) && $column['primary']) {
                     $definedPrimary = true;
                 }
 
@@ -725,7 +725,7 @@ EOF;
                 }
             }
 
-            if(!$definedPrimary) {
+            if (!$definedPrimary) {
                 // @todo Should probably check the default identifier information rather than assuming integer and id
                 $primaryType = 'string';
                 $primaryName = 'id';
@@ -794,7 +794,7 @@ EOF;
     {
         $emittedActAs = array();
         $build = $this->innerBuildActAs($actAs, 0, null, $emittedActAs);
-        foreach($emittedActAs as $str) {
+        foreach ($emittedActAs as $str) {
             $build .= $str;
         }
         return $build;
@@ -827,15 +827,15 @@ EOF;
         $build = '';
         $currentParent = $parent;
         if (is_array($actAs)) {
-            foreach($actAs as $template => $options) {
+            foreach ($actAs as $template => $options) {
                 if ($template == 'actAs') {
                     // found another actAs
                     $build .= $this->innerBuildActAs($options, $level + 1, $parent, $emittedActAs);
-                } else if (is_array($options)) {
+                } elseif (is_array($options)) {
                     // remove actAs from options
                     $realOptions = array();
                     $leftActAs = array();
-                    foreach($options as $name => $value) {
+                    foreach ($options as $name => $value) {
                         if ($name != 'actAs') {
                             $realOptions[$name] = $options[$name];
                         } else {
@@ -885,15 +885,15 @@ EOF;
     {
         $build = '';
 
-        foreach($listeners as $name => $options) {
-            if ( ! is_array($options) && $options !== null) {
+        foreach ($listeners as $name => $options) {
+            if (! is_array($options) && $options !== null) {
                 $name = $options;
                 $options = null;
             }
 
-            $useOptions = ( ! empty($options) && isset($options['useOptions']) && $options['useOptions'] == true)
+            $useOptions = (! empty($options) && isset($options['useOptions']) && $options['useOptions'] == true)
                 ? '$this->getTable()->getOptions()' : 'array()';
-            $class = ( ! empty($options) && isset($options['class'])) ? $options['class'] : $name;
+            $class = (! empty($options) && isset($options['class'])) ? $options['class'] : $name;
 
             $build .= "    \$this->addListener(new " . $class . "(" . $useOptions . "), '" . $name . "');" . PHP_EOL;
         }
@@ -916,7 +916,7 @@ EOF;
             if (is_bool($value)) {
                 $values[] = $value ? 'true':'false';
             } else {
-                if ( ! is_array($value)) {
+                if (! is_array($value)) {
                     $value = array($value);
                 }
 
@@ -980,7 +980,7 @@ EOF;
      */
     public function buildToString(array $definition)
     {
-        if ( empty($definition['toString'])) {
+        if (empty($definition['toString'])) {
             return '';
         }
 
@@ -999,14 +999,14 @@ EOF;
      */
     public function buildDefinition(array $definition)
     {
-        if ( ! isset($definition['className'])) {
+        if (! isset($definition['className'])) {
             throw new Doctrine_Import_Builder_Exception('Missing class name.');
         }
         $abstract = isset($definition['abstract']) && $definition['abstract'] === true ? 'abstract ':null;
         $className = $definition['className'];
         $extends = isset($definition['inheritance']['extends']) ? $definition['inheritance']['extends']:$this->_baseClassName;
 
-        if ( ! (isset($definition['no_definition']) && $definition['no_definition'] === true)) {
+        if (! (isset($definition['no_definition']) && $definition['no_definition'] === true)) {
             $tableDefinitionCode = $this->buildTableDefinition($definition);
             $setUpCode = $this->buildSetUp($definition);
 
@@ -1053,7 +1053,7 @@ EOF;
      */
     public function buildRecord(array $definition)
     {
-        if ( ! isset($definition['className'])) {
+        if (! isset($definition['className'])) {
             throw new Doctrine_Import_Builder_Exception('Missing class name.');
         }
 
@@ -1111,7 +1111,7 @@ EOF;
 
             $this->writeDefinition($baseClass);
 
-            if ( ! empty($packageLevel)) {
+            if (! empty($packageLevel)) {
                 $this->writeDefinition($packageLevel);
             }
 
@@ -1189,7 +1189,7 @@ EOF;
 
         Doctrine_Core::loadModel($className, $writePath);
 
-        if ( ! file_exists($writePath)) {
+        if (! file_exists($writePath)) {
             file_put_contents($writePath, $content);
         }
     }
@@ -1269,7 +1269,7 @@ EOF;
             }
         }
         // If is the package class then we need to make the path to the complete package
-        else if (isset($definition['is_package_class']) && $definition['is_package_class']) {
+        elseif (isset($definition['is_package_class']) && $definition['is_package_class']) {
             if (isset($definition['package_custom_path'])) {
                 $writePath = $definition['package_custom_path'];
             } else {
@@ -1281,7 +1281,7 @@ EOF;
             }
         }
         // If it is the base class of the doctrine record definition
-        else if (isset($definition['is_base_class']) && $definition['is_base_class']) {
+        elseif (isset($definition['is_base_class']) && $definition['is_base_class']) {
             // If it is a part of a package then we need to put it in a package subfolder
             if (isset($definition['is_package']) && $definition['is_package']) {
                 $basePath = $this->_path . DIRECTORY_SEPARATOR . $definition['package_name'];
@@ -1320,7 +1320,7 @@ EOF;
         Doctrine_Lib::makeDirectories(dirname($writePath));
 
         if (isset($definition['generate_once']) && $definition['generate_once'] === true) {
-            if ( ! file_exists($writePath)) {
+            if (! file_exists($writePath)) {
                 $bytes = file_put_contents($writePath, $code);
             }
         } else {

@@ -61,7 +61,7 @@ class Doctrine_Template_Listener_Sluggable extends Doctrine_Record_Listener
         $record = $event->getInvoker();
         $name = $record->getTable()->getFieldName($this->_options['name']);
 
-        if ( ! $record->$name) {
+        if (! $record->$name) {
             $record->$name = $this->buildSlugFromFields($record);
         }
     }
@@ -79,12 +79,12 @@ class Doctrine_Template_Listener_Sluggable extends Doctrine_Record_Listener
             $record = $event->getInvoker();
             $name = $record->getTable()->getFieldName($this->_options['name']);
 
-            if ( ! $record->$name || (
+            if (! $record->$name || (
                 false !== $this->_options['canUpdate'] &&
                 ! array_key_exists($name, $record->getModified())
             )) {
                 $record->$name = $this->buildSlugFromFields($record);
-            } else if ( ! empty($record->$name) &&
+            } elseif (! empty($record->$name) &&
                 false !== $this->_options['canUpdate'] &&
                 array_key_exists($name, $record->getModified()
                 )) {
@@ -104,7 +104,7 @@ class Doctrine_Template_Listener_Sluggable extends Doctrine_Record_Listener
         if (empty($this->_options['fields'])) {
             if (is_callable($this->_options['provider'])) {
                 $value = call_user_func($this->_options['provider'], $record);
-            } else if (method_exists($record, 'getUniqueSlug')) {
+            } elseif (method_exists($record, 'getUniqueSlug')) {
                 $value = $record->getUniqueSlug($record);
             } else {
                 $value = (string) $record;
@@ -199,7 +199,7 @@ class Doctrine_Template_Listener_Sluggable extends Doctrine_Record_Listener
 
         $query = $table->createQuery('r')
             ->select('r.' . $name)
-            ->where($whereString , $whereParams)
+            ->where($whereString, $whereParams)
             ->setHydrationMode(Doctrine_Core::HYDRATE_ARRAY);
 
         // We need to introspect SoftDelete to check if we are not disabling unique records too

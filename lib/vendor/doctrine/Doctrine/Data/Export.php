@@ -73,16 +73,16 @@ class Doctrine_Data_Export extends Doctrine_Data
 
         // temporarily disable indexBy query parts of selected and related tables
         $originalIndexBy = array();
-        foreach ($models AS $name) {
+        foreach ($models as $name) {
             $table = Doctrine_Core::getTable($name);
-            if ( !is_null($indexBy = $table->getBoundQueryPart('indexBy'))) {
+            if (!is_null($indexBy = $table->getBoundQueryPart('indexBy'))) {
                 $originalIndexBy[$name] = $indexBy;
                 $table->bindQueryPart('indexBy', null);
             }
         }
 
-        foreach ($models AS $name) {
-            if ( ! empty($specifiedModels) AND ! in_array($name, $specifiedModels)) {
+        foreach ($models as $name) {
+            if (! empty($specifiedModels) and ! in_array($name, $specifiedModels)) {
                 continue;
             }
 
@@ -94,7 +94,7 @@ class Doctrine_Data_Export extends Doctrine_Data
         }
 
         // Restore the temporarily disabled indexBy query parts
-        foreach($originalIndexBy AS $name => $indexBy) {
+        foreach ($originalIndexBy as $name => $indexBy) {
             Doctrine_Core::getTable($name)->bindQueryPart('indexBy', $indexBy);
         }
 
@@ -119,12 +119,12 @@ class Doctrine_Data_Export extends Doctrine_Data
         if ($this->exportIndividualFiles()) {
             if (is_array($directory)) {
                 throw new Doctrine_Data_Exception('You must specify a single path to a folder in order to export individual files.');
-            } else if ( ! is_dir($directory) && is_file($directory)) {
+            } elseif (! is_dir($directory) && is_file($directory)) {
                 $directory = dirname($directory);
             }
 
             foreach ($data as $className => $classData) {
-                if ( ! empty($classData)) {
+                if (! empty($classData)) {
                     Doctrine_Parser::dump(array($className => $classData), $format, $directory.DIRECTORY_SEPARATOR.$className.'.'.$format);
                 }
             }
@@ -133,7 +133,7 @@ class Doctrine_Data_Export extends Doctrine_Data
                 $directory .= DIRECTORY_SEPARATOR . 'data.' . $format;
             }
 
-            if ( ! empty($data)) {
+            if (! empty($data)) {
                 return Doctrine_Parser::dump($data, $format, $directory);
             }
         }
@@ -151,7 +151,7 @@ class Doctrine_Data_Export extends Doctrine_Data
     {
         $preparedData = array();
 
-        foreach ($data AS $className => $classData) {
+        foreach ($data as $className => $classData) {
             $preparedData[$className] = array();
             $keyType = $classData->getTable()->getIdentifierType();
             foreach ($classData as $record) {
@@ -165,7 +165,7 @@ class Doctrine_Data_Export extends Doctrine_Data
                 $recordData = $record->toArray(false);
 
                 foreach ($recordData as $key => $value) {
-                    if ( ! is_array($keys)) {
+                    if (! is_array($keys)) {
                         $keys = array($keys);
                     }
 
@@ -179,7 +179,7 @@ class Doctrine_Data_Export extends Doctrine_Data
                     }
 
                     if ($relation = $this->isRelation($record, $key)) {
-                        if ( ! $value) {
+                        if (! $value) {
                             continue;
                         }
                         $relationAlias = $relation['alias'];
@@ -201,7 +201,7 @@ class Doctrine_Data_Export extends Doctrine_Data
                         $relationValue = $relationClassName . '_' . $value;
 
                         $preparedData[$className][$recordKey][$relationAlias] = $relationValue;
-                    } else if ($record->getTable()->hasField($key)) {
+                    } elseif ($record->getTable()->hasField($key)) {
                         $preparedData[$className][$recordKey][$key] = $value;
                     }
                 }

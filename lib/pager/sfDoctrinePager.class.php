@@ -19,10 +19,9 @@
  */
 class sfDoctrinePager extends sfPager
 {
-    protected
-        $query             = null,
-        $tableMethodName   = null,
-        $tableMethodCalled = false;
+    protected $query             = null;
+    protected $tableMethodName   = null;
+    protected $tableMethodCalled = false;
 
     /**
      * Get the name of the table method used to retrieve the query object for the pager
@@ -126,7 +125,7 @@ class sfDoctrinePager extends sfPager
             $method = $this->tableMethodName;
             $this->query = Doctrine_Core::getTable($this->getClass())->$method($this->query);
             $this->tableMethodCalled = true;
-        } else if (!$this->query) {
+        } elseif (!$this->query) {
             $this->query = Doctrine_Core::getTable($this->getClass())->createQuery();
         }
 

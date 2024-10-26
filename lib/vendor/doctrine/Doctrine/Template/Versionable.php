@@ -110,13 +110,13 @@ class Doctrine_Template_Versionable extends Doctrine_Template
     {
         $auditLog = $this->_plugin;
 
-        if ( ! $auditLog->getOption('auditLog')) {
+        if (! $auditLog->getOption('auditLog')) {
             throw new Doctrine_Record_Exception('Audit log is turned off, no version history is recorded.');
         }
 
         $data = $auditLog->getVersion($this->getInvoker(), $version);
 
-        if ( ! isset($data[0])) {
+        if (! isset($data[0])) {
             throw new Doctrine_Record_Exception('Version ' . $version . ' does not exist!');
         }
 

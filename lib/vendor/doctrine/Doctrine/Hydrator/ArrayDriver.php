@@ -49,7 +49,7 @@ class Doctrine_Hydrator_ArrayDriver extends Doctrine_Hydrator_Graph
 
     public function initRelated(&$record, $name, $keyColumn = null)
     {
-        if ( ! isset($record[$name])) {
+        if (! isset($record[$name])) {
             $record[$name] = array();
         }
         return true;

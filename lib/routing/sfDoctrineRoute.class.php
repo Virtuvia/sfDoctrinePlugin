@@ -22,8 +22,7 @@
  */
 class sfDoctrineRoute extends sfObjectRoute
 {
-    protected
-        $query = null;
+    protected $query = null;
 
     public function setListQuery(Doctrine_Query $query)
     {
@@ -48,7 +47,7 @@ class sfDoctrineRoute extends sfObjectRoute
             }
         }
         // If an object is returned then lets return it otherwise return null
-        else if(!is_object($results)) {
+        elseif (!is_object($results)) {
             $results = null;
         }
 
@@ -61,8 +60,8 @@ class sfDoctrineRoute extends sfObjectRoute
 
         $variables = array();
         $values = array();
-        foreach($this->getRealVariables() as $variable) {
-            if($tableModel->hasColumn($tableModel->getColumnName($variable))) {
+        foreach ($this->getRealVariables() as $variable) {
+            if ($tableModel->hasColumn($tableModel->getColumnName($variable))) {
                 $variables[] = $variable;
                 $values[$variable] = $parameters[$variable];
             }

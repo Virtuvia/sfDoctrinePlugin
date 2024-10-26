@@ -355,7 +355,7 @@ class Doctrine_Pager_Layout
     public function processPage($options = array())
     {
         // Check if at least basic options are defined
-        if ( !isset($options['page_number'])) {
+        if (!isset($options['page_number'])) {
             throw new Doctrine_Pager_Exception(
                 'Cannot process template of the given page. ' .
                 'Missing at least one of needed parameters: \'page\' or \'page_number\''
@@ -366,7 +366,7 @@ class Doctrine_Pager_Layout
         }
 
         // Assign "page" options index if not defined yet
-        if ( !isset($this->_maskReplacements['page']) && !isset($options['page'])) {
+        if (!isset($this->_maskReplacements['page']) && !isset($options['page'])) {
             $options['page'] = $options['page_number'];
         }
 

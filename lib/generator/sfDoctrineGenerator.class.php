@@ -18,8 +18,7 @@
  */
 class sfDoctrineGenerator extends sfModelGenerator
 {
-    protected
-        $table = null;
+    protected $table = null;
 
     /**
      * Initializes the current sfGenerator instance.

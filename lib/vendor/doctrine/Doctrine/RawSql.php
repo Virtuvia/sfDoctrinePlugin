@@ -49,7 +49,7 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
      * @param Doctrine_Connection  The connection object the query will use.
      * @param Doctrine_Hydrator_Abstract  The hydrator that will be used for generating result sets.
      */
-    function __construct(Doctrine_Connection $connection = null, Doctrine_Hydrator_Abstract $hydrator = null)
+    public function __construct(Doctrine_Connection $connection = null, Doctrine_Hydrator_Abstract $hydrator = null)
     {
         parent::__construct($connection, $hydrator);
 
@@ -85,11 +85,11 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
             $this->_parseSelectFields($queryPart);
             return $this;
         }
-        if ( ! isset($this->_sqlParts[$queryPartName])) {
+        if (! isset($this->_sqlParts[$queryPartName])) {
             $this->_sqlParts[$queryPartName] = array();
         }
 
-        if ( ! $append) {
+        if (! $append) {
             $this->_sqlParts[$queryPartName] = array($queryPart);
         } else {
             $this->_sqlParts[$queryPartName][] = $queryPart;
@@ -146,7 +146,7 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
                 case 'offset':
                 case 'having':
                     $type = $partLowerCase;
-                    if ( ! isset($parts[$partLowerCase])) {
+                    if (! isset($parts[$partLowerCase])) {
                         $parts[$partLowerCase] = array();
                     }
                     break;
@@ -165,7 +165,7 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
                     break;
                 default:
                     //not a keyword so we add it to the previous type.
-                    if ( ! isset($parts[$type][0])) {
+                    if (! isset($parts[$type][0])) {
                         $parts[$type][0] = $part;
                     } else {
                         // why does this add to index 0 and not append to the
@@ -205,11 +205,11 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
 
         foreach ($this->fields as $field) {
             $e = explode('.', $field);
-            if ( ! isset($e[1])) {
+            if (! isset($e[1])) {
                 throw new Doctrine_RawSql_Exception('All selected fields in Sql query must be in format tableAlias.fieldName');
             }
             // try to auto-add component
-            if ( ! $this->hasSqlTableAlias($e[0])) {
+            if (! $this->hasSqlTableAlias($e[0])) {
                 try {
                     $this->addComponent($e[0], ucwords($e[0]));
                 } catch (Doctrine_Exception $exception) {
@@ -232,14 +232,14 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
         }
 
         // force-add all primary key fields
-        if ( ! isset($this->_sqlParts['distinct']) || $this->_sqlParts['distinct'] != true) {
+        if (! isset($this->_sqlParts['distinct']) || $this->_sqlParts['distinct'] != true) {
             foreach ($this->getTableAliasMap() as $tableAlias => $componentAlias) {
                 $map = $this->_queryComponents[$componentAlias];
 
                 foreach ((array) $map['table']->getIdentifierColumnNames() as $key) {
                     $field = $formatter->quoteIdentifier($tableAlias) . '.' . $formatter->quoteIdentifier($key);
 
-                    if ( ! isset($this->_sqlParts['select'][$field])) {
+                    if (! isset($this->_sqlParts['select'][$field])) {
                         $select[$componentAlias][$field] = $field . ' AS ' . $formatter->quoteIdentifier($tableAlias . '__' . $key);
                     }
                 }
@@ -262,26 +262,26 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
         unset($select[$componentAlias]);
 
         foreach ($select as $component => $fields) {
-            if ( ! empty($fields)) {
+            if (! empty($fields)) {
                 $q .= ', ' . implode(', ', $fields);
             }
         }
 
         $string = $this->getInheritanceCondition($this->getRootAlias());
 
-        if ( ! empty($string)) {
+        if (! empty($string)) {
             $this->_sqlParts['where'][] = $string;
         }
 
-        $q .= ( ! empty($this->_sqlParts['from']))?    ' FROM '     . implode(' ', $this->_sqlParts['from']) : '';
-        $q .= ( ! empty($this->_sqlParts['where']))?   ' WHERE '    . implode(' AND ', $this->_sqlParts['where']) : '';
-        $q .= ( ! empty($this->_sqlParts['groupby']))? ' GROUP BY ' . implode(', ', $this->_sqlParts['groupby']) : '';
-        $q .= ( ! empty($this->_sqlParts['having']))?  ' HAVING '   . implode(' AND ', $this->_sqlParts['having']) : '';
-        $q .= ( ! empty($this->_sqlParts['orderby']))? ' ORDER BY ' . implode(', ', $this->_sqlParts['orderby']) : '';
-        $q .= ( ! empty($this->_sqlParts['limit']))?   ' LIMIT ' . implode(' ', $this->_sqlParts['limit']) : '';
-        $q .= ( ! empty($this->_sqlParts['offset']))?  ' OFFSET ' . implode(' ', $this->_sqlParts['offset']) : '';
+        $q .= (! empty($this->_sqlParts['from']))?    ' FROM '     . implode(' ', $this->_sqlParts['from']) : '';
+        $q .= (! empty($this->_sqlParts['where']))?   ' WHERE '    . implode(' AND ', $this->_sqlParts['where']) : '';
+        $q .= (! empty($this->_sqlParts['groupby']))? ' GROUP BY ' . implode(', ', $this->_sqlParts['groupby']) : '';
+        $q .= (! empty($this->_sqlParts['having']))?  ' HAVING '   . implode(' AND ', $this->_sqlParts['having']) : '';
+        $q .= (! empty($this->_sqlParts['orderby']))? ' ORDER BY ' . implode(', ', $this->_sqlParts['orderby']) : '';
+        $q .= (! empty($this->_sqlParts['limit']))?   ' LIMIT ' . implode(' ', $this->_sqlParts['limit']) : '';
+        $q .= (! empty($this->_sqlParts['offset']))?  ' OFFSET ' . implode(' ', $this->_sqlParts['offset']) : '';
 
-        if ( ! empty($string)) {
+        if (! empty($string)) {
             array_pop($this->_sqlParts['where']);
         }
         return $q;
@@ -309,21 +309,21 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
             $fields[] = $tableAlias . '.' . $key;
         }
 
-        $q = 'SELECT COUNT(*) as num_results FROM (SELECT DISTINCT '.implode(', ',$fields);
+        $q = 'SELECT COUNT(*) as num_results FROM (SELECT DISTINCT '.implode(', ', $fields);
 
         $string = $this->getInheritanceCondition($this->getRootAlias());
-        if ( ! empty($string)) {
+        if (! empty($string)) {
             $this->_sqlParts['where'][] = $string;
         }
 
-        $q .= ( ! empty($this->_sqlParts['from']))?    ' FROM '     . implode(' ', $this->_sqlParts['from']) : '';
-        $q .= ( ! empty($this->_sqlParts['where']))?   ' WHERE '    . implode(' AND ', $this->_sqlParts['where']) : '';
-        $q .= ( ! empty($this->_sqlParts['groupby']))? ' GROUP BY ' . implode(', ', $this->_sqlParts['groupby']) : '';
-        $q .= ( ! empty($this->_sqlParts['having']))?  ' HAVING '   . implode(' AND ', $this->_sqlParts['having']) : '';
+        $q .= (! empty($this->_sqlParts['from']))?    ' FROM '     . implode(' ', $this->_sqlParts['from']) : '';
+        $q .= (! empty($this->_sqlParts['where']))?   ' WHERE '    . implode(' AND ', $this->_sqlParts['where']) : '';
+        $q .= (! empty($this->_sqlParts['groupby']))? ' GROUP BY ' . implode(', ', $this->_sqlParts['groupby']) : '';
+        $q .= (! empty($this->_sqlParts['having']))?  ' HAVING '   . implode(' AND ', $this->_sqlParts['having']) : '';
 
         $q .= ') as results';
 
-        if ( ! empty($string)) {
+        if (! empty($string)) {
             array_pop($this->_sqlParts['where']);
         }
 
@@ -416,7 +416,7 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
             } else {
                 $componentAlias = $currPath;
             }
-            if ( ! isset($table)) {
+            if (! isset($table)) {
                 $conn = Doctrine_Manager::getInstance()
                         ->getConnectionForComponent($component);
 

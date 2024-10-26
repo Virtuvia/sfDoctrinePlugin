@@ -42,16 +42,15 @@
  */
 class Doctrine_Cli_AnsiColorFormatter extends Doctrine_Cli_Formatter
 {
-    protected
-        $_styles = array(
-            'HEADER'  => array('fg' => 'black', 'bold' => true),
-            'ERROR'   => array('bg' => 'red', 'fg' => 'white', 'bold' => true),
-            'INFO'    => array('fg' => 'green', 'bold' => true),
-            'COMMENT' => array('fg' => 'yellow'),
-        ),
-        $_options    = array('bold' => 1, 'underscore' => 4, 'blink' => 5, 'reverse' => 7, 'conceal' => 8),
-        $_foreground = array('black' => 30, 'red' => 31, 'green' => 32, 'yellow' => 33, 'blue' => 34, 'magenta' => 35, 'cyan' => 36, 'white' => 37),
-        $_background = array('black' => 40, 'red' => 41, 'green' => 42, 'yellow' => 43, 'blue' => 44, 'magenta' => 45, 'cyan' => 46, 'white' => 47);
+    protected $_styles = array(
+        'HEADER'  => array('fg' => 'black', 'bold' => true),
+        'ERROR'   => array('bg' => 'red', 'fg' => 'white', 'bold' => true),
+        'INFO'    => array('fg' => 'green', 'bold' => true),
+        'COMMENT' => array('fg' => 'yellow'),
+    );
+    protected $_options    = array('bold' => 1, 'underscore' => 4, 'blink' => 5, 'reverse' => 7, 'conceal' => 8);
+    protected $_foreground = array('black' => 30, 'red' => 31, 'green' => 32, 'yellow' => 33, 'blue' => 34, 'magenta' => 35, 'cyan' => 36, 'white' => 37);
+    protected $_background = array('black' => 40, 'red' => 41, 'green' => 42, 'yellow' => 43, 'blue' => 44, 'magenta' => 45, 'cyan' => 46, 'white' => 47);
 
     /**
      * Sets a new style.
@@ -74,15 +73,15 @@ class Doctrine_Cli_AnsiColorFormatter extends Doctrine_Cli_Formatter
      */
     public function format($text = '', $parameters = array(), $stream = STDOUT)
     {
-        if ( ! $this->supportsColors($stream)) {
+        if (! $this->supportsColors($stream)) {
             return $text;
         }
 
-        if ( ! is_array($parameters) && 'NONE' == $parameters) {
+        if (! is_array($parameters) && 'NONE' == $parameters) {
             return $text;
         }
 
-        if ( ! is_array($parameters) && isset($this->_styles[$parameters])) {
+        if (! is_array($parameters) && isset($this->_styles[$parameters])) {
             $parameters = $this->_styles[$parameters];
         }
 
@@ -128,7 +127,7 @@ class Doctrine_Cli_AnsiColorFormatter extends Doctrine_Cli_Formatter
      */
     public function excerpt($text, $size = null)
     {
-        if ( ! $size) {
+        if (! $size) {
             $size = $this->size;
         }
 

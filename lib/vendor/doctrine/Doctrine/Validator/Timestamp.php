@@ -54,11 +54,11 @@ class Doctrine_Validator_Timestamp extends Doctrine_Validator_Driver
         $dateValidator = Doctrine_Validator::getValidator('date');
         $timeValidator = Doctrine_Validator::getValidator('time');
 
-        if ( ! $dateValidator->validate($date)) {
+        if (! $dateValidator->validate($date)) {
             return false;
         }
 
-        if ( ! $timeValidator->validate($time)) {
+        if (! $timeValidator->validate($time)) {
             return false;
         }
 

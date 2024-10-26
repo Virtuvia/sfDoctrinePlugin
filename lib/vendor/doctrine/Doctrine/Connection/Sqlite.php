@@ -68,7 +68,7 @@ class Doctrine_Connection_Sqlite extends Doctrine_Connection_Common
         parent::__construct($manager, $adapter);
 
         if ($this->isConnected) {
-            $this->dbh->sqliteCreateFunction('mod',    array('Doctrine_Expression_Sqlite', 'modImpl'), 2);
+            $this->dbh->sqliteCreateFunction('mod', array('Doctrine_Expression_Sqlite', 'modImpl'), 2);
             $this->dbh->sqliteCreateFunction('concat', array('Doctrine_Expression_Sqlite', 'concatImpl'));
             $this->dbh->sqliteCreateFunction('md5', 'md5', 1);
             $this->dbh->sqliteCreateFunction('now', array('Doctrine_Expression_Sqlite', 'nowImpl'), 0);
@@ -89,7 +89,7 @@ class Doctrine_Connection_Sqlite extends Doctrine_Connection_Common
 
         parent::connect();
 
-        $this->dbh->sqliteCreateFunction('mod',    array('Doctrine_Expression_Sqlite', 'modImpl'), 2);
+        $this->dbh->sqliteCreateFunction('mod', array('Doctrine_Expression_Sqlite', 'modImpl'), 2);
         $this->dbh->sqliteCreateFunction('concat', array('Doctrine_Expression_Sqlite', 'concatImpl'));
         $this->dbh->sqliteCreateFunction('md5', 'md5', 1);
         $this->dbh->sqliteCreateFunction('now', array('Doctrine_Expression_Sqlite', 'nowImpl'), 0);
@@ -102,7 +102,7 @@ class Doctrine_Connection_Sqlite extends Doctrine_Connection_Common
      */
     public function createDatabase()
     {
-        if ( ! $dsn = $this->getOption('dsn')) {
+        if (! $dsn = $this->getOption('dsn')) {
             throw new Doctrine_Connection_Exception('You must create your Doctrine_Connection by using a valid Doctrine style dsn in order to use the create/drop database functionality');
         }
 
@@ -118,7 +118,7 @@ class Doctrine_Connection_Sqlite extends Doctrine_Connection_Common
      */
     public function dropDatabase()
     {
-        if ( ! $dsn = $this->getOption('dsn')) {
+        if (! $dsn = $this->getOption('dsn')) {
             throw new Doctrine_Connection_Exception('You must create your Doctrine_Connection by using a valid Doctrine style dsn in order to use the create/drop database functionality');
         }
 

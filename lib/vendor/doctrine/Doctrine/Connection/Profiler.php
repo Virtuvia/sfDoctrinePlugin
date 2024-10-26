@@ -85,7 +85,7 @@ class Doctrine_Connection_Profiler implements Doctrine_Overloadable, IteratorAgg
     public function __call($m, $a)
     {
         // first argument should be an instance of Doctrine_Event
-        if ( ! ($a[0] instanceof Doctrine_Event)) {
+        if (! ($a[0] instanceof Doctrine_Event)) {
             throw new Doctrine_Connection_Profiler_Exception("Couldn't listen event. Event should be an instance of Doctrine_Event.");
         }
 
@@ -94,7 +94,7 @@ class Doctrine_Connection_Profiler implements Doctrine_Overloadable, IteratorAgg
             $a[0]->start();
 
             $eventSequence = $a[0]->getSequence();
-            if ( ! isset($this->eventSequences[$eventSequence])) {
+            if (! isset($this->eventSequences[$eventSequence])) {
                 $this->events[] = $a[0];
                 $this->eventSequences[$eventSequence] = true;
             }

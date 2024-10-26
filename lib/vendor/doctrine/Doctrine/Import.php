@@ -45,7 +45,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
      */
     public function listDatabases()
     {
-        if ( ! isset($this->sql['listDatabases'])) {
+        if (! isset($this->sql['listDatabases'])) {
             throw new Doctrine_Import_Exception(__FUNCTION__ . ' not supported by this driver.');
         }
 
@@ -59,7 +59,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
      */
     public function listFunctions()
     {
-        if ( ! isset($this->sql['listFunctions'])) {
+        if (! isset($this->sql['listFunctions'])) {
             throw new Doctrine_Import_Exception(__FUNCTION__ . ' not supported by this driver.');
         }
 
@@ -85,7 +85,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
      */
     public function listSequences($database = null)
     {
-        if ( ! isset($this->sql['listSequences'])) {
+        if (! isset($this->sql['listSequences'])) {
             throw new Doctrine_Import_Exception(__FUNCTION__ . ' not supported by this driver.');
         }
 
@@ -189,7 +189,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
      */
     public function listUsers()
     {
-        if ( ! isset($this->sql['listUsers'])) {
+        if (! isset($this->sql['listUsers'])) {
             throw new Doctrine_Import_Exception(__FUNCTION__ . ' not supported by this driver.');
         }
 
@@ -204,7 +204,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
      */
     public function listViews($database = null)
     {
-        if ( ! isset($this->sql['listViews'])) {
+        if (! isset($this->sql['listViews'])) {
             throw new Doctrine_Import_Exception(__FUNCTION__ . ' not supported by this driver.');
         }
 
@@ -369,7 +369,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
         foreach ($manager as $name => $connection) {
             // Limit the databases to the ones specified by $connections.
             // Check only happens if array is not empty
-            if ( ! empty($connections) && ! in_array($name, $connections)) {
+            if (! empty($connections) && ! in_array($name, $connections)) {
                 continue;
             }
 

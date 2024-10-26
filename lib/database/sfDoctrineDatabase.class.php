@@ -59,7 +59,7 @@ class sfDoctrineDatabase extends sfDatabase
         $name = $this->getParameter('name');
 
         // Make sure we pass non-PEAR style DSNs as an array
-        if ( !strpos($dsn, '://')) {
+        if (!strpos($dsn, '://')) {
             $dsn = array($dsn, $this->getParameter('username'), $this->getParameter('password'));
         }
 

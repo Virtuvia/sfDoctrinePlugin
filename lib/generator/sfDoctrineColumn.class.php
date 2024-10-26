@@ -23,7 +23,7 @@ class sfDoctrineColumn implements ArrayAccess
     /**
      * Array mapping Doctrine column types to the native symfony type
      */
-    static $doctrineToSymfony = array(
+    public static $doctrineToSymfony = array(
         'boolean'   => 'BOOLEAN',
         'string'    => 'LONGVARCHAR',
         'integer'   => 'INTEGER',

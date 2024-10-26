@@ -145,7 +145,7 @@ class Doctrine_Adapter_Mock implements Doctrine_Adapter_Interface, Countable
 
         $e    = $this->_exception;
 
-        if ( ! empty($e)) {
+        if (! empty($e)) {
             $name = $e[0];
 
             $this->_exception = array();
@@ -192,7 +192,7 @@ class Doctrine_Adapter_Mock implements Doctrine_Adapter_Interface, Countable
 
         $e    = $this->_exception;
 
-        if ( ! empty($e)) {
+        if (! empty($e)) {
             $name = $e[0];
 
             $this->_exception = array();

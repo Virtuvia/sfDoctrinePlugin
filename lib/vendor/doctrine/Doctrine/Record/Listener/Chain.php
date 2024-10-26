@@ -96,7 +96,7 @@ class Doctrine_Record_Listener_Chain extends Doctrine_Access implements Doctrine
      */
     public function add($listener, $name = null)
     {
-        if ( ! ($listener instanceof Doctrine_Record_Listener_Interface) &&
+        if (! ($listener instanceof Doctrine_Record_Listener_Interface) &&
              ! ($listener instanceof Doctrine_Overloadable)) {
 
             throw new Doctrine_EventListener_Exception("Couldn't add eventlistener. Record listeners should implement either Doctrine_Record_Listener_Interface or Doctrine_Overloadable");
@@ -117,7 +117,7 @@ class Doctrine_Record_Listener_Chain extends Doctrine_Access implements Doctrine
      */
     public function get($key)
     {
-        if ( ! isset($this->_listeners[$key])) {
+        if (! isset($this->_listeners[$key])) {
             return null;
         }
         return $this->_listeners[$key];

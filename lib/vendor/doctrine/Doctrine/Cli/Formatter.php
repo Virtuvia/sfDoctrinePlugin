@@ -50,7 +50,7 @@ class Doctrine_Cli_Formatter
      * @param string $maxLineSize
      * @return void
      */
-    function __construct($maxLineSize = 65)
+    public function __construct($maxLineSize = 65)
     {
         $this->_size = $maxLineSize;
     }
@@ -91,7 +91,7 @@ class Doctrine_Cli_Formatter
      */
     public function excerpt($text, $size = null)
     {
-        if ( ! $size) {
+        if (! $size) {
             $size = $this->_size;
         }
 

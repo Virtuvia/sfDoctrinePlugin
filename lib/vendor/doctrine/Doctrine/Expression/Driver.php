@@ -374,7 +374,7 @@ class Doctrine_Expression_Driver extends Doctrine_Connection_Module
      */
     public function sub(array $args)
     {
-        return $this->basicMath('-', $args );
+        return $this->basicMath('-', $args);
     }
 
     /**
@@ -508,7 +508,7 @@ class Doctrine_Expression_Driver extends Doctrine_Connection_Module
      */
     public function in($column, $values)
     {
-        if ( ! is_array($values)) {
+        if (! is_array($values)) {
             $values = array($values);
         }
         $values = $this->getIdentifiers($values);

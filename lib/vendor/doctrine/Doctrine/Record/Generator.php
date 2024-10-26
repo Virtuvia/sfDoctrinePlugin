@@ -90,7 +90,7 @@ abstract class Doctrine_Record_Generator extends Doctrine_Record_Abstract
      */
     public function getOption($name)
     {
-        if ( ! isset($this->_options[$name])) {
+        if (! isset($this->_options[$name])) {
             throw new Doctrine_Exception('Unknown option ' . $name);
         }
 
@@ -248,7 +248,7 @@ abstract class Doctrine_Record_Generator extends Doctrine_Record_Abstract
      */
     public function buildChildDefinitions()
     {
-        if ( ! isset($this->_options['children'])) {
+        if (! isset($this->_options['children'])) {
             throw new Doctrine_Record_Exception("Unknown option 'children'.");
         }
 

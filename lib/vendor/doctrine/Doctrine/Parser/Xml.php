@@ -64,7 +64,7 @@ class Doctrine_Parser_Xml extends Doctrine_Parser
             $xml = new SimpleXmlElement("<?xml version=\"1.0\" encoding=\"utf-8\"?><$rootNodeName/>");
         }
 
-        foreach($array as $key => $value) {
+        foreach ($array as $key => $value) {
             $key = preg_replace('/[^a-z]/i', '', $key);
 
             if (is_array($value) && ! empty($value)) {
@@ -78,7 +78,7 @@ class Doctrine_Parser_Xml extends Doctrine_Parser
                 }
 
                 self::arrayToXml($value, $rootNodeName, $node, $charset);
-            } else if (is_int($key)) {
+            } elseif (is_int($key)) {
                 $xml->addChild($value, 'true');
             } else {
                 $charset = $charset ? $charset : 'utf-8';
@@ -132,10 +132,10 @@ class Doctrine_Parser_Xml extends Doctrine_Parser
                 if (count($values) > 0) {
                     $return[$element] = $this->prepareData($value);
                 } else {
-                    if ( ! isset($return[$element])) {
+                    if (! isset($return[$element])) {
                         $return[$element] = (string) $value;
                     } else {
-                        if ( ! is_array($return[$element])) {
+                        if (! is_array($return[$element])) {
                             $return[$element] = array($return[$element], (string) $value);
                         } else {
                             $return[$element][] = (string) $value;

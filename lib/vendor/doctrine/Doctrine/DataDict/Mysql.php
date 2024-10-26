@@ -133,7 +133,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
      */
     public function getNativeDeclaration($field)
     {
-        if ( ! isset($field['type'])) {
+        if (! isset($field['type'])) {
             throw new Doctrine_DataDict_Exception('Missing column type.');
         }
 
@@ -147,7 +147,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
 
         switch ($field['type']) {
             case 'char':
-                $length = ( ! empty($field['length'])) ? $field['length'] : false;
+                $length = (! empty($field['length'])) ? $field['length'] : false;
 
                 return $length ? 'CHAR('.$length.')' : 'CHAR(255)';
             case 'enum':
@@ -160,6 +160,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
                 } else {
                     $field['length'] = isset($field['length']) && $field['length'] ? $field['length']:255;
                 }
+                // no break
             case 'set':
                 if ($this->conn->getAttribute(Doctrine_Core::ATTR_USE_NATIVE_SET)) {
                     $values = array();
@@ -170,10 +171,11 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
                 } else {
                     $field['length'] = isset($field['length']) && $field['length'] ? $field['length']:255;
                 }
+                // no break
             case 'varchar':
             case 'string':
             case 'gzip':
-                if ( ! isset($field['length'])) {
+                if (! isset($field['length'])) {
                     if (array_key_exists('default', $field)) {
                         $field['length'] = $this->conn->varchar_max_length;
                     } else {
@@ -189,7 +191,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
             case 'array':
             case 'object':
             case 'clob':
-                if ( ! empty($field['length'])) {
+                if (! empty($field['length'])) {
                     $length = $field['length'];
                     if ($length <= 255) {
                         return 'TINYTEXT';
@@ -201,7 +203,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
                 }
                 return 'LONGTEXT';
             case 'blob':
-                if ( ! empty($field['length'])) {
+                if (! empty($field['length'])) {
                     $length = $field['length'];
                     if ($length <= 255) {
                         return 'TINYBLOB';
@@ -214,7 +216,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
                 return 'LONGBLOB';
             case 'integer':
             case 'int':
-                if ( ! empty($field['length'])) {
+                if (! empty($field['length'])) {
                     $length = $field['length'];
                     if ($length <= 1) {
                         return 'TINYINT';
@@ -274,14 +276,14 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
         } else {
             $length = strtok('(), ');
             $decimal = strtok('(), ');
-            if ( ! $decimal ) {
+            if (! $decimal) {
                 $decimal = null;
             }
         }
         $type = array();
         $unsigned = $fixed = null;
 
-        if ( ! isset($field['name'])) {
+        if (! isset($field['name'])) {
             $field['name'] = '';
         }
 
@@ -326,6 +328,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
             case 'text':
             case 'varchar':
                 $fixed = false;
+                // no break
             case 'string':
             case 'char':
                 $type[] = 'string';
@@ -394,6 +397,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
                 if ($decimal !== null) {
                     $scale = $decimal;
                 }
+                // no break
             case 'numeric':
                 $type[] = 'decimal';
                 $unsigned = preg_match('/ unsigned/i', $field['type']);
@@ -497,7 +501,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
     {
         $unique = (isset($field['unique']) && $field['unique']) ? ' UNIQUE' : '';
         $default = $autoinc = '';
-        if ( ! empty($field['autoincrement'])) {
+        if (! empty($field['autoincrement'])) {
             $autoinc = ' AUTO_INCREMENT';
         } elseif (array_key_exists('default', $field)) {
             if ($field['default'] === '') {

@@ -159,7 +159,7 @@ class Doctrine_Export_Pgsql extends Doctrine_Export
                     $query = 'ALTER ' . $fieldName . ' SET DEFAULT ' . $this->conn->quote($field['definition']['default'], $field['definition']['type']);
                     $sql[] = 'ALTER TABLE ' . $this->conn->quoteIdentifier($name, true) . ' ' . $query;
                 }
-                if ( isset($field['definition']['notnull'])) {
+                if (isset($field['definition']['notnull'])) {
                     $query = 'ALTER ' . $fieldName . ' ' . ($field['definition']['notnull'] ? 'SET' : 'DROP') . ' NOT NULL';
                     $sql[] = 'ALTER TABLE ' . $this->conn->quoteIdentifier($name, true) . ' ' . $query;
                 }
@@ -322,7 +322,7 @@ class Doctrine_Export_Pgsql extends Doctrine_Export
      */
     public function createTableSql($name, array $fields, array $options = array())
     {
-        if ( ! $name) {
+        if (! $name) {
             throw new Doctrine_Export_Exception('no valid table name specified');
         }
 
@@ -353,7 +353,7 @@ class Doctrine_Export_Pgsql extends Doctrine_Export
         $sql[] = $query;
 
         if (isset($options['indexes']) && ! empty($options['indexes'])) {
-            foreach($options['indexes'] as $index => $definition) {
+            foreach ($options['indexes'] as $index => $definition) {
                 $sql[] = $this->createIndexSql($name, $index, $definition);
             }
         }

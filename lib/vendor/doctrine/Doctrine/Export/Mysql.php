@@ -45,7 +45,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
     {
         $table = $this->conn->quoteIdentifier($table);
 
-        if ( ! $primary) {
+        if (! $primary) {
             $name = 'CONSTRAINT ' . $this->conn->quoteIdentifier($name);
         } else {
             $name = 'PRIMARY KEY';
@@ -116,7 +116,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
      */
     public function createTableSql($name, array $fields, array $options = array())
     {
-        if ( ! $name) {
+        if (! $name) {
             throw new Doctrine_Export_Exception('no valid table name specified');
         }
 
@@ -151,7 +151,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
             }
             unset($dupes);
 
-            foreach($options['indexes'] as $index => $definition) {
+            foreach ($options['indexes'] as $index => $definition) {
                 $queryFields .= ', ' . $this->getIndexDeclaration($index, $definition);
             }
         }
@@ -199,7 +199,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
             $optionStrings[] = 'ENGINE = ' . $type;
         }
 
-        if ( ! empty($optionStrings)) {
+        if (! empty($optionStrings)) {
             $query.= ' '.implode(' ', $optionStrings);
         }
         $sql[] = $query;
@@ -367,7 +367,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
      */
     public function alterTableSql($name, array $changes, $check = false)
     {
-        if ( ! $name) {
+        if (! $name) {
             throw new Doctrine_Export_Exception('no valid table name specified');
         }
         foreach ($changes as $changeName => $change) {
@@ -388,12 +388,12 @@ class Doctrine_Export_Mysql extends Doctrine_Export
         }
 
         $query = '';
-        if ( ! empty($changes['name'])) {
+        if (! empty($changes['name'])) {
             $change_name = $this->conn->quoteIdentifier($changes['name']);
             $query .= 'RENAME TO ' . $change_name;
         }
 
-        if ( ! empty($changes['add']) && is_array($changes['add'])) {
+        if (! empty($changes['add']) && is_array($changes['add'])) {
             foreach ($changes['add'] as $fieldName => $field) {
                 if ($query) {
                     $query.= ', ';
@@ -402,7 +402,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
             }
         }
 
-        if ( ! empty($changes['remove']) && is_array($changes['remove'])) {
+        if (! empty($changes['remove']) && is_array($changes['remove'])) {
             foreach ($changes['remove'] as $fieldName => $field) {
                 if ($query) {
                     $query .= ', ';
@@ -413,13 +413,13 @@ class Doctrine_Export_Mysql extends Doctrine_Export
         }
 
         $rename = array();
-        if ( ! empty($changes['rename']) && is_array($changes['rename'])) {
+        if (! empty($changes['rename']) && is_array($changes['rename'])) {
             foreach ($changes['rename'] as $fieldName => $field) {
                 $rename[$field['name']] = $fieldName;
             }
         }
 
-        if ( ! empty($changes['change']) && is_array($changes['change'])) {
+        if (! empty($changes['change']) && is_array($changes['change'])) {
             foreach ($changes['change'] as $fieldName => $field) {
                 if ($query) {
                     $query.= ', ';
@@ -436,7 +436,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
             }
         }
 
-        if ( ! empty($rename) && is_array($rename)) {
+        if (! empty($rename) && is_array($rename)) {
             foreach ($rename as $renameName => $renamedField) {
                 if ($query) {
                     $query.= ', ';
@@ -448,7 +448,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
             }
         }
 
-        if ( ! $query) {
+        if (! $query) {
             return false;
         }
 
@@ -507,7 +507,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
                     . $seqcolName . ')) ' . implode(' ', $optionsStrings);
 
             $res    = $this->conn->exec($query);
-        } catch(Doctrine_Connection_Exception $e) {
+        } catch (Doctrine_Connection_Exception $e) {
             throw new Doctrine_Export_Exception('could not create sequence table');
         }
 
@@ -527,7 +527,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
         // Handle error
         try {
             $result = $this->conn->exec('DROP TABLE ' . $sequenceName);
-        } catch(Doctrine_Connection_Exception $e) {
+        } catch (Doctrine_Connection_Exception $e) {
             throw new Doctrine_Export_Exception('could not drop inconsistent sequence table');
         }
 
@@ -604,7 +604,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
     public function getDefaultFieldDeclaration($field)
     {
         $default = '';
-        if (isset($field['default']) && ( ! isset($field['length']) || $field['length'] <= 255)) {
+        if (isset($field['default']) && (! isset($field['length']) || $field['length'] <= 255)) {
             if ($field['default'] === '') {
                 $field['default'] = empty($field['notnull'])
                     ? null : $this->valid_default_values[$field['type']];
@@ -657,10 +657,10 @@ class Doctrine_Export_Mysql extends Doctrine_Export
             }
         }
 
-        if ( ! isset($definition['fields'])) {
+        if (! isset($definition['fields'])) {
             throw new Doctrine_Export_Exception('No columns given for index ' . $name);
         }
-        if ( ! is_array($definition['fields'])) {
+        if (! is_array($definition['fields'])) {
             $definition['fields'] = array($definition['fields']);
         }
 
@@ -744,13 +744,13 @@ class Doctrine_Export_Mysql extends Doctrine_Export
     public function getAdvancedForeignKeyOptions(array $definition)
     {
         $query = '';
-        if ( ! empty($definition['match'])) {
+        if (! empty($definition['match'])) {
             $query .= ' MATCH ' . $definition['match'];
         }
-        if ( ! empty($definition['onUpdate'])) {
+        if (! empty($definition['onUpdate'])) {
             $query .= ' ON UPDATE ' . $this->getForeignKeyReferentialAction($definition['onUpdate']);
         }
-        if ( ! empty($definition['onDelete'])) {
+        if (! empty($definition['onDelete'])) {
             $query .= ' ON DELETE ' . $this->getForeignKeyReferentialAction($definition['onDelete']);
         }
         return $query;

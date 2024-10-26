@@ -78,7 +78,7 @@ class Doctrine_Node implements IteratorAggregate
         if ($thisTable->getOption('inheritanceMap')) {
             // Move up the hierarchy until we find the "subclasses" option. This option
             // MUST be set on the root class of the user's hierarchy that uses STI.
-            while ( ! $subclasses = $table->getOption('subclasses')) {
+            while (! $subclasses = $table->getOption('subclasses')) {
                 $class = get_parent_class($class);
                 $reflectionClass = new ReflectionClass($class);
                 if ($reflectionClass->isAbstract()) {
@@ -116,7 +116,7 @@ class Doctrine_Node implements IteratorAggregate
     {
         $class = 'Doctrine_Node_' . $implName;
 
-        if ( ! class_exists($class)) {
+        if (! class_exists($class)) {
             throw new Doctrine_Node_Exception("The class $class must exist and extend Doctrine_Node");
         }
 

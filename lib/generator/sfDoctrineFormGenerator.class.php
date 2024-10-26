@@ -293,7 +293,7 @@ class sfDoctrineFormGenerator extends sfGenerator
 
         if ($column->isPrimaryKey()) {
             $widgetSubclass = 'InputHidden';
-        } else if ($column->isForeignKey()) {
+        } elseif ($column->isForeignKey()) {
             $widgetSubclass = 'DoctrineChoice';
         }
 
@@ -313,7 +313,7 @@ class sfDoctrineFormGenerator extends sfGenerator
 
         if ($column->isForeignKey()) {
             $options[] = sprintf('\'model\' => $this->getRelatedModelName(\'%s\'), \'add_empty\' => %s', $column->getRelationKey('alias'), $column->isNotNull() ? 'false' : 'true');
-        } else if ('enum' == $column->getDoctrineType() && is_subclass_of($this->getWidgetClassForColumn($column), 'sfWidgetFormChoiceBase')) {
+        } elseif ('enum' == $column->getDoctrineType() && is_subclass_of($this->getWidgetClassForColumn($column), 'sfWidgetFormChoiceBase')) {
             $options[] = '\'choices\' => '.$this->arrayExport(array_combine($column['values'], $column['values']));
         }
 
@@ -335,7 +335,7 @@ class sfDoctrineFormGenerator extends sfGenerator
             case 'string':
                 if ($column->getDefinitionKey('email')) {
                     $validatorSubclass = 'Email';
-                } else if ($column->getDefinitionKey('regexp')) {
+                } elseif ($column->getDefinitionKey('regexp')) {
                     $validatorSubclass = 'Regex';
                 } else {
                     $validatorSubclass = 'String';
@@ -371,7 +371,7 @@ class sfDoctrineFormGenerator extends sfGenerator
 
         if ($column->isForeignKey()) {
             $validatorSubclass = 'DoctrineChoice';
-        } else if ($column->isPrimaryKey()) {
+        } elseif ($column->isPrimaryKey()) {
             $validatorSubclass = 'Choice';
         }
 
@@ -390,7 +390,7 @@ class sfDoctrineFormGenerator extends sfGenerator
 
         if ($column->isForeignKey()) {
             $options[] = sprintf('\'model\' => $this->getRelatedModelName(\'%s\')', $column->getRelationKey('alias'));
-        } else if ($column->isPrimaryKey()) {
+        } elseif ($column->isPrimaryKey()) {
             $options[] = sprintf('\'choices\' => array($this->getObject()->get(\'%s\')), \'empty_value\' => $this->getObject()->get(\'%1$s\')', $column->getFieldName());
         } else {
             switch ($column->getDoctrineType()) {

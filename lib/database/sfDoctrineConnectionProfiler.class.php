@@ -10,9 +10,8 @@
  */
 class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
 {
-    protected
-        $dispatcher = null,
-        $options    = array();
+    protected $dispatcher = null;
+    protected $options    = array();
 
     /**
      * Constructor.
@@ -81,7 +80,7 @@ class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
      */
     public function postQuery(Doctrine_Event $event)
     {
-        sfTimerManager::getTimer('Database (Doctrine)',false)->addTime();
+        sfTimerManager::getTimer('Database (Doctrine)', false)->addTime();
 
         $args = func_get_args();
         $this->__call(__FUNCTION__, $args);
@@ -115,7 +114,7 @@ class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
      */
     public function postExec(Doctrine_Event $event)
     {
-        sfTimerManager::getTimer('Database (Doctrine)',false)->addTime();
+        sfTimerManager::getTimer('Database (Doctrine)', false)->addTime();
 
         $args = func_get_args();
         $this->__call(__FUNCTION__, $args);
@@ -149,7 +148,7 @@ class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
      */
     public function postStmtExecute(Doctrine_Event $event)
     {
-        sfTimerManager::getTimer('Database (Doctrine)',false)->addTime();
+        sfTimerManager::getTimer('Database (Doctrine)', false)->addTime();
 
         $args = func_get_args();
         $this->__call(__FUNCTION__, $args);
@@ -183,7 +182,7 @@ class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
      *
      * @return array
      */
-    static public function fixParams($params)
+    public static function fixParams($params)
     {
         foreach ($params as $key => $param) {
             if ($param !== null && strlen($param) >= 255) {

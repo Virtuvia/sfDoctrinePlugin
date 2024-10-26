@@ -49,7 +49,7 @@ class Doctrine_Hydrator_ScalarDriver extends Doctrine_Hydrator_Abstract
         $rowData = array();
         foreach ($data as $key => $value) {
             // Parse each column name only once. Cache the results.
-            if ( ! isset($cache[$key])) {
+            if (! isset($cache[$key])) {
                 // cache general information like the column name <-> field name mapping
                 $e = explode('__', $key);
                 $columnName = strtolower(array_pop($e));

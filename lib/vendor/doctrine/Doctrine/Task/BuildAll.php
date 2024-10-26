@@ -32,12 +32,12 @@
  */
 class Doctrine_Task_BuildAll extends Doctrine_Task
 {
-    public $description          =   'Calls generate-models-from-yaml, create-db, and create-tables',
-        $requiredArguments    =   array(),
-        $optionalArguments    =   array();
+    public $description          =   'Calls generate-models-from-yaml, create-db, and create-tables';
+    public $requiredArguments    =   array();
+    public $optionalArguments    =   array();
 
-    protected $models,
-        $tables;
+    protected $models;
+    protected $tables;
 
     public function __construct($dispatcher = null)
     {

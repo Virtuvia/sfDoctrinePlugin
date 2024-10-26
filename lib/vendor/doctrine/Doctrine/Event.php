@@ -72,7 +72,7 @@ class Doctrine_Event
     /**
      * @var mixed $_nextSequence        the sequence of the next event that will be created
      */
-    static protected $_nextSequence = 0;
+    protected static $_nextSequence = 0;
 
     /**
      * @var mixed $_sequence            the sequence of this event
@@ -227,7 +227,7 @@ class Doctrine_Event
      */
     public function __get($option)
     {
-        if ( ! isset($this->_options[$option])) {
+        if (! isset($this->_options[$option])) {
             return null;
         }
 

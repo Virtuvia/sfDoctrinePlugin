@@ -63,7 +63,7 @@ abstract class Doctrine_Query_Condition extends Doctrine_Query_Part
 
                 if (count($test) == 3 && strtoupper($test[1]) == 'BETWEEN') {
                     $tmp[] = $parts[$i] . ' AND ' . $parts[++$i];
-                } else if (count($test) == 4 && strtoupper($test[1]) == 'NOT' && strtoupper($test[2]) == 'BETWEEN') {
+                } elseif (count($test) == 4 && strtoupper($test[1]) == 'NOT' && strtoupper($test[2]) == 'BETWEEN') {
                     $tmp[] = $parts[$i] . ' AND ' . $parts[++$i];
                 } else {
                     $tmp[] = $parts[$i];
@@ -82,7 +82,7 @@ abstract class Doctrine_Query_Condition extends Doctrine_Query_Part
                 $r = implode(' AND ', $ret);
             } else {
                 // Fix for #710
-                if (substr($parts[0],0,1) == '(' && substr($parts[0], -1) == ')') {
+                if (substr($parts[0], 0, 1) == '(' && substr($parts[0], -1) == ')') {
                     return $this->parse(substr($parts[0], 1, -1));
                 } else {
                     // Processing NOT here
@@ -120,7 +120,7 @@ abstract class Doctrine_Query_Condition extends Doctrine_Query_Part
             if (count($a) > 1) {
                 // either a float or a component..
 
-                if ( ! is_numeric($a[0])) {
+                if (! is_numeric($a[0])) {
                     // a component found
                     $field     = array_pop($a);
                     $reference = implode('.', $a);

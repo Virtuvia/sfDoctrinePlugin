@@ -34,14 +34,12 @@
  */
 class Doctrine_Hydrator
 {
-    protected static
-        $_totalHydrationTime = 0;
+    protected static $_totalHydrationTime = 0;
 
-    protected
-        $_hydrators,
-        $_rootAlias = null,
-        $_hydrationMode = Doctrine_Core::HYDRATE_RECORD,
-        $_queryComponents = array();
+    protected $_hydrators;
+    protected $_rootAlias = null;
+    protected $_hydrationMode = Doctrine_Core::HYDRATE_RECORD;
+    protected $_queryComponents = array();
 
     public function __construct()
     {
@@ -102,7 +100,7 @@ class Doctrine_Hydrator
             $mode = $this->_hydrationMode;
         }
 
-        if ( ! isset($this->_hydrators[$mode])) {
+        if (! isset($this->_hydrators[$mode])) {
             throw new Doctrine_Hydrator_Exception('Invalid hydration mode specified: '.$this->_hydrationMode);
         }
 
@@ -120,7 +118,7 @@ class Doctrine_Hydrator
     {
         $driverClass = $this->getHydratorDriverClassName($mode);
         if (is_object($driverClass)) {
-            if (!$driverClass instanceOf Doctrine_Hydrator_Abstract) {
+            if (!$driverClass instanceof Doctrine_Hydrator_Abstract) {
                 throw new Doctrine_Hydrator_Exception('Invalid hydration class specified: '.get_class($driverClass));
             }
             $driver = $driverClass;

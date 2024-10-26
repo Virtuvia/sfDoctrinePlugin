@@ -335,11 +335,11 @@ abstract class sfFormDoctrine extends sfFormObject
 
         if (null !== $filename) {
             return $file->save($filename);
-        } else if (method_exists($this, $method)) {
+        } elseif (method_exists($this, $method)) {
             return $file->save($this->$method($file));
-        } else if (method_exists($this->getObject(), $method)) {
+        } elseif (method_exists($this->getObject(), $method)) {
             return $file->save($this->getObject()->$method($file));
-        } else if (method_exists($this->getObject(), $method = sprintf('generate%sFilename', $field))) {
+        } elseif (method_exists($this->getObject(), $method = sprintf('generate%sFilename', $field))) {
             // this non-camelized method name has been deprecated
             return $file->save($this->getObject()->$method($file));
         } else {

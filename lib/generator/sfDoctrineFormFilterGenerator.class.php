@@ -229,7 +229,7 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
             }
 
             $options[] = sprintf('\'model\' => $this->getRelatedModelName(\'%s\'), \'column\' => \'%s\'', $column->getRelationKey('alias'), $column->getForeignTable()->getFieldName($name));
-        } else if ($column->isPrimaryKey()) {
+        } elseif ($column->isPrimaryKey()) {
             $options[] = sprintf('\'model\' => \'%s\', \'column\' => \'%s\'', $this->table->getOption('name'), $column->getFieldName());
         } else {
             switch ($column->getDoctrineType()) {

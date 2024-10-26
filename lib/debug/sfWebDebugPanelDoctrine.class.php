@@ -60,7 +60,7 @@ class sfWebDebugPanelDoctrine extends sfWebDebugPanel
     /**
      * Listens to debug.web.load_panels and adds this panel.
      */
-    static public function listenToAddPanelEvent(sfEvent $event)
+    public static function listenToAddPanelEvent(sfEvent $event)
     {
         $event->getSubject()->setPanel('db', new self($event->getSubject()));
     }

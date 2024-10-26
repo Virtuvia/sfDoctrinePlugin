@@ -59,8 +59,8 @@ class Doctrine_IntegrityMapper
         foreach ($record->getTable()->getRelations() as $relation) {
             $componentName = $relation->getTable()->getComponentName();
 
-            foreach($record->get($relation->getAlias()) as $coll) {
-                if ( ! ($coll instanceof Doctrine_Collection)) {
+            foreach ($record->get($relation->getAlias()) as $coll) {
+                if (! ($coll instanceof Doctrine_Collection)) {
                     $coll = array($coll);
                 }
                 foreach ($coll as $record) {
@@ -140,7 +140,7 @@ class Doctrine_IntegrityMapper
 
             $alias = strtolower(substr($relation->getAlias(), 0, 1));
 
-            if ( ! isset($indexes[$alias])) {
+            if (! isset($indexes[$alias])) {
                 $indexes[$alias] = 1;
             }
 

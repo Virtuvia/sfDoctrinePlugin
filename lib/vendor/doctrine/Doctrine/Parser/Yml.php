@@ -51,7 +51,7 @@ class Doctrine_Parser_Yml extends Doctrine_Parser
 
             return $this->doDump($data, $path);
 
-        } catch(InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             // rethrow the exceptions
             $rethrowed_exception = new Doctrine_Parser_Exception($e->getMessage(), $e->getCode());
 
@@ -81,7 +81,7 @@ class Doctrine_Parser_Yml extends Doctrine_Parser
 
             return $array;
 
-        } catch(InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             // rethrow the exceptions
             $rethrowed_exception = new Doctrine_Parser_Exception($e->getMessage(), $e->getCode());
 

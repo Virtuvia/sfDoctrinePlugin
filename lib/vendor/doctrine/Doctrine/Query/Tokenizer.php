@@ -96,7 +96,7 @@ class Doctrine_Query_Tokenizer
                     break;
 
                 default:
-                    if ( ! isset($p)) {
+                    if (! isset($p)) {
                         throw new Doctrine_Query_Tokenizer_Exception(
                             "Couldn't tokenize query. Encountered invalid token: '$token'."
                         );
@@ -430,7 +430,7 @@ class Doctrine_Query_Tokenizer
 
         foreach ($str as $key => $val) {
             // Every odd entry is a delimiter, so add it to the previous term entry
-            if ( ! ($key & 1)) {
+            if (! ($key & 1)) {
                 $term[$i] = array($val, '');
             } else {
                 $term[$i++][1] = $val;
@@ -475,7 +475,7 @@ class Doctrine_Query_Tokenizer
         $i = 0;
 
         foreach ($terms as $val) {
-            if ( ! isset($res[$i])) {
+            if (! isset($res[$i])) {
                 $res[$i] = array($val[0], $val[1], $val[2]);
             } else {
                 $res[$i][0] .= $res[$i][1] . $val[0];
@@ -523,13 +523,13 @@ class Doctrine_Query_Tokenizer
         foreach ($str as $key => $val) {
             // This is some kind of quote
             if ($key & 1) {
-                if ( ! $mode) {
+                if (! $mode) {
                     if ($val == "'" || $val == "\"") {
                         $mode = $val;
                         $i++;
                     }
-                } else if ($mode == $val) {
-                    if ( ! isset($parts[$i])) {
+                } elseif ($mode == $val) {
+                    if (! isset($parts[$i])) {
                         $parts[$i] = $val;
                     } else {
                         $parts[$i] .= $val;
@@ -542,7 +542,7 @@ class Doctrine_Query_Tokenizer
                 }
             }
 
-            if ( ! isset($parts[$i])) {
+            if (! isset($parts[$i])) {
                 $parts[$i] = $val;
             } else {
                 $parts[$i] .= $val;

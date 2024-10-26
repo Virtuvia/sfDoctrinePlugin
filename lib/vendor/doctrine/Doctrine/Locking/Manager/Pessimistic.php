@@ -83,7 +83,7 @@ class Doctrine_Locking_Manager_Pessimistic
             $options = array('primary' => array('object_type', 'object_key'));
             try {
                 $this->conn->export->createTable($this->_lockTable, $columns, $options);
-            } catch(Exception $e) {
+            } catch (Exception $e) {
 
             }
         }
@@ -129,11 +129,11 @@ class Doctrine_Locking_Manager_Pessimistic
                 $gotLock = true;
 
                 // we catch an Exception here instead of PDOException since we might also be catching Doctrine_Exception
-            } catch(Exception $pkviolation) {
+            } catch (Exception $pkviolation) {
                 // PK violation occured => existing lock!
             }
 
-            if ( ! $gotLock) {
+            if (! $gotLock) {
                 $lockingUserIdent = $this->_getLockingUserIdent($objectType, $key);
                 if ($lockingUserIdent !== null && $lockingUserIdent == $userIdent) {
                     $gotLock = true; // The requesting user already has a lock
@@ -219,7 +219,7 @@ class Doctrine_Locking_Manager_Pessimistic
             $stmt->bindParam(':object_key', $key);
             $success = $stmt->execute();
 
-            if ( ! $success) {
+            if (! $success) {
                 throw new Doctrine_Locking_Exception("Failed to determine locking user");
             }
 

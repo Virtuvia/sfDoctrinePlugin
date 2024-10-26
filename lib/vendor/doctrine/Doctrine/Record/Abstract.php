@@ -106,7 +106,7 @@ abstract class Doctrine_Record_Abstract extends Doctrine_Access
      */
     public function index($name, array $definition = array())
     {
-        if ( ! $definition) {
+        if (! $definition) {
             return $this->_table->getIndex($name);
         } else {
             return $this->_table->addIndex($name, $definition);
@@ -348,19 +348,19 @@ abstract class Doctrine_Record_Abstract extends Doctrine_Access
      */
     public function actAs($tpl, array $options = array())
     {
-        if ( ! is_object($tpl)) {
+        if (! is_object($tpl)) {
             $className = 'Doctrine_Template_' . $tpl;
 
             if (class_exists($className, true)) {
                 $tpl = new $className($options);
-            } else if (class_exists($tpl, true)) {
+            } elseif (class_exists($tpl, true)) {
                 $tpl = new $tpl($options);
             } else {
                 throw new Doctrine_Record_Exception('Could not load behavior named: "' . $tpl . '"');
             }
         }
 
-        if ( ! ($tpl instanceof Doctrine_Template)) {
+        if (! ($tpl instanceof Doctrine_Template)) {
             throw new Doctrine_Record_Exception('Loaded behavior class is not an instance of Doctrine_Template.');
         }
 

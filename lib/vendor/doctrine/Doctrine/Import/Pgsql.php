@@ -169,7 +169,7 @@ class Doctrine_Import_Pgsql extends Doctrine_Import
                 // get length from varchar definition
                 $length = preg_replace('~.*\(([0-9]*)\).*~', '$1', $val['complete_type']);
                 $val['length'] = $length;
-            } else if (strpos($val['complete_type'], 'character varying') !== false) {
+            } elseif (strpos($val['complete_type'], 'character varying') !== false) {
                 // get length from varchar definition
                 $length = preg_replace('~.*\(([0-9]*)\).*~', '$1', $val['complete_type']);
                 $val['length'] = $length;
@@ -196,9 +196,9 @@ class Doctrine_Import_Pgsql extends Doctrine_Import
                 $t_result = $this->conn->fetchAssoc(sprintf('select enum_range(null::%s) as range ', $decl['enum_name']));
                 if (isset($t_result[0])) {
                     $range =  $t_result[0]['range'];
-                    $range = str_replace('{','',$range);
-                    $range = str_replace('}','',$range);
-                    $range = explode(',',$range);
+                    $range = str_replace('{', '', $range);
+                    $range = str_replace('}', '', $range);
+                    $range = explode(',', $range);
                     $description['values'] = $range;
                 }
             }
@@ -208,14 +208,14 @@ class Doctrine_Import_Pgsql extends Doctrine_Import
             if (preg_match("/^nextval\('(.*)'(::.*)?\)$/", $description['default'], $matches)) {
                 $description['sequence'] = $this->conn->formatter->fixSequenceName($matches[1]);
                 $description['default'] = null;
-            } else if (preg_match("/^'(.*)'::character varying$/", $description['default'], $matches)) {
+            } elseif (preg_match("/^'(.*)'::character varying$/", $description['default'], $matches)) {
                 $description['default'] = $matches[1];
-            } else if (preg_match("/^(.*)::character varying$/", $description['default'], $matches)) {
+            } elseif (preg_match("/^(.*)::character varying$/", $description['default'], $matches)) {
                 $description['default'] = $matches[1];
-            } else if ($description['type'] == 'boolean') {
+            } elseif ($description['type'] == 'boolean') {
                 if ($description['default'] === 'true') {
                     $description['default'] = true;
-                } else if ($description['default'] === 'false') {
+                } elseif ($description['default'] === 'false') {
                     $description['default'] = false;
                 }
             }

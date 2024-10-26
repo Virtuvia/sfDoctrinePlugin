@@ -165,13 +165,13 @@ abstract class sfFormFilterDoctrine extends sfFormFilter
 
             if ($this->getTable()->hasField($field)) {
                 $method = sprintf('add%sColumnQuery', self::camelize($this->getFieldName($field)));
-            } else if (!method_exists($this, $method = sprintf('add%sColumnQuery', self::camelize($field))) && null !== $type) {
+            } elseif (!method_exists($this, $method = sprintf('add%sColumnQuery', self::camelize($field))) && null !== $type) {
                 throw new LogicException(sprintf('You must define a "%s" method to be able to filter with the "%s" field.', $method, $field));
             }
 
             if (method_exists($this, $method)) {
                 $this->$method($query, $field, $values[$field]);
-            } else if (null !== $type) {
+            } elseif (null !== $type) {
                 if (!method_exists($this, $method = sprintf('add%sQuery', $type))) {
                     throw new LogicException(sprintf('Unable to filter for the "%s" type.', $type));
                 }
@@ -207,7 +207,7 @@ abstract class sfFormFilterDoctrine extends sfFormFilter
 
         if (is_array($values) && isset($values['is_empty']) && $values['is_empty']) {
             $query->addWhere(sprintf('(%s.%s IS NULL OR %1$s.%2$s = ?)', $query->getRootAlias(), $fieldName), array(''));
-        } else if (is_array($values) && isset($values['text']) && '' != $values['text']) {
+        } elseif (is_array($values) && isset($values['text']) && '' != $values['text']) {
             $query->addWhere(sprintf('%s.%s LIKE ?', $query->getRootAlias(), $fieldName), '%'.$values['text'].'%');
         }
     }
@@ -218,7 +218,7 @@ abstract class sfFormFilterDoctrine extends sfFormFilter
 
         if (is_array($values) && isset($values['is_empty']) && $values['is_empty']) {
             $query->addWhere(sprintf('(%s.%s IS NULL OR %1$s.%2$s = ?)', $query->getRootAlias(), $fieldName), array(''));
-        } else if (is_array($values) && isset($values['text']) && '' !== $values['text']) {
+        } elseif (is_array($values) && isset($values['text']) && '' !== $values['text']) {
             $query->addWhere(sprintf('%s.%s = ?', $query->getRootAlias(), $fieldName), $values['text']);
         }
     }
@@ -239,9 +239,9 @@ abstract class sfFormFilterDoctrine extends sfFormFilter
             if (null !== $values['from'] && null !== $values['to']) {
                 $query->andWhere(sprintf('%s.%s >= ?', $query->getRootAlias(), $fieldName), $values['from']);
                 $query->andWhere(sprintf('%s.%s <= ?', $query->getRootAlias(), $fieldName), $values['to']);
-            } else if (null !== $values['from']) {
+            } elseif (null !== $values['from']) {
                 $query->andWhere(sprintf('%s.%s >= ?', $query->getRootAlias(), $fieldName), $values['from']);
-            } else if (null !== $values['to']) {
+            } elseif (null !== $values['to']) {
                 $query->andWhere(sprintf('%s.%s <= ?', $query->getRootAlias(), $fieldName), $values['to']);
             }
         }

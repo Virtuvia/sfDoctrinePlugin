@@ -190,14 +190,14 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
     public function __construct(Doctrine_Manager $manager, $adapter, $user = null, $pass = null)
     {
         if (is_object($adapter)) {
-            if ( ! ($adapter instanceof PDO) && ! in_array('Doctrine_Adapter_Interface', class_implements($adapter))) {
+            if (! ($adapter instanceof PDO) && ! in_array('Doctrine_Adapter_Interface', class_implements($adapter))) {
                 throw new Doctrine_Connection_Exception('First argument should be an instance of PDO or implement Doctrine_Adapter_Interface');
             }
             $this->dbh = $adapter;
 
             $this->isConnected = true;
 
-        } else if (is_array($adapter)) {
+        } elseif (is_array($adapter)) {
             $this->pendingAttributes[Doctrine_Core::ATTR_DRIVER_NAME] = $adapter['scheme'];
 
             $this->options['dsn']      = $adapter['dsn'];
@@ -279,7 +279,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
     public function getAttribute($attribute)
     {
         if ($attribute >= 100 && $attribute < 1000) {
-            if ( ! isset($this->attributes[$attribute])) {
+            if (! isset($this->attributes[$attribute])) {
                 return parent::getAttribute($attribute);
             }
             return $this->attributes[$attribute];
@@ -292,7 +292,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
                 throw new Doctrine_Connection_Exception('Attribute ' . $attribute . ' not found.');
             }
         } else {
-            if ( ! isset($this->pendingAttributes[$attribute])) {
+            if (! isset($this->pendingAttributes[$attribute])) {
                 $this->connect();
                 $this->getAttribute($attribute);
             }
@@ -400,7 +400,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
             return $this->properties[$name];
         }
 
-        if ( ! isset($this->modules[$name])) {
+        if (! isset($this->modules[$name])) {
             throw new Doctrine_Connection_Exception('Unknown module / property ' . $name);
         }
         if ($this->modules[$name] === false) {
@@ -475,7 +475,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
             }
         }
 
-        if ( ! $found) {
+        if (! $found) {
             $class = 'Doctrine_Adapter_' . ucwords($e[0]);
 
             if (class_exists($class)) {
@@ -486,7 +486,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
         }
 
         // attach the pending attributes to adapter
-        foreach($this->pendingAttributes as $attr => $value) {
+        foreach ($this->pendingAttributes as $attr => $value) {
             // some drivers don't support setting this so we just skip it
             if ($attr == Doctrine_Core::ATTR_DRIVER_NAME) {
                 continue;
@@ -579,7 +579,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
         }
 
         $affectedRows = 0;
-        if ( ! empty($condition) && ! empty($conditionValues)) {
+        if (! empty($condition) && ! empty($conditionValues)) {
             $query = 'DELETE FROM ' . $this->quoteIdentifier($table->getTableName())
                     . ' WHERE ' . implode(' AND ', $condition);
 
@@ -911,15 +911,15 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
 
             $stmt = false;
 
-            if ( ! $event->skipOperation) {
+            if (! $event->skipOperation) {
                 $stmt = $this->dbh->prepare($statement);
             }
 
             $this->getAttribute(Doctrine_Core::ATTR_LISTENER)->postPrepare($event);
 
             return new Doctrine_Connection_Statement($this, $stmt);
-        } catch(Doctrine_Adapter_Exception $e) {
-        } catch(PDOException $e) {
+        } catch (Doctrine_Adapter_Exception $e) {
+        } catch (PDOException $e) {
         }
 
         $this->rethrowException($e, $this, $statement);
@@ -949,7 +949,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
         $parser = Doctrine_Query::create();
 
         $coll = $parser->query($query, $params);
-        if ( ! $coll->contains(0)) {
+        if (! $coll->contains(0)) {
             return false;
         }
         return $coll[0];
@@ -997,7 +997,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
         $this->connect();
 
         try {
-            if ( ! empty($params)) {
+            if (! empty($params)) {
                 $stmt = $this->prepare($query);
                 $stmt->execute($params);
 
@@ -1007,7 +1007,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
 
                 $this->getAttribute(Doctrine_Core::ATTR_LISTENER)->preQuery($event);
 
-                if ( ! $event->skipOperation) {
+                if (! $event->skipOperation) {
                     $stmt = $this->dbh->query($query);
                     $this->_count++;
                 }
@@ -1034,7 +1034,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
         $this->connect();
 
         try {
-            if ( ! empty($params)) {
+            if (! empty($params)) {
                 $stmt = $this->prepare($query);
                 $stmt->execute($params);
 
@@ -1043,7 +1043,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
                 $event = new Doctrine_Event($this, Doctrine_Event::CONN_EXEC, $query, $params);
 
                 $this->getAttribute(Doctrine_Core::ATTR_LISTENER)->preExec($event);
-                if ( ! $event->skipOperation) {
+                if (! $event->skipOperation) {
                     $count = $this->dbh->exec($query);
 
                     $this->_count++;
@@ -1078,7 +1078,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
         }
 
         $exc  = new $name($message, (int) $e->getCode(), $e);
-        if ( ! isset($e->errorInfo) || ! is_array($e->errorInfo)) {
+        if (! isset($e->errorInfo) || ! is_array($e->errorInfo)) {
             $e->errorInfo = array(null, null, null, null);
         }
         $exc->processErrorInfo($e->errorInfo);
@@ -1321,7 +1321,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      */
     public function getResultCacheDriver()
     {
-        if ( ! $this->getAttribute(Doctrine_Core::ATTR_RESULT_CACHE)) {
+        if (! $this->getAttribute(Doctrine_Core::ATTR_RESULT_CACHE)) {
             throw new Doctrine_Exception('Result Cache driver not initialized.');
         }
 
@@ -1335,7 +1335,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      */
     public function getQueryCacheDriver()
     {
-        if ( ! $this->getAttribute(Doctrine_Core::ATTR_QUERY_CACHE)) {
+        if (! $this->getAttribute(Doctrine_Core::ATTR_QUERY_CACHE)) {
             throw new Doctrine_Exception('Query Cache driver not initialized.');
         }
 
@@ -1428,7 +1428,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      */
     public function createDatabase()
     {
-        if ( ! $dsn = $this->getOption('dsn')) {
+        if (! $dsn = $this->getOption('dsn')) {
             throw new Doctrine_Connection_Exception('You must create your Doctrine_Connection by using a valid Doctrine style dsn in order to use the create/drop database functionality');
         }
 
@@ -1462,7 +1462,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      */
     public function dropDatabase()
     {
-        if ( ! $dsn = $this->getOption('dsn')) {
+        if (! $dsn = $this->getOption('dsn')) {
             throw new Doctrine_Connection_Exception('You must create your Doctrine_Connection by using a valid Doctrine style dsn in order to use the create/drop database functionality');
         }
 

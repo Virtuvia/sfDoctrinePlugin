@@ -64,7 +64,7 @@ class sfTesterDoctrine extends sfTester
                 if (is_string($condition) && '!' === $condition[0]) {
                     $operator = false !== strpos($condition, '%') ? 'NOT LIKE' : '!=';
                     $condition = substr($condition, 1);
-                } else if (is_string($condition) && false !== strpos($condition, '%')) {
+                } elseif (is_string($condition) && false !== strpos($condition, '%')) {
                     $operator = 'LIKE';
                 }
 
@@ -76,9 +76,9 @@ class sfTesterDoctrine extends sfTester
 
         if (false === $value) {
             $this->tester->is(count($objects), 0, sprintf('no %s object that matches the criteria has been found', $model));
-        } else if (true === $value) {
+        } elseif (true === $value) {
             $this->tester->cmp_ok(count($objects), '>', 0, sprintf('%s objects that matches the criteria have been found', $model));
-        } else if (is_int($value)) {
+        } elseif (is_int($value)) {
             $this->tester->is(count($objects), $value, sprintf('"%s" %s objects have been found', $value, $model));
         } else {
             throw new InvalidArgumentException('The "check()" method does not takes this kind of argument.');
@@ -113,7 +113,7 @@ class sfTesterDoctrine extends sfTester
 
         if (is_integer($limit)) {
             $events = array_slice($events, $limit * -1);
-        } else if (preg_match('/^(!)?([^a-zA-Z0-9\\\\]).+?\\2[ims]?$/', $limit, $match)) {
+        } elseif (preg_match('/^(!)?([^a-zA-Z0-9\\\\]).+?\\2[ims]?$/', $limit, $match)) {
             if ($match[1] == '!') {
                 $pattern = substr($limit, 1);
                 $match = false;
@@ -121,7 +121,7 @@ class sfTesterDoctrine extends sfTester
                 $pattern = $limit;
                 $match = true;
             }
-        } else if ($limit) {
+        } elseif ($limit) {
             $substring = $limit;
         }
 

@@ -197,7 +197,7 @@ EOF;
             if ($ret) {
                 return $ret;
             }
-        } else if (self::BUILD_DB == (self::BUILD_DB & $mode)) {
+        } elseif (self::BUILD_DB == (self::BUILD_DB & $mode)) {
             $task = new sfDoctrineInsertSqlTask($this->dispatcher, $this->formatter);
             $task->setCommandApplication($this->commandApplication);
             $task->setConfiguration($this->configuration);

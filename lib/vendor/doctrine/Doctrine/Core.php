@@ -111,7 +111,7 @@ class Doctrine_Core
     const FETCH_UNIQUE = 196608;
     const NULL_EMPTY_STRING = 1;
     const NULL_NATURAL = 0;
-    const NULL_TO_STRING         = NULL;
+    const NULL_TO_STRING         = null;
     const PARAM_BOOL = 5;
     const PARAM_INPUT_OUTPUT = -2147483648;
     const PARAM_INT = 1;
@@ -557,7 +557,7 @@ class Doctrine_Core
      */
     public static function getPath()
     {
-        if ( ! self::$_path) {
+        if (! self::$_path) {
             self::$_path = realpath(dirname(__FILE__) . '/..');
         }
 
@@ -639,7 +639,7 @@ class Doctrine_Core
         if ($directory !== null) {
             foreach ((array) $directory as $dir) {
                 $dir = rtrim($dir, '/');
-                if ( ! is_dir($dir)) {
+                if (! is_dir($dir)) {
                     throw new Doctrine_Exception('You must pass a valid path to a directory containing Doctrine models');
                 }
 
@@ -662,7 +662,7 @@ class Doctrine_Core
                             $className = $classPrefix . $className;
                         }
 
-                        if ( ! class_exists($className, false)) {
+                        if (! class_exists($className, false)) {
                             if ($modelLoading == Doctrine_Core::MODEL_LOADING_CONSERVATIVE || $modelLoading == Doctrine_Core::MODEL_LOADING_PEAR) {
                                 self::loadModel($className, $file->getPathName());
 
@@ -687,12 +687,12 @@ class Doctrine_Core
 
                                 $previouslyLoaded = array_keys(self::$_loadedModelFiles, $file->getPathName());
 
-                                if ( ! empty($previouslyLoaded)) {
+                                if (! empty($previouslyLoaded)) {
                                     $previouslyLoaded = array_combine(array_values($previouslyLoaded), array_values($previouslyLoaded));
                                     $loadedModels = array_merge($loadedModels, $previouslyLoaded);
                                 }
                             }
-                        } else if (self::isValidModelClass($className)) {
+                        } elseif (self::isValidModelClass($className)) {
                             $loadedModels[$className] = $className;
                         }
                     }
@@ -797,7 +797,7 @@ class Doctrine_Core
             // Skip the following classes
             // - abstract classes
             // - not a subclass of Doctrine_Record
-            if ( ! $class->isAbstract() && $class->isSubClassOf('Doctrine_Record')) {
+            if (! $class->isAbstract() && $class->isSubClassOf('Doctrine_Record')) {
 
                 return true;
             }
@@ -858,7 +858,7 @@ class Doctrine_Core
         $options['generateBaseClasses'] = isset($options['generateBaseClasses']) ? $options['generateBaseClasses']:false;
         $result = Doctrine_Core::generateModelsFromDb($directory, $connections, $options);
 
-        if ( empty($result) && ! is_dir($directory)) {
+        if (empty($result) && ! is_dir($directory)) {
             throw new Doctrine_Exception('No models generated from your databases');
         }
 
@@ -1099,7 +1099,7 @@ class Doctrine_Core
             return false;
         }
 
-        if ( ! self::$_modelsDirectory) {
+        if (! self::$_modelsDirectory) {
             $loadedModels = self::$_loadedModelFiles;
 
             if (isset($loadedModels[$className]) && file_exists($loadedModels[$className])) {
@@ -1167,7 +1167,7 @@ class Doctrine_Core
 
                     $ret[] = $indent . $k . ' : ' . self::dump($v, false, $indent);
                 }
-                $indent = substr($indent,0, -4);
+                $indent = substr($indent, 0, -4);
                 $ret[] = $indent . ")";
                 break;
             case 'object':

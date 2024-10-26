@@ -20,8 +20,8 @@
  */
 class sfDoctrineCli extends Doctrine_Cli
 {
-    protected $symfonyDispatcher,
-        $symfonyFormatter;
+    protected $symfonyDispatcher;
+    protected $symfonyFormatter;
 
     /**
      * Set the symfony dispatcher of the cli instance

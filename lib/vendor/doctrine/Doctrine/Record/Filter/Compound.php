@@ -56,7 +56,7 @@ class Doctrine_Record_Filter_Compound extends Doctrine_Record_Filter
     public function filterSet(Doctrine_Record $record, $name, $value)
     {
         foreach ($this->_aliases as $alias) {
-            if ( ! $record->exists()) {
+            if (! $record->exists()) {
                 if (isset($record[$alias][$name])) {
                     $record[$alias][$name] = $value;
 
@@ -82,7 +82,7 @@ class Doctrine_Record_Filter_Compound extends Doctrine_Record_Filter
     public function filterGet(Doctrine_Record $record, $name)
     {
         foreach ($this->_aliases as $alias) {
-            if ( ! $record->exists()) {
+            if (! $record->exists()) {
                 if (isset($record[$alias][$name])) {
                     return $record[$alias][$name];
                 }

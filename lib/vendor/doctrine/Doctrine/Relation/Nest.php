@@ -72,7 +72,7 @@ class Doctrine_Relation_Nest extends Doctrine_Relation_Association
             } else {
                 $q->addOrderBy($formatter->quoteIdentifier($tableName) . '.' . $identifier . ' ASC');
             }
-            $q->addComponent($tableName,  $this->getClass());
+            $q->addComponent($tableName, $this->getClass());
 
             $path = $this->getClass(). '.' . $this->getAssociationFactory()->getComponentName();
             if ($this->definition['refClassRelationAlias']) {

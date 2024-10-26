@@ -46,7 +46,7 @@ class Doctrine_Formatter extends Doctrine_Connection_Module
      */
     public function escapePattern($text)
     {
-        if ( ! $this->string_quoting['escape_pattern']) {
+        if (! $this->string_quoting['escape_pattern']) {
             return $text;
         }
         $tmp = $this->conn->string_quoting;
@@ -171,6 +171,7 @@ class Doctrine_Formatter extends Doctrine_Connection_Module
             case 'array':
             case 'object':
                 $input = serialize($input);
+                // no break
             case 'date':
             case 'time':
             case 'timestamp':
@@ -184,7 +185,7 @@ class Doctrine_Formatter extends Doctrine_Connection_Module
             case 'enum':
             case 'set':
             case 'boolean':
-                return "'" . str_replace("'","''",$input) . "'";
+                return "'" . str_replace("'", "''", $input) . "'";
         }
     }
 
@@ -196,7 +197,7 @@ class Doctrine_Formatter extends Doctrine_Connection_Module
      */
     public function fixSequenceName($sqn)
     {
-        $seqPattern = '/^'.preg_replace('/%s/', '([a-z0-9_]+)',  $this->conn->getAttribute(Doctrine_Core::ATTR_SEQNAME_FORMAT)).'$/i';
+        $seqPattern = '/^'.preg_replace('/%s/', '([a-z0-9_]+)', $this->conn->getAttribute(Doctrine_Core::ATTR_SEQNAME_FORMAT)).'$/i';
         $seqName    = preg_replace($seqPattern, '\\1', $sqn);
 
         if ($seqName && ! strcasecmp($sqn, $this->getSequenceName($seqName))) {

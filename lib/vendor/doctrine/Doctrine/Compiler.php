@@ -43,14 +43,14 @@ class Doctrine_Compiler
      */
     public static function compile($target = null, $includedDrivers = array())
     {
-        if ( ! is_array($includedDrivers)) {
+        if (! is_array($includedDrivers)) {
             $includedDrivers = array($includedDrivers);
         }
 
         $excludedDrivers = array();
 
         // If we have an array of specified drivers then lets determine which drivers we should exclude
-        if ( ! empty($includedDrivers)) {
+        if (! empty($includedDrivers)) {
             $drivers = array('mysql',
                 'pgsql',
                 'sqlite');
@@ -85,7 +85,7 @@ class Doctrine_Compiler
             }
 
             // Exclude drivers
-            if ( ! empty($excludedDrivers)) {
+            if (! empty($excludedDrivers)) {
                 foreach ($excludedDrivers as $excludedDriver) {
                     $excludedDriver = ucfirst($excludedDriver);
 

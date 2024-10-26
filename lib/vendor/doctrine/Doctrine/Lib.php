@@ -83,7 +83,7 @@ class Doctrine_Lib
         $r[] = 'data       : ' . Doctrine_Core::dump($record->getData(), false);
         $r[] = '</pre>';
 
-        return implode("\n",$r)."<br />";
+        return implode("\n", $r)."<br />";
     }
 
     /**
@@ -129,7 +129,7 @@ class Doctrine_Lib
         $r[] = 'Driver name         : ' . $connection->getAttribute(Doctrine_Core::ATTR_DRIVER_NAME);
         $r[] = "</pre>";
 
-        return implode("\n",$r)."<br>";
+        return implode("\n", $r)."<br>";
     }
 
     /**
@@ -147,7 +147,7 @@ class Doctrine_Lib
         $r[] = "Table       : ".$table->getTableName();
         $r[] = "</pre>";
 
-        return implode("\n",$r)."<br>";
+        return implode("\n", $r)."<br>";
     }
 
     /**
@@ -162,22 +162,22 @@ class Doctrine_Lib
      */
     public static function formatSql($sql)
     {
-        $e = explode("\n",$sql);
+        $e = explode("\n", $sql);
         $color = "367FAC";
         $l = $sql;
-        $l = str_replace("SELECT ", "<font color='$color'><b>SELECT </b></font><br \>  ",$l);
-        $l = str_replace("FROM ", "<font color='$color'><b>FROM </b></font><br \>",$l);
-        $l = str_replace(" LEFT JOIN ", "<br \><font color='$color'><b> LEFT JOIN </b></font>",$l);
-        $l = str_replace(" INNER JOIN ", "<br \><font color='$color'><b> INNER JOIN </b></font>",$l);
-        $l = str_replace(" WHERE ", "<br \><font color='$color'><b> WHERE </b></font>",$l);
-        $l = str_replace(" GROUP BY ", "<br \><font color='$color'><b> GROUP BY </b></font>",$l);
-        $l = str_replace(" HAVING ", "<br \><font color='$color'><b> HAVING </b></font>",$l);
-        $l = str_replace(" AS ", "<font color='$color'><b> AS </b></font><br \>  ",$l);
-        $l = str_replace(" ON ", "<font color='$color'><b> ON </b></font>",$l);
-        $l = str_replace(" ORDER BY ", "<font color='$color'><b> ORDER BY </b></font><br \>",$l);
-        $l = str_replace(" LIMIT ", "<font color='$color'><b> LIMIT </b></font><br \>",$l);
-        $l = str_replace(" OFFSET ", "<font color='$color'><b> OFFSET </b></font><br \>",$l);
-        $l = str_replace("  ", "<dd>",$l);
+        $l = str_replace("SELECT ", "<font color='$color'><b>SELECT </b></font><br \>  ", $l);
+        $l = str_replace("FROM ", "<font color='$color'><b>FROM </b></font><br \>", $l);
+        $l = str_replace(" LEFT JOIN ", "<br \><font color='$color'><b> LEFT JOIN </b></font>", $l);
+        $l = str_replace(" INNER JOIN ", "<br \><font color='$color'><b> INNER JOIN </b></font>", $l);
+        $l = str_replace(" WHERE ", "<br \><font color='$color'><b> WHERE </b></font>", $l);
+        $l = str_replace(" GROUP BY ", "<br \><font color='$color'><b> GROUP BY </b></font>", $l);
+        $l = str_replace(" HAVING ", "<br \><font color='$color'><b> HAVING </b></font>", $l);
+        $l = str_replace(" AS ", "<font color='$color'><b> AS </b></font><br \>  ", $l);
+        $l = str_replace(" ON ", "<font color='$color'><b> ON </b></font>", $l);
+        $l = str_replace(" ORDER BY ", "<font color='$color'><b> ORDER BY </b></font><br \>", $l);
+        $l = str_replace(" LIMIT ", "<font color='$color'><b> LIMIT </b></font><br \>", $l);
+        $l = str_replace(" OFFSET ", "<font color='$color'><b> OFFSET </b></font><br \>", $l);
+        $l = str_replace("  ", "<dd>", $l);
 
         return $l;
     }
@@ -199,7 +199,7 @@ class Doctrine_Lib
         //$r[] = 'snapshot : ' . Doctrine_Core::dump($collection->getSnapshot());
         $r[] = "</pre>";
 
-        return implode("\n",$r);
+        return implode("\n", $r);
     }
 
     // Code from symfony sfToolkit class. See LICENSE
@@ -236,17 +236,17 @@ class Doctrine_Lib
                 $args[2] = array();
 
                 if (is_array($args[0]) && is_array($args[1])) {
-                    foreach (array_unique(array_merge(array_keys($args[0]),array_keys($args[1]))) as $key) {
+                    foreach (array_unique(array_merge(array_keys($args[0]), array_keys($args[1]))) as $key) {
                         $isKey0 = array_key_exists($key, $args[0]);
                         $isKey1 = array_key_exists($key, $args[1]);
 
                         if ($isKey0 && $isKey1 && is_array($args[0][$key]) && is_array($args[1][$key])) {
                             $args[2][$key] = self::arrayDeepMerge($args[0][$key], $args[1][$key]);
-                        } else if ($isKey0 && $isKey1) {
+                        } elseif ($isKey0 && $isKey1) {
                             $args[2][$key] = $args[1][$key];
-                        } else if ( ! $isKey1) {
+                        } elseif (! $isKey1) {
                             $args[2][$key] = $args[0][$key];
-                        } else if ( ! $isKey0) {
+                        } elseif (! $isKey0) {
                             $args[2][$key] = $args[1][$key];
                         }
                     }
@@ -255,6 +255,7 @@ class Doctrine_Lib
                 } else {
                     return $args[1];
                 }
+                // no break
             default:
                 $args = func_get_args();
                 $args[1] = self::arrayDeepMerge($args[0], $args[1]);
@@ -278,7 +279,7 @@ class Doctrine_Lib
      */
     public static function makeDirectories($path, $mode = 0777)
     {
-        if ( ! $path) {
+        if (! $path) {
             return false;
         }
 
@@ -307,7 +308,7 @@ class Doctrine_Lib
 
                     if (is_dir($value)) {
                         self::removeDirectories($value);
-                    } else if (is_file($value)) {
+                    } elseif (is_file($value)) {
                         unlink($value);
                     }
                 }
@@ -337,7 +338,7 @@ class Doctrine_Lib
         }
 
         // Make destination directory
-        if ( ! is_dir($dest)) {
+        if (! is_dir($dest)) {
             mkdir($dest);
         }
 

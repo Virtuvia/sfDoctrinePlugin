@@ -132,7 +132,7 @@ abstract class Doctrine_Relation implements ArrayAccess
     {
         $def = array();
         foreach ($this->definition as $key => $val) {
-            if ( ! isset($definition[$key]) && $val) {
+            if (! isset($definition[$key]) && $val) {
                 throw new Doctrine_Exception($key . ' is required!');
             }
             if (isset($definition[$key])) {
@@ -391,7 +391,7 @@ abstract class Doctrine_Relation implements ArrayAccess
      */
     public function getOrderBy($alias = null, $columnNames = false)
     {
-        if ( ! $alias) {
+        if (! $alias) {
             $alias = $this->getTable()->getComponentName();
         }
 
@@ -411,7 +411,7 @@ abstract class Doctrine_Relation implements ArrayAccess
     {
         $table = $this->getTable();
 
-        if ( ! $alias) {
+        if (! $alias) {
             $alias = $table->getComponentName();
         }
 

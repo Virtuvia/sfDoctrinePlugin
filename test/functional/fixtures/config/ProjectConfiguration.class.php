@@ -33,7 +33,7 @@ class ProjectConfiguration extends sfProjectConfiguration
     public function loadFixtures($fixtures)
     {
         $path = sfConfig::get('sf_data_dir') . '/' . $fixtures;
-        if ( ! file_exists($path)) {
+        if (! file_exists($path)) {
             throw new sfException('Invalid data fixtures file');
         }
         chdir(sfConfig::get('sf_root_dir'));

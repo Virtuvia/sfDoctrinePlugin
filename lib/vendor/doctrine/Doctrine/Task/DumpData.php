@@ -32,10 +32,10 @@
  */
 class Doctrine_Task_DumpData extends Doctrine_Task
 {
-    public $description          =   'Dump data to a yaml data fixture file.',
-        $requiredArguments    =   array('data_fixtures_path' =>  'Specify path to write the yaml data fixtures file to.',
-            'models_path'        =>  'Specify path to your Doctrine_Record definitions.'),
-        $optionalArguments    =   array();
+    public $description          =   'Dump data to a yaml data fixture file.';
+    public $requiredArguments    =   array('data_fixtures_path' =>  'Specify path to write the yaml data fixtures file to.',
+        'models_path'        =>  'Specify path to your Doctrine_Record definitions.');
+    public $optionalArguments    =   array();
 
     public function execute()
     {
@@ -51,7 +51,7 @@ class Doctrine_Task_DumpData extends Doctrine_Task
             $path = $path[0];
         }
 
-        if ( ! empty($path)) {
+        if (! empty($path)) {
             Doctrine_Core::dumpData($path);
 
             $this->notify(sprintf('Dumped data successfully to: %s', $path));
