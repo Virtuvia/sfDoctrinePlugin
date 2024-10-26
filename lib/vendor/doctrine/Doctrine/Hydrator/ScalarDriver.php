@@ -80,7 +80,7 @@ class Doctrine_Hydrator_ScalarDriver extends Doctrine_Hydrator_Abstract
             $dqlAlias = $cache[$key]['dqlAlias'];
             $fieldName = $cache[$key]['fieldName'];
 
-            $rowDataKey = $aliasPrefix ? $dqlAlias . '_' . $fieldName:$fieldName;
+            $rowDataKey = $aliasPrefix ? $dqlAlias . '_' . $fieldName : $fieldName;
 
             if ($cache[$key]['isSimpleType'] || $cache[$key]['isAgg']) {
                 $rowData[$rowDataKey] = $value;

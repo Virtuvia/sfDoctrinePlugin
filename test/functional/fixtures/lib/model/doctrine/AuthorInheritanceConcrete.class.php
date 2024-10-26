@@ -12,5 +12,4 @@
  */
 class AuthorInheritanceConcrete extends BaseAuthorInheritanceConcrete
 {
-
 }

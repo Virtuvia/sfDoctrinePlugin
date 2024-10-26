@@ -27,7 +27,6 @@
  */
 abstract class BaseModelWithNumberInColumn extends myDoctrineRecord
 {
-
     public function setTableDefinition()
     {
         $this->setTableName('model_with_number_in_column');

@@ -30,7 +30,6 @@
  */
 abstract class BaseProfile extends myDoctrineRecord
 {
-
     public function setTableDefinition()
     {
         $this->setTableName('profile');

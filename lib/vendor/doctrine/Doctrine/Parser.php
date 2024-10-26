@@ -69,7 +69,7 @@ abstract class Doctrine_Parser
     {
         $class = 'Doctrine_Parser_'.ucfirst($type);
 
-        return new $class;
+        return new $class();
     }
 
     /**

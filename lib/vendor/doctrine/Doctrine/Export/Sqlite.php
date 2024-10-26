@@ -209,7 +209,7 @@ class Doctrine_Export_Sqlite extends Doctrine_Export
         if (! $autoinc && isset($options['primary']) && ! empty($options['primary'])) {
             $keyColumns = array_values($options['primary']);
             $keyColumns = array_map(array($this->conn, 'quoteIdentifier'), $keyColumns);
-            $queryFields.= ', PRIMARY KEY('.implode(', ', $keyColumns).')';
+            $queryFields .= ', PRIMARY KEY('.implode(', ', $keyColumns).')';
         }
 
         $name  = $this->conn->quoteIdentifier($name, true);
@@ -296,7 +296,7 @@ class Doctrine_Export_Sqlite extends Doctrine_Export
         }
 
         try {
-            $this->conn->exec('INSERT INTO ' . $sequenceName . ' (' . $seqcolName . ') VALUES (' . ($start-1) . ')');
+            $this->conn->exec('INSERT INTO ' . $sequenceName . ' (' . $seqcolName . ') VALUES (' . ($start - 1) . ')');
             return true;
         } catch (Doctrine_Connection_Exception $e) {
             // Handle error
@@ -353,9 +353,9 @@ class Doctrine_Export_Sqlite extends Doctrine_Export
         if (! empty($changes['add']) && is_array($changes['add'])) {
             foreach ($changes['add'] as $fieldName => $field) {
                 if ($query) {
-                    $query.= ', ';
+                    $query .= ', ';
                 }
-                $query.= 'ADD ' . $this->getDeclaration($fieldName, $field);
+                $query .= 'ADD ' . $this->getDeclaration($fieldName, $field);
             }
         }
 
@@ -369,7 +369,7 @@ class Doctrine_Export_Sqlite extends Doctrine_Export
         if (! empty($changes['change']) && is_array($changes['change'])) {
             foreach ($changes['change'] as $fieldName => $field) {
                 if ($query) {
-                    $query.= ', ';
+                    $query .= ', ';
                 }
                 if (isset($rename[$fieldName])) {
                     $oldFieldName = $rename[$fieldName];
@@ -386,7 +386,7 @@ class Doctrine_Export_Sqlite extends Doctrine_Export
         if (! empty($rename) && is_array($rename)) {
             foreach ($rename as $renameName => $renamedField) {
                 if ($query) {
-                    $query.= ', ';
+                    $query .= ', ';
                 }
                 $field = $changes['rename'][$renamedField];
                 $renamedField = $this->conn->quoteIdentifier($renamedField, true);

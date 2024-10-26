@@ -5,5 +5,4 @@
  */
 class UserPermission extends BaseUserPermission
 {
-
 }

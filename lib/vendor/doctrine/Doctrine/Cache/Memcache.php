@@ -51,7 +51,7 @@ class Doctrine_Cache_Memcache extends Doctrine_Cache_Driver
         parent::__construct($options);
 
         if (isset($options['servers'])) {
-            $value= $options['servers'];
+            $value = $options['servers'];
             if (isset($value['host'])) {
                 // in this case, $value seems to be a simple associative array (one server only)
                 $value = array(0 => $value); // let's transform it into a classical array of associative arrays
@@ -59,7 +59,7 @@ class Doctrine_Cache_Memcache extends Doctrine_Cache_Driver
             $this->setOption('servers', $value);
         }
 
-        $this->_memcache = new Memcache;
+        $this->_memcache = new Memcache();
 
         foreach ($this->_options['servers'] as $server) {
             if (! array_key_exists('persistent', $server)) {

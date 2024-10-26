@@ -213,7 +213,7 @@ class Doctrine_Tree_NestedSet extends Doctrine_Tree implements Doctrine_Tree_Int
                 ->addOrderBy($this->_baseAlias . ".lft asc");
 
         if (! is_null($depth)) {
-            $q->addWhere($this->_baseAlias . ".level BETWEEN ? AND ?", array($record->get('level'), $record->get('level')+$depth));
+            $q->addWhere($this->_baseAlias . ".level BETWEEN ? AND ?", array($record->get('level'), $record->get('level') + $depth));
         }
 
         $q = $this->returnQueryWithRootId($q, $record->getNode()->getRootValue());

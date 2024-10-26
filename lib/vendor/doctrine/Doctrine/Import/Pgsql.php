@@ -32,7 +32,6 @@
  */
 class Doctrine_Import_Pgsql extends Doctrine_Import
 {
-
     protected $sql = array(
         'listDatabases' => 'SELECT datname FROM pg_database',
         'listFunctions' => "SELECT

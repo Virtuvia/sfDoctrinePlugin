@@ -21,7 +21,6 @@
  */
 abstract class BaseModelFromLinkedSchema extends myDoctrineRecord
 {
-
     public function setTableDefinition()
     {
         $this->setTableName('model_from_linked_schema');

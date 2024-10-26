@@ -1,4 +1,5 @@
 <?php
+
 class AdminGenBrowser extends sfTestBrowser
 {
     protected $_modules = array('Article'       => 'articles',

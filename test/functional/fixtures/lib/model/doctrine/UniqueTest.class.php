@@ -5,5 +5,4 @@
  */
 class UniqueTest extends BaseUniqueTest
 {
-
 }

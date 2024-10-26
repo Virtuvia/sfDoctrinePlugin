@@ -21,7 +21,6 @@
  */
 abstract class BaseGroupPermission extends myDoctrineRecord
 {
-
     public function setTableDefinition()
     {
         $this->setTableName('group_permission');

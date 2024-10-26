@@ -21,7 +21,6 @@
  */
 abstract class BaseBlogAuthor extends Author
 {
-
     public function setUp()
     {
         parent::setUp();

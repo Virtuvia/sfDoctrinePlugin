@@ -21,7 +21,6 @@
  */
 abstract class BaseUserGroup extends myDoctrineRecord
 {
-
     public function setTableDefinition()
     {
         $this->setTableName('user_group');

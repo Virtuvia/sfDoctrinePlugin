@@ -88,7 +88,7 @@ class Doctrine_Expression_Mysql extends Doctrine_Expression_Driver
                     throw new Doctrine_Expression_Mysql_Exception('not a supported operator type:'. $operator);
             }
         }
-        $match.= "'";
+        $match .= "'";
         foreach ($pattern as $key => $value) {
             if ($key % 2) {
                 $match .= $value;
@@ -96,8 +96,8 @@ class Doctrine_Expression_Mysql extends Doctrine_Expression_Driver
                 $match .= $this->conn->escapePattern($this->conn->escape($value));
             }
         }
-        $match.= "'";
-        $match.= $this->patternEscapeString();
+        $match .= "'";
+        $match .= $this->patternEscapeString();
         return $match;
     }
 

@@ -113,7 +113,7 @@ class sfDoctrineColumn implements ArrayAccess
      */
     public function getDoctrineType()
     {
-        return isset($this->definition['type']) ? $this->definition['type']:null;
+        return isset($this->definition['type']) ? $this->definition['type'] : null;
     }
 
     /**
@@ -156,7 +156,7 @@ class sfDoctrineColumn implements ArrayAccess
      */
     public function hasDefinitionKey($key)
     {
-        return isset($this->definition[$key]) ? true:false;
+        return isset($this->definition[$key]) ? true : false;
     }
 
     /**

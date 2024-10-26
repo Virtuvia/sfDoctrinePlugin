@@ -126,7 +126,7 @@ class Doctrine_Table_Repository implements Countable, IteratorAggregate
     public function evictAll()
     {
         $evicted = 0;
-        foreach ($this->registry as $oid=>$record) {
+        foreach ($this->registry as $oid => $record) {
             if ($this->evict($oid)) {
                 $evicted++;
             }

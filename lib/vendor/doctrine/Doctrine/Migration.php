@@ -129,7 +129,7 @@ class Doctrine_Migration
      */
     public function loadMigrationClassesFromDirectory($directory = null)
     {
-        $directory = $directory ? $directory:$this->_migrationClassesDirectory;
+        $directory = $directory ? $directory : $this->_migrationClassesDirectory;
 
         $classesToLoad = array();
         $classes = get_declared_classes();
@@ -244,7 +244,7 @@ class Doctrine_Migration
 
         $result = $this->_connection->fetchColumn("SELECT version FROM " . $this->_migrationTableName);
 
-        return isset($result[0]) ? $result[0]:0;
+        return isset($result[0]) ? $result[0] : 0;
     }
 
     /**
@@ -258,7 +258,7 @@ class Doctrine_Migration
 
         $result = $this->_connection->fetchColumn("SELECT version FROM " . $this->_migrationTableName);
 
-        return isset($result[0]) ? true:false;
+        return isset($result[0]) ? true : false;
     }
 
     /**
@@ -271,7 +271,7 @@ class Doctrine_Migration
         $versions = array_keys($this->_migrationClasses);
         rsort($versions);
 
-        return isset($versions[0]) ? $versions[0]:0;
+        return isset($versions[0]) ? $versions[0] : 0;
     }
 
     /**
@@ -411,7 +411,7 @@ class Doctrine_Migration
      */
     public function hasErrors()
     {
-        return $this->getNumErrors() > 0 ? true:false;
+        return $this->getNumErrors() > 0 ? true : false;
     }
 
     /**
@@ -468,7 +468,7 @@ class Doctrine_Migration
             throw new Doctrine_Migration_Exception('Already at version # ' . $to);
         }
 
-        $direction = $from > $to ? 'down':'up';
+        $direction = $from > $to ? 'down' : 'up';
 
         if ($direction === 'up') {
             for ($i = $from + 1; $i <= $to; $i++) {

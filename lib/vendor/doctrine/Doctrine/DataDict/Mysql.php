@@ -158,7 +158,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
                     }
                     return 'ENUM('.implode(', ', $values).')';
                 } else {
-                    $field['length'] = isset($field['length']) && $field['length'] ? $field['length']:255;
+                    $field['length'] = isset($field['length']) && $field['length'] ? $field['length'] : 255;
                 }
                 // no break
             case 'set':
@@ -169,7 +169,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
                     }
                     return 'SET('.implode(', ', $values).')';
                 } else {
-                    $field['length'] = isset($field['length']) && $field['length'] ? $field['length']:255;
+                    $field['length'] = isset($field['length']) && $field['length'] ? $field['length'] : 255;
                 }
                 // no break
             case 'varchar':
@@ -254,7 +254,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
             case 'bit':
                 return 'BIT';
         }
-        return $field['type'] . (isset($field['length']) ? '('.$field['length'].')':null);
+        return $field['type'] . (isset($field['length']) ? '('.$field['length'].')' : null);
     }
 
     /**
@@ -432,7 +432,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
                 break;
             default:
                 $type[] = $field['type'];
-                $length = isset($field['length']) ? $field['length']:null;
+                $length = isset($field['length']) ? $field['length'] : null;
         }
 
         $length = ((int) $length == 0) ? null : (int) $length;
@@ -513,7 +513,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
                 : $this->conn->quote($field['default']));
         }
 
-        $notnull  = (isset($field['notnull'])  && $field['notnull'])  ? ' NOT NULL' : '';
+        $notnull  = (isset($field['notnull'])  && $field['notnull']) ? ' NOT NULL' : '';
         $unsigned = (isset($field['unsigned']) && $field['unsigned']) ? ' UNSIGNED' : '';
         $comment  = (isset($field['comment']) && $field['comment'])
             ? " COMMENT " . $this->conn->quote($field['comment'], 'text') : '';

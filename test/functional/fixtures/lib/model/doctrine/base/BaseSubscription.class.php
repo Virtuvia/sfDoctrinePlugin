@@ -1,4 +1,5 @@
 <?php
+
 // Connection Component Binding
 Doctrine_Manager::getInstance()->bindComponent('Subscription', 'doctrine2');
 
@@ -26,7 +27,6 @@ Doctrine_Manager::getInstance()->bindComponent('Subscription', 'doctrine2');
  */
 abstract class BaseSubscription extends myDoctrineRecord
 {
-
     public function setTableDefinition()
     {
         $this->setTableName('subscription');

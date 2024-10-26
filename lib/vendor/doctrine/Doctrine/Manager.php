@@ -105,7 +105,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
      */
     private function __construct()
     {
-        $null = new Doctrine_Null;
+        $null = new Doctrine_Null();
         Doctrine_Locator_Injectable::initNullObject($null);
         Doctrine_Record_Iterator::initNullObject($null);
     }
@@ -302,7 +302,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
         // Decode adapter information
         if (is_array($adapter)) {
             foreach ($adapter as $key => $value) {
-                $adapter[$key]  = $value ? urldecode($value):null;
+                $adapter[$key]  = $value ? urldecode($value) : null;
             }
         }
 
@@ -459,7 +459,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
                 }
 
                 $parts['dsn'] = $parts['scheme'] . ':host='
-                              . $parts['host'] . (isset($parts['port']) ? ';port=' . $parts['port']:null) . ';dbname='
+                              . $parts['host'] . (isset($parts['port']) ? ';port=' . $parts['port'] : null) . ';dbname='
                               . $parts['database'];
 
                 break;

@@ -4,5 +4,4 @@
  */
 class UserGroupTable extends Doctrine_Table
 {
-
 }

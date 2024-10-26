@@ -40,54 +40,54 @@ abstract class Doctrine_Query_Abstract
     /**
      * constant for SELECT queries
      */
-    const SELECT = 0;
+    public const SELECT = 0;
 
     /**
      * constant for DELETE queries
      */
-    const DELETE = 1;
+    public const DELETE = 1;
 
     /**
      * constant for UPDATE queries
      */
-    const UPDATE = 2;
+    public const UPDATE = 2;
 
     /**
      * constant for INSERT queries
      */
-    const INSERT = 3;
+    public const INSERT = 3;
 
     /**
      * constant for CREATE queries
      */
-    const CREATE = 4;
+    public const CREATE = 4;
 
     /** @todo document the query states (and the transitions between them). */
     /**
      * A query object is in CLEAN state when it has NO unparsed/unprocessed DQL parts.
      */
-    const STATE_CLEAN  = 1;
+    public const STATE_CLEAN  = 1;
 
     /**
      * A query object is in state DIRTY when it has DQL parts that have not yet been
      * parsed/processed.
      */
-    const STATE_DIRTY  = 2;
+    public const STATE_DIRTY  = 2;
 
     /**
      * A query is in DIRECT state when ... ?
      */
-    const STATE_DIRECT = 3;
+    public const STATE_DIRECT = 3;
 
     /**
      * A query object is on LOCKED state when ... ?
      */
-    const STATE_LOCKED = 4;
+    public const STATE_LOCKED = 4;
 
     /**
      * A query object is on FREED state after free() is called.
      */
-    const STATE_FREED = 5;
+    public const STATE_FREED = 5;
 
     /**
      * @var array  Table alias map. Keys are SQL aliases and values DQL aliases.
@@ -746,9 +746,9 @@ abstract class Doctrine_Query_Abstract
      */
     public function copySubqueryInfo(Doctrine_Query_Abstract $query)
     {
-        $this->_params =& $query->_params;
-        $this->_tableAliasMap =& $query->_tableAliasMap;
-        $this->_queryComponents =& $query->_queryComponents;
+        $this->_params = & $query->_params;
+        $this->_tableAliasMap = & $query->_tableAliasMap;
+        $this->_queryComponents = & $query->_queryComponents;
         $this->_tableAliasSeeds = $query->_tableAliasSeeds;
         return $this;
     }

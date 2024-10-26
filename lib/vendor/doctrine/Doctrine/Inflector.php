@@ -92,24 +92,24 @@ class Doctrine_Inflector
                 continue;
             } # 0bbbbbbb
             elseif ((ord($string[$i]) & 0xE0) == 0xC0) {
-                $n=1;
+                $n = 1;
             } # 110bbbbb
             elseif ((ord($string[$i]) & 0xF0) == 0xE0) {
-                $n=2;
+                $n = 2;
             } # 1110bbbb
             elseif ((ord($string[$i]) & 0xF8) == 0xF0) {
-                $n=3;
+                $n = 3;
             } # 11110bbb
             elseif ((ord($string[$i]) & 0xFC) == 0xF8) {
-                $n=4;
+                $n = 4;
             } # 111110bb
             elseif ((ord($string[$i]) & 0xFE) == 0xFC) {
-                $n=5;
+                $n = 5;
             } # 1111110b
             else {
                 return false;
             } # Does not match any model
-            for ($j=0; $j<$n; $j++) { # n bytes matching 10bbbbbb follow ?
+            for ($j = 0; $j < $n; $j++) { # n bytes matching 10bbbbbb follow ?
                 if ((++$i == strlen($string)) || ((ord($string[$i]) & 0xC0) != 0x80)) {
                     return false;
                 }
@@ -233,7 +233,7 @@ class Doctrine_Inflector
                 'Ä' => 'Ae', 'ä' => 'ae', 'Ü' => 'Ue', 'ü' => 'ue',
                 'Ö' => 'Oe', 'ö' => 'oe', 'ß' => 'ss',
                 // Norwegian characters
-                'Å'=>'Aa','Æ'=>'Ae','Ø'=>'O','æ'=>'a','ø'=>'o','å'=>'aa'
+                'Å' => 'Aa','Æ' => 'Ae','Ø' => 'O','æ' => 'a','ø' => 'o','å' => 'aa'
             );
 
             $string = strtr($string, $chars);

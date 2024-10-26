@@ -27,7 +27,6 @@
  */
 abstract class BaseSetting extends myDoctrineRecord
 {
-
     public function setTableDefinition()
     {
         $this->setTableName('setting');

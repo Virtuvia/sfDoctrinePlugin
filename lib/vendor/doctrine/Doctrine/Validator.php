@@ -49,9 +49,9 @@ class Doctrine_Validator extends Doctrine_Locator_Injectable
         if (! isset(self::$validators[$name])) {
             $class = 'Doctrine_Validator_' . ucwords(strtolower($name));
             if (class_exists($class)) {
-                self::$validators[$name] = new $class;
+                self::$validators[$name] = new $class();
             } elseif (class_exists($name)) {
-                self::$validators[$name] = new $name;
+                self::$validators[$name] = new $name();
             } else {
                 throw new Doctrine_Exception("Validator named '$name' not available.");
             }
@@ -72,7 +72,7 @@ class Doctrine_Validator extends Doctrine_Locator_Injectable
 
         // if record is transient all fields will be validated
         // if record is persistent only the modified fields will be validated
-        $fields = $record->exists() ? $record->getModified():$record->getData();
+        $fields = $record->exists() ? $record->getModified() : $record->getData();
         foreach ($fields as $fieldName => $value) {
             $table->validateField($fieldName, $value, $record);
         }

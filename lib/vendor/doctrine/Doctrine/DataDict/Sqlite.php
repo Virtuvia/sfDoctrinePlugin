@@ -61,7 +61,7 @@ class Doctrine_DataDict_Sqlite extends Doctrine_DataDict
         }
         switch ($field['type']) {
             case 'enum':
-                $field['length'] = isset($field['length']) && $field['length'] ? $field['length']:255;
+                $field['length'] = isset($field['length']) && $field['length'] ? $field['length'] : 255;
                 // no break
             case 'text':
             case 'object':
@@ -119,7 +119,7 @@ class Doctrine_DataDict_Sqlite extends Doctrine_DataDict
                 $scale = !empty($field['scale']) ? $field['scale'] : $this->conn->getAttribute(Doctrine_Core::ATTR_DECIMAL_PLACES);
                 return 'DECIMAL('.$length.','.$scale.')';
         }
-        return $field['type'] . (isset($field['length']) ? '('.$field['length'].')':null);
+        return $field['type'] . (isset($field['length']) ? '('.$field['length'].')' : null);
     }
 
     /**
@@ -253,7 +253,7 @@ class Doctrine_DataDict_Sqlite extends Doctrine_DataDict
                 break;
             default:
                 $type[] = $field['type'];
-                $length = isset($field['length']) ? $field['length']:null;
+                $length = isset($field['length']) ? $field['length'] : null;
         }
 
         return array('type'     => $type,

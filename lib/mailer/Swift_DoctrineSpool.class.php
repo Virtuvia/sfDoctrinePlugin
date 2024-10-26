@@ -74,7 +74,7 @@ class Swift_DoctrineSpool extends Swift_ConfigurableSpool
      */
     public function queueMessage(Swift_Mime_Message $message)
     {
-        $object = new $this->model;
+        $object = new $this->model();
 
         if (!$object instanceof Doctrine_Record) {
             throw new InvalidArgumentException('The mailer message object must be a Doctrine_Record object.');

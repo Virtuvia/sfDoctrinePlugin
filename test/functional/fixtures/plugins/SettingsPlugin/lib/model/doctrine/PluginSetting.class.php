@@ -12,5 +12,4 @@
  */
 abstract class PluginSetting extends BaseSetting
 {
-
 }

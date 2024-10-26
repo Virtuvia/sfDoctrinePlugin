@@ -76,16 +76,16 @@ class Doctrine_Hydrator_ArrayDriver extends Doctrine_Hydrator_Graph
         if ($index !== false) {
             // Link element at $index to previous element for the component
             // identified by the DQL alias $alias
-            $prev[$dqlAlias] =& $coll[$index];
+            $prev[$dqlAlias] = & $coll[$index];
             return;
         }
 
         if ($coll) {
             if ($oneToOne) {
-                $prev[$dqlAlias] =& $coll;
+                $prev[$dqlAlias] = & $coll;
             } else {
                 end($coll);
-                $prev[$dqlAlias] =& $coll[key($coll)];
+                $prev[$dqlAlias] = & $coll[key($coll)];
             }
         }
     }

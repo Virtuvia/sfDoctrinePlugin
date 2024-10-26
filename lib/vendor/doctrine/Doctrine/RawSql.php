@@ -273,13 +273,13 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
             $this->_sqlParts['where'][] = $string;
         }
 
-        $q .= (! empty($this->_sqlParts['from']))?    ' FROM '     . implode(' ', $this->_sqlParts['from']) : '';
-        $q .= (! empty($this->_sqlParts['where']))?   ' WHERE '    . implode(' AND ', $this->_sqlParts['where']) : '';
-        $q .= (! empty($this->_sqlParts['groupby']))? ' GROUP BY ' . implode(', ', $this->_sqlParts['groupby']) : '';
-        $q .= (! empty($this->_sqlParts['having']))?  ' HAVING '   . implode(' AND ', $this->_sqlParts['having']) : '';
-        $q .= (! empty($this->_sqlParts['orderby']))? ' ORDER BY ' . implode(', ', $this->_sqlParts['orderby']) : '';
-        $q .= (! empty($this->_sqlParts['limit']))?   ' LIMIT ' . implode(' ', $this->_sqlParts['limit']) : '';
-        $q .= (! empty($this->_sqlParts['offset']))?  ' OFFSET ' . implode(' ', $this->_sqlParts['offset']) : '';
+        $q .= (! empty($this->_sqlParts['from'])) ? ' FROM '     . implode(' ', $this->_sqlParts['from']) : '';
+        $q .= (! empty($this->_sqlParts['where'])) ? ' WHERE '    . implode(' AND ', $this->_sqlParts['where']) : '';
+        $q .= (! empty($this->_sqlParts['groupby'])) ? ' GROUP BY ' . implode(', ', $this->_sqlParts['groupby']) : '';
+        $q .= (! empty($this->_sqlParts['having'])) ? ' HAVING '   . implode(' AND ', $this->_sqlParts['having']) : '';
+        $q .= (! empty($this->_sqlParts['orderby'])) ? ' ORDER BY ' . implode(', ', $this->_sqlParts['orderby']) : '';
+        $q .= (! empty($this->_sqlParts['limit'])) ? ' LIMIT ' . implode(' ', $this->_sqlParts['limit']) : '';
+        $q .= (! empty($this->_sqlParts['offset'])) ? ' OFFSET ' . implode(' ', $this->_sqlParts['offset']) : '';
 
         if (! empty($string)) {
             array_pop($this->_sqlParts['where']);
@@ -316,10 +316,10 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
             $this->_sqlParts['where'][] = $string;
         }
 
-        $q .= (! empty($this->_sqlParts['from']))?    ' FROM '     . implode(' ', $this->_sqlParts['from']) : '';
-        $q .= (! empty($this->_sqlParts['where']))?   ' WHERE '    . implode(' AND ', $this->_sqlParts['where']) : '';
-        $q .= (! empty($this->_sqlParts['groupby']))? ' GROUP BY ' . implode(', ', $this->_sqlParts['groupby']) : '';
-        $q .= (! empty($this->_sqlParts['having']))?  ' HAVING '   . implode(' AND ', $this->_sqlParts['having']) : '';
+        $q .= (! empty($this->_sqlParts['from'])) ? ' FROM '     . implode(' ', $this->_sqlParts['from']) : '';
+        $q .= (! empty($this->_sqlParts['where'])) ? ' WHERE '    . implode(' AND ', $this->_sqlParts['where']) : '';
+        $q .= (! empty($this->_sqlParts['groupby'])) ? ' GROUP BY ' . implode(', ', $this->_sqlParts['groupby']) : '';
+        $q .= (! empty($this->_sqlParts['having'])) ? ' HAVING '   . implode(' AND ', $this->_sqlParts['having']) : '';
 
         $q .= ') as results';
 

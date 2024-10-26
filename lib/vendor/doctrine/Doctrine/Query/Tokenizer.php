@@ -34,7 +34,6 @@
  */
 class Doctrine_Query_Tokenizer
 {
-
     /**
      * Splits the given dql query into an array where keys represent different
      * query part names and values are arrays splitted using sqlExplode method

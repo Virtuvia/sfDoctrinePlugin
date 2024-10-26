@@ -265,7 +265,7 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
                     }
                 }
                 if ($prev[$parent][$relationAlias] !== null) {
-                    $coll =& $prev[$parent][$relationAlias];
+                    $coll = & $prev[$parent][$relationAlias];
                     $this->setLastElement($prev, $coll, $index, $dqlAlias, $oneToOne);
                 }
             }
@@ -422,7 +422,7 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
             }
         }
 
-        $matchedComponent = $matchedComponents[count($matchedComponents)-1];
+        $matchedComponent = $matchedComponents[count($matchedComponents) - 1];
 
         if (! isset($this->_tables[$matchedComponent])) {
             $this->_tables[$matchedComponent] = Doctrine_Core::getTable($matchedComponent);

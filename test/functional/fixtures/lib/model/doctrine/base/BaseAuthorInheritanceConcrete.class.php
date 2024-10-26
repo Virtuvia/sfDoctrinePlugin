@@ -21,7 +21,6 @@
  */
 abstract class BaseAuthorInheritanceConcrete extends Author
 {
-
     public function setTableDefinition()
     {
         parent::setTableDefinition();

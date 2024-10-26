@@ -200,7 +200,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
         }
 
         if (! empty($optionStrings)) {
-            $query.= ' '.implode(' ', $optionStrings);
+            $query .= ' '.implode(' ', $optionStrings);
         }
         $sql[] = $query;
 
@@ -396,9 +396,9 @@ class Doctrine_Export_Mysql extends Doctrine_Export
         if (! empty($changes['add']) && is_array($changes['add'])) {
             foreach ($changes['add'] as $fieldName => $field) {
                 if ($query) {
-                    $query.= ', ';
+                    $query .= ', ';
                 }
-                $query.= 'ADD ' . $this->getDeclaration($fieldName, $field);
+                $query .= 'ADD ' . $this->getDeclaration($fieldName, $field);
             }
         }
 
@@ -422,7 +422,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
         if (! empty($changes['change']) && is_array($changes['change'])) {
             foreach ($changes['change'] as $fieldName => $field) {
                 if ($query) {
-                    $query.= ', ';
+                    $query .= ', ';
                 }
                 if (isset($rename[$fieldName])) {
                     $oldFieldName = $rename[$fieldName];
@@ -439,7 +439,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
         if (! empty($rename) && is_array($rename)) {
             foreach ($rename as $renameName => $renamedField) {
                 if ($query) {
-                    $query.= ', ';
+                    $query .= ', ';
                 }
                 $field = $changes['rename'][$renamedField];
                 $renamedField = $this->conn->quoteIdentifier($renamedField, true);

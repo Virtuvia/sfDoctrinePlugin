@@ -173,7 +173,7 @@ class sfDoctrineFormGenerator extends sfGenerator
      */
     public function isPluginModel($modelName)
     {
-        return isset($this->pluginModels[$modelName]) ? true:false;
+        return isset($this->pluginModels[$modelName]) ? true : false;
     }
 
     /**

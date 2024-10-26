@@ -21,7 +21,6 @@
  */
 abstract class BaseAttachment extends myDoctrineRecord
 {
-
     public function setTableDefinition()
     {
         $this->setTableName('attachment');

@@ -39,7 +39,7 @@ class Doctrine_Cli
      *
      * @var string
      */
-    const TASK_BASE_CLASS = 'Doctrine_Task';
+    public const TASK_BASE_CLASS = 'Doctrine_Task';
 
     /**
      * @var string

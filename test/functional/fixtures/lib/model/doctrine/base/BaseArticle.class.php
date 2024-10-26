@@ -45,7 +45,6 @@
  */
 abstract class BaseArticle extends myDoctrineRecord
 {
-
     public function setTableDefinition()
     {
         $this->setTableName('article');

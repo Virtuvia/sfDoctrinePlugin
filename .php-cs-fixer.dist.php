@@ -13,6 +13,9 @@ $finder = (new PhpCsFixer\Finder())
 $config = new \PhpCsFixer\Config();
 $config
     ->setRules([
+        '@PSR12' => true,
+        'method_argument_space' => ['on_multiline' => 'ignore'],
+
         'encoding' => true,
         'no_trailing_whitespace_in_comment' => true,
         'no_trailing_whitespace' => true,

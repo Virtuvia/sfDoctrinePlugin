@@ -21,7 +21,6 @@
  */
 abstract class BaseFormGeneratorTest2 extends myDoctrineRecord
 {
-
     public function setTableDefinition()
     {
         $this->setTableName('form_generator_test2');

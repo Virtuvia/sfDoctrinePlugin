@@ -45,7 +45,7 @@ class Doctrine_I18n extends Doctrine_Record_Generator
         'length'        => 2,
         'options'       => array(),
         'cascadeDelete' => true,
-        'appLevelDelete'=> false
+        'appLevelDelete' => false
     );
 
     /**

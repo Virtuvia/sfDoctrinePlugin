@@ -463,13 +463,13 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                     }
                 } else {
                     $identifierOptions = $this->getAttribute(Doctrine_Core::ATTR_DEFAULT_IDENTIFIER_OPTIONS);
-                    $name = (isset($identifierOptions['name']) && $identifierOptions['name']) ? $identifierOptions['name']:'id';
+                    $name = (isset($identifierOptions['name']) && $identifierOptions['name']) ? $identifierOptions['name'] : 'id';
                     $name = sprintf($name, $this->getTableName());
 
-                    $definition = array('type' => (isset($identifierOptions['type']) && $identifierOptions['type']) ? $identifierOptions['type']:'integer',
-                        'length' => (isset($identifierOptions['length']) && $identifierOptions['length']) ? $identifierOptions['length']:8,
-                        'autoincrement' => isset($identifierOptions['autoincrement']) ? $identifierOptions['autoincrement']:true,
-                        'primary' => isset($identifierOptions['primary']) ? $identifierOptions['primary']:true);
+                    $definition = array('type' => (isset($identifierOptions['type']) && $identifierOptions['type']) ? $identifierOptions['type'] : 'integer',
+                        'length' => (isset($identifierOptions['length']) && $identifierOptions['length']) ? $identifierOptions['length'] : 8,
+                        'autoincrement' => isset($identifierOptions['autoincrement']) ? $identifierOptions['autoincrement'] : true,
+                        'primary' => isset($identifierOptions['primary']) ? $identifierOptions['primary'] : true);
 
                     unset($identifierOptions['name'], $identifierOptions['type'], $identifierOptions['length']);
                     foreach ($identifierOptions as $key => $value) {
@@ -566,7 +566,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     public function getRecordInstance()
     {
         if (! $this->record) {
-            $this->record = new $this->_options['name'];
+            $this->record = new $this->_options['name']();
         }
         return $this->record;
     }
@@ -1194,7 +1194,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     {
         // FIX ME: This is being used in places where an array is passed, but it should not be an array
         // For example in places where Doctrine should support composite foreign/primary keys
-        $fieldName = is_array($fieldName) ? $fieldName[0]:$fieldName;
+        $fieldName = is_array($fieldName) ? $fieldName[0] : $fieldName;
 
         if (isset($this->_columnNames[$fieldName])) {
             return $this->_columnNames[$fieldName];
@@ -2374,12 +2374,12 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                     return explode(',', $value);
                     break;
                 case 'boolean':
-                    return (boolean) $value;
+                    return (bool) $value;
                     break;
                 case 'array':
                 case 'object':
                     if (is_string($value)) {
-                        $value = empty($value) ? null:unserialize($value);
+                        $value = empty($value) ? null : unserialize($value);
 
                         if ($value === false) {
                             throw new Doctrine_Table_Exception('Unserialization of ' . $fieldName . ' failed.');

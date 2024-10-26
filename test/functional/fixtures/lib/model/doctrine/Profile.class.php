@@ -5,5 +5,4 @@
  */
 class Profile extends BaseProfile
 {
-
 }

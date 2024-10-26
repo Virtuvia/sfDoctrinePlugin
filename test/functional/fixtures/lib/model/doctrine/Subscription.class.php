@@ -5,5 +5,4 @@
  */
 class Subscription extends BaseSubscription
 {
-
 }

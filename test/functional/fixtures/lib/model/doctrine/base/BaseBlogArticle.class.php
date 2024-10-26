@@ -21,7 +21,6 @@
  */
 abstract class BaseBlogArticle extends Article
 {
-
     public function setUp()
     {
         parent::setUp();

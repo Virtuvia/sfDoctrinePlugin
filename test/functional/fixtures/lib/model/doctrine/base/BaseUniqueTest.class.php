@@ -30,7 +30,6 @@
  */
 abstract class BaseUniqueTest extends myDoctrineRecord
 {
-
     public function setTableDefinition()
     {
         $this->setTableName('unique_test');

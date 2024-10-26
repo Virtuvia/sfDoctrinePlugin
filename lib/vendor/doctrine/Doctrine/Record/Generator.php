@@ -464,7 +464,7 @@ abstract class Doctrine_Record_Generator extends Doctrine_Record_Abstract
         }
 
         $builder = new Doctrine_Import_Builder();
-        $builderOptions = isset($this->_options['builderOptions']) ? (array) $this->_options['builderOptions']:array();
+        $builderOptions = isset($this->_options['builderOptions']) ? (array) $this->_options['builderOptions'] : array();
         $builder->setOptions($builderOptions);
 
         if ($this->_options['generateFiles']) {

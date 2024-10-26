@@ -208,16 +208,16 @@ class Doctrine_Expression_Pgsql extends Doctrine_Expression_Driver
                     throw new Doctrine_Expression_Pgsql_Exception('not a supported operator type:'. $operator);
             }
         }
-        $match.= "'";
+        $match .= "'";
         foreach ($pattern as $key => $value) {
             if ($key % 2) {
-                $match.= $value;
+                $match .= $value;
             } else {
-                $match.= $this->conn->escapePattern($this->conn->escape($value));
+                $match .= $this->conn->escapePattern($this->conn->escape($value));
             }
         }
-        $match.= "'";
-        $match.= $this->patternEscapeString();
+        $match .= "'";
+        $match .= $this->patternEscapeString();
         return $match;
     }
 

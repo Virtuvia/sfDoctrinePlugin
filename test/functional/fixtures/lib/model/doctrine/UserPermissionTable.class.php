@@ -4,5 +4,4 @@
  */
 class UserPermissionTable extends Doctrine_Table
 {
-
 }

@@ -27,7 +27,6 @@
  */
 abstract class BaseGroup extends myDoctrineRecord
 {
-
     public function setTableDefinition()
     {
         $this->setTableName('groups');

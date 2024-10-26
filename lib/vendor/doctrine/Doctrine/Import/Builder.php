@@ -287,7 +287,7 @@ class Doctrine_Import_Builder extends Doctrine_Builder
             return;
         }
 
-        self::$_tpl =<<<EOF
+        self::$_tpl = <<<EOF
 /**
  * ##COPYRIGHT PLACEHOLDER##
  */
@@ -392,7 +392,7 @@ EOF;
 
         if (isset($definition['relations']) && is_array($definition['relations']) && ! empty($definition['relations'])) {
             foreach ($definition['relations'] as $name => $relation) {
-                $class = isset($relation['class']) ? $relation['class']:$name;
+                $class = isset($relation['class']) ? $relation['class'] : $name;
                 $alias = (isset($relation['alias']) && $relation['alias'] !== $this->_classPrefix . $relation['class']) ? ' as ' . $relation['alias'] : '';
 
                 if (! isset($relation['type'])) {
@@ -531,7 +531,7 @@ EOF;
                 $column['name'] = $name . ' as ' . $column['alias'];
             }
 
-            $columnName = isset($column['name']) ? $column['name']:$name;
+            $columnName = isset($column['name']) ? $column['name'] : $name;
 
             $e = explode(' as ', $columnName);
             $fieldName = isset($e[1]) ? $e[1] : $e[0];
@@ -686,7 +686,7 @@ EOF;
 
         if ((isset($definition['is_base_class']) && $definition['is_base_class']) || ! $this->generateBaseClasses()) {
             foreach ($definition['columns'] as $name => $column) {
-                $name = isset($column['name']) ? $column['name']:$name;
+                $name = isset($column['name']) ? $column['name'] : $name;
                 // extract column name & field name
                 if (stripos($name, ' as ')) {
                     if (strpos($name, ' as')) {
@@ -914,7 +914,7 @@ EOF;
 
             $values = array();
             if (is_bool($value)) {
-                $values[] = $value ? 'true':'false';
+                $values[] = $value ? 'true' : 'false';
             } else {
                 if (! is_array($value)) {
                     $value = array($value);
@@ -1002,9 +1002,9 @@ EOF;
         if (! isset($definition['className'])) {
             throw new Doctrine_Import_Builder_Exception('Missing class name.');
         }
-        $abstract = isset($definition['abstract']) && $definition['abstract'] === true ? 'abstract ':null;
+        $abstract = isset($definition['abstract']) && $definition['abstract'] === true ? 'abstract ' : null;
         $className = $definition['className'];
-        $extends = isset($definition['inheritance']['extends']) ? $definition['inheritance']['extends']:$this->_baseClassName;
+        $extends = isset($definition['inheritance']['extends']) ? $definition['inheritance']['extends'] : $this->_baseClassName;
 
         if (! (isset($definition['no_definition']) && $definition['no_definition'] === true)) {
             $tableDefinitionCode = $this->buildTableDefinition($definition);
@@ -1025,7 +1025,7 @@ EOF;
             $setUpCode = PHP_EOL . $setUpCode;
         }
 
-        $setUpCode.= $this->buildToString($definition);
+        $setUpCode .= $this->buildToString($definition);
 
         $docs = PHP_EOL . $this->buildPhpDocs($definition);
 
@@ -1060,13 +1060,13 @@ EOF;
         $definition['topLevelClassName'] = $definition['className'];
 
         if ($this->generateBaseClasses()) {
-            $definition['is_package'] = (isset($definition['package']) && $definition['package']) ? true:false;
+            $definition['is_package'] = (isset($definition['package']) && $definition['package']) ? true : false;
 
             if ($definition['is_package']) {
                 $e = explode('.', trim($definition['package']));
                 $definition['package_name'] = $e[0];
 
-                $definition['package_path'] = ! empty($e) ? implode(DIRECTORY_SEPARATOR, $e):$definition['package_name'];
+                $definition['package_path'] = ! empty($e) ? implode(DIRECTORY_SEPARATOR, $e) : $definition['package_name'];
             }
             // Top level definition that extends from all the others
             $topLevel = $definition;
@@ -1074,7 +1074,7 @@ EOF;
 
             // If we have a package then we need to make this extend the package definition and not the base definition
             // The package definition will then extends the base definition
-            $topLevel['inheritance']['extends'] = (isset($topLevel['package']) && $topLevel['package']) ? $this->_packagesPrefix . $topLevel['className']:$this->_baseClassPrefix . $topLevel['className'];
+            $topLevel['inheritance']['extends'] = (isset($topLevel['package']) && $topLevel['package']) ? $this->_packagesPrefix . $topLevel['className'] : $this->_baseClassPrefix . $topLevel['className'];
             $topLevel['no_definition'] = true;
             $topLevel['generate_once'] = true;
             $topLevel['is_main_class'] = true;
@@ -1094,13 +1094,13 @@ EOF;
                 unset($packageLevel['connection']);
 
                 $packageLevel['tableClassName'] = sprintf($this->_tableClassFormat, $packageLevel['className']);
-                $packageLevel['inheritance']['tableExtends'] = isset($definition['inheritance']['extends']) ? sprintf($this->_tableClassFormat, $definition['inheritance']['extends']):$this->_baseTableClassName;
+                $packageLevel['inheritance']['tableExtends'] = isset($definition['inheritance']['extends']) ? sprintf($this->_tableClassFormat, $definition['inheritance']['extends']) : $this->_baseTableClassName;
 
                 $topLevel['tableClassName'] = sprintf($this->_tableClassFormat, $topLevel['topLevelClassName']);
                 $topLevel['inheritance']['tableExtends'] = sprintf($this->_tableClassFormat, $packageLevel['className']);
             } else {
                 $topLevel['tableClassName'] = sprintf($this->_tableClassFormat, $topLevel['className']);
-                $topLevel['inheritance']['tableExtends'] = isset($definition['inheritance']['extends']) ? sprintf($this->_tableClassFormat, $definition['inheritance']['extends']):$this->_baseTableClassName;
+                $topLevel['inheritance']['tableExtends'] = isset($definition['inheritance']['extends']) ? sprintf($this->_tableClassFormat, $definition['inheritance']['extends']) : $this->_baseTableClassName;
             }
 
             $baseClass = $definition;
@@ -1128,7 +1128,7 @@ EOF;
 
     public function buildTableClassDefinition($className, $definition, $options = array())
     {
-        $extends = isset($options['extends']) ? $options['extends']:$this->_baseTableClassName;
+        $extends = isset($options['extends']) ? $options['extends'] : $this->_baseTableClassName;
         if ($extends !== $this->_baseTableClassName) {
             $extends = $this->_classPrefix . $extends;
         }
@@ -1252,7 +1252,7 @@ EOF;
 
         $fileName = $this->_getFileName($originalClassName, $definition);
 
-        $packagesPath = $this->_packagesPath ? $this->_packagesPath:$this->_path;
+        $packagesPath = $this->_packagesPath ? $this->_packagesPath : $this->_path;
 
         // If this is a main class that either extends from Base or Package class
         if (isset($definition['is_main_class']) && $definition['is_main_class']) {

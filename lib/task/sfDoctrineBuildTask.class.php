@@ -21,7 +21,7 @@ require_once(dirname(__FILE__).'/sfDoctrineBaseTask.class.php');
  */
 class sfDoctrineBuildTask extends sfDoctrineBaseTask
 {
-    const
+    public const
         BUILD_MODEL   = 1,
         BUILD_FORMS   = 2,
         BUILD_FILTERS = 4,

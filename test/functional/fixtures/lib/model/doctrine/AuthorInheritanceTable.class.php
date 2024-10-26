@@ -3,5 +3,4 @@
  */
 class AuthorInheritanceTable extends AuthorTable
 {
-
 }

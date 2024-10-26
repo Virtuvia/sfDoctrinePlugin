@@ -12,5 +12,4 @@
  */
 class FormGeneratorTest extends BaseFormGeneratorTest
 {
-
 }

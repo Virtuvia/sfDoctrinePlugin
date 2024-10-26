@@ -21,7 +21,6 @@
  */
 abstract class BaseUserPermission extends myDoctrineRecord
 {
-
     public function setTableDefinition()
     {
         $this->setTableName('user_permission');

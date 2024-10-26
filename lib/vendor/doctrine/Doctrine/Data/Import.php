@@ -67,7 +67,7 @@ class Doctrine_Data_Import extends Doctrine_Data
     public function doParsing()
     {
         $recursiveMerge = Doctrine_Manager::getInstance()->getAttribute(Doctrine_Core::ATTR_RECURSIVE_MERGE_FIXTURES);
-        $mergeFunction = $recursiveMerge === true ? 'array_merge_recursive':'array_merge';
+        $mergeFunction = $recursiveMerge === true ? 'array_merge_recursive' : 'array_merge';
         $directory = $this->getDirectory();
 
         $array = array();
@@ -162,7 +162,7 @@ class Doctrine_Data_Import extends Doctrine_Data
     protected function _buildNestedSetRows($className, $data)
     {
         foreach ($data as $rowKey => $row) {
-            $children = isset($row['children']) ? $row['children']:array();
+            $children = isset($row['children']) ? $row['children'] : array();
             unset($row['children']);
             $this->_rows[$className][$rowKey] = $row;
 

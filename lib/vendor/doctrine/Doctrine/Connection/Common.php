@@ -39,7 +39,7 @@ class Doctrine_Connection_Common extends Doctrine_Connection
      * @param mixed $limit
      * @param mixed $offset
      */
-    public function modifyLimitQuery($query, $limit = false, $offset = false, $isManip=false)
+    public function modifyLimitQuery($query, $limit = false, $offset = false, $isManip = false)
     {
         $limit = (int) $limit;
         $offset = (int) $offset;

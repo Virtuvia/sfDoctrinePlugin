@@ -37,8 +37,8 @@ class Doctrine_Migration_Diff
     protected $_to;
     protected $_changes = array('created_tables'      =>  array(),
         'dropped_tables'      =>  array(),
-        'created_foreign_keys'=>  array(),
-        'dropped_foreign_keys'=>  array(),
+        'created_foreign_keys' =>  array(),
+        'dropped_foreign_keys' =>  array(),
         'created_columns'     =>  array(),
         'dropped_columns'     =>  array(),
         'changed_columns'     =>  array(),

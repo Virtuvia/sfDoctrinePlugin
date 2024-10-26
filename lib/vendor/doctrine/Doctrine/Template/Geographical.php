@@ -114,7 +114,7 @@ class Doctrine_Template_Geographical extends Doctrine_Template
         $result = $query->execute()->getFirst();
 
         if (isset($result['kilometers']) && $result['miles']) {
-            return $kilometers ? $result->get('kilometers'):$result->get('miles');
+            return $kilometers ? $result->get('kilometers') : $result->get('miles');
         } else {
             return 0;
         }

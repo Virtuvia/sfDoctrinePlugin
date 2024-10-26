@@ -5,5 +5,4 @@
  */
 class UserGroup extends BaseUserGroup
 {
-
 }

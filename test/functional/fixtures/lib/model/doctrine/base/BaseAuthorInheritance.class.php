@@ -18,7 +18,6 @@
  */
 abstract class BaseAuthorInheritance extends Author
 {
-
     public function setUp()
     {
         parent::setUp();

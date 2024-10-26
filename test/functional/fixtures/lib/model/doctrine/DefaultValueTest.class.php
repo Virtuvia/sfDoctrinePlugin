@@ -12,5 +12,4 @@
  */
 class DefaultValueTest extends BaseDefaultValueTest
 {
-
 }

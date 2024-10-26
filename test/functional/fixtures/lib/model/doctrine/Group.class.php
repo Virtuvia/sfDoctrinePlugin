@@ -5,5 +5,4 @@
  */
 class Group extends BaseGroup
 {
-
 }

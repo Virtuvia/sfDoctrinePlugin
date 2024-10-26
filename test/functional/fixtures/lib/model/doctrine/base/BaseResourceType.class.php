@@ -21,7 +21,6 @@
  */
 abstract class BaseResourceType extends myDoctrineRecord
 {
-
     public function setTableDefinition()
     {
         $this->setTableName('resource_type');

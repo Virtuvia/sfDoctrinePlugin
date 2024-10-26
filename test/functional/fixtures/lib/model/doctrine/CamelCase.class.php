@@ -12,5 +12,4 @@
  */
 class CamelCase extends BaseCamelCase
 {
-
 }

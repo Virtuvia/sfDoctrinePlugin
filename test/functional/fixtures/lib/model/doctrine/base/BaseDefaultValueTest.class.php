@@ -21,7 +21,6 @@
  */
 abstract class BaseDefaultValueTest extends myDoctrineRecord
 {
-
     public function setTableDefinition()
     {
         $this->setTableName('default_value_test');

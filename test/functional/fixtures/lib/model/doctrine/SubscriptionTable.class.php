@@ -4,5 +4,4 @@
  */
 class SubscriptionTable extends Doctrine_Table
 {
-
 }
