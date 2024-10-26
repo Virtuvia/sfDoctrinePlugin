@@ -317,7 +317,7 @@ class sfDoctrineFormGenerator extends sfGenerator
             $options[] = '\'choices\' => ' . $this->arrayExport(array_combine($column['values'], $column['values']));
         }
 
-        return count($options) ? sprintf('array(%s)', implode(', ', $options)) : '';
+        return count($options) ? sprintf('[%s]', implode(', ', $options)) : '';
     }
 
     /**
@@ -391,7 +391,7 @@ class sfDoctrineFormGenerator extends sfGenerator
         if ($column->isForeignKey()) {
             $options[] = sprintf('\'model\' => $this->getRelatedModelName(\'%s\')', $column->getRelationKey('alias'));
         } elseif ($column->isPrimaryKey()) {
-            $options[] = sprintf('\'choices\' => array($this->getObject()->get(\'%s\')), \'empty_value\' => $this->getObject()->get(\'%1$s\')', $column->getFieldName());
+            $options[] = sprintf('\'choices\' => [$this->getObject()->get(\'%s\')], \'empty_value\' => $this->getObject()->get(\'%1$s\')', $column->getFieldName());
         } else {
             switch ($column->getDoctrineType()) {
                 case 'string':
@@ -417,7 +417,7 @@ class sfDoctrineFormGenerator extends sfGenerator
             $options[] = '\'required\' => false';
         }
 
-        return count($options) ? sprintf('array(%s)', implode(', ', $options)) : '';
+        return count($options) ? sprintf('[%s]', implode(', ', $options)) : '';
     }
 
     /**
@@ -462,7 +462,7 @@ class sfDoctrineFormGenerator extends sfGenerator
      */
     public function getPrimaryKeyColumNamesAsString()
     {
-        return sprintf('array(\'%s\')', implode('\', \'', $this->getPrimaryKeyColumNames()));
+        return sprintf('[\'%s\']', implode('\', \'', $this->getPrimaryKeyColumNames()));
     }
 
     /**

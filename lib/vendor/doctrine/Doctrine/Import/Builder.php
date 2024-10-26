@@ -460,9 +460,9 @@ EOF;
                 }
 
                 if (! empty($a)) {
-                    $ret[$i] .= ', ' . 'array(' . PHP_EOL . str_repeat(' ', 13);
+                    $ret[$i] .= ', ' . '[' . PHP_EOL . str_repeat(' ', 13);
                     $length = strlen($ret[$i]);
-                    $ret[$i] .= implode(',' . PHP_EOL . str_repeat(' ', 13), $a) . ')';
+                    $ret[$i] .= implode(',' . PHP_EOL . str_repeat(' ', 13), $a) . ']';
                 }
 
                 $ret[$i] .= ');' . PHP_EOL;
@@ -892,7 +892,7 @@ EOF;
             }
 
             $useOptions = (! empty($options) && isset($options['useOptions']) && $options['useOptions'] == true)
-                ? '$this->getTable()->getOptions()' : 'array()';
+                ? '$this->getTable()->getOptions()' : '[]';
             $class = (! empty($options) && isset($options['class'])) ? $options['class'] : $name;
 
             $build .= "    \$this->addListener(new " . $class . "(" . $useOptions . "), '" . $name . "');" . PHP_EOL;

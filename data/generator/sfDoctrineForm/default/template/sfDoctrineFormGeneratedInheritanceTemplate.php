@@ -23,8 +23,8 @@ abstract class Base<?php echo $this->modelName ?>Form extends <?php echo $this->
 
 <?php endforeach; ?>
 <?php foreach ($this->getManyToManyRelations() as $relation): ?>
-        $this->widgetSchema   ['<?php echo $this->underscore($relation['alias']) ?>_list'] = new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => '<?php echo $relation['table']->getOption('name') ?>'));
-        $this->validatorSchema['<?php echo $this->underscore($relation['alias']) ?>_list'] = new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => '<?php echo $relation['table']->getOption('name') ?>', 'required' => false));
+        $this->widgetSchema   ['<?php echo $this->underscore($relation['alias']) ?>_list'] = new sfWidgetFormDoctrineChoice(['multiple' => true, 'model' => '<?php echo $relation['table']->getOption('name') ?>']);
+        $this->validatorSchema['<?php echo $this->underscore($relation['alias']) ?>_list'] = new sfValidatorDoctrineChoice(['multiple' => true, 'model' => '<?php echo $relation['table']->getOption('name') ?>', 'required' => false]);
 
 <?php endforeach; ?>
         $this->widgetSchema->setNameFormat('<?php echo $this->underscore($this->modelName) ?>[%s]');
@@ -76,7 +76,7 @@ abstract class Base<?php echo $this->modelName ?>Form extends <?php echo $this->
         $existing = $this->object-><?php echo $relation['alias']; ?>->getPrimaryKeys();
         $values = $this->getValue('<?php echo $this->underscore($relation['alias']) ?>_list');
         if (!is_array($values)) {
-            $values = array();
+            $values = [];
         }
 
         $unlink = array_diff($existing, $values);

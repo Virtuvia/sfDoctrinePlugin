@@ -12,25 +12,25 @@ abstract class Base<?php echo $this->table->getOption('name') ?>FormFilter exten
 {
     public function setup()
     {
-        $this->setWidgets(array(
+        $this->setWidgets([
 <?php foreach ($this->getColumns() as $column): ?>
 <?php if ($column->isPrimaryKey()) continue ?>
             '<?php echo $column->getFieldName() ?>'<?php echo str_repeat(' ', $this->getColumnNameMaxLength() - strlen($column->getFieldName())) ?> => new <?php echo $this->getWidgetClassForColumn($column) ?>(<?php echo $this->getWidgetOptionsForColumn($column) ?>),
 <?php endforeach; ?>
 <?php foreach ($this->getManyToManyRelations() as $relation): ?>
-            '<?php echo $this->underscore($relation['alias']) ?>_list'<?php echo str_repeat(' ', $this->getColumnNameMaxLength() - strlen($this->underscore($relation['alias']).'_list')) ?> => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => '<?php echo $relation['table']->getOption('name') ?>')),
+            '<?php echo $this->underscore($relation['alias']) ?>_list'<?php echo str_repeat(' ', $this->getColumnNameMaxLength() - strlen($this->underscore($relation['alias']).'_list')) ?> => new sfWidgetFormDoctrineChoice(['multiple' => true, 'model' => '<?php echo $relation['table']->getOption('name') ?>']),
 <?php endforeach; ?>
-        ));
+        ]);
 
-        $this->setValidators(array(
+        $this->setValidators([
 <?php foreach ($this->getColumns() as $column): ?>
 <?php if ($column->isPrimaryKey()) continue ?>
             '<?php echo $column->getFieldName() ?>'<?php echo str_repeat(' ', $this->getColumnNameMaxLength() - strlen($column->getFieldName())) ?> => <?php echo $this->getValidatorForColumn($column) ?>,
 <?php endforeach; ?>
 <?php foreach ($this->getManyToManyRelations() as $relation): ?>
-            '<?php echo $this->underscore($relation['alias']) ?>_list'<?php echo str_repeat(' ', $this->getColumnNameMaxLength() - strlen($this->underscore($relation['alias']).'_list')) ?> => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => '<?php echo $relation['table']->getOption('name') ?>', 'required' => false)),
+            '<?php echo $this->underscore($relation['alias']) ?>_list'<?php echo str_repeat(' ', $this->getColumnNameMaxLength() - strlen($this->underscore($relation['alias']).'_list')) ?> => new sfValidatorDoctrineChoice(['multiple' => true, 'model' => '<?php echo $relation['table']->getOption('name') ?>', 'required' => false]),
 <?php endforeach; ?>
-        ));
+        ]);
 
         $this->widgetSchema->setNameFormat('<?php echo $this->underscore($this->modelName) ?>_filters[%s]');
 
@@ -45,7 +45,7 @@ abstract class Base<?php echo $this->table->getOption('name') ?>FormFilter exten
     public function add<?php echo sfInflector::camelize($relation['alias']) ?>ListColumnQuery(Doctrine_Query $query, $field, $values)
     {
         if (!is_array($values)) {
-            $values = array($values);
+            $values = [$values];
         }
 
         if (!count($values)) {
@@ -53,7 +53,7 @@ abstract class Base<?php echo $this->table->getOption('name') ?>FormFilter exten
         }
 
         $query
-            ->leftJoin($query->getRootAlias().'.<?php echo $relation['refTable']->getOption('name') ?> <?php echo $relation['refTable']->getOption('name') ?>')
+            ->leftJoin($query->getRootAlias() . '.<?php echo $relation['refTable']->getOption('name') ?> <?php echo $relation['refTable']->getOption('name') ?>')
             ->andWhereIn('<?php echo $relation['refTable']->getOption('name') ?>.<?php echo $relation->getForeignFieldName() ?>', $values)
         ;
     }
@@ -66,13 +66,13 @@ abstract class Base<?php echo $this->table->getOption('name') ?>FormFilter exten
 
     public function getFields()
     {
-        return array(
+        return [
 <?php foreach ($this->getColumns() as $column): ?>
             '<?php echo $column->getFieldName() ?>'<?php echo str_repeat(' ', $this->getColumnNameMaxLength() - strlen($column->getFieldName())) ?> => '<?php echo $this->getType($column) ?>',
 <?php endforeach; ?>
 <?php foreach ($this->getManyToManyRelations() as $relation): ?>
             '<?php echo $this->underscore($relation['alias']) ?>_list'<?php echo str_repeat(' ', $this->getColumnNameMaxLength() - strlen($this->underscore($relation['alias']).'_list')) ?> => 'ManyKey',
 <?php endforeach; ?>
-        );
+        ];
     }
 }

@@ -147,7 +147,7 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
         $withEmpty = $column->isNotNull() && !$column->isForeignKey() ? ["'with_empty' => false"] : [];
         switch ($column->getDoctrineType()) {
             case 'boolean':
-                $options[] = "'choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no')";
+                $options[] = "'choices' => ['' => 'yes or no', 1 => 'yes', 0 => 'no']";
                 break;
             case 'date':
             case 'datetime':
@@ -169,7 +169,7 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
             $options[] = sprintf('\'model\' => $this->getRelatedModelName(\'%s\'), \'add_empty\' => true', $column->getRelationKey('alias'));
         }
 
-        return count($options) ? sprintf('array(%s)', implode(', ', $options)) : '';
+        return count($options) ? sprintf('[%s]', implode(', ', $options)) : '';
     }
 
     /**
@@ -234,14 +234,14 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
         } else {
             switch ($column->getDoctrineType()) {
                 case 'boolean':
-                    $options[] = "'choices' => array('', 1, 0)";
+                    $options[] = "'choices' => ['', 1, 0]";
                     break;
                 case 'date':
-                    $options[] = "'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false))";
+                    $options[] = "'from_date' => new sfValidatorDate(['required' => false]), 'to_date' => new sfValidatorDateTime(['required' => false])";
                     break;
                 case 'datetime':
                 case 'timestamp':
-                    $options[] = "'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59'))";
+                    $options[] = "'from_date' => new sfValidatorDateTime(['required' => false, 'datetime_output' => 'Y-m-d 00:00:00']), 'to_date' => new sfValidatorDateTime(['required' => false, 'datetime_output' => 'Y-m-d 23:59:59'])";
                     break;
                 case 'enum':
                     $values = array_combine($column['values'], $column['values']);
@@ -250,7 +250,7 @@ class sfDoctrineFormFilterGenerator extends sfDoctrineFormGenerator
             }
         }
 
-        return count($options) ? sprintf('array(%s)', implode(', ', $options)) : '';
+        return count($options) ? sprintf('[%s]', implode(', ', $options)) : '';
     }
 
     public function getValidatorForColumn($column)
