@@ -522,7 +522,7 @@ EOF;
             // An alias cannot passed via column name and column alias definition
             if (isset($column['name']) && stripos($column['name'], ' as ') && isset($column['alias'])) {
                 throw new Doctrine_Import_Exception(
-                    sprintf('When using a column alias you cannot pass it via column name and column alias definition (column: %s).', $column['name'])
+                    sprintf('When using a column alias you cannot pass it via column name and column alias definition (column: %s).', $column['name']),
                 );
             }
 
@@ -541,7 +541,7 @@ EOF;
 
             if ($refl->hasMethod($getter) || $refl->hasMethod($setter)) {
                 throw new Doctrine_Import_Exception(
-                    sprintf('You cannot use the field name "%s" because it is reserved by Doctrine. You must choose another field name.', $fieldName)
+                    sprintf('You cannot use the field name "%s" because it is reserved by Doctrine. You must choose another field name.', $fieldName),
                 );
             }
 
@@ -816,7 +816,7 @@ EOF;
             $tmp = [];
             foreach ($actAs as $key => $value) {
                 if (is_numeric($key)) {
-                    $tmp[(string)$value] = null;
+                    $tmp[(string) $value] = null;
                 } else {
                     $tmp[$key] = $value;
                 }
@@ -1147,7 +1147,7 @@ EOF;
             $extends,
             null,
             null,
-            null
+            null,
         );
 
         if ($this->_eolStyle) {

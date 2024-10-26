@@ -58,7 +58,7 @@ EOF;
             ],
             $this->configuration->getPluginSubPaths('/lib/model/doctrine'),
             $this->configuration->getPluginSubPaths('/lib/form/doctrine'),
-            $this->configuration->getPluginSubPaths('/lib/filter/doctrine')
+            $this->configuration->getPluginSubPaths('/lib/filter/doctrine'),
         );
 
         $prefixPattern    = $this->valuesToRegex($options['prefix'] ? $options['prefix'] : ['', 'Base', 'Plugin']);
@@ -75,7 +75,7 @@ EOF;
                 if (!$options['no-confirmation'] && !$this->askConfirmation(array_merge(
                     ['The following ' . $modelName . ' files will be deleted:', ''],
                     array_map(function ($v) { return ' - ' . sfDebug::shortenFilePath($v); }, $files),
-                    ['', 'Continue? (y/N)']
+                    ['', 'Continue? (y/N)'],
                 ), 'QUESTION_LARGE', false)) {
                     $this->logSection('doctrine', 'Aborting delete of "' . $modelName . '" files');
                     continue;

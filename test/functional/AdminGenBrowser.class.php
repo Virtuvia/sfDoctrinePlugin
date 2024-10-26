@@ -171,9 +171,9 @@ class AdminGenBrowser extends sfTestBrowser
                 'permissions_list' => [3, 4],
                 'Profile'  => [
                     'first_name' => 'Test',
-                    'last_name'  => 'Test'
-                ]
-            ]
+                    'last_name'  => 'Test',
+                ],
+            ],
         ];
 
         $this->click('Save', $userInfo);

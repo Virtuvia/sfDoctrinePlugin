@@ -38,7 +38,6 @@ class Doctrine_Import_Sqlite extends Doctrine_Import
      */
     public function listDatabases()
     {
-
     }
 
     /**
@@ -48,7 +47,6 @@ class Doctrine_Import_Sqlite extends Doctrine_Import
      */
     public function listFunctions()
     {
-
     }
 
     /**
@@ -59,7 +57,6 @@ class Doctrine_Import_Sqlite extends Doctrine_Import
      */
     public function listTriggers($database = null)
     {
-
     }
 
     /**
@@ -191,7 +188,6 @@ class Doctrine_Import_Sqlite extends Doctrine_Import
      */
     public function listTableTriggers($table)
     {
-
     }
 
     /**
@@ -223,7 +219,6 @@ class Doctrine_Import_Sqlite extends Doctrine_Import
      */
     public function listUsers()
     {
-
     }
 
     /**

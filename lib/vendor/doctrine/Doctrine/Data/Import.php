@@ -188,7 +188,7 @@ class Doctrine_Data_Import extends Doctrine_Data
 
         if (! isset($this->_importedObjects[$rowKey])) {
             throw new Doctrine_Data_Exception(
-                sprintf('Invalid row key specified: %s, referred to in %s', $rowKey, $referringRowKey)
+                sprintf('Invalid row key specified: %s, referred to in %s', $rowKey, $referringRowKey),
             );
         }
 
@@ -198,7 +198,7 @@ class Doctrine_Data_Import extends Doctrine_Data
         if (! $relatedRowKeyObject instanceof $relationClass) {
             throw new Doctrine_Data_Exception(sprintf(
                 'Class referred to in "%s" is expected to be "%s" and "%s" was given',
-                $referringRowKey, $relation->getClass(), get_class($relatedRowKeyObject)
+                $referringRowKey, $relation->getClass(), get_class($relatedRowKeyObject),
             ));
         }
 

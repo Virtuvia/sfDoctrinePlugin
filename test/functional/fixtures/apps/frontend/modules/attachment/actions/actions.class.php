@@ -25,7 +25,7 @@ class attachmentActions extends sfActions
             &&
             $this->form->bindAndSave(
                 $request->getParameter($this->form->getName()),
-                $request->getFiles($this->form->getName())
+                $request->getFiles($this->form->getName()),
             )
         ) {
             return sfView::SUCCESS;
@@ -45,7 +45,7 @@ class attachmentActions extends sfActions
             &&
             $this->form->bindAndSave(
                 $request->getParameter($this->form->getName()),
-                $request->getFiles($this->form->getName())
+                $request->getFiles($this->form->getName()),
             )
         ) {
             return sfView::SUCCESS;

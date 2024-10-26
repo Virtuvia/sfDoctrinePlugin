@@ -121,7 +121,6 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      */
     public function bindParam($column, &$variable, $type = null, $length = null, $driverOptions = [])
     {
-
     }
 
     /**

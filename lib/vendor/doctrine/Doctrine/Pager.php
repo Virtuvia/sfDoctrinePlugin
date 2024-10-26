@@ -122,7 +122,7 @@ class Doctrine_Pager
     {
         // Define new total of pages
         $this->_setLastPage(
-            max(1, ceil($this->getNumResults() / $this->getMaxPerPage()))
+            max(1, ceil($this->getNumResults() / $this->getMaxPerPage())),
         );
         $offset = ($this->getPage() - 1) * $this->getMaxPerPage();
 
@@ -188,7 +188,7 @@ class Doctrine_Pager
         }
 
         throw new Doctrine_Pager_Exception(
-            'Cannot retrieve the number of results of a not yet executed Pager query'
+            'Cannot retrieve the number of results of a not yet executed Pager query',
         );
     }
 
@@ -231,7 +231,7 @@ class Doctrine_Pager
         }
 
         throw new Doctrine_Pager_Exception(
-            'Cannot retrieve the last page number of a not yet executed Pager query'
+            'Cannot retrieve the last page number of a not yet executed Pager query',
         );
     }
 
@@ -278,7 +278,7 @@ class Doctrine_Pager
         }
 
         throw new Doctrine_Pager_Exception(
-            'Cannot retrieve the last page number of a not yet executed Pager query'
+            'Cannot retrieve the last page number of a not yet executed Pager query',
         );
     }
 
@@ -296,7 +296,7 @@ class Doctrine_Pager
         }
 
         throw new Doctrine_Pager_Exception(
-            'Cannot retrieve the previous page number of a not yet executed Pager query'
+            'Cannot retrieve the previous page number of a not yet executed Pager query',
         );
     }
 
@@ -338,7 +338,7 @@ class Doctrine_Pager
         }
 
         throw new Doctrine_Pager_Exception(
-            'Cannot know if it is necessary to paginate a not yet executed Pager query'
+            'Cannot know if it is necessary to paginate a not yet executed Pager query',
         );
     }
 

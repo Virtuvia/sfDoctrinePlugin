@@ -178,7 +178,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
         'queryParts'     => [],
         'versioning'     => null,
         'subclasses'     => [],
-        'orderBy'        => null
+        'orderBy'        => null,
     ];
 
     /**
@@ -2414,7 +2414,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                 $options = isset($this->_options['treeOptions']) ? $this->_options['treeOptions'] : [];
                 $this->_tree = Doctrine_Tree::factory($this,
                     $this->_options['treeImpl'],
-                    $options
+                    $options,
                 );
             }
             return $this->_tree;

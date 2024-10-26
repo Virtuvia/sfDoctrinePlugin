@@ -43,9 +43,9 @@ class Doctrine_Template_SoftDelete extends Doctrine_Template
         'type'          =>  'timestamp',
         'length'        =>  null,
         'options'       =>  [
-            'notnull' => false
+            'notnull' => false,
         ],
-        'hardDelete' => false
+        'hardDelete' => false,
     ];
 
     protected $_listener;

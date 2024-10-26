@@ -45,7 +45,7 @@ class Doctrine_I18n extends Doctrine_Record_Generator
         'length'        => 2,
         'options'       => [],
         'cascadeDelete' => true,
-        'appLevelDelete' => false
+        'appLevelDelete' => false,
     ];
 
     /**
@@ -97,7 +97,7 @@ class Doctrine_I18n extends Doctrine_Record_Generator
 
         $defaultOptions = [
             'fixed' => true,
-            'primary' => true
+            'primary' => true,
         ];
         $options = array_merge($defaultOptions, $this->_options['options']);
 

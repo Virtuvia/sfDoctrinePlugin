@@ -27,7 +27,7 @@ $data = ['username' => 'jwage',
     'password' => 'changeme',
     'Profile'  => [
         'first_name' => 'Jonathan',
-        'last_name'  => 'Wage'
+        'last_name'  => 'Wage',
     ]];
 
 $userForm->bind($data);
@@ -62,7 +62,7 @@ $t->is($widget->getChoices(), ['jwage' => '4cb9c8a8048fd02294477fcb1a41191a']);
 $methods = [
     'widgetChoiceTableMethod1',
     'widgetChoiceTableMethod2',
-    'widgetChoiceTableMethod3'
+    'widgetChoiceTableMethod3',
 ];
 
 foreach ($methods as $method) {
@@ -94,12 +94,12 @@ $data = [
     'password' => 'changeme',
     'Groups'  => [
         0 => [
-            'name' => 'New User Group 1 Name'
+            'name' => 'New User Group 1 Name',
         ],
         1 => [
-            'name' => 'New User Group 2 Name'
-        ]
-    ]
+            'name' => 'New User Group 2 Name',
+        ],
+    ],
 ];
 
 $userForm->bind($data);

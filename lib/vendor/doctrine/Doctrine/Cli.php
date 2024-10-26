@@ -294,7 +294,7 @@ class Doctrine_Cli
 
         $iterator = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator($directory),
-            RecursiveIteratorIterator::LEAVES_ONLY
+            RecursiveIteratorIterator::LEAVES_ONLY,
         );
 
         foreach ($iterator as $file) {

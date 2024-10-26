@@ -59,7 +59,6 @@ class Doctrine_Connection_Profiler implements Doctrine_Overloadable, IteratorAgg
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -70,7 +69,6 @@ class Doctrine_Connection_Profiler implements Doctrine_Overloadable, IteratorAgg
      */
     public function setFilterQueryType()
     {
-
     }
     /**
      * method overloader

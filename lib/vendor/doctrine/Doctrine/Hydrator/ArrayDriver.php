@@ -44,7 +44,6 @@ class Doctrine_Hydrator_ArrayDriver extends Doctrine_Hydrator_Graph
 
     public function registerCollection($coll)
     {
-
     }
 
     public function initRelated(&$record, $name, $keyColumn = null)

@@ -988,7 +988,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
             foreach (array_keys($this->_references) as $name) {
                 $query->leftJoin(get_class($this) . '.' . $name);
             }
-            $query->where(implode(' = ? AND ', (array)$this->getTable()->getIdentifier()) . ' = ?');
+            $query->where(implode(' = ? AND ', (array) $this->getTable()->getIdentifier()) . ' = ?');
             $this->clearRelated();
             $record = $query->fetchOne($id);
         } else {
@@ -1091,7 +1091,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         } elseif ($reference instanceof Doctrine_Collection) {
             throw new Doctrine_Record_Exception(
                 'You can only call relatedExists() on a relationship that ' .
-                'returns an instance of Doctrine_Record'
+                'returns an instance of Doctrine_Record',
             );
         } else {
             $exists = false;
@@ -2292,7 +2292,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         if (! isset($this->_node)) {
             $this->_node = Doctrine_Node::factory($this,
                 $this->getTable()->getOption('treeImpl'),
-                $this->getTable()->getOption('treeOptions')
+                $this->getTable()->getOption('treeOptions'),
             );
         }
 

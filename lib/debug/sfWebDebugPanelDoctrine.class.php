@@ -143,7 +143,7 @@ class sfWebDebugPanelDoctrine extends sfWebDebugPanel
                 $query,
                 number_format($event->getElapsedSecs(), 2),
                 $conn->getName(),
-                $backtrace
+                $backtrace,
             );
         }
 

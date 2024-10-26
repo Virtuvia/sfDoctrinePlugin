@@ -120,7 +120,7 @@ class Doctrine_Import_Pgsql extends Doctrine_Import
                                                               LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
                                                               WHERE c.relname ~ ? AND pg_catalog.pg_table_is_visible(c.oid)
                                                           )
-                                                          AND r.contype = 'f'"
+                                                          AND r.contype = 'f'",
     ];
 
     /**
@@ -131,7 +131,6 @@ class Doctrine_Import_Pgsql extends Doctrine_Import
      */
     public function listTriggers($database = null)
     {
-
     }
 
     /**

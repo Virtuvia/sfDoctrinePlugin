@@ -24,7 +24,7 @@ $h->register(sfFinder::type('file')->prune('fixtures')->name('*Test.php')->in([
     // unit tests
     $h->base_dir . '/unit',
     // functional tests
-    $h->base_dir . '/functional'
+    $h->base_dir . '/functional',
 ]));
 
 $ret = $h->run() ? 0 : 1;

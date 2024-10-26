@@ -105,7 +105,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
         'VARCHAR', 'VARCHARACTER', 'VARYING',
         'WHEN', 'WHERE', 'WHILE',
         'WITH', 'WRITE', 'X509',
-        'XOR', 'YEAR_MONTH', 'ZEROFILL'
+        'XOR', 'YEAR_MONTH', 'ZEROFILL',
     ];
 
     /**

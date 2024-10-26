@@ -192,7 +192,7 @@ EOF
             $options['plural'] ? $options['plural'] : '~',
             $options['route-prefix'] ? $options['route-prefix'] : '~',
             $options['with-doctrine-route'] ? 'true' : 'false',
-            $options['actions-base-class']
+            $options['actions-base-class'],
         );
         $this->getFilesystem()->replaceTokens($finder->in($moduleDir), '##', '##', $this->constants);
     }

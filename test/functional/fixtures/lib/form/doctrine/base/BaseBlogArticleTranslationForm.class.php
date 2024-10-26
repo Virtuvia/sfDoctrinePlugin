@@ -37,7 +37,7 @@ abstract class BaseBlogArticleTranslationForm extends BaseFormDoctrine
             new sfValidatorAnd([
                 new sfValidatorDoctrineUnique(['model' => 'BlogArticleTranslation', 'column' => ['title']]),
                 new sfValidatorDoctrineUnique(['model' => 'BlogArticleTranslation', 'column' => ['slug', 'lang', 'title']]),
-            ])
+            ]),
         );
 
         $this->widgetSchema->setNameFormat('blog_article_translation[%s]');

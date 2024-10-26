@@ -65,7 +65,7 @@ class Doctrine_Connection_Mysql extends Doctrine_Connection_Common
             'result_introspection' => true,
             'prepared_statements'  => 'emulated',
             'identifier_quoting'   => true,
-            'pattern_escaping'     => true
+            'pattern_escaping'     => true,
         ];
 
         $this->properties['string_quoting'] = ['start' => "'",

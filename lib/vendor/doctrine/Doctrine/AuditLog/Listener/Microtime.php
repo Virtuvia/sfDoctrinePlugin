@@ -84,7 +84,7 @@ class Doctrine_AuditLog_Listener_Microtime extends Doctrine_AuditLog_Listener
     protected function _microtime()
     {
         $version = microtime(true) - 1073741824; // 31 bits
-        $version = str_replace('.', '', (string)$version);
+        $version = str_replace('.', '', (string) $version);
         return substr($version, 0, $this->accuracy);
     }
 

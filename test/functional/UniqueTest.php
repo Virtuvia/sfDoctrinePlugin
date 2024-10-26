@@ -17,7 +17,7 @@ $data = [
     'unique_test1' => 'test',
     'unique_test2' => 'test',
     'unique_test3' => 'test',
-    'unique_test4' => 'test'
+    'unique_test4' => 'test',
 ];
 
 $uniqueTestForm = new UniqueTestForm();

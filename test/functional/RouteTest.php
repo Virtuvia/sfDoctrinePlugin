@@ -40,15 +40,15 @@ $article = Doctrine_Core::getTable('Article')->find(1);
 $routes = [
     'doctrine_route_test5' => [
         'url' => '/index.php/doctrine/route/test5/1/test-english-title',
-        'params' => $article
+        'params' => $article,
     ],
     'doctrine_route_test6' => [
         'url' => '/index.php/doctrine/route/test6/english-title/test-english-title',
-        'params' => $article
+        'params' => $article,
     ],
     'doctrine_route_test7' => [
         'url' => '/index.php/doctrine/route/test7/w00t',
-        'params' => ['testing_non_column' => 'w00t']
+        'params' => ['testing_non_column' => 'w00t'],
     ],
     'doctrine_route_test8' => [
         'url' => '/index.php/doctrine/route/test8/1/english-title/English+Title/test',
@@ -56,8 +56,8 @@ $routes = [
             'id' => $article->id,
             'slug' => $article->slug,
             'title' => $article->title,
-            'testing_non_column2' => 'test'
-        ]
+            'testing_non_column2' => 'test',
+        ],
     ],
 ];
 

@@ -113,7 +113,7 @@ class Doctrine_Export_Sqlite extends Doctrine_Export
                     break;
                 default:
                     throw new Doctrine_Export_Exception(
-                        'Unknown type ' . $definition['type'] . ' for index ' . $name . ' in table ' . $table
+                        'Unknown type ' . $definition['type'] . ' for index ' . $name . ' in table ' . $table,
                     );
             }
         }

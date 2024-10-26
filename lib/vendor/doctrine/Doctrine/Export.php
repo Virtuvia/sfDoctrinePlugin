@@ -44,7 +44,7 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
         'date'      => '1970-01-01',
         'clob'      => '',
         'blob'      => '',
-        'string'    => ''
+        'string'    => '',
     ];
 
     /**
@@ -479,7 +479,7 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
                     break;
                 default:
                     throw new Doctrine_Export_Exception(
-                        'Unknown type ' . $definition['type'] . ' for index ' . $name . ' in table ' . $table
+                        'Unknown type ' . $definition['type'] . ' for index ' . $name . ' in table ' . $table,
                     );
             }
         }
@@ -841,7 +841,7 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
                 $type = strtoupper($definition['type']) . ' ';
             } else {
                 throw new Doctrine_Export_Exception(
-                    'Unknown type ' . $definition['type'] . ' for index ' . $name
+                    'Unknown type ' . $definition['type'] . ' for index ' . $name,
                 );
             }
         }

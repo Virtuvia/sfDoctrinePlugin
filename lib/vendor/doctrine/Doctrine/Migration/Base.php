@@ -270,7 +270,7 @@ abstract class Doctrine_Migration_Base
         // Create the primary constraint for the columns
         $this->createConstraint($tableName, null, [
             'primary' => true,
-            'fields' => $fields
+            'fields' => $fields,
         ]);
 
         // If auto increment change the column to be so

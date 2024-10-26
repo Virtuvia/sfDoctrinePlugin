@@ -85,7 +85,7 @@ class Doctrine_Validator_Usstate extends Doctrine_Validator_Driver
         'WA' => true,
         'WI' => true,
         'WV' => true,
-        'WY' => true
+        'WY' => true,
     ];
     public function getStates()
     {

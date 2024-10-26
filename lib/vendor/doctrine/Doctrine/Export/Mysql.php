@@ -76,7 +76,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
         return [
             'SET FOREIGN_KEY_CHECKS = 0',
             'DROP DATABASE ' . $this->conn->quoteIdentifier($name),
-            'SET FOREIGN_KEY_CHECKS = 1'
+            'SET FOREIGN_KEY_CHECKS = 1',
         ];
     }
 
@@ -583,7 +583,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
                     break;
                 default:
                     throw new Doctrine_Export_Exception(
-                        'Unknown type ' . $definition['type'] . ' for index ' . $name . ' in table ' . $table
+                        'Unknown type ' . $definition['type'] . ' for index ' . $name . ' in table ' . $table,
                     );
             }
         }
@@ -652,7 +652,7 @@ class Doctrine_Export_Mysql extends Doctrine_Export
                     break;
                 default:
                     throw new Doctrine_Export_Exception(
-                        'Unknown type ' . $definition['type'] . ' for index ' . $name
+                        'Unknown type ' . $definition['type'] . ' for index ' . $name,
                     );
             }
         }

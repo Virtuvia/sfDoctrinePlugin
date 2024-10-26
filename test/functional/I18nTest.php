@@ -76,7 +76,7 @@ $values = [
     'Author' =>
     [
         'name' => 'i18n author test',
-        'type' => null
+        'type' => null,
     ],
     'en' =>
     [
@@ -136,7 +136,7 @@ $expected = [
     [
         'id' => $article->Author->id,
         'name' => 'i18n author test',
-        'type' => null
+        'type' => null,
     ],
 ];
 
@@ -174,7 +174,7 @@ $expected = [
     [
         'id' => $article->Author->id,
         'name' => 'i18n author test',
-        'type' => null
+        'type' => null,
     ],
 ];
 
@@ -208,7 +208,7 @@ $data = [
     'Author' =>
     [
         'name' => 'i18n author test',
-        'type' => null
+        'type' => null,
     ],
 ];
 

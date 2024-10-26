@@ -272,7 +272,7 @@ class Doctrine_Pager_Layout
         if (($oldMask = trim($oldMask)) != 'page_number') {
             $this->_maskReplacements[$oldMask] = [
                 'newMask' => $newMask,
-                'asValue' => ($asValue === false) ? false : true
+                'asValue' => ($asValue === false) ? false : true,
             ];
         }
     }
@@ -358,7 +358,7 @@ class Doctrine_Pager_Layout
         if (!isset($options['page_number'])) {
             throw new Doctrine_Pager_Exception(
                 'Cannot process template of the given page. ' .
-                'Missing at least one of needed parameters: \'page\' or \'page_number\''
+                'Missing at least one of needed parameters: \'page\' or \'page_number\'',
             );
 
             // Should never reach here

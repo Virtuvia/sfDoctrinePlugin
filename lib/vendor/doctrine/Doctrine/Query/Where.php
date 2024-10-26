@@ -94,7 +94,7 @@ class Doctrine_Query_Where extends Doctrine_Query_Condition
         if (substr($rightExpr, 0, 1) == ':' && $isInX) {
             throw new Doctrine_Query_Exception(
                 'Cannot use ' . $operator . ' with a named parameter in "' .
-                $leftExprOriginal . ' ' . $operator . ' ' . $rightExpr . '"'
+                $leftExprOriginal . ' ' . $operator . ' ' . $rightExpr . '"',
             );
         }
 

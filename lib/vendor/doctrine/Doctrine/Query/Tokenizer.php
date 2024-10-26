@@ -97,7 +97,7 @@ class Doctrine_Query_Tokenizer
                 default:
                     if (! isset($p)) {
                         throw new Doctrine_Query_Tokenizer_Exception(
-                            "Couldn't tokenize query. Encountered invalid token: '$token'."
+                            "Couldn't tokenize query. Encountered invalid token: '$token'.",
                         );
                     }
 

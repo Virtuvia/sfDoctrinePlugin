@@ -238,7 +238,6 @@ abstract class Doctrine_Record_Generator extends Doctrine_Record_Abstract
      */
     public function initOptions()
     {
-
     }
 
     /**
@@ -310,7 +309,7 @@ abstract class Doctrine_Record_Generator extends Doctrine_Record_Abstract
         $options = [
             'local'      => $this->getRelationLocalKey(),
             'foreign'    => $this->getRelationForeignKey(),
-            'owningSide' => true
+            'owningSide' => true,
         ];
 
         if (isset($this->_options['cascadeDelete']) && $this->_options['cascadeDelete'] && ! $this->_options['appLevelDelete']) {
@@ -367,7 +366,7 @@ abstract class Doctrine_Record_Generator extends Doctrine_Record_Abstract
         $options = [
             'local'    => $this->getRelationForeignKey(),
             'foreign'  => $this->getRelationLocalKey(),
-            'localKey' => false
+            'localKey' => false,
         ];
 
         if (isset($this->_options['cascadeDelete']) && $this->_options['cascadeDelete'] && $this->_options['appLevelDelete']) {

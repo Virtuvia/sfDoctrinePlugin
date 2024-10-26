@@ -93,12 +93,12 @@ EOF;
         try {
             $migration_classes = $migration->getMigrationClasses();
             if ($version < $from) {
-                for ($i = (int)$from - 1; $i >= (int)$version; $i--) {
+                for ($i = (int) $from - 1; $i >= (int) $version; $i--) {
                     $this->logSection('doctrine', 'executing migration : ' . $i . ', class: ' . $migration_classes[$i]);
                     $migration->migrate($i, $options['dry-run']);
                 }
             } else {
-                for ($i = (int)$from + 1; $i <= (int)$version; $i++) {
+                for ($i = (int) $from + 1; $i <= (int) $version; $i++) {
                     $this->logSection('doctrine', 'executing migration : ' . $i . ', class: ' . $migration_classes[$i]);
                     $migration->migrate($i, $options['dry-run']);
                 }
@@ -120,7 +120,7 @@ EOF;
             } else {
                 $this->logBlock(array_merge(
                     ['The following errors occurred:', ''],
-                    array_map(function ($e) { return ' - ' . $e->getMessage(); }, $migration->getErrors())
+                    array_map(function ($e) { return ' - ' . $e->getMessage(); }, $migration->getErrors()),
                 ), 'ERROR_LARGE');
             }
 

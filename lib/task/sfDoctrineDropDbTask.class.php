@@ -34,7 +34,7 @@ class sfDoctrineDropDbTask extends sfDoctrineBaseTask
         $this->addOptions([
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-            new sfCommandOption('no-confirmation', null, sfCommandOption::PARAMETER_NONE, 'Whether to force dropping of the database')
+            new sfCommandOption('no-confirmation', null, sfCommandOption::PARAMETER_NONE, 'Whether to force dropping of the database'),
         ]);
 
         $this->namespace = 'doctrine';
@@ -74,7 +74,7 @@ EOF;
             !$this->askConfirmation(array_merge(
                 [sprintf('This command will remove all data in the following "%s" connection(s):', $environment), ''],
                 array_map(function ($v) { return ' - ' . $v; }, array_keys($databases)),
-                ['', 'Are you sure you want to proceed? (y/N)']
+                ['', 'Are you sure you want to proceed? (y/N)'],
             ), 'QUESTION_LARGE', false)
         ) {
             $this->logSection('doctrine', 'task aborted');

@@ -86,7 +86,7 @@ class Doctrine_Template_Listener_Sluggable extends Doctrine_Record_Listener
                 $record->$name = $this->buildSlugFromFields($record);
             } elseif (! empty($record->$name) &&
                 false !== $this->_options['canUpdate'] &&
-                array_key_exists($name, $record->getModified()
+                array_key_exists($name, $record->getModified(),
                 )) {
                 $record->$name = $this->buildSlugFromSlugField($record);
             }
@@ -212,7 +212,7 @@ class Doctrine_Template_Listener_Sluggable extends Doctrine_Record_Listener
 
                 $query->addWhere(
                     '(r.' . $softDelete->getOption('name') . ' = ' . $conn->convertBooleans(true) .
-                    ' OR r.' . $softDelete->getOption('name') . ' = ' . $conn->convertBooleans(false) . ')'
+                    ' OR r.' . $softDelete->getOption('name') . ' = ' . $conn->convertBooleans(false) . ')',
                 );
             } else {
                 $query->addWhere('(r.' . $softDelete->getOption('name') . ' IS NOT NULL OR r.' . $softDelete->getOption('name') . ' IS NULL)');

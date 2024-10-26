@@ -116,7 +116,7 @@ abstract class Doctrine_Pager_Range
         }
 
         throw new Doctrine_Pager_Exception(
-            'Cannot access unexistent option \'' . $option . '\' in Doctrine_Pager_Range class'
+            'Cannot access unexistent option \'' . $option . '\' in Doctrine_Pager_Range class',
         );
     }
 

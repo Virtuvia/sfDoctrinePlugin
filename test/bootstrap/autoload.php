@@ -17,11 +17,11 @@ $classLoader->addClassMap([
 // autoload the classes from the test project
 $fixturesProjectPath = dirname(__DIR__) . '/functional/fixtures';
 $classPhpPathnames = array_map(
-    static fn (\SplFileInfo $f): string => $f->getPathname(),
+    static fn(\SplFileInfo $f): string => $f->getPathname(),
     array_filter(
         iterator_to_array(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($fixturesProjectPath))),
-        static fn (\SplFileInfo $f): bool => $f->isFile() && $f->getExtension() === 'php' && preg_match('/(.+)\.class\.php$/', $f->getFilename())
-    )
+        static fn(\SplFileInfo $f): bool => $f->isFile() && $f->getExtension() === 'php' && preg_match('/(.+)\.class\.php$/', $f->getFilename()),
+    ),
 );
 $classes = [];
 foreach ($classPhpPathnames as $classPhpPathname) {

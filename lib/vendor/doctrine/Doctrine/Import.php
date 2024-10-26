@@ -404,7 +404,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
                             'alias'   => $alias,
                             'class'   => $class,
                             'local'   => $relation['local'],
-                            'foreign' => $relation['foreign']
+                            'foreign' => $relation['foreign'],
                         ];
                     }
                 } catch (Exception $e) {
@@ -430,7 +430,7 @@ class Doctrine_Import extends Doctrine_Connection_Module
                         'alias' => $alias,
                         'class' => $className,
                         'local' => $relation['foreign'],
-                        'foreign' => $relation['local']
+                        'foreign' => $relation['local'],
                     ];
                 }
             }

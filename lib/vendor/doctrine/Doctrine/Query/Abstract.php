@@ -243,7 +243,7 @@ abstract class Doctrine_Query_Abstract
      * @var array $_options                 an array of options
      */
     protected $_options    = [
-        'hydrationMode'      => Doctrine_Core::HYDRATE_RECORD
+        'hydrationMode'      => Doctrine_Core::HYDRATE_RECORD,
     ];
 
     /**
@@ -515,7 +515,7 @@ abstract class Doctrine_Query_Abstract
         return array_merge(
             (array) $executeParams, (array) $this->_params['exec'],
             $this->_params['join'], $this->_params['set'],
-            $this->_params['where'], $this->_params['having']
+            $this->_params['where'], $this->_params['having'],
         );
     }
 
@@ -1025,19 +1025,19 @@ abstract class Doctrine_Query_Abstract
                 case self::DELETE:
                     $callback = [
                         'callback' => 'preDqlDelete',
-                        'const' => Doctrine_Event::RECORD_DQL_DELETE
+                        'const' => Doctrine_Event::RECORD_DQL_DELETE,
                     ];
                     break;
                 case self::UPDATE:
                     $callback = [
                         'callback' => 'preDqlUpdate',
-                        'const' => Doctrine_Event::RECORD_DQL_UPDATE
+                        'const' => Doctrine_Event::RECORD_DQL_UPDATE,
                     ];
                     break;
                 case self::SELECT:
                     $callback = [
                         'callback' => 'preDqlSelect',
-                        'const' => Doctrine_Event::RECORD_DQL_SELECT
+                        'const' => Doctrine_Event::RECORD_DQL_SELECT,
                     ];
                     break;
             }

@@ -123,7 +123,7 @@ class Doctrine_Pager_Range_Sliding extends Doctrine_Pager_Range
         }
 
         throw new Doctrine_Pager_Exception(
-            'Cannot retrieve the range around the page of a not yet executed Pager query'
+            'Cannot retrieve the range around the page of a not yet executed Pager query',
         );
     }
 }

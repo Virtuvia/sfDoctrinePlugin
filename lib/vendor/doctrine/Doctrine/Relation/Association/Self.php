@@ -102,10 +102,10 @@ class Doctrine_Relation_Association_Self extends Doctrine_Relation_Association
         $q->select('{' . $tableName . '.*}, {' . $assocTable . '.*}')
           ->from($tableName . ' INNER JOIN ' . $assocTable . ' ON ' .
                  $tableName . '.' . $identifier . ' = ' . $assocTable . '.' . $this->getLocal() . ' OR ' .
-                 $tableName . '.' . $identifier . ' = ' . $assocTable . '.' . $this->getForeign()
+                 $tableName . '.' . $identifier . ' = ' . $assocTable . '.' . $this->getForeign(),
           )
           ->where($tableName . '.' . $identifier . ' IN (' . $sub . ') OR ' .
-           $tableName . '.' . $identifier . ' IN (' . $sub2 . ')'
+           $tableName . '.' . $identifier . ' IN (' . $sub2 . ')',
           );
         $q->addComponent($tableName, $record->getTable()->getComponentName());
         $q->addComponent($assocTable, $record->getTable()->getComponentName() . '.' . $this->getAssociationFactory()->getComponentName());

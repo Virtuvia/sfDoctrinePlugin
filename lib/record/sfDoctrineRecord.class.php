@@ -168,7 +168,7 @@ abstract class sfDoctrineRecord extends Doctrine_Record
 
                 return call_user_func_array(
                     [$this, $verb],
-                    array_merge([$entityName], $arguments)
+                    array_merge([$entityName], $arguments),
                 );
             } else {
                 $failed = true;

@@ -331,7 +331,7 @@ class Doctrine_DataDict_Pgsql extends Doctrine_DataDict
         'work',
         'write',
         'year',
-        'zone'
+        'zone',
     ];
 
     /**
@@ -449,7 +449,7 @@ class Doctrine_DataDict_Pgsql extends Doctrine_DataDict
         if ($length == '-1' && isset($field['atttypmod'])) {
             $length = $field['atttypmod'] - 4;
         }
-        if ((int)$length <= 0) {
+        if ((int) $length <= 0) {
             $length = null;
         }
         $type = [];

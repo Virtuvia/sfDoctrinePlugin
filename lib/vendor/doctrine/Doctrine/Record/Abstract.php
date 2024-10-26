@@ -39,12 +39,10 @@ abstract class Doctrine_Record_Abstract extends Doctrine_Access
 
     public function setTableDefinition()
     {
-
     }
 
     public function setUp()
     {
-
     }
 
     /**

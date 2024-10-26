@@ -125,7 +125,7 @@ abstract class Doctrine_Query_Condition extends Doctrine_Query_Part
                     $field     = array_pop($a);
                     $reference = implode('.', $a);
                     $value     = $this->query->getConnection()->quoteIdentifier(
-                        $this->query->getSqlTableAlias($reference) . '.' . $field
+                        $this->query->getSqlTableAlias($reference) . '.' . $field,
                     );
                 }
             }

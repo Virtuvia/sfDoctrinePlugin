@@ -197,7 +197,7 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
                 if (! isset($map['parent'])) {
                     throw new Doctrine_Hydrator_Exception(
                         '"' . $componentName . '" with an alias of "' . $dqlAlias . '"' .
-                        ' in your query does not reference the parent component it is related to.'
+                        ' in your query does not reference the parent component it is related to.',
                     );
                 }
 
@@ -368,7 +368,6 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
 
     public function flush()
     {
-
     }
 
     /**

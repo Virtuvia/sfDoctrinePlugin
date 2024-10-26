@@ -36,7 +36,7 @@ abstract class BaseUniqueTestForm extends BaseFormDoctrine
                 new sfValidatorDoctrineUnique(['model' => 'UniqueTest', 'column' => ['unique_test1']]),
                 new sfValidatorDoctrineUnique(['model' => 'UniqueTest', 'column' => ['unique_test1', 'unique_test2']]),
                 new sfValidatorDoctrineUnique(['model' => 'UniqueTest', 'column' => ['unique_test4']]),
-            ])
+            ]),
         );
 
         $this->widgetSchema->setNameFormat('unique_test[%s]');
