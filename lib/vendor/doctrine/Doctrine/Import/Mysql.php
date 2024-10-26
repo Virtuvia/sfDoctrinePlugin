@@ -32,13 +32,13 @@
 class Doctrine_Import_Mysql extends Doctrine_Import
 {
     protected $sql  = array(
-                            'listDatabases'   => 'SHOW DATABASES',
-                            'listTableFields' => 'DESCRIBE %s',
-                            'listSequences'   => 'SHOW TABLES',
-                            'listTables'      => 'SHOW TABLES',
-                            'listUsers'       => 'SELECT DISTINCT USER FROM USER',
-                            'listViews'       => "SHOW FULL TABLES %s WHERE Table_type = 'VIEW'",
-                            );
+        'listDatabases'   => 'SHOW DATABASES',
+        'listTableFields' => 'DESCRIBE %s',
+        'listSequences'   => 'SHOW TABLES',
+        'listTables'      => 'SHOW TABLES',
+        'listUsers'       => 'SELECT DISTINCT USER FROM USER',
+        'listViews'       => "SHOW FULL TABLES %s WHERE Table_type = 'VIEW'",
+    );
 
     /**
      * lists all database sequences
@@ -125,8 +125,8 @@ class Doctrine_Import_Mysql extends Doctrine_Import
         {
             $result = array_change_key_case($result, CASE_LOWER);
             $relations[] = array('table'   => $result['referenced_table_name'],
-                                 'local'   => $result['column_name'],
-                                 'foreign' => $result['referenced_column_name']);
+                'local'   => $result['column_name'],
+                'foreign' => $result['referenced_column_name']);
         }
         return $relations;
     }
@@ -154,19 +154,19 @@ class Doctrine_Import_Mysql extends Doctrine_Import
             $val['default'] = $val['default'] == 'CURRENT_TIMESTAMP' ? null : $val['default'];
 
             $description = array(
-                          'name'          => $val['field'],
-                          'type'          => $decl['type'][0],
-                          'alltypes'      => $decl['type'],
-                          'ntype'         => $val['type'],
-                          'length'        => $decl['length'],
-                          'fixed'         => (bool) $decl['fixed'],
-                          'unsigned'      => (bool) $decl['unsigned'],
-                          'values'        => $values,
-                          'primary'       => (strtolower($val['key']) == 'pri'),
-                          'default'       => $val['default'],
-                          'notnull'       => (bool) ($val['null'] != 'YES'),
-                          'autoincrement' => (bool) (strpos($val['extra'], 'auto_increment') !== false),
-                          );
+                'name'          => $val['field'],
+                'type'          => $decl['type'][0],
+                'alltypes'      => $decl['type'],
+                'ntype'         => $val['type'],
+                'length'        => $decl['length'],
+                'fixed'         => (bool) $decl['fixed'],
+                'unsigned'      => (bool) $decl['unsigned'],
+                'values'        => $values,
+                'primary'       => (strtolower($val['key']) == 'pri'),
+                'default'       => $val['default'],
+                'notnull'       => (bool) ($val['null'] != 'YES'),
+                'autoincrement' => (bool) (strpos($val['extra'], 'auto_increment') !== false),
+            );
             if (isset($decl['scale'])) {
                 $description['scale'] = $decl['scale'];
             }

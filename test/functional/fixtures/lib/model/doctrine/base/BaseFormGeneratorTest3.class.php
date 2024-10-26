@@ -26,25 +26,25 @@ abstract class BaseFormGeneratorTest3 extends myDoctrineRecord
     {
         $this->setTableName('form_generator_test3');
         $this->hasColumn('name', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'length' => 255,
+        ));
 
         $this->option('symfony', array(
-             'form' => false,
-             'filter' => false,
-             ));
+            'form' => false,
+            'filter' => false,
+        ));
     }
 
     public function setUp()
     {
         parent::setUp();
         $i18n0 = new Doctrine_Template_I18n(array(
-             'fields' =>
-             array(
-              0 => 'name',
-             ),
-             ));
+            'fields' =>
+            array(
+                0 => 'name',
+            ),
+        ));
         $this->actAs($i18n0);
     }
 

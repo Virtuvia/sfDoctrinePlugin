@@ -42,16 +42,16 @@ abstract class Doctrine_Migration_Base
     protected $_changes = array();
 
     protected static $_opposites = array('created_table'       => 'dropped_table',
-                                         'dropped_table'       => 'created_table',
-                                         'created_constraint'  => 'dropped_constraint',
-                                         'dropped_constraint'  => 'created_constraint',
-                                         'created_foreign_key' => 'dropped_foreign_key',
-                                         'dropped_foreign_key' => 'created_foreign_key',
-                                         'created_column'      => 'dropped_column',
-                                         'dropped_column'      => 'created_column',
-                                         'created_index'       => 'dropped_index',
-                                         'dropped_index'       => 'created_index',
-                                         );
+        'dropped_table'       => 'created_table',
+        'created_constraint'  => 'dropped_constraint',
+        'dropped_constraint'  => 'created_constraint',
+        'created_foreign_key' => 'dropped_foreign_key',
+        'dropped_foreign_key' => 'created_foreign_key',
+        'created_column'      => 'dropped_column',
+        'dropped_column'      => 'created_column',
+        'created_index'       => 'dropped_index',
+        'dropped_index'       => 'created_index',
+    );
 
     /**
      * Get the changes that have been added on this migration class instance

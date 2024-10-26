@@ -23,12 +23,12 @@ class sfDoctrineCreateModelTables extends sfDoctrineBaseTask
   protected function configure()
   {
     $this->addArguments(array(
-      new sfCommandArgument('models', sfCommandArgument::IS_ARRAY, 'The list of models', array()),
+        new sfCommandArgument('models', sfCommandArgument::IS_ARRAY, 'The list of models', array()),
     ));
 
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'frontend'),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+        new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'frontend'),
+        new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
     ));
 
     $this->namespace = 'doctrine';

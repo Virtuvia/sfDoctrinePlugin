@@ -26,9 +26,9 @@ abstract class BaseAttachment extends myDoctrineRecord
     {
         $this->setTableName('attachment');
         $this->hasColumn('file_path', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'length' => 255,
+        ));
     }
 
     public function setUp()

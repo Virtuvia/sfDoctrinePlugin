@@ -50,70 +50,70 @@ abstract class BaseArticle extends myDoctrineRecord
     {
         $this->setTableName('article');
         $this->hasColumn('author_id', 'integer', null, array(
-             'type' => 'integer',
-             ));
+            'type' => 'integer',
+        ));
         $this->hasColumn('is_on_homepage', 'boolean', null, array(
-             'type' => 'boolean',
-             ));
+            'type' => 'boolean',
+        ));
         $this->hasColumn('title', 'string', 255, array(
-             'type' => 'string',
-             'unique' => true,
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'unique' => true,
+            'length' => 255,
+        ));
         $this->hasColumn('body', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'length' => 255,
+        ));
         $this->hasColumn('test_column', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'length' => 255,
+        ));
         $this->hasColumn('views', 'integer', null, array(
-             'type' => 'integer',
-             ));
+            'type' => 'integer',
+        ));
         $this->hasColumn('type', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'length' => 255,
+        ));
 
         $this->setSubClasses(array(
-             'BlogArticle' =>
-             array(
-              'type' => 'BlogArticle',
-             ),
-             ));
+            'BlogArticle' =>
+            array(
+                'type' => 'BlogArticle',
+            ),
+        ));
     }
 
     public function setUp()
     {
         parent::setUp();
         $this->hasOne('Author', array(
-             'local' => 'author_id',
-             'foreign' => 'id'));
+            'local' => 'author_id',
+            'foreign' => 'id'));
 
         $this->hasMany('CamelCase as camelCase', array(
-             'local' => 'id',
-             'foreign' => 'article_id'));
+            'local' => 'id',
+            'foreign' => 'article_id'));
 
         $i18n0 = new Doctrine_Template_I18n(array(
-             'fields' =>
-             array(
-              0 => 'title',
-              1 => 'body',
-              2 => 'test_column',
-             ),
-             ));
+            'fields' =>
+            array(
+                0 => 'title',
+                1 => 'body',
+                2 => 'test_column',
+            ),
+        ));
         $sluggable1 = new Doctrine_Template_Sluggable(array(
-             'fields' =>
-             array(
-              0 => 'title',
-             ),
-             'uniqueBy' =>
-             array(
-              0 => 'lang',
-              1 => 'title',
-             ),
-             ));
+            'fields' =>
+            array(
+                0 => 'title',
+            ),
+            'uniqueBy' =>
+            array(
+                0 => 'lang',
+                1 => 'title',
+            ),
+        ));
         $i18n0->addChild($sluggable1);
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($i18n0);

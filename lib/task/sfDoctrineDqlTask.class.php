@@ -28,15 +28,15 @@ class sfDoctrineDqlTask extends sfDoctrineBaseTask
   protected function configure()
   {
     $this->addArguments(array(
-      new sfCommandArgument('dql_query', sfCommandArgument::REQUIRED, 'The DQL query to execute', null),
-      new sfCommandArgument('parameter', sfCommandArgument::OPTIONAL | sfCommandArgument::IS_ARRAY, 'Query parameter'),
+        new sfCommandArgument('dql_query', sfCommandArgument::REQUIRED, 'The DQL query to execute', null),
+        new sfCommandArgument('parameter', sfCommandArgument::OPTIONAL | sfCommandArgument::IS_ARRAY, 'Query parameter'),
     ));
 
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-      new sfCommandOption('show-sql', null, sfCommandOption::PARAMETER_NONE, 'Show the sql that would be executed'),
-      new sfCommandOption('table', null, sfCommandOption::PARAMETER_NONE, 'Return results in table format'),
+        new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
+        new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+        new sfCommandOption('show-sql', null, sfCommandOption::PARAMETER_NONE, 'Show the sql that would be executed'),
+        new sfCommandOption('table', null, sfCommandOption::PARAMETER_NONE, 'Return results in table format'),
     ));
 
     $this->namespace = 'doctrine';
@@ -88,8 +88,8 @@ EOF;
         $results = $q->fetchArray($arguments['parameter']);
 
         $this->log(array(
-          sprintf('found %s results', number_format($count)),
-          sfYaml::dump($results, 4),
+            sprintf('found %s results', number_format($count)),
+            sfYaml::dump($results, 4),
         ));
       }
       else

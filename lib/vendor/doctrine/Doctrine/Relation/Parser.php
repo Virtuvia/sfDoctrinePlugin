@@ -177,23 +177,23 @@ class Doctrine_Relation_Parser
                     if ( ! $parser->hasRelation($this->_table->getComponentName())) {
                         $parser->bind($this->_table->getComponentName(),
                                       array('type'    => Doctrine_Relation::ONE,
-                                            'local'   => $def['local'],
-                                            'foreign' => $idColumnName,
-                                            'localKey' => true,
-                                            ));
+                                          'local'   => $def['local'],
+                                          'foreign' => $idColumnName,
+                                          'localKey' => true,
+                                      ));
                     }
 
                     if ( ! $this->hasRelation($backRefRelationName)) {
                         if (in_array($def['class'], $localClasses)) {
                             $this->bind($def['refClass'] . " as " . $backRefRelationName, array(
-                                    'type' => Doctrine_Relation::MANY,
-                                    'foreign' => $def['foreign'],
-                                    'local'   => $idColumnName));
+                                'type' => Doctrine_Relation::MANY,
+                                'foreign' => $def['foreign'],
+                                'local'   => $idColumnName));
                         } else {
                             $this->bind($def['refClass'] . " as " . $backRefRelationName, array(
-                                    'type' => Doctrine_Relation::MANY,
-                                    'foreign' => $def['local'],
-                                    'local'   => $idColumnName));
+                                'type' => Doctrine_Relation::MANY,
+                                'foreign' => $def['local'],
+                                'local'   => $idColumnName));
                         }
                     }
                 }

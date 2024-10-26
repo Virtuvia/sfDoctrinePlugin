@@ -12,17 +12,17 @@ class TestFormFilter extends ArticleFormFilter
   public function configure()
   {
     $this->setWidgets(array(
-      'name'        => new sfWidgetFormInputText(),
-      'nomethod_bc' => new sfWidgetFormInputText(),
-      'nomethod'    => new sfWidgetFormInputText(),
-      'author_id'   => new sfWidgetFormInputText(),
+        'name'        => new sfWidgetFormInputText(),
+        'nomethod_bc' => new sfWidgetFormInputText(),
+        'nomethod'    => new sfWidgetFormInputText(),
+        'author_id'   => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
-      'name'        => new sfValidatorPass(),
-      'nomethod_bc' => new sfValidatorPass(),
-      'nomethod'    => new sfValidatorPass(),
-      'author_id'   => new sfValidatorPass(),
+        'name'        => new sfValidatorPass(),
+        'nomethod_bc' => new sfValidatorPass(),
+        'nomethod'    => new sfValidatorPass(),
+        'author_id'   => new sfValidatorPass(),
     ));
   }
 
@@ -34,9 +34,9 @@ class TestFormFilter extends ArticleFormFilter
   public function getFields()
   {
     return array_merge(parent::getFields(), array(
-      'body'        => 'Invalid',
-      'nomethod_bc' => 'Text',
-      'author_id'   => 'Number',
+        'body'        => 'Invalid',
+        'nomethod_bc' => 'Text',
+        'author_id'   => 'Number',
     ));
   }
 }

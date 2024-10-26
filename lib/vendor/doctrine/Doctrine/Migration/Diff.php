@@ -36,14 +36,14 @@ class Doctrine_Migration_Diff
     protected $_from,
               $_to,
               $_changes = array('created_tables'      =>  array(),
-                                'dropped_tables'      =>  array(),
-                                'created_foreign_keys'=>  array(),
-                                'dropped_foreign_keys'=>  array(),
-                                'created_columns'     =>  array(),
-                                'dropped_columns'     =>  array(),
-                                'changed_columns'     =>  array(),
-                                'created_indexes'     =>  array(),
-                                'dropped_indexes'     =>  array()),
+                  'dropped_tables'      =>  array(),
+                  'created_foreign_keys'=>  array(),
+                  'dropped_foreign_keys'=>  array(),
+                  'created_columns'     =>  array(),
+                  'dropped_columns'     =>  array(),
+                  'changed_columns'     =>  array(),
+                  'created_indexes'     =>  array(),
+                  'dropped_indexes'     =>  array()),
               $_migration,
               $_startingModelFiles = array(),
               $_tmpPath;
@@ -200,8 +200,8 @@ class Doctrine_Migration_Diff
                 }
 
                 $table = array('tableName' => $info['tableName'],
-                               'columns'   => $info['columns'],
-                               'options'   => $options);
+                    'columns'   => $info['columns'],
+                    'options'   => $options);
                 $this->_changes['created_tables'][$info['tableName']] = $table;
             }
             // Check for new and changed columns
@@ -247,13 +247,13 @@ class Doctrine_Migration_Diff
             // If the class exists in the from but not in the to then it is a dropped table
             if ( ! isset($to[$className])) {
                 $table = array('tableName' => $info['tableName'],
-                               'columns'   => $info['columns'],
-                               'options'   => array('type'        => $info['options']['type'],
-                                                    'charset'     => $info['options']['charset'],
-                                                    'collate'     => $info['options']['collate'],
-                                                    'indexes'     => $info['options']['indexes'],
-                                                    'foreignKeys' => $info['options']['foreignKeys'],
-                                                    'primary'     => $info['options']['primary']));
+                    'columns'   => $info['columns'],
+                    'options'   => array('type'        => $info['options']['type'],
+                        'charset'     => $info['options']['charset'],
+                        'collate'     => $info['options']['collate'],
+                        'indexes'     => $info['options']['indexes'],
+                        'foreignKeys' => $info['options']['foreignKeys'],
+                        'primary'     => $info['options']['primary']));
                 $this->_changes['dropped_tables'][$info['tableName']] = $table;
             }
             // Check for removed columns

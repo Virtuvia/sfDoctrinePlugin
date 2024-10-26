@@ -52,18 +52,18 @@ $article = new Article();
 $articleForm = new MyArticleForm($article);
 
 $data = array(
-  'is_on_homepage' => 1,
-  'Author' => array(
-    'name' => 'i18n author test',
-    'type' => null),
-  'en' => array(
-    'title' => 'english title',
-    'body'  => 'english body'),
-  'fr' => array(
-    'title' => 'french title',
-    'body'  => 'french body'),
-  'created_at' => time(),
-  'updated_at' => time(),
+    'is_on_homepage' => 1,
+    'Author' => array(
+        'name' => 'i18n author test',
+        'type' => null),
+    'en' => array(
+        'title' => 'english title',
+        'body'  => 'english body'),
+    'fr' => array(
+        'title' => 'french title',
+        'body'  => 'french body'),
+    'created_at' => time(),
+    'updated_at' => time(),
 );
 
 $articleForm->bind($data);
@@ -72,31 +72,31 @@ $t->is($articleForm->isValid(), true);
 $data = $articleForm->getValues();
 
 $values = array(
-  'is_on_homepage' => true,
-  'Author' =>
-  array(
-    'name' => 'i18n author test',
-    'type' => null
-  ),
-  'en' =>
-  array(
-    'title' => 'english title',
-    'body' => 'english body',
-    'test_column' => '',
-    'slug' => '',
-  ),
-  'fr' =>
-  array(
-    'title' => 'french title',
-    'body' => 'french body',
-    'test_column' => '',
-    'slug' => '',
-  ),
-  'id' => null,
-  'type' => null,
-  'views' => null,
-  'created_at' => $data['created_at'],
-  'updated_at' => $data['updated_at'],
+    'is_on_homepage' => true,
+    'Author' =>
+    array(
+        'name' => 'i18n author test',
+        'type' => null
+    ),
+    'en' =>
+    array(
+        'title' => 'english title',
+        'body' => 'english body',
+        'test_column' => '',
+        'slug' => '',
+    ),
+    'fr' =>
+    array(
+        'title' => 'french title',
+        'body' => 'french body',
+        'test_column' => '',
+        'slug' => '',
+    ),
+    'id' => null,
+    'type' => null,
+    'views' => null,
+    'created_at' => $data['created_at'],
+    'updated_at' => $data['updated_at'],
 );
 
 $t->is($articleForm->getValues(), $values);
@@ -104,40 +104,40 @@ $t->is($articleForm->getValues(), $values);
 $articleForm->save();
 
 $expected = array(
-  'id' => $article->id,
-  'author_id' => $article->Author->id,
-  'is_on_homepage' => true,
-  'type' => null,
-  'views' => null,
-  'created_at' => $article->created_at,
-  'updated_at' => $article->updated_at,
-  'Translation' =>
-  array(
-    'en' =>
+    'id' => $article->id,
+    'author_id' => $article->Author->id,
+    'is_on_homepage' => true,
+    'type' => null,
+    'views' => null,
+    'created_at' => $article->created_at,
+    'updated_at' => $article->updated_at,
+    'Translation' =>
     array(
-      'id' => $article->id,
-      'title' => 'english title',
-      'body' => 'english body',
-      'test_column' => '',
-      'lang' => 'en',
-      'slug' => 'english-title',
+        'en' =>
+        array(
+            'id' => $article->id,
+            'title' => 'english title',
+            'body' => 'english body',
+            'test_column' => '',
+            'lang' => 'en',
+            'slug' => 'english-title',
+        ),
+        'fr' =>
+        array(
+            'id' => $article->id,
+            'title' => 'french title',
+            'body' => 'french body',
+            'test_column' => '',
+            'lang' => 'fr',
+            'slug' => 'french-title',
+        ),
     ),
-    'fr' =>
+    'Author' =>
     array(
-      'id' => $article->id,
-      'title' => 'french title',
-      'body' => 'french body',
-      'test_column' => '',
-      'lang' => 'fr',
-      'slug' => 'french-title',
+        'id' => $article->Author->id,
+        'name' => 'i18n author test',
+        'type' => null
     ),
-  ),
-  'Author' =>
-  array(
-    'id' => $article->Author->id,
-    'name' => 'i18n author test',
-    'type' => null
-  ),
 );
 
 $t->is($article->toArray(true), $expected);
@@ -145,71 +145,71 @@ $t->is($article->toArray(true), $expected);
 $articleForm = new MyArticleForm($article);
 
 $expected = array(
-  'id' => $article->id,
-  'author_id' => $article->author_id,
-  'is_on_homepage' => true,
-  'type' => null,
-  'views' => null,
-  'created_at' => $article->created_at,
-  'updated_at' => $article->updated_at,
-  'en' =>
-  array(
     'id' => $article->id,
-    'title' => 'english title',
-    'body' => 'english body',
-    'test_column' => '',
-    'lang' => 'en',
-    'slug' => 'english-title',
-  ),
-  'fr' =>
-  array(
-    'id' => $article->id,
-    'title' => 'french title',
-    'body' => 'french body',
-    'test_column' => '',
-    'lang' => 'fr',
-    'slug' => 'french-title',
-  ),
-  'Author' =>
-  array(
-    'id' => $article->Author->id,
-    'name' => 'i18n author test',
-    'type' => null
-  ),
+    'author_id' => $article->author_id,
+    'is_on_homepage' => true,
+    'type' => null,
+    'views' => null,
+    'created_at' => $article->created_at,
+    'updated_at' => $article->updated_at,
+    'en' =>
+    array(
+        'id' => $article->id,
+        'title' => 'english title',
+        'body' => 'english body',
+        'test_column' => '',
+        'lang' => 'en',
+        'slug' => 'english-title',
+    ),
+    'fr' =>
+    array(
+        'id' => $article->id,
+        'title' => 'french title',
+        'body' => 'french body',
+        'test_column' => '',
+        'lang' => 'fr',
+        'slug' => 'french-title',
+    ),
+    'Author' =>
+    array(
+        'id' => $article->Author->id,
+        'name' => 'i18n author test',
+        'type' => null
+    ),
 );
 
 $t->is($articleForm->getDefaults(), $expected);
 
 // Bug #7486
 $data = array(
-  'id' => $article->id,
-  'is_on_homepage' => true,
-  'type' => null,
-  'created_at' => $article->created_at,
-  'updated_at' => $article->updated_at,
-  'en' =>
-  array(
     'id' => $article->id,
-    'title' => 'english title',
-    'body' => 'english body',
-    'test_column' => '',
-    'lang' => 'en',
-    'slug' => 'english-title',
-  ),
-  'fr' =>
-  array(
-    'id' => $article->id,
-    'title' => 'french title',
-    'body' => 'french body',
-    'test_column' => '',
-    'lang' => 'fr',
-    'slug' => 'french-title',
-  ),
-  'Author' =>
-  array(
-    'name' => 'i18n author test',
-    'type' => null
-  ),
+    'is_on_homepage' => true,
+    'type' => null,
+    'created_at' => $article->created_at,
+    'updated_at' => $article->updated_at,
+    'en' =>
+    array(
+        'id' => $article->id,
+        'title' => 'english title',
+        'body' => 'english body',
+        'test_column' => '',
+        'lang' => 'en',
+        'slug' => 'english-title',
+    ),
+    'fr' =>
+    array(
+        'id' => $article->id,
+        'title' => 'french title',
+        'body' => 'french body',
+        'test_column' => '',
+        'lang' => 'fr',
+        'slug' => 'french-title',
+    ),
+    'Author' =>
+    array(
+        'name' => 'i18n author test',
+        'type' => null
+    ),
 );
 
 $articleForm->bind($data);
@@ -219,18 +219,18 @@ $article = new Article();
 $articleForm = new MyArticleForm($article);
 
 $data = array(
-  'is_on_homepage' => 1,
-  'Author' => array(
-    'name' => 'i18n author test',
-    'type' => null),
-  'en' => array(
-    'title' => 'english title',
-    'body'  => 'english body'),
-  'fr' => array(
-    'title' => 'french title',
-    'body'  => 'french body'),
-  'created_at' => time(),
-  'updated_at' => time(),
+    'is_on_homepage' => 1,
+    'Author' => array(
+        'name' => 'i18n author test',
+        'type' => null),
+    'en' => array(
+        'title' => 'english title',
+        'body'  => 'english body'),
+    'fr' => array(
+        'title' => 'french title',
+        'body'  => 'french body'),
+    'created_at' => time(),
+    'updated_at' => time(),
 );
 
 $articleForm->bind($data);

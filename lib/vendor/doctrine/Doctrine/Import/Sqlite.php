@@ -139,19 +139,19 @@ class Doctrine_Import_Sqlite extends Doctrine_Import
             $decl = $this->conn->dataDict->getPortableDeclaration($val);
 
             $description = array(
-                    'name'          => $val['name'],
-                    'ntype'         => $val['type'],
-                    'type'          => $decl['type'][0],
-                    'alltypes'      => $decl['type'],
-                    'notnull'       => (bool) $val['notnull'],
-                    'default'       => $val['dflt_value'],
-                    'primary'       => (bool) $val['pk'],
-                    'length'        => null,
-                    'scale'         => null,
-                    'precision'     => null,
-                    'unsigned'      => null,
-                    'autoincrement' => (bool) ($val['pk'] == 1 && $decl['type'][0] == 'integer'),
-                    );
+                'name'          => $val['name'],
+                'ntype'         => $val['type'],
+                'type'          => $decl['type'][0],
+                'alltypes'      => $decl['type'],
+                'notnull'       => (bool) $val['notnull'],
+                'default'       => $val['dflt_value'],
+                'primary'       => (bool) $val['pk'],
+                'length'        => null,
+                'scale'         => null,
+                'precision'     => null,
+                'unsigned'      => null,
+                'autoincrement' => (bool) ($val['pk'] == 1 && $decl['type'][0] == 'integer'),
+            );
             $columns[$val['name']] = $description;
         }
         return $columns;

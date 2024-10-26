@@ -21,10 +21,10 @@ $h = new lime_harness();
 $h->base_dir = dirname(__DIR__);
 
 $h->register(sfFinder::type('file')->prune('fixtures')->name('*Test.php')->in(array(
-  // unit tests
-  $h->base_dir.'/unit',
-  // functional tests
-  $h->base_dir.'/functional'
+    // unit tests
+    $h->base_dir.'/unit',
+    // functional tests
+    $h->base_dir.'/functional'
 )));
 
 $ret = $h->run() ? 0 : 1;

@@ -665,8 +665,8 @@ class sfDoctrineFormGenerator extends sfGenerator
   public function getParentModel()
   {
     $baseClasses = array(
-      'Doctrine_Record',
-      'sfDoctrineRecord',
+        'Doctrine_Record',
+        'sfDoctrineRecord',
     );
 
     $builderOptions = sfConfig::get('doctrine_model_builder_options', array());

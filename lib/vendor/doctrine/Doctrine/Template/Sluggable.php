@@ -75,7 +75,7 @@ class Doctrine_Template_Sluggable extends Doctrine_Template
             $indexFields = array($this->_options['name']);
             $indexFields = array_merge($indexFields, $this->_options['uniqueBy']);
             $this->index($this->_options['indexName'], array('fields' => $indexFields,
-                                                             'type' => 'unique'));
+                'type' => 'unique'));
         }
 
         $this->addListener(new Doctrine_Template_Listener_Sluggable($this->_options));

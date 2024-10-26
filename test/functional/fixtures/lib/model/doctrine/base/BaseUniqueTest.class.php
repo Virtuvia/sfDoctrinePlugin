@@ -35,43 +35,43 @@ abstract class BaseUniqueTest extends myDoctrineRecord
     {
         $this->setTableName('unique_test');
         $this->hasColumn('unique_test1', 'string', 255, array(
-             'type' => 'string',
-             'unique' => true,
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'unique' => true,
+            'length' => 255,
+        ));
         $this->hasColumn('unique_test2', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'length' => 255,
+        ));
         $this->hasColumn('unique_test3', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'length' => 255,
+        ));
         $this->hasColumn('unique_test4', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'length' => 255,
+        ));
 
 
         $this->index('unique_test', array(
-             'fields' =>
-             array(
-              0 => 'unique_test1',
-              1 => 'unique_test2',
-             ),
-             'type' => 'unique',
-             ));
+            'fields' =>
+            array(
+                0 => 'unique_test1',
+                1 => 'unique_test2',
+            ),
+            'type' => 'unique',
+        ));
         $this->index('unique_test2', array(
-             'fields' =>
-             array(
-              'unique_test4' =>
-              array(
-              'sorting' => 'ASC',
-              'length' => '10',
-              ),
-             ),
-             'type' => 'unique',
-             ));
+            'fields' =>
+            array(
+                'unique_test4' =>
+                array(
+                    'sorting' => 'ASC',
+                    'length' => '10',
+                ),
+            ),
+            'type' => 'unique',
+        ));
     }
 
     public function setUp()

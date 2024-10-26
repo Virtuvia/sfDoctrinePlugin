@@ -24,16 +24,16 @@ class sfDoctrineConfigureDatabaseTask extends sfBaseTask
   protected function configure()
   {
     $this->addArguments(array(
-      new sfCommandArgument('dsn', sfCommandArgument::REQUIRED, 'The database dsn'),
-      new sfCommandArgument('username', sfCommandArgument::OPTIONAL, 'The database username', 'root'),
-      new sfCommandArgument('password', sfCommandArgument::OPTIONAL, 'The database password'),
+        new sfCommandArgument('dsn', sfCommandArgument::REQUIRED, 'The database dsn'),
+        new sfCommandArgument('username', sfCommandArgument::OPTIONAL, 'The database username', 'root'),
+        new sfCommandArgument('password', sfCommandArgument::OPTIONAL, 'The database password'),
     ));
 
     $this->addOptions(array(
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_OPTIONAL, 'The environment', 'all'),
-      new sfCommandOption('name', null, sfCommandOption::PARAMETER_OPTIONAL, 'The connection name', 'doctrine'),
-      new sfCommandOption('class', null, sfCommandOption::PARAMETER_OPTIONAL, 'The database class name', 'sfDoctrineDatabase'),
-      new sfCommandOption('app', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', null),
+        new sfCommandOption('env', null, sfCommandOption::PARAMETER_OPTIONAL, 'The environment', 'all'),
+        new sfCommandOption('name', null, sfCommandOption::PARAMETER_OPTIONAL, 'The connection name', 'doctrine'),
+        new sfCommandOption('class', null, sfCommandOption::PARAMETER_OPTIONAL, 'The database class name', 'sfDoctrineDatabase'),
+        new sfCommandOption('app', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', null),
     ));
 
     $this->namespace = 'configure';
@@ -80,8 +80,8 @@ EOF;
     $config = file_exists($file) ? sfYaml::load($file) : array();
 
     $config[$options['env']][$options['name']] = array(
-      'class' => $options['class'],
-      'param' => array_merge(isset($config[$options['env']][$options['name']]['param']) ? $config[$options['env']][$options['name']]['param'] : array(), array('dsn' => $arguments['dsn'], 'username' => $arguments['username'], 'password' => $arguments['password'])),
+        'class' => $options['class'],
+        'param' => array_merge(isset($config[$options['env']][$options['name']]['param']) ? $config[$options['env']][$options['name']]['param'] : array(), array('dsn' => $arguments['dsn'], 'username' => $arguments['username'], 'password' => $arguments['password'])),
     );
 
     file_put_contents($file, sfYaml::dump($config, 4));

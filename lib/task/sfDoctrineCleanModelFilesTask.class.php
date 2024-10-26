@@ -23,7 +23,7 @@ class sfDoctrineCleanModelFilesTask extends sfDoctrineBaseTask
   protected function configure()
   {
     $this->addOptions(array(
-      new sfCommandOption('no-confirmation', null, sfCommandOption::PARAMETER_NONE, 'Do not ask for confirmation'),
+        new sfCommandOption('no-confirmation', null, sfCommandOption::PARAMETER_NONE, 'Do not ask for confirmation'),
     ));
 
     $this->aliases = array('doctrine:clean');

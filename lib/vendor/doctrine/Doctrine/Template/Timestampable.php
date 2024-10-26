@@ -41,20 +41,20 @@ class Doctrine_Template_Timestampable extends Doctrine_Template
      * @var string
      */
     protected $_options = array('created' =>  array('name'          =>  'created_at',
-                                                    'alias'         =>  null,
-                                                    'type'          =>  'timestamp',
-                                                    'format'        =>  'Y-m-d H:i:s',
-                                                    'disabled'      =>  false,
-                                                    'expression'    =>  false,
-                                                    'options'       =>  array('notnull' => true)),
-                                'updated' =>  array('name'          =>  'updated_at',
-                                                    'alias'         =>  null,
-                                                    'type'          =>  'timestamp',
-                                                    'format'        =>  'Y-m-d H:i:s',
-                                                    'disabled'      =>  false,
-                                                    'expression'    =>  false,
-                                                    'onInsert'      =>  true,
-                                                    'options'       =>  array('notnull' => true)));
+        'alias'         =>  null,
+        'type'          =>  'timestamp',
+        'format'        =>  'Y-m-d H:i:s',
+        'disabled'      =>  false,
+        'expression'    =>  false,
+        'options'       =>  array('notnull' => true)),
+        'updated' =>  array('name'          =>  'updated_at',
+            'alias'         =>  null,
+            'type'          =>  'timestamp',
+            'format'        =>  'Y-m-d H:i:s',
+            'disabled'      =>  false,
+            'expression'    =>  false,
+            'onInsert'      =>  true,
+            'options'       =>  array('notnull' => true)));
 
     /**
      * Set table definition for Timestampable behavior

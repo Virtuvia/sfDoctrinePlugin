@@ -40,21 +40,21 @@ class Doctrine_Template_Versionable extends Doctrine_Template
      * @var array
      */
     protected $_options = array('version'           => array('name'   => 'version',
-                                                             'alias'  => null,
-                                                             'type'   => 'integer',
-                                                             'length' => 8,
-                                                             'options' => array()),
-								'generateRelations' => true,
-                                'tableName'         => false,
-                                'generateFiles'     => false,
-                                'auditLog'          => true,
-                                'deleteVersions'    => true,
-                                'listener'          => 'Doctrine_AuditLog_Listener',
-                                'indexes' => [],
-                                'localRelationOptions' => [
-                                    'foreignKeyName' => null,
-                                ],
-        );
+        'alias'  => null,
+        'type'   => 'integer',
+        'length' => 8,
+        'options' => array()),
+        'generateRelations' => true,
+        'tableName'         => false,
+        'generateFiles'     => false,
+        'auditLog'          => true,
+        'deleteVersions'    => true,
+        'listener'          => 'Doctrine_AuditLog_Listener',
+        'indexes' => [],
+        'localRelationOptions' => [
+            'foreignKeyName' => null,
+        ],
+    );
 
     /**
      * __construct

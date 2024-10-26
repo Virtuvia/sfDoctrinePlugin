@@ -425,11 +425,11 @@ class Doctrine_Import extends Doctrine_Connection_Module
                   }
                   $relClasses[] = $relation['class'];
                   $definitions[strtolower($relation['class'])]['relations'][$alias] = array(
-                    'type' => Doctrine_Relation::MANY,
-                    'alias' => $alias,
-                    'class' => $className,
-                    'local' => $relation['foreign'],
-                    'foreign' => $relation['local']
+                      'type' => Doctrine_Relation::MANY,
+                      'alias' => $alias,
+                      'class' => $className,
+                      'local' => $relation['foreign'],
+                      'foreign' => $relation['local']
                   );
               }
           }

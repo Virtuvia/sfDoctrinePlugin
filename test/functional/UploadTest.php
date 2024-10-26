@@ -12,7 +12,7 @@ $app = 'frontend';
 require_once dirname(__FILE__).'/../bootstrap/functional.php';
 
 $browser = new sfTestFunctional(new sfBrowser(), null, array(
-  'doctrine' => 'sfTesterDoctrine',
+    'doctrine' => 'sfTesterDoctrine',
 ));
 
 $browser
@@ -26,7 +26,7 @@ $browser
   ->end()
 
   ->with('doctrine')->check('Attachment', array(
-    'file_path' => AttachmentForm::TEST_GENERATED_FILENAME,
+      'file_path' => AttachmentForm::TEST_GENERATED_FILENAME,
   ), 1)
 ;
 
@@ -43,7 +43,7 @@ $browser
   ->end()
 
   ->with('doctrine')->check('Attachment', array(
-    'file_path' => AttachmentForm::TEST_GENERATED_FILENAME,
+      'file_path' => AttachmentForm::TEST_GENERATED_FILENAME,
   ), false)
 ;
 

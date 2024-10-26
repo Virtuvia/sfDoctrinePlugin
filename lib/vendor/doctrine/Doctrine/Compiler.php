@@ -52,8 +52,8 @@ class Doctrine_Compiler
         // If we have an array of specified drivers then lets determine which drivers we should exclude
         if ( ! empty($includedDrivers)) {
             $drivers = array('mysql',
-                             'pgsql',
-                             'sqlite');
+                'pgsql',
+                'sqlite');
 
             $excludedDrivers = array_diff($drivers, $includedDrivers);
         }

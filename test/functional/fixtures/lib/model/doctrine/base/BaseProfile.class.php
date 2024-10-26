@@ -35,24 +35,24 @@ abstract class BaseProfile extends myDoctrineRecord
     {
         $this->setTableName('profile');
         $this->hasColumn('user_id', 'integer', null, array(
-             'type' => 'integer',
-             ));
+            'type' => 'integer',
+        ));
         $this->hasColumn('first_name', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'length' => 255,
+        ));
         $this->hasColumn('last_name', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'length' => 255,
+        ));
     }
 
     public function setUp()
     {
         parent::setUp();
         $this->hasOne('User', array(
-             'local' => 'user_id',
-             'foreign' => 'id'));
+            'local' => 'user_id',
+            'foreign' => 'id'));
     }
 
 }

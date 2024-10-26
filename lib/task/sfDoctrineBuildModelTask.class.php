@@ -28,8 +28,8 @@ class sfDoctrineBuildModelTask extends sfDoctrineBaseTask
   protected function configure()
   {
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+        new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
+        new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
     ));
 
     $this->namespace = 'doctrine';
@@ -116,11 +116,11 @@ EOF;
 
     $properties = parse_ini_file(sfConfig::get('sf_config_dir').'/properties.ini', true);
     $tokens = array(
-      '##PACKAGE##'    => isset($properties['symfony']['name']) ? $properties['symfony']['name'] : 'symfony',
-      '##SUBPACKAGE##' => 'model',
-      '##NAME##'       => isset($properties['symfony']['author']) ? $properties['symfony']['author'] : 'Your name here',
-      ' <##EMAIL##>'   => '',
-      "{\n\n}"         => "{\n}\n",
+        '##PACKAGE##'    => isset($properties['symfony']['name']) ? $properties['symfony']['name'] : 'symfony',
+        '##SUBPACKAGE##' => 'model',
+        '##NAME##'       => isset($properties['symfony']['author']) ? $properties['symfony']['author'] : 'Your name here',
+        ' <##EMAIL##>'   => '',
+        "{\n\n}"         => "{\n}\n",
     );
 
     // Force Record Generator for Versionable

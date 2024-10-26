@@ -32,22 +32,22 @@ abstract class BaseModelWithNumberInColumn extends myDoctrineRecord
     {
         $this->setTableName('model_with_number_in_column');
         $this->hasColumn('column_1', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'length' => 255,
+        ));
         $this->hasColumn('column2', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'length' => 255,
+        ));
         $this->hasColumn('column__3', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'length' => 255,
+        ));
 
         $this->option('symfony', array(
-             'form' => false,
-             'filter' => false,
-             ));
+            'form' => false,
+            'filter' => false,
+        ));
     }
 
     public function setUp()

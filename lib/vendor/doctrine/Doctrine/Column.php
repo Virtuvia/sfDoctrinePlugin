@@ -37,9 +37,9 @@ class Doctrine_Column extends Doctrine_Access implements IteratorAggregate, Coun
      * @var array $_definition  @see getDefinition()
      */
     protected $_definition = array(
-                                'type'    => null,
-                                'length'  => 0,
-                                );
+        'type'    => null,
+        'length'  => 0,
+    );
 
     /**
      * @var array $definition  @see getDefinition()

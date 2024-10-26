@@ -26,19 +26,19 @@ abstract class BaseResourceType extends myDoctrineRecord
     {
         $this->setTableName('resource_type');
         $this->hasColumn('id', 'enum', null, array(
-             'type' => 'enum',
-             'values' =>
-             array(
-              0 => 'type1',
-              1 => 'type2',
-              2 => 'type3',
-             ),
-             'primary' => true,
-             ));
+            'type' => 'enum',
+            'values' =>
+            array(
+                0 => 'type1',
+                1 => 'type2',
+                2 => 'type3',
+            ),
+            'primary' => true,
+        ));
         $this->hasColumn('name', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'length' => 255,
+        ));
     }
 
     public function setUp()

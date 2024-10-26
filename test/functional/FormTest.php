@@ -24,11 +24,11 @@ unset($profileForm['id'], $profileForm['user_id']);
 $userForm->embedForm('Profile', $profileForm);
 
 $data = array('username' => 'jwage',
-              'password' => 'changeme',
-              'Profile'  => array(
-                  'first_name' => 'Jonathan',
-                  'last_name'  => 'Wage'
-                ));
+    'password' => 'changeme',
+    'Profile'  => array(
+        'first_name' => 'Jonathan',
+        'last_name'  => 'Wage'
+    ));
 
 $userForm->bind($data);
 $userForm->save();
@@ -60,9 +60,9 @@ $widget = new sfWidgetFormDoctrineChoice(array('model' => 'User', 'key_method' =
 $t->is($widget->getChoices(), array('jwage' => '4cb9c8a8048fd02294477fcb1a41191a'));
 
 $methods = array(
-  'widgetChoiceTableMethod1',
-  'widgetChoiceTableMethod2',
-  'widgetChoiceTableMethod3'
+    'widgetChoiceTableMethod1',
+    'widgetChoiceTableMethod2',
+    'widgetChoiceTableMethod3'
 );
 
 foreach ($methods as $method)
@@ -91,16 +91,16 @@ $userForm = new UserForm($user);
 $userForm->embedRelation('Groups', 'UserGroupForm');
 
 $data = array(
-  'username' => 'jonwage',
-  'password' => 'changeme',
-  'Groups'  => array(
-    0 => array(
-      'name' => 'New User Group 1 Name'
-    ),
-    1 => array(
-      'name' => 'New User Group 2 Name'
+    'username' => 'jonwage',
+    'password' => 'changeme',
+    'Groups'  => array(
+        0 => array(
+            'name' => 'New User Group 1 Name'
+        ),
+        1 => array(
+            'name' => 'New User Group 2 Name'
+        )
     )
-  )
 );
 
 $userForm->bind($data);

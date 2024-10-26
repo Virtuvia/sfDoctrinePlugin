@@ -34,8 +34,8 @@ class Doctrine_Import_Pgsql extends Doctrine_Import
 {
 
     protected $sql = array(
-                        'listDatabases' => 'SELECT datname FROM pg_database',
-                        'listFunctions' => "SELECT
+        'listDatabases' => 'SELECT datname FROM pg_database',
+        'listFunctions' => "SELECT
                                                 proname
                                             FROM
                                                 pg_proc pr,
@@ -47,14 +47,14 @@ class Doctrine_Import_Pgsql extends Doctrine_Import
                                                 AND pr.pronamespace IN
                                                     (SELECT oid FROM pg_namespace
                                                      WHERE nspname NOT LIKE 'pg_%' AND nspname != 'information_schema'",
-                        'listSequences' => "SELECT
+        'listSequences' => "SELECT
                                                 regexp_replace(relname, '_seq$', '')
                                             FROM
                                                 pg_class
                                             WHERE relkind = 'S' AND relnamespace IN
                                                 (SELECT oid FROM pg_namespace
                                                  WHERE nspname NOT LIKE 'pg_%' AND nspname != 'information_schema')",
-                        'listTables'    => "SELECT
+        'listTables'    => "SELECT
                                                 c.relname AS table_name
                                             FROM pg_class c, pg_user u
                                             WHERE c.relowner = u.usesysid
@@ -68,9 +68,9 @@ class Doctrine_Import_Pgsql extends Doctrine_Import
                                                 AND NOT EXISTS (SELECT 1 FROM pg_views WHERE viewname = c.relname)
                                                 AND NOT EXISTS (SELECT 1 FROM pg_user WHERE usesysid = c.relowner)
                                                 AND c.relname !~ '^pg_'",
-                        'listViews'     => 'SELECT viewname FROM pg_views',
-                        'listUsers'     => 'SELECT usename FROM pg_user',
-                        'listTableConstraints' => "SELECT
+        'listViews'     => 'SELECT viewname FROM pg_views',
+        'listUsers'     => 'SELECT usename FROM pg_user',
+        'listTableConstraints' => "SELECT
                                                         relname
                                                    FROM
                                                         pg_class
@@ -81,7 +81,7 @@ class Doctrine_Import_Pgsql extends Doctrine_Import
                                                             AND pg_class.oid = pg_index.indrelid
                                                             AND (indisunique = 't' OR indisprimary = 't')
                                                         )",
-                        'listTableIndexes'     => "SELECT
+        'listTableIndexes'     => "SELECT
                                                         relname
                                                    FROM
                                                         pg_class
@@ -93,7 +93,7 @@ class Doctrine_Import_Pgsql extends Doctrine_Import
                                                             AND indisunique != 't'
                                                             AND indisprimary != 't'
                                                         )",
-                        'listTableColumns'     => "SELECT
+        'listTableColumns'     => "SELECT
                                                      ordinal_position as attnum,
                                                      column_name as field,
                                                      udt_name as type,
@@ -112,7 +112,7 @@ class Doctrine_Import_Pgsql extends Doctrine_Import
                                                    FROM information_schema.COLUMNS
                                                    WHERE table_name = %s
                                                    ORDER BY ordinal_position",
-                        'listTableRelations'   => "SELECT pg_catalog.pg_get_constraintdef(oid, true) as condef
+        'listTableRelations'   => "SELECT pg_catalog.pg_get_constraintdef(oid, true) as condef
                                                           FROM pg_catalog.pg_constraint r
                                                           WHERE r.conrelid =
                                                           (
@@ -122,7 +122,7 @@ class Doctrine_Import_Pgsql extends Doctrine_Import
                                                               WHERE c.relname ~ ? AND pg_catalog.pg_table_is_visible(c.oid)
                                                           )
                                                           AND r.contype = 'f'"
-                        );
+    );
 
     /**
      * lists all database triggers
@@ -294,8 +294,8 @@ class Doctrine_Import_Pgsql extends Doctrine_Import
             if ((strpos($values[1], ',') === false) && (strpos($values[3], ',') === false)) {
                 $tableName = trim($values[2], '"');
                 $relations[] = array('table'   => $tableName,
-                                     'local'   => $values[1],
-                                     'foreign' => $values[3]);
+                    'local'   => $values[1],
+                    'foreign' => $values[3]);
             }
         }
 

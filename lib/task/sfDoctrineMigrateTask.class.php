@@ -28,15 +28,15 @@ class sfDoctrineMigrateTask extends sfDoctrineBaseTask
   protected function configure()
   {
     $this->addArguments(array(
-      new sfCommandArgument('version', sfCommandArgument::OPTIONAL, 'The version to migrate to'),
+        new sfCommandArgument('version', sfCommandArgument::OPTIONAL, 'The version to migrate to'),
     ));
 
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-      new sfCommandOption('up', null, sfCommandOption::PARAMETER_NONE, 'Migrate up one version'),
-      new sfCommandOption('down', null, sfCommandOption::PARAMETER_NONE, 'Migrate down one version'),
-      new sfCommandOption('dry-run', null, sfCommandOption::PARAMETER_NONE, 'Do not persist migrations'),
+        new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
+        new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+        new sfCommandOption('up', null, sfCommandOption::PARAMETER_NONE, 'Migrate up one version'),
+        new sfCommandOption('down', null, sfCommandOption::PARAMETER_NONE, 'Migrate down one version'),
+        new sfCommandOption('dry-run', null, sfCommandOption::PARAMETER_NONE, 'Do not persist migrations'),
     ));
 
     $this->namespace = 'doctrine';

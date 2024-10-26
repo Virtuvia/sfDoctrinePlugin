@@ -163,23 +163,23 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      *      -- versioning
      */
     protected $_options      = array('name'           => null,
-                                     'tableName'      => null,
-                                     'sequenceName'   => null,
-                                     'inheritanceMap' => array(),
-                                     'enumMap'        => array(),
-                                     'type'           => null,
-                                     'charset'        => null,
-                                     'collate'        => null,
-                                     'treeImpl'       => null,
-                                     'treeOptions'    => array(),
-                                     'indexes'        => array(),
-                                     'parents'        => array(),
-                                     'joinedParents'  => array(),
-                                     'queryParts'     => array(),
-                                     'versioning'     => null,
-                                     'subclasses'     => array(),
-                                     'orderBy'        => null
-                                     );
+        'tableName'      => null,
+        'sequenceName'   => null,
+        'inheritanceMap' => array(),
+        'enumMap'        => array(),
+        'type'           => null,
+        'charset'        => null,
+        'collate'        => null,
+        'treeImpl'       => null,
+        'treeOptions'    => array(),
+        'indexes'        => array(),
+        'parents'        => array(),
+        'joinedParents'  => array(),
+        'queryParts'     => array(),
+        'versioning'     => null,
+        'subclasses'     => array(),
+        'orderBy'        => null
+    );
 
     /**
      * @var Doctrine_Tree $tree                 tree object associated with this table
@@ -466,9 +466,9 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                     $name = sprintf($name, $this->getTableName());
 
                     $definition = array('type' => (isset($identifierOptions['type']) && $identifierOptions['type']) ? $identifierOptions['type']:'integer',
-                                        'length' => (isset($identifierOptions['length']) && $identifierOptions['length']) ? $identifierOptions['length']:8,
-                                        'autoincrement' => isset($identifierOptions['autoincrement']) ? $identifierOptions['autoincrement']:true,
-                                        'primary' => isset($identifierOptions['primary']) ? $identifierOptions['primary']:true);
+                        'length' => (isset($identifierOptions['length']) && $identifierOptions['length']) ? $identifierOptions['length']:8,
+                        'autoincrement' => isset($identifierOptions['autoincrement']) ? $identifierOptions['autoincrement']:true,
+                        'primary' => isset($identifierOptions['primary']) ? $identifierOptions['primary']:true);
 
                     unset($identifierOptions['name'], $identifierOptions['type'], $identifierOptions['length']);
                     foreach ($identifierOptions as $key => $value) {
@@ -704,7 +704,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
             $constraints = array();
 
             $emptyIntegrity = array('onUpdate' => null,
-                                    'onDelete' => null);
+                'onDelete' => null);
 
             foreach ($this->getRelations() as $name => $relation) {
                 $fk = $relation->toArray();
@@ -723,15 +723,15 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                 }
 
                 $integrity = array('onUpdate' => $fk['onUpdate'],
-                                   'onDelete' => $fk['onDelete']);
+                    'onDelete' => $fk['onDelete']);
 
                 $fkName = $relation->getForeignKeyName();
 
                 if ($relation instanceof Doctrine_Relation_LocalKey) {
                     $def = array('name'         => $fkName,
-                                 'local'        => $relation->getLocalColumnName(),
-                                 'foreign'      => $relation->getForeignColumnName(),
-                                 'foreignTable' => $relation->getTable()->getTableName(),
+                        'local'        => $relation->getLocalColumnName(),
+                        'foreign'      => $relation->getForeignColumnName(),
+                        'foreignTable' => $relation->getTable()->getTableName(),
                     );
 
                     if ($integrity !== $emptyIntegrity) {
@@ -761,8 +761,8 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
         $options['primary'] = $primary;
 
         return array('tableName' => $this->getOption('tableName'),
-                     'columns'   => $columns,
-                     'options'   => array_merge($this->getOptions(), $options));
+            'columns'   => $columns,
+            'options'   => array_merge($this->getOptions(), $options));
     }
 
     /**

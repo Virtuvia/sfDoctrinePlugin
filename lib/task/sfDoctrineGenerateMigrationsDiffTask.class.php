@@ -28,8 +28,8 @@ class sfDoctrineGenerateMigrationsDiffTask extends sfDoctrineBaseTask
   protected function configure()
   {
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+        new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
+        new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
     ));
 
     $this->namespace = 'doctrine';
@@ -62,7 +62,7 @@ EOF;
     spl_autoload_register(array('Doctrine_Core', 'modelsAutoload'));
 
     $this->callDoctrineCli('generate-migrations-diff', array(
-      'yaml_schema_path' => $this->prepareSchemaFile($config['yaml_schema_path']),
+        'yaml_schema_path' => $this->prepareSchemaFile($config['yaml_schema_path']),
     ));
   }
 }

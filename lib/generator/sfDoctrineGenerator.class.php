@@ -150,11 +150,11 @@ class sfDoctrineGenerator extends sfModelGenerator
     {
       $names[] = $name;
       $fields[$name] = array_merge(array(
-        'is_link'      => (bool) $column->isPrimaryKey(),
-        'is_real'      => true,
-        'is_partial'   => false,
-        'is_component' => false,
-        'type'         => $this->getType($column),
+          'is_link'      => (bool) $column->isPrimaryKey(),
+          'is_real'      => true,
+          'is_partial'   => false,
+          'is_component' => false,
+          'type'         => $this->getType($column),
       ), isset($this->config['fields'][$name]) ? $this->config['fields'][$name] : array());
     }
 
@@ -163,11 +163,11 @@ class sfDoctrineGenerator extends sfModelGenerator
       $name = sfInflector::underscore($tables['alias']).'_list';
       $names[] = $name;
       $fields[$name] = array_merge(array(
-        'is_link'      => false,
-        'is_real'      => false,
-        'is_partial'   => false,
-        'is_component' => false,
-        'type'         => 'Text',
+          'is_link'      => false,
+          'is_real'      => false,
+          'is_partial'   => false,
+          'is_component' => false,
+          'type'         => 'Text',
       ), isset($this->config['fields'][$name]) ? $this->config['fields'][$name] : array());
     }
 
@@ -181,11 +181,11 @@ class sfDoctrineGenerator extends sfModelGenerator
         }
 
         $fields[$name] = array_merge(array(
-          'is_link'      => false,
-          'is_real'      => false,
-          'is_partial'   => false,
-          'is_component' => false,
-          'type'         => 'Text',
+            'is_link'      => false,
+            'is_real'      => false,
+            'is_partial'   => false,
+            'is_component' => false,
+            'type'         => 'Text',
         ), is_array($params) ? $params : array());
       }
     }

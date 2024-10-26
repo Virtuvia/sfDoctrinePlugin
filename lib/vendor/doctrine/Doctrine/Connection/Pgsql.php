@@ -48,34 +48,34 @@ class Doctrine_Connection_Pgsql extends Doctrine_Connection_Common
     {
         // initialize all driver options
         $this->supported = array(
-                          'sequences'               => true,
-                          'indexes'                 => true,
-                          'affected_rows'           => true,
-                          'summary_functions'       => true,
-                          'order_by_text'           => true,
-                          'transactions'            => true,
-                          'savepoints'              => true,
-                          'current_id'              => true,
-                          'limit_queries'           => true,
-                          'LOBs'                    => true,
-                          'replace'                 => 'emulated',
-                          'sub_selects'             => true,
-                          'auto_increment'          => 'emulated',
-                          'primary_key'             => true,
-                          'result_introspection'    => true,
-                          'prepared_statements'     => true,
-                          'identifier_quoting'      => true,
-                          'pattern_escaping'        => true,
-                          );
+            'sequences'               => true,
+            'indexes'                 => true,
+            'affected_rows'           => true,
+            'summary_functions'       => true,
+            'order_by_text'           => true,
+            'transactions'            => true,
+            'savepoints'              => true,
+            'current_id'              => true,
+            'limit_queries'           => true,
+            'LOBs'                    => true,
+            'replace'                 => 'emulated',
+            'sub_selects'             => true,
+            'auto_increment'          => 'emulated',
+            'primary_key'             => true,
+            'result_introspection'    => true,
+            'prepared_statements'     => true,
+            'identifier_quoting'      => true,
+            'pattern_escaping'        => true,
+        );
 
         $this->properties['string_quoting'] = array('start' => "'",
-                                                    'end' => "'",
-                                                    'escape' => "'",
-                                                    'escape_pattern' => '\\');
+            'end' => "'",
+            'escape' => "'",
+            'escape_pattern' => '\\');
 
         $this->properties['identifier_quoting'] = array('start' => '"',
-                                                        'end' => '"',
-                                                        'escape' => '"');
+            'end' => '"',
+            'escape' => '"');
         parent::__construct($manager, $adapter);
     }
 

@@ -425,8 +425,8 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
                 $relation = $table->getRelation($component);
 
                 $this->_queryComponents[$componentAlias] = array('table'    => $relation->getTable(),
-                                                          'parent'   => $parent,
-                                                          'relation' => $relation);
+                    'parent'   => $parent,
+                    'relation' => $relation);
             }
             $this->addSqlTableAlias($tableAlias, $componentAlias);
 

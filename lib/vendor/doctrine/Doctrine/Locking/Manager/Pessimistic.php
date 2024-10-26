@@ -63,22 +63,22 @@ class Doctrine_Locking_Manager_Pessimistic
         if ($this->conn->getAttribute(Doctrine_Core::ATTR_EXPORT) & Doctrine_Core::EXPORT_TABLES) {
             $columns = array();
             $columns['object_type']        = array('type'    => 'string',
-                                                   'length'  => 50,
-                                                   'notnull' => true,
-                                                   'primary' => true);
+                'length'  => 50,
+                'notnull' => true,
+                'primary' => true);
 
             $columns['object_key']         = array('type'    => 'string',
-                                                   'length'  => 250,
-                                                   'notnull' => true,
-                                                   'primary' => true);
+                'length'  => 250,
+                'notnull' => true,
+                'primary' => true);
 
             $columns['user_ident']         = array('type'    => 'string',
-                                                   'length'  => 50,
-                                                   'notnull' => true);
+                'length'  => 50,
+                'notnull' => true);
 
             $columns['timestamp_obtained'] = array('type'    => 'integer',
-                                                   'length'  => 10,
-                                                   'notnull' => true);
+                'length'  => 10,
+                'notnull' => true);
 
             $options = array('primary' => array('object_type', 'object_key'));
             try {

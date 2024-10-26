@@ -42,19 +42,19 @@ class sfDoctrineBuildTask extends sfDoctrineBaseTask
   protected function configure()
   {
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-      new sfCommandOption('no-confirmation', null, sfCommandOption::PARAMETER_NONE, 'Whether to force dropping of the database'),
-      new sfCommandOption('all', null, sfCommandOption::PARAMETER_NONE, 'Build everything and reset the database'),
-      new sfCommandOption('all-classes', null, sfCommandOption::PARAMETER_NONE, 'Build all classes'),
-      new sfCommandOption('model', null, sfCommandOption::PARAMETER_NONE, 'Build model classes'),
-      new sfCommandOption('forms', null, sfCommandOption::PARAMETER_NONE, 'Build form classes'),
-      new sfCommandOption('filters', null, sfCommandOption::PARAMETER_NONE, 'Build filter classes'),
-      new sfCommandOption('sql', null, sfCommandOption::PARAMETER_NONE, 'Build SQL'),
-      new sfCommandOption('db', null, sfCommandOption::PARAMETER_NONE, 'Drop, create, and either insert SQL or migrate the database'),
-      new sfCommandOption('and-migrate', null, sfCommandOption::PARAMETER_NONE, 'Migrate the database'),
-      new sfCommandOption('and-load', null, sfCommandOption::PARAMETER_OPTIONAL | sfCommandOption::IS_ARRAY, 'Load fixture data'),
-      new sfCommandOption('and-append', null, sfCommandOption::PARAMETER_OPTIONAL | sfCommandOption::IS_ARRAY, 'Append fixture data'),
+        new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
+        new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+        new sfCommandOption('no-confirmation', null, sfCommandOption::PARAMETER_NONE, 'Whether to force dropping of the database'),
+        new sfCommandOption('all', null, sfCommandOption::PARAMETER_NONE, 'Build everything and reset the database'),
+        new sfCommandOption('all-classes', null, sfCommandOption::PARAMETER_NONE, 'Build all classes'),
+        new sfCommandOption('model', null, sfCommandOption::PARAMETER_NONE, 'Build model classes'),
+        new sfCommandOption('forms', null, sfCommandOption::PARAMETER_NONE, 'Build form classes'),
+        new sfCommandOption('filters', null, sfCommandOption::PARAMETER_NONE, 'Build filter classes'),
+        new sfCommandOption('sql', null, sfCommandOption::PARAMETER_NONE, 'Build SQL'),
+        new sfCommandOption('db', null, sfCommandOption::PARAMETER_NONE, 'Drop, create, and either insert SQL or migrate the database'),
+        new sfCommandOption('and-migrate', null, sfCommandOption::PARAMETER_NONE, 'Migrate the database'),
+        new sfCommandOption('and-load', null, sfCommandOption::PARAMETER_OPTIONAL | sfCommandOption::IS_ARRAY, 'Load fixture data'),
+        new sfCommandOption('and-append', null, sfCommandOption::PARAMETER_OPTIONAL | sfCommandOption::IS_ARRAY, 'Append fixture data'),
     ));
 
     $this->namespace = 'doctrine';
@@ -234,7 +234,7 @@ EOF;
       if (count($options['and-load']))
       {
         $ret = $task->run(array(
-          'dir_or_file' => in_array(array(), $options['and-load'], true) ? null : $options['and-load'],
+            'dir_or_file' => in_array(array(), $options['and-load'], true) ? null : $options['and-load'],
         ));
 
         if ($ret)
@@ -246,9 +246,9 @@ EOF;
       if (count($options['and-append']))
       {
         $ret = $task->run(array(
-          'dir_or_file' => in_array(array(), $options['and-append'], true) ? null : $options['and-append'],
+            'dir_or_file' => in_array(array(), $options['and-append'], true) ? null : $options['and-append'],
         ), array(
-          'append' => true,
+            'append' => true,
         ));
 
         if ($ret)

@@ -53,27 +53,27 @@ abstract class Doctrine_Relation implements ArrayAccess
      * @var array $definition   @see __construct()
      */
     protected $definition = array('alias'       => true,
-                                  'foreign'     => true,
-                                  'local'       => true,
-                                  'class'       => true,
-                                  'type'        => true,
-                                  'table'       => true,
-                                  'localTable'  => true,
-                                  'name'        => null,
-                                  'refTable'    => null,
-                                  'onDelete'    => null,
-                                  'onUpdate'    => null,
-                                  'deferred'    => null,
-                                  'deferrable'  => null,
-                                  'constraint'  => null,
-                                  'equal'       => false,
-                                  'cascade'     => array(), // application-level cascades
-                                  'owningSide'  => false, // whether this is the owning side
-                                  'refClassRelationAlias' => null,
-                                  'foreignKeyName' => null,
-                                  'orderBy' => null,
-                                  'skipImplicitIndex' => false,
-                                  );
+        'foreign'     => true,
+        'local'       => true,
+        'class'       => true,
+        'type'        => true,
+        'table'       => true,
+        'localTable'  => true,
+        'name'        => null,
+        'refTable'    => null,
+        'onDelete'    => null,
+        'onUpdate'    => null,
+        'deferred'    => null,
+        'deferrable'  => null,
+        'constraint'  => null,
+        'equal'       => false,
+        'cascade'     => array(), // application-level cascades
+        'owningSide'  => false, // whether this is the owning side
+        'refClassRelationAlias' => null,
+        'foreignKeyName' => null,
+        'orderBy' => null,
+        'skipImplicitIndex' => false,
+    );
 
     protected $_isRefClass = null;
 

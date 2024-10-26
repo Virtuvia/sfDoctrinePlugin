@@ -38,24 +38,24 @@ class Doctrine_AuditLog extends Doctrine_Record_Generator
      * @var array
      */
     protected $_options = array('className'         => '%CLASS%Version',
-                                'localRelationOptions' => [
-                                    'foreignKeyName' => null,
-                                ],
-                                'version'           => array('name'   => 'version',
-                                                             'alias'  => null,
-                                                             'type'   => 'integer',
-                                                             'length' => 8,
-                                                             'options' => array('primary' => true)),
-                                'tableName'         => false,
-                                'generateFiles'     => false,
-                                'table'             => false,
-                                'pluginTable'       => false,
-                                'children'          => array(),
-                                'auditLog'          => true,
-                                'deleteVersions'    => true,
-                                'cascadeDelete'     => true,
-                                'excludeFields'     => array(),
-                                'appLevelDelete'    => false);
+        'localRelationOptions' => [
+            'foreignKeyName' => null,
+        ],
+        'version'           => array('name'   => 'version',
+            'alias'  => null,
+            'type'   => 'integer',
+            'length' => 8,
+            'options' => array('primary' => true)),
+        'tableName'         => false,
+        'generateFiles'     => false,
+        'table'             => false,
+        'pluginTable'       => false,
+        'children'          => array(),
+        'auditLog'          => true,
+        'deleteVersions'    => true,
+        'cascadeDelete'     => true,
+        'excludeFields'     => array(),
+        'appLevelDelete'    => false);
 
     /**
      * Accepts array of options to configure the AuditLog

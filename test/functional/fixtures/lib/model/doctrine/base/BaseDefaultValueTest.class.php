@@ -26,11 +26,11 @@ abstract class BaseDefaultValueTest extends myDoctrineRecord
     {
         $this->setTableName('default_value_test');
         $this->hasColumn('name', 'string', 255, array(
-             'type' => 'string',
-             'notnull' => true,
-             'default' => '',
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'notnull' => true,
+            'default' => '',
+            'length' => 255,
+        ));
     }
 
     public function setUp()

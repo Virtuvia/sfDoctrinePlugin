@@ -22,11 +22,11 @@ class ProjectConfiguration extends sfProjectConfiguration
     $task = new sfDoctrineBuildTask($this->dispatcher, new sfFormatter());
     $task->setConfiguration($this);
     $task->run(array(), array(
-      'no-confirmation' => true,
-      'db'              => true,
-      'model'           => true,
-      'forms'           => true,
-      'filters'         => true,
+        'no-confirmation' => true,
+        'db'              => true,
+        'model'           => true,
+        'forms'           => true,
+        'filters'         => true,
     ));
   }
 

@@ -130,31 +130,31 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * @see Doctrine_Formatter
      */
     private $modules = array('transaction' => false,
-                             'expression'  => false,
-                             'dataDict'    => false,
-                             'export'      => false,
-                             'import'      => false,
-                             'sequence'    => false,
-                             'unitOfWork'  => false,
-                             'formatter'   => false,
-                             'util'        => false,
-                             );
+        'expression'  => false,
+        'dataDict'    => false,
+        'export'      => false,
+        'import'      => false,
+        'sequence'    => false,
+        'unitOfWork'  => false,
+        'formatter'   => false,
+        'util'        => false,
+    );
 
     /**
      * @var array $properties               an array of connection properties
      */
     protected $properties = array('sql_comments'        => array(array('start' => '--', 'end' => "\n", 'escape' => false),
-                                                                 array('start' => '/*', 'end' => '*/', 'escape' => false)),
-                                  'identifier_quoting'  => array('start' => '"', 'end' => '"','escape' => '"'),
-                                  'string_quoting'      => array('start' => "'",
-                                                                 'end' => "'",
-                                                                 'escape' => false,
-                                                                 'escape_pattern' => false),
-                                  'wildcards'           => array('%', '_'),
-                                  'varchar_max_length'  => 255,
-                                  'sql_file_delimiter'  => ";\n",
-                                  'max_identifier_length' => 64,
-                                  );
+        array('start' => '/*', 'end' => '*/', 'escape' => false)),
+        'identifier_quoting'  => array('start' => '"', 'end' => '"','escape' => '"'),
+        'string_quoting'      => array('start' => "'",
+            'end' => "'",
+            'escape' => false,
+            'escape_pattern' => false),
+        'wildcards'           => array('%', '_'),
+        'varchar_max_length'  => 255,
+        'sql_file_delimiter'  => ";\n",
+        'max_identifier_length' => 64,
+    );
 
     /**
      * @var array $serverInfo
@@ -167,19 +167,19 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * @var array $supportedDrivers         an array containing all supported drivers
      */
     private static $supportedDrivers    = array(
-                                        'Mysql',
-                                        'Pgsql',
-                                        'Sqlite',
-                                        );
+        'Mysql',
+        'Pgsql',
+        'Sqlite',
+    );
     protected $_count = 0;
 
     /**
      * @var array $_userFkNames                 array of foreign key names that have been used
      */
     protected $_usedNames = array(
-            'foreign_keys' => array(),
-            'indexes' => array()
-        );
+        'foreign_keys' => array(),
+        'indexes' => array()
+    );
 
     /**
      * the constructor

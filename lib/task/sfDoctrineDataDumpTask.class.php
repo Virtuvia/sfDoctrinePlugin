@@ -28,12 +28,12 @@ class sfDoctrineDataDumpTask extends sfDoctrineBaseTask
   protected function configure()
   {
     $this->addArguments(array(
-      new sfCommandArgument('target', sfCommandArgument::OPTIONAL, 'The target filename'),
+        new sfCommandArgument('target', sfCommandArgument::OPTIONAL, 'The target filename'),
     ));
 
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+        new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
+        new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
     ));
 
     $this->namespace = 'doctrine';
@@ -63,7 +63,7 @@ EOF;
     $config = $this->getCliConfig();
 
     $args = array(
-      'data_fixtures_path' => $config['data_fixtures_path'][0],
+        'data_fixtures_path' => $config['data_fixtures_path'][0],
     );
 
     if (!is_dir($args['data_fixtures_path']))

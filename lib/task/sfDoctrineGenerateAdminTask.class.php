@@ -26,17 +26,17 @@ class sfDoctrineGenerateAdminTask extends sfDoctrineBaseTask
   protected function configure()
   {
     $this->addArguments(array(
-      new sfCommandArgument('application', sfCommandArgument::REQUIRED, 'The application name'),
-      new sfCommandArgument('route_or_model', sfCommandArgument::REQUIRED, 'The route name or the model class'),
+        new sfCommandArgument('application', sfCommandArgument::REQUIRED, 'The application name'),
+        new sfCommandArgument('route_or_model', sfCommandArgument::REQUIRED, 'The route name or the model class'),
     ));
 
     $this->addOptions(array(
-      new sfCommandOption('module', null, sfCommandOption::PARAMETER_REQUIRED, 'The module name', null),
-      new sfCommandOption('theme', null, sfCommandOption::PARAMETER_REQUIRED, 'The theme name', 'admin'),
-      new sfCommandOption('singular', null, sfCommandOption::PARAMETER_REQUIRED, 'The singular name', null),
-      new sfCommandOption('plural', null, sfCommandOption::PARAMETER_REQUIRED, 'The plural name', null),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-      new sfCommandOption('actions-base-class', null, sfCommandOption::PARAMETER_REQUIRED, 'The base class for the actions', 'sfActions'),
+        new sfCommandOption('module', null, sfCommandOption::PARAMETER_REQUIRED, 'The module name', null),
+        new sfCommandOption('theme', null, sfCommandOption::PARAMETER_REQUIRED, 'The theme name', 'admin'),
+        new sfCommandOption('singular', null, sfCommandOption::PARAMETER_REQUIRED, 'The singular name', null),
+        new sfCommandOption('plural', null, sfCommandOption::PARAMETER_REQUIRED, 'The plural name', null),
+        new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+        new sfCommandOption('actions-base-class', null, sfCommandOption::PARAMETER_REQUIRED, 'The base class for the actions', 'sfActions'),
     ));
 
     $this->namespace = 'doctrine';
@@ -167,14 +167,14 @@ EOF
     $this->logSection('app', sprintf('Generating admin module "%s" for model "%s"', $module, $model));
 
     return $task->run(array($arguments['application'], $module, $model), array(
-      'theme'                 => $options['theme'],
-      'route-prefix'          => $routeOptions['name'],
-      'with-doctrine-route'   => true,
-      'generate-in-cache'     => true,
-      'non-verbose-templates' => true,
-      'singular'              => $options['singular'],
-      'plural'                => $options['plural'],
-      'actions-base-class'    => $options['actions-base-class'],
+        'theme'                 => $options['theme'],
+        'route-prefix'          => $routeOptions['name'],
+        'with-doctrine-route'   => true,
+        'generate-in-cache'     => true,
+        'non-verbose-templates' => true,
+        'singular'              => $options['singular'],
+        'plural'                => $options['plural'],
+        'actions-base-class'    => $options['actions-base-class'],
     ));
   }
 

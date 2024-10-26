@@ -26,17 +26,17 @@ class sfDoctrineGenerateModuleForRouteTask extends sfDoctrineBaseTask
   protected function configure()
   {
     $this->addArguments(array(
-      new sfCommandArgument('application', sfCommandArgument::REQUIRED, 'The application name'),
-      new sfCommandArgument('route', sfCommandArgument::REQUIRED, 'The route name'),
+        new sfCommandArgument('application', sfCommandArgument::REQUIRED, 'The application name'),
+        new sfCommandArgument('route', sfCommandArgument::REQUIRED, 'The route name'),
     ));
 
     $this->addOptions(array(
-      new sfCommandOption('theme', null, sfCommandOption::PARAMETER_REQUIRED, 'The theme name', 'default'),
-      new sfCommandOption('non-verbose-templates', null, sfCommandOption::PARAMETER_NONE, 'Generate non verbose templates'),
-      new sfCommandOption('singular', null, sfCommandOption::PARAMETER_REQUIRED, 'The singular name', null),
-      new sfCommandOption('plural', null, sfCommandOption::PARAMETER_REQUIRED, 'The plural name', null),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-      new sfCommandOption('actions-base-class', null, sfCommandOption::PARAMETER_REQUIRED, 'The base class for the actions', 'sfActions'),
+        new sfCommandOption('theme', null, sfCommandOption::PARAMETER_REQUIRED, 'The theme name', 'default'),
+        new sfCommandOption('non-verbose-templates', null, sfCommandOption::PARAMETER_NONE, 'Generate non verbose templates'),
+        new sfCommandOption('singular', null, sfCommandOption::PARAMETER_REQUIRED, 'The singular name', null),
+        new sfCommandOption('plural', null, sfCommandOption::PARAMETER_REQUIRED, 'The plural name', null),
+        new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+        new sfCommandOption('actions-base-class', null, sfCommandOption::PARAMETER_REQUIRED, 'The base class for the actions', 'sfActions'),
     ));
 
     $this->namespace = 'doctrine';
@@ -85,14 +85,14 @@ EOF;
     $this->logSection('app', sprintf('Generating module "%s" for model "%s"', $module, $model));
 
     return $task->run(array($arguments['application'], $module, $model), array(
-      'theme'                 => $options['theme'],
-      'route-prefix'          => $routeOptions['name'],
-      'with-doctrine-route'   => true,
-      'with-show'             => $routeOptions['with_show'],
-      'non-verbose-templates' => $options['non-verbose-templates'],
-      'singular'              => $options['singular'],
-      'plural'                => $options['plural'],
-      'actions-base-class'    => $options['actions-base-class'],
+        'theme'                 => $options['theme'],
+        'route-prefix'          => $routeOptions['name'],
+        'with-doctrine-route'   => true,
+        'with-show'             => $routeOptions['with_show'],
+        'non-verbose-templates' => $options['non-verbose-templates'],
+        'singular'              => $options['singular'],
+        'plural'                => $options['plural'],
+        'actions-base-class'    => $options['actions-base-class'],
     ));
   }
 }

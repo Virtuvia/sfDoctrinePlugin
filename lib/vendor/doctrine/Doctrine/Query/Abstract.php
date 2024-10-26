@@ -103,10 +103,10 @@ abstract class Doctrine_Query_Abstract
      * @var array $_params  The parameters of this query.
      */
     protected $_params = array('exec' => array(),
-                               'join' => array(),
-                               'where' => array(),
-                               'set' => array(),
-                               'having' => array());
+        'join' => array(),
+        'where' => array(),
+        'set' => array(),
+        'having' => array());
 
     /**
      * @var array $_execParams The parameters passed to connection statement
@@ -153,36 +153,36 @@ abstract class Doctrine_Query_Abstract
      * @var array $_sqlParts  The SQL query string parts. Filled during the DQL parsing process.
      */
     protected $_sqlParts = array(
-            'select'    => array(),
-            'distinct'  => false,
-            'forUpdate' => false,
-            'from'      => array(),
-            'set'       => array(),
-            'join'      => array(),
-            'where'     => array(),
-            'groupby'   => array(),
-            'having'    => array(),
-            'orderby'   => array(),
-            'limit'     => false,
-            'offset'    => false,
-            );
+        'select'    => array(),
+        'distinct'  => false,
+        'forUpdate' => false,
+        'from'      => array(),
+        'set'       => array(),
+        'join'      => array(),
+        'where'     => array(),
+        'groupby'   => array(),
+        'having'    => array(),
+        'orderby'   => array(),
+        'limit'     => false,
+        'offset'    => false,
+    );
 
     /**
      * @var array $_dqlParts    an array containing all DQL query parts; @see Doctrine_Query::getDqlPart()
      */
     protected $_dqlParts = array(
-                            'from'      => array(),
-                            'select'    => array(),
-                            'forUpdate' => false,
-                            'set'       => array(),
-                            'join'      => array(),
-                            'where'     => array(),
-                            'groupby'   => array(),
-                            'having'    => array(),
-                            'orderby'   => array(),
-                            'limit'     => array(),
-                            'offset'    => array(),
-                            );
+        'from'      => array(),
+        'select'    => array(),
+        'forUpdate' => false,
+        'set'       => array(),
+        'join'      => array(),
+        'where'     => array(),
+        'groupby'   => array(),
+        'having'    => array(),
+        'orderby'   => array(),
+        'limit'     => array(),
+        'offset'    => array(),
+    );
 
 
     /**
@@ -1753,19 +1753,19 @@ abstract class Doctrine_Query_Abstract
     protected function clear()
     {
         $this->_sqlParts = array(
-                    'select'    => array(),
-                    'distinct'  => false,
-                    'forUpdate' => false,
-                    'from'      => array(),
-                    'set'       => array(),
-                    'join'      => array(),
-                    'where'     => array(),
-                    'groupby'   => array(),
-                    'having'    => array(),
-                    'orderby'   => array(),
-                    'limit'     => false,
-                    'offset'    => false,
-                    );
+            'select'    => array(),
+            'distinct'  => false,
+            'forUpdate' => false,
+            'from'      => array(),
+            'set'       => array(),
+            'join'      => array(),
+            'where'     => array(),
+            'groupby'   => array(),
+            'having'    => array(),
+            'orderby'   => array(),
+            'limit'     => false,
+            'offset'    => false,
+        );
     }
 
     public function setHydrationMode($hydrationMode)

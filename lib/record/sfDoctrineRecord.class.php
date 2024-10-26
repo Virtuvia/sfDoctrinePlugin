@@ -111,11 +111,11 @@ abstract class sfDoctrineRecord extends Doctrine_Record
   public function __toString(): string
   {
     $guesses = array('name',
-                     'title',
-                     'description',
-                     'subject',
-                     'keywords',
-                     'id');
+        'title',
+        'description',
+        'subject',
+        'keywords',
+        'id');
 
     // we try to guess a column which would give a good description of the object
     foreach ($guesses as $descriptionColumn)

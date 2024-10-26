@@ -24,20 +24,20 @@ class sfDoctrineColumn implements ArrayAccess
    * Array mapping Doctrine column types to the native symfony type
    */
   static $doctrineToSymfony = array(
-    'boolean'   => 'BOOLEAN',
-    'string'    => 'LONGVARCHAR',
-    'integer'   => 'INTEGER',
-    'date'      => 'DATE',
-    'timestamp' => 'TIMESTAMP',
-    'time'      => 'TIME',
-    'enum'      => 'LONGVARCHAR',
-    'float'     => 'FLOAT',
-    'double'    => 'DOUBLE',
-    'clob'      => 'CLOB',
-    'blob'      => 'BLOB',
-    'object'    => 'LONGVARCHAR',
-    'array'     => 'LONGVARCHAR',
-    'decimal'   => 'DECIMAL',
+      'boolean'   => 'BOOLEAN',
+      'string'    => 'LONGVARCHAR',
+      'integer'   => 'INTEGER',
+      'date'      => 'DATE',
+      'timestamp' => 'TIMESTAMP',
+      'time'      => 'TIME',
+      'enum'      => 'LONGVARCHAR',
+      'float'     => 'FLOAT',
+      'double'    => 'DOUBLE',
+      'clob'      => 'CLOB',
+      'blob'      => 'BLOB',
+      'object'    => 'LONGVARCHAR',
+      'array'     => 'LONGVARCHAR',
+      'decimal'   => 'DECIMAL',
   );
 
   /**

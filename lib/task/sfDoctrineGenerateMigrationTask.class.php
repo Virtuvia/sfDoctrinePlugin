@@ -28,13 +28,13 @@ class sfDoctrineGenerateMigrationTask extends sfDoctrineBaseTask
   protected function configure()
   {
     $this->addArguments(array(
-      new sfCommandArgument('name', sfCommandArgument::REQUIRED, 'The name of the migration'),
+        new sfCommandArgument('name', sfCommandArgument::REQUIRED, 'The name of the migration'),
     ));
 
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-      new sfCommandOption('editor-cmd', null, sfCommandOption::PARAMETER_REQUIRED, 'Open script with this command upon creation'),
+        new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
+        new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+        new sfCommandOption('editor-cmd', null, sfCommandOption::PARAMETER_REQUIRED, 'Open script with this command upon creation'),
     ));
 
     $this->namespace = 'doctrine';
@@ -77,9 +77,9 @@ EOF;
 
       $contents = file_get_contents($file);
       $contents = strtr(sfToolkit::stripComments($contents), array(
-        "{\n\n" => "{\n",
-        "\n}"   => "\n}\n",
-        '    '  => '  ',
+          "{\n\n" => "{\n",
+          "\n}"   => "\n}\n",
+          '    '  => '  ',
       ));
       file_put_contents($file, $contents);
 

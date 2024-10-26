@@ -23,14 +23,14 @@ class sfDoctrineDeleteModelFilesTask extends sfDoctrineBaseTask
   protected function configure()
   {
     $this->addArguments(array(
-      new sfCommandArgument('name', sfCommandArgument::REQUIRED | sfCommandArgument::IS_ARRAY, 'The name of the model you wish to delete all related files for.'),
+        new sfCommandArgument('name', sfCommandArgument::REQUIRED | sfCommandArgument::IS_ARRAY, 'The name of the model you wish to delete all related files for.'),
     ));
 
     $this->addOptions(array(
-      new sfCommandOption('no-confirmation', null, sfCommandOption::PARAMETER_NONE, 'Do not ask for confirmation'),
-      new sfCommandOption('prefix', null, sfCommandOption::PARAMETER_REQUIRED | sfCommandOption::IS_ARRAY, 'Class prefix to remove'),
-      new sfCommandOption('suffix', null, sfCommandOption::PARAMETER_REQUIRED | sfCommandOption::IS_ARRAY, 'Class suffix to remove'),
-      new sfCommandOption('extension', null, sfCommandOption::PARAMETER_REQUIRED | sfCommandOption::IS_ARRAY, 'Filename extension to remove'),
+        new sfCommandOption('no-confirmation', null, sfCommandOption::PARAMETER_NONE, 'Do not ask for confirmation'),
+        new sfCommandOption('prefix', null, sfCommandOption::PARAMETER_REQUIRED | sfCommandOption::IS_ARRAY, 'Class prefix to remove'),
+        new sfCommandOption('suffix', null, sfCommandOption::PARAMETER_REQUIRED | sfCommandOption::IS_ARRAY, 'Class suffix to remove'),
+        new sfCommandOption('extension', null, sfCommandOption::PARAMETER_REQUIRED | sfCommandOption::IS_ARRAY, 'Filename extension to remove'),
     ));
 
     $this->namespace = 'doctrine';
@@ -52,9 +52,9 @@ EOF;
   {
     $paths = array_merge(
       array(
-        sfConfig::get('sf_lib_dir').'/model/doctrine',
-        sfConfig::get('sf_lib_dir').'/form/doctrine',
-        sfConfig::get('sf_lib_dir').'/filter/doctrine',
+          sfConfig::get('sf_lib_dir').'/model/doctrine',
+          sfConfig::get('sf_lib_dir').'/form/doctrine',
+          sfConfig::get('sf_lib_dir').'/filter/doctrine',
       ),
       $this->configuration->getPluginSubPaths('/lib/model/doctrine'),
       $this->configuration->getPluginSubPaths('/lib/form/doctrine'),

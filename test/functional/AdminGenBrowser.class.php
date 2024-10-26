@@ -2,9 +2,9 @@
 class AdminGenBrowser extends sfTestBrowser
 {
   protected $_modules = array('Article'       => 'articles',
-                              'Author'        => 'authors',
-                              'Subscription'  => 'subscriptions',
-                              'User'          => 'users');
+      'Author'        => 'authors',
+      'Subscription'  => 'subscriptions',
+      'User'          => 'users');
 
   public function __construct()
   {
@@ -173,16 +173,16 @@ class AdminGenBrowser extends sfTestBrowser
     $this->info('Test the Profile form saves and attached to user properly');
 
     $userInfo = array(
-      'user' => array(
-        'username'         => 'test',
-        'password'         => 'test',
-        'groups_list'      => array(1, 2),
-        'permissions_list' => array(3, 4),
-        'Profile'  => array(
-          'first_name' => 'Test',
-          'last_name'  => 'Test'
+        'user' => array(
+            'username'         => 'test',
+            'password'         => 'test',
+            'groups_list'      => array(1, 2),
+            'permissions_list' => array(3, 4),
+            'Profile'  => array(
+                'first_name' => 'Test',
+                'last_name'  => 'Test'
+            )
         )
-      )
     );
 
     $this->click('Save', $userInfo);

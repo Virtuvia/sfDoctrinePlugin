@@ -29,8 +29,8 @@ class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
   {
     $this->dispatcher = $dispatcher;
     $this->options = array_merge(array(
-      'logging'              => false,
-      'slow_query_threshold' => 1,
+        'logging'              => false,
+        'slow_query_threshold' => 1,
     ), $options);
   }
 

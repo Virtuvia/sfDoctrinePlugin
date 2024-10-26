@@ -98,7 +98,7 @@ class sfDoctrineDatabase extends sfDatabase
     if ($this->getParameter('profiler', sfConfig::get('sf_debug')))
     {
       $this->profiler = new sfDoctrineConnectionProfiler($dispatcher, array(
-        'logging' => $this->getParameter('logging', sfConfig::get('sf_logging_enabled')),
+          'logging' => $this->getParameter('logging', sfConfig::get('sf_logging_enabled')),
       ));
       $this->_doctrineConnection->addListener($this->profiler, 'symfony_profiler');
     }

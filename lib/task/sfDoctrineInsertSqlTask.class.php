@@ -28,9 +28,9 @@ class sfDoctrineInsertSqlTask extends sfDoctrineBaseTask
   protected function configure()
   {
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-      new sfCommandOption('create-migration-table', null, sfCommandOption::PARAMETER_NONE, 'Create Migrations Version table.')
+        new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
+        new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+        new sfCommandOption('create-migration-table', null, sfCommandOption::PARAMETER_NONE, 'Create Migrations Version table.')
     ));
 
     $this->namespace = 'doctrine';

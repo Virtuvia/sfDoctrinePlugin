@@ -32,32 +32,32 @@ abstract class BaseAuthor extends myDoctrineRecord
     {
         $this->setTableName('author');
         $this->hasColumn('name', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'length' => 255,
+        ));
         $this->hasColumn('type', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
+            'type' => 'string',
+            'length' => 255,
+        ));
 
         $this->setSubClasses(array(
-             'AuthorInheritance' =>
-             array(
-              'type' => 'AuthorInheritance',
-             ),
-             'BlogAuthor' =>
-             array(
-              'type' => 'BlogAuthor',
-             ),
-             ));
+            'AuthorInheritance' =>
+            array(
+                'type' => 'AuthorInheritance',
+            ),
+            'BlogAuthor' =>
+            array(
+                'type' => 'BlogAuthor',
+            ),
+        ));
     }
 
     public function setUp()
     {
         parent::setUp();
         $this->hasMany('Article as Articles', array(
-             'local' => 'id',
-             'foreign' => 'author_id'));
+            'local' => 'id',
+            'foreign' => 'author_id'));
     }
 
 }

@@ -33,20 +33,20 @@
 class Doctrine_I18n extends Doctrine_Record_Generator
 {
     protected $_options = array(
-                            'className'     => '%CLASS%Translation',
-                            'tableName'     => '%TABLE%_translation',
-                            'fields'        => array(),
-                            'generateFiles' => false,
-                            'table'         => false,
-                            'pluginTable'   => false,
-                            'children'      => array(),
-                            'i18nField'     => 'lang',
-                            'type'          => 'string',
-                            'length'        => 2,
-                            'options'       => array(),
-                            'cascadeDelete' => true,
-                            'appLevelDelete'=> false
-                            );
+        'className'     => '%CLASS%Translation',
+        'tableName'     => '%TABLE%_translation',
+        'fields'        => array(),
+        'generateFiles' => false,
+        'table'         => false,
+        'pluginTable'   => false,
+        'children'      => array(),
+        'i18nField'     => 'lang',
+        'type'          => 'string',
+        'length'        => 2,
+        'options'       => array(),
+        'cascadeDelete' => true,
+        'appLevelDelete'=> false
+    );
 
     /**
      * __construct

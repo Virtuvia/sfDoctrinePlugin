@@ -65,12 +65,12 @@ class sfDoctrinePluginConfiguration extends sfPluginConfiguration
   public function getModelBuilderOptions()
   {
     $options = array(
-      'generateBaseClasses'  => true,
-      'generateTableClasses' => true,
-      'packagesPrefix'       => 'Plugin',
-      'suffix'               => '.class.php',
-      'baseClassesDirectory' => 'base',
-      'baseClassName'        => 'sfDoctrineRecord',
+        'generateBaseClasses'  => true,
+        'generateTableClasses' => true,
+        'packagesPrefix'       => 'Plugin',
+        'suffix'               => '.class.php',
+        'baseClassesDirectory' => 'base',
+        'baseClassName'        => 'sfDoctrineRecord',
     );
 
     // for BC
@@ -90,11 +90,11 @@ class sfDoctrinePluginConfiguration extends sfPluginConfiguration
   public function getCliConfig()
   {
     $config = array(
-      'data_fixtures_path' => array_merge(array(sfConfig::get('sf_data_dir').'/fixtures'), $this->configuration->getPluginSubPaths('/data/fixtures')),
-      'models_path'        => sfConfig::get('sf_lib_dir').'/model/doctrine',
-      'migrations_path'    => sfConfig::get('sf_lib_dir').'/migration/doctrine',
-      'sql_path'           => sfConfig::get('sf_data_dir').'/sql',
-      'yaml_schema_path'   => sfConfig::get('sf_config_dir').'/doctrine',
+        'data_fixtures_path' => array_merge(array(sfConfig::get('sf_data_dir').'/fixtures'), $this->configuration->getPluginSubPaths('/data/fixtures')),
+        'models_path'        => sfConfig::get('sf_lib_dir').'/model/doctrine',
+        'migrations_path'    => sfConfig::get('sf_lib_dir').'/migration/doctrine',
+        'sql_path'           => sfConfig::get('sf_data_dir').'/sql',
+        'yaml_schema_path'   => sfConfig::get('sf_config_dir').'/doctrine',
     );
 
     // filter config through the dispatcher

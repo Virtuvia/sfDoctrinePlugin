@@ -255,9 +255,9 @@ class Doctrine_DataDict_Sqlite extends Doctrine_DataDict
         }
 
         return array('type'     => $type,
-                     'length'   => $length,
-                     'unsigned' => $unsigned,
-                     'fixed'    => $fixed);
+            'length'   => $length,
+            'unsigned' => $unsigned,
+            'fixed'    => $fixed);
     }
 
     /**
