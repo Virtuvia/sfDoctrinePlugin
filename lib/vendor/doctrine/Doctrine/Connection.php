@@ -1495,11 +1495,8 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * connections with no database, but some do not. In that case we have a table
      * which is always guaranteed to exist. Mysql: 'mysql', PostgreSQL: 'postgres', etc.
      * This value is set in the Doctrine_Export_{DRIVER} classes if required
-     *
-     * @param string $info
-     * @return void
      */
-    public function getTmpConnection($info)
+    private function getTmpConnection(array $info): Doctrine_Connection
     {
         $pdoDsn = $info['scheme'] . ':';
 
