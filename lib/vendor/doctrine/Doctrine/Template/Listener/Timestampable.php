@@ -54,10 +54,9 @@ class Doctrine_Template_Listener_Timestampable extends Doctrine_Record_Listener
     /**
      * Set the created and updated Timestampable columns when a record is inserted
      *
-     * @param Doctrine_Event $event
-     * @return void
+     * @param Doctrine_Event<Doctrine_Record> $event
      */
-    public function preInsert(Doctrine_Event $event)
+    public function preInsert(Doctrine_Event $event): void
     {
         if (! $this->_options['created']['disabled']) {
             $createdName = $event->getInvoker()->getTable()->getFieldName($this->_options['created']['name']);
@@ -79,10 +78,9 @@ class Doctrine_Template_Listener_Timestampable extends Doctrine_Record_Listener
     /**
      * Set updated Timestampable column when a record is updated
      *
-     * @param Doctrine_Event $evet
-     * @return void
+     * @param Doctrine_Event<Doctrine_Record> $event
      */
-    public function preUpdate(Doctrine_Event $event)
+    public function preUpdate(Doctrine_Event $event): void
     {
         if (! $this->_options['updated']['disabled']) {
             $updatedName = $event->getInvoker()->getTable()->getFieldName($this->_options['updated']['name']);
@@ -96,10 +94,9 @@ class Doctrine_Template_Listener_Timestampable extends Doctrine_Record_Listener
     /**
      * Set the updated field for dql update queries
      *
-     * @param Doctrine_Event $evet
-     * @return void
+     * @param Doctrine_Event<Doctrine_Record> $event
      */
-    public function preDqlUpdate(Doctrine_Event $event)
+    public function preDqlUpdate(Doctrine_Event $event): void
     {
         if (! $this->_options['updated']['disabled']) {
             $params = $event->getParams();

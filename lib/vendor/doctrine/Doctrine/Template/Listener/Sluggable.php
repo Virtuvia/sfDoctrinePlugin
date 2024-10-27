@@ -53,10 +53,9 @@ class Doctrine_Template_Listener_Sluggable extends Doctrine_Record_Listener
     /**
      * Set the slug value automatically when a record is inserted
      *
-     * @param Doctrine_Event $event
-     * @return void
+     * @param Doctrine_Event<Doctrine_Record> $event
      */
-    public function preInsert(Doctrine_Event $event)
+    public function preInsert(Doctrine_Event $event): void
     {
         $record = $event->getInvoker();
         $name = $record->getTable()->getFieldName($this->_options['name']);
@@ -70,10 +69,9 @@ class Doctrine_Template_Listener_Sluggable extends Doctrine_Record_Listener
      * Set the slug value automatically when a record is updated if the options are configured
      * to allow it
      *
-     * @param Doctrine_Event $event
-     * @return void
+     * @param Doctrine_Event<Doctrine_Record> $event
      */
-    public function preUpdate(Doctrine_Event $event)
+    public function preUpdate(Doctrine_Event $event): void
     {
         if (false !== $this->_options['unique']) {
             $record = $event->getInvoker();
