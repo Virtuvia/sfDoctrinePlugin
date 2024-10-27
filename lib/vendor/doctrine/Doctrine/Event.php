@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  *  $Id$
  *
@@ -29,6 +32,8 @@
  * @link        www.doctrine-project.org
  * @since       1.0
  * @version     $Revision$
+ *
+ * @template TInvoker of Doctrine_Connection_Statement|Doctrine_Connection|Doctrine_Transaction|Doctrine_Record
  */
 class Doctrine_Event
 {
@@ -80,9 +85,9 @@ class Doctrine_Event
     protected $_sequence;
 
     /**
-     * @var mixed $_invoker             the handler which invoked this event
+     * @var null|TInvoker $_invoker             the handler which invoked this event
      */
-    protected $_invoker;
+    protected ?object $_invoker;
 
     /**
      * @var string $_query              the sql query associated with this event (if any)
@@ -118,12 +123,11 @@ class Doctrine_Event
     /**
      * constructor
      *
-     * @param Doctrine_Connection|Doctrine_Connection_Statement|
-              Doctrine_Connection_UnitOfWork|Doctrine_Transaction $invoker   the handler which invoked this event
+     * @param null|TInvoker $invoker   the handler which invoked this event
      * @param int $code                                                  the event code
      * @param string $query                                                  the sql query associated with this event (if any)
      */
-    public function __construct($invoker, $code, $query = null, $params = [])
+    public function __construct(?object $invoker, $code, $query = null, $params = [])
     {
         $this->_sequence = self::$_nextSequence++;
         $this->_invoker  = $invoker;
@@ -328,10 +332,9 @@ class Doctrine_Event
      * getInvoker
      * returns the handler that invoked this event
      *
-     * @return Doctrine_Connection|Doctrine_Connection_Statement|
-     *         Doctrine_Connection_UnitOfWork|Doctrine_Transaction   the handler that invoked this event
+     * @return TInvoker|object   the handler that invoked this event
      */
-    public function getInvoker()
+    public function getInvoker(): object
     {
         return $this->_invoker;
     }
@@ -340,10 +343,10 @@ class Doctrine_Event
      * setInvoker
      * Defines new invoker (used in Hydrator)
      *
-     * @param mixed $invoker
+     * @param TInvoker $invoker
      * @return void
      */
-    public function setInvoker($invoker)
+    public function setInvoker(object $invoker): void
     {
         $this->_invoker = $invoker;
     }
