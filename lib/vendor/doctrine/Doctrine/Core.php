@@ -354,11 +354,6 @@ class Doctrine_Core
     public const HYDRATE_SINGLE_SCALAR     = 6;
 
     /**
-     * HYDRATE_ON_DEMAND
-     */
-    public const HYDRATE_ON_DEMAND         = 7;
-
-    /**
      * HYDRATE_ARRAY_HIERARCHY
      */
     public const HYDRATE_ARRAY_HIERARCHY   = 8;

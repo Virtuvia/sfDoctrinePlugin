@@ -99,22 +99,9 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
 
         $event = new Doctrine_Event(null, Doctrine_Event::HYDRATE, null);
 
-        if ($this->_hydrationMode == Doctrine_Core::HYDRATE_ON_DEMAND) {
-            if (! is_null($this->_priorRow)) {
-                $data = $this->_priorRow;
-                $this->_priorRow = null;
-            } else {
-                $data = $stmt->fetch(Doctrine_Core::FETCH_ASSOC);
-                if (! $data) {
-                    return $result;
-                }
-            }
-            $activeRootIdentifier = null;
-        } else {
-            $data = $stmt->fetch(Doctrine_Core::FETCH_ASSOC);
-            if (! $data) {
-                return $result;
-            }
+        $data = $stmt->fetch(Doctrine_Core::FETCH_ASSOC);
+        if (! $data) {
+            return $result;
         }
 
         do {
@@ -127,17 +114,6 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
             $id = $idTemplate; // initialize the id-memory
             $nonemptyComponents = [];
             $rowData = $this->_gatherRowData($data, $cache, $id, $nonemptyComponents);
-
-            if ($this->_hydrationMode == Doctrine_Core::HYDRATE_ON_DEMAND) {
-                if (is_null($activeRootIdentifier)) {
-                    // first row for this record
-                    $activeRootIdentifier = $id[$rootAlias];
-                } elseif ($activeRootIdentifier != $id[$rootAlias]) {
-                    // first row for the next record
-                    $this->_priorRow = $data;
-                    return $result;
-                }
-            }
 
             //
             // hydrate the data of the root component from the current row

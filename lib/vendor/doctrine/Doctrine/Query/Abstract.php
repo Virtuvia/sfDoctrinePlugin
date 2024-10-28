@@ -922,12 +922,7 @@ abstract class Doctrine_Query_Abstract
             $result = $stmt;
         } else {
             $this->_hydrator->setQueryComponents($this->_queryComponents);
-            if ($this->_type == self::SELECT && $hydrationMode == Doctrine_Core::HYDRATE_ON_DEMAND) {
-                $hydrationDriver = $this->_hydrator->getHydratorDriver($hydrationMode, $this->_tableAliasMap);
-                $result = new Doctrine_Collection_OnDemand($stmt, $hydrationDriver, $this->_tableAliasMap);
-            } else {
-                $result = $this->_hydrator->hydrateResultSet($stmt, $this->_tableAliasMap);
-            }
+            $result = $this->_hydrator->hydrateResultSet($stmt, $this->_tableAliasMap);
         }
         if ($this->getConnection()->getAttribute(Doctrine_Core::ATTR_AUTO_FREE_QUERY_OBJECTS)) {
             $this->free();

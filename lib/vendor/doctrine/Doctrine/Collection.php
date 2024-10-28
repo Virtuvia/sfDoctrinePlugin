@@ -592,16 +592,6 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
     }
 
     /**
-     * Get normal iterator - an iterator that will not expand this collection
-     *
-     * @return Doctrine_Iterator_Normal $iterator
-     */
-    public function getNormalIterator()
-    {
-        return new Doctrine_Collection_Iterator_Normal($this);
-    }
-
-    /**
      * Takes a snapshot from this collection
      *
      * snapshots are used for diff processing, for example

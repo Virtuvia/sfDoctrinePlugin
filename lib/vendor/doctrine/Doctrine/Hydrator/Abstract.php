@@ -85,11 +85,6 @@ abstract class Doctrine_Hydrator_Abstract extends Doctrine_Locator_Injectable
         return $queryComponents[0]['table'];
     }
 
-    public function onDemandReset()
-    {
-        $this->_priorRow = null;
-    }
-
     /**
      * hydrateResultSet
      * parses the data returned by statement object
