@@ -135,66 +135,6 @@ class Doctrine_Record_Listener_Chain extends Doctrine_Access implements Doctrine
         $this->_listeners[$key] = $listener;
     }
 
-    public function preSerialize(Doctrine_Event $event)
-    {
-        $disabled = $this->getOption('disabled');
-
-        if ($disabled !== true && ! (is_array($disabled) && in_array('preSerialize', $disabled))) {
-            foreach ($this->_listeners as $listener) {
-                $disabled = $listener->getOption('disabled');
-
-                if ($disabled !== true && ! (is_array($disabled) && in_array('preSerialize', $disabled))) {
-                    $listener->preSerialize($event);
-                }
-            }
-        }
-    }
-
-    public function postSerialize(Doctrine_Event $event)
-    {
-        $disabled = $this->getOption('disabled');
-
-        if ($disabled !== true && ! (is_array($disabled) && in_array('postSerialize', $disabled))) {
-            foreach ($this->_listeners as $listener) {
-                $disabled = $listener->getOption('disabled');
-
-                if ($disabled !== true && ! (is_array($disabled) && in_array('postSerialize', $disabled))) {
-                    $listener->postSerialize($event);
-                }
-            }
-        }
-    }
-
-    public function preUnserialize(Doctrine_Event $event)
-    {
-        $disabled = $this->getOption('disabled');
-
-        if ($disabled !== true && ! (is_array($disabled) && in_array('preUnserialize', $disabled))) {
-            foreach ($this->_listeners as $listener) {
-                $disabled = $listener->getOption('disabled');
-
-                if ($disabled !== true && ! (is_array($disabled) && in_array('preUnserialize', $disabled))) {
-                    $listener->preUnserialize($event);
-                }
-            }
-        }
-    }
-
-    public function postUnserialize(Doctrine_Event $event)
-    {
-        $disabled = $this->getOption('disabled');
-
-        if ($disabled !== true && ! (is_array($disabled) && in_array('postUnserialize', $disabled))) {
-            foreach ($this->_listeners as $listener) {
-                $disabled = $listener->getOption('disabled');
-
-                if ($disabled !== true && ! (is_array($disabled) && in_array('postUnserialize', $disabled))) {
-                    $listener->postUnserialize($event);
-                }
-            }
-        }
-    }
-
     public function preDqlSelect(Doctrine_Event $event)
     {
         $disabled = $this->getOption('disabled');

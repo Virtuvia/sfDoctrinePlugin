@@ -159,13 +159,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     protected $_pendingUnlinks = [];
 
     /**
-     * Whether or not to serialize references when a Doctrine_Record is serialized
-     *
-     * @var bool
-     */
-    protected $_serializeReferences = false;
-
-    /**
      * Array containing the save hooks and events that have been invoked
      *
      * @var array
@@ -254,22 +247,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     }
 
     /**
-     * Set whether or not to serialize references.
-     * This is used by caching since we want to serialize references when caching
-     * but not when just normally serializing a instance
-     *
-     * @param bool $bool
-     * @return bool $bool
-     */
-    public function serializeReferences($bool = null)
-    {
-        if (! is_null($bool)) {
-            $this->_serializeReferences = $bool;
-        }
-        return $this->_serializeReferences;
-    }
-
-    /**
      * the current instance counter used to generate unique ids for php objects. Contains the next identifier.
      *
      * @return int
@@ -323,7 +300,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * </code>
      *
      * @param string $when           'post' or 'pre'
-     * @param string $type           serialize, unserialize, save, delete, update, insert, validate, dqlSelect, dqlDelete, hydrate
+     * @param string $type           save, delete, update, insert, validate, dqlSelect, dqlDelete, hydrate
      * @param Doctrine_Event $event  event raised
      * @return Doctrine_Event        the event generated using the type, if not specified
      */
@@ -454,38 +431,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * inserted into the data store the first time.
      */
     protected function validateOnInsert()
-    {
-    }
-
-    /**
-     * Empty template method to provide concrete Record classes with the possibility
-     * to hook into the serializing procedure.
-     */
-    public function preSerialize($event)
-    {
-    }
-
-    /**
-     * Empty template method to provide concrete Record classes with the possibility
-     * to hook into the serializing procedure.
-     */
-    public function postSerialize($event)
-    {
-    }
-
-    /**
-     * Empty template method to provide concrete Record classes with the possibility
-     * to hook into the serializing procedure.
-     */
-    public function preUnserialize($event)
-    {
-    }
-
-    /**
-     * Empty template method to provide concrete Record classes with the possibility
-     * to hook into the serializing procedure.
-     */
-    public function postUnserialize($event)
     {
     }
 
@@ -803,115 +748,14 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         }
     }
 
-    /**
-     * serialize
-     * this method is automatically called when an instance of Doctrine_Record is serialized
-     */
-    public function __serialize(): array
+    final public function __serialize(): array
     {
-        $event = new Doctrine_Event($this, Doctrine_Event::RECORD_SERIALIZE);
-
-        $this->preSerialize($event);
-        $this->getTable()->getRecordListener()->preSerialize($event);
-
-        $vars = get_object_vars($this);
-
-        if (! $this->serializeReferences()) {
-            unset($vars['_references']);
-        }
-        unset($vars['_table']);
-        unset($vars['_errorStack']);
-        unset($vars['_node']);
-
-        $data = $this->_data;
-        if ($this->exists()) {
-            $data = array_merge($data, $this->_id);
-        }
-
-        foreach ($data as $k => $v) {
-            if ($v instanceof Doctrine_Record && $this->_table->getTypeOf($k) != 'object') {
-                unset($vars['_data'][$k]);
-            } elseif ($v === self::$_null) {
-                unset($vars['_data'][$k]);
-            } else {
-                switch ($this->_table->getTypeOf($k)) {
-                    case 'array':
-                    case 'object':
-                        break;
-                    case 'gzip':
-                        $vars['_data'][$k] = gzcompress($vars['_data'][$k]);
-                        break;
-                    case 'enum':
-                        $vars['_data'][$k] = $this->_table->enumIndex($k, $vars['_data'][$k]);
-                        break;
-                }
-            }
-        }
-
-        $this->postSerialize($event);
-        $this->getTable()->getRecordListener()->postSerialize($event);
-
-        return $vars;
+        throw new LogicException('serialize is not supported for ' . static::class);
     }
 
-    /**
-     * this method is automatically called everytime an instance is unserialized
-     *
-     * @param array $data                Doctrine_Record as serialized string
-     * @throws Doctrine_Record_Exception        if the cleanData operation fails somehow
-     * @return void
-     */
-    public function __unserialize(array $data): void
+    final public function __unserialize(array $data): void
     {
-        $event = new Doctrine_Event($this, Doctrine_Event::RECORD_UNSERIALIZE);
-
-        $manager    = Doctrine_Manager::getInstance();
-        $connection = $manager->getConnectionForComponent(get_class($this));
-
-        $this->_table = $connection->getTable(get_class($this));
-
-        $this->preUnserialize($event);
-        $this->getTable()->getRecordListener()->preUnserialize($event);
-
-        foreach ($data as $k => $v) {
-            $this->$k = $v;
-        }
-
-        foreach ($this->_data as $k => $v) {
-            switch ($this->_table->getTypeOf($k)) {
-                case 'array':
-                case 'object':
-                    break;
-                case 'gzip':
-                    $this->_data[$k] = gzuncompress($this->_data[$k]);
-                    break;
-                case 'enum':
-                    $this->_data[$k] = $this->_table->enumValue($k, $this->_data[$k]);
-                    break;
-
-            }
-        }
-
-        // Remove existing record from the repository and table entity map.
-        $this->_table->setData($this->_data);
-        $existing_record = $this->_table->getRecord();
-        if ($existing_record->exists()) {
-            $this->_table->getRepository()->evict($existing_record->getOid());
-            $this->_table->removeRecord($existing_record);
-        }
-
-        // Add the unserialized record to repository and entity map.
-        $this->_oid = self::$_index;
-        self::$_index++;
-        $this->_table->getRepository()->add($this);
-        $this->_table->addRecord($this);
-
-        $this->cleanData($this->_data);
-
-        $this->prepareIdentifiers($this->exists());
-
-        $this->postUnserialize($event);
-        $this->getTable()->getRecordListener()->postUnserialize($event);
+        throw new LogicException('unserialize is not supported for ' . static::class);
     }
 
     /**

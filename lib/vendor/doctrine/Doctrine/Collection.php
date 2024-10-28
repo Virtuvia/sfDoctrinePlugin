@@ -142,49 +142,14 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
         $this->data = $data;
     }
 
-    /**
-     * This method is automatically called when this Doctrine_Collection is serialized
-     */
     public function __serialize(): array
     {
-        $vars = get_object_vars($this);
-
-        unset(
-            $vars['reference'],
-            $vars['referenceField'],
-            $vars['relation'],
-            $vars['expandable'],
-            $vars['expanded'],
-            $vars['generator'],
-        );
-
-        $vars['_table'] = $vars['_table']->getComponentName();
-
-        return $vars;
+        throw new \LogicException('serialize is not supported for ' . self::class);
     }
 
-    /**
-     * This method is automatically called everytime a Doctrine_Collection object is unserialized
-     */
     public function __unserialize(array $data): void
     {
-        $manager    = Doctrine_Manager::getInstance();
-        $connection    = $manager->getCurrentConnection();
-
-        foreach ($data as $name => $values) {
-            $this->$name = $values;
-        }
-
-        $this->_table = $connection->getTable($this->_table);
-
-        $keyColumn = $data['keyColumn'] ?? null;
-        if ($keyColumn === null) {
-            $keyColumn = $this->_table->getBoundQueryPart('indexBy');
-        }
-
-        if ($keyColumn !== null) {
-            $this->keyColumn = $keyColumn;
-        }
+        throw new \LogicException('unserialize is not supported for ' . self::class);
     }
 
     /**

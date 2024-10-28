@@ -80,22 +80,6 @@ class Doctrine_Record_Listener implements Doctrine_Record_Listener_Interface
         return null;
     }
 
-    public function preSerialize(Doctrine_Event $event)
-    {
-    }
-
-    public function postSerialize(Doctrine_Event $event)
-    {
-    }
-
-    public function preUnserialize(Doctrine_Event $event)
-    {
-    }
-
-    public function postUnserialize(Doctrine_Event $event)
-    {
-    }
-
     public function preDqlSelect(Doctrine_Event $event)
     {
     }

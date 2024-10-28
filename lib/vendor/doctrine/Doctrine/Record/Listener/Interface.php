@@ -38,14 +38,6 @@ interface Doctrine_Record_Listener_Interface
 
     public function getOption($name);
 
-    public function preSerialize(Doctrine_Event $event);
-
-    public function postSerialize(Doctrine_Event $event);
-
-    public function preUnserialize(Doctrine_Event $event);
-
-    public function postUnserialize(Doctrine_Event $event);
-
     public function preSave(Doctrine_Event $event);
 
     public function postSave(Doctrine_Event $event);
