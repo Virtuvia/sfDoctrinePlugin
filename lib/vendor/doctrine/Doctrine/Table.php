@@ -182,7 +182,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     ];
 
     /**
-     * @var Doctrine_Tree $tree                 tree object associated with this table
+     * @var null|Doctrine_Tree_Interface $tree                 tree object associated with this table
      */
     protected $_tree;
 
@@ -2405,17 +2405,14 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      * This method returns the associated Tree object (if any exists).
      * Normally implemented by NestedSet behavior.
      *
-     * @return Doctrine_Tree false if not a tree
+     * @return Doctrine_Tree_Interface false if not a tree
      */
     public function getTree()
     {
         if (isset($this->_options['treeImpl'])) {
             if (! $this->_tree) {
-                $options = isset($this->_options['treeOptions']) ? $this->_options['treeOptions'] : [];
-                $this->_tree = Doctrine_Tree::factory($this,
-                    $this->_options['treeImpl'],
-                    $options,
-                );
+                $options = $this->_options['treeOptions'] ?? [];
+                $this->_tree = new Doctrine_Tree_NestedSet($this, $options);
             }
             return $this->_tree;
         }

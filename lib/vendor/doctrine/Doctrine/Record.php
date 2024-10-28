@@ -88,7 +88,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     public const STATE_TLOCKED     = 7;
 
     /**
-     * @var Doctrine_Node_<TreeImpl>        node object
+     * @var null|Doctrine_Node_Interface        node object
      */
     protected $_node;
 
@@ -2281,7 +2281,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     /**
      * getter for node associated with this record
      *
-     * @return Doctrine_Node    false if component is not a Tree
+     * @return Doctrine_Node_Interface    false if component is not a Tree
      */
     public function getNode()
     {
@@ -2290,10 +2290,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         }
 
         if (! isset($this->_node)) {
-            $this->_node = Doctrine_Node::factory($this,
-                $this->getTable()->getOption('treeImpl'),
-                $this->getTable()->getOption('treeOptions'),
-            );
+            $this->_node = new Doctrine_Node_NestedSet($this, $this->getTable()->getOption('treeOptions'));
         }
 
         return $this->_node;

@@ -85,27 +85,6 @@ class Doctrine_Tree
     }
 
     /**
-     * Factory method to create a Tree.
-     *
-     * This is a factory method that returns a tree instance based upon
-     * chosen implementation.
-     *
-     * @param object $table                     instance of Doctrine_Table
-     * @param string $impName                   implementation (NestedSet, AdjacencyList, MaterializedPath)
-     * @param array $options                    options
-     * @return Doctrine_Tree
-     * @throws Doctrine_Exception               if class $implName does not extend Doctrine_Tree
-     */
-    public static function factory(Doctrine_Table $table, $implName, $options = [])
-    {
-        $class = 'Doctrine_Tree_' . $implName;
-        if (! class_exists($class)) {
-            throw new Doctrine_Exception('The chosen class must extend Doctrine_Tree');
-        }
-        return new $class($table, $options);
-    }
-
-    /**
      * gets tree attribute value
      *
      */

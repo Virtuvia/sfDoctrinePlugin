@@ -91,29 +91,6 @@ abstract class Doctrine_Node
     }
 
     /**
-     * Factory method for creating a Node.
-     *
-     * This is a factory method that returns node instance based upon chosen
-     * implementation.
-     *
-     * @param object $record                    instance of Doctrine_Record
-     * @param string $implName                  implementation (NestedSet, AdjacencyList, MaterializedPath)
-     * @param array $options                    options
-     * @return Doctrine_Node
-     * @throws Doctrine_Node_Exception          if $implName is not a valid class
-     */
-    public static function factory(Doctrine_Record $record, $implName, $options = [])
-    {
-        $class = 'Doctrine_Node_' . $implName;
-
-        if (! class_exists($class)) {
-            throw new Doctrine_Node_Exception("The class $class must exist and extend Doctrine_Node");
-        }
-
-        return new $class($record, $options);
-    }
-
-    /**
      * setter for record attribute
      *
      * @param object $record                    instance of Doctrine_Record
