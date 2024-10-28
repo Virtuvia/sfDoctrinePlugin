@@ -30,7 +30,7 @@
  * @version     $Revision: 7490 $
  * @author      Joe Simms <joe.simms@websites4.com>
  */
-class Doctrine_Node implements IteratorAggregate
+abstract class Doctrine_Node
 {
     /**
      * @param object    $record   reference to associated Doctrine_Record instance
@@ -41,16 +41,6 @@ class Doctrine_Node implements IteratorAggregate
      * @param array     $options
      */
     protected $options;
-
-    /**
-     * @param string     $iteratorType  (Pre | Post | Level)
-     */
-    protected $iteratorType;
-
-    /**
-     * @param array     $iteratorOptions
-     */
-    protected $iteratorOptions;
 
     /**
      * The tree to which the node belongs.
@@ -141,59 +131,5 @@ class Doctrine_Node implements IteratorAggregate
     public function getRecord()
     {
         return $this->record;
-    }
-
-    /**
-     * convenience function for getIterator
-     *
-     * @param string $type                      type of iterator (Pre | Post | Level)
-     * @param array $options                    options
-     */
-    public function traverse($type = 'Pre', $options = [])
-    {
-        return $this->getIterator($type, $options);
-    }
-
-    /**
-     * get iterator
-     *
-     * @param string $type                      type of iterator (Pre | Post | Level)
-     * @param array $options                    options
-     * @return Traversable|iterable<Doctrine_Record>
-     */
-    public function getIterator(string $type = null, array $options = null): Traversable
-    {
-        if ($type === null) {
-            $type = (isset($this->iteratorType) ? $this->iteratorType : 'Pre');
-        }
-
-        if ($options === null) {
-            $options = (isset($this->iteratorOptions) ? $this->iteratorOptions : []);
-        }
-
-        $implName = $this->record->getTable()->getOption('treeImpl');
-        $iteratorClass = 'Doctrine_Node_' . $implName . '_' . ucfirst(strtolower($type)) . 'OrderIterator';
-
-        return new $iteratorClass($this->record, $options);
-    }
-
-    /**
-     * sets node's iterator type
-     *
-     * @param int
-     */
-    public function setIteratorType($type)
-    {
-        $this->iteratorType = $type;
-    }
-
-    /**
-     * sets node's iterator options
-     *
-     * @param int
-     */
-    public function setIteratorOptions($options)
-    {
-        $this->iteratorOptions = $options;
     }
 }
