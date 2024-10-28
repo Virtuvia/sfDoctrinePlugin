@@ -135,7 +135,6 @@ abstract class Doctrine_Record_Generator extends Doctrine_Record_Abstract
     /**
      * Initialize the plugin. Call in Doctrine_Template setTableDefinition() in order to initiate a generator in a template
      *
-     * @see Doctrine_Template_I18n
      * @param  Doctrine_Table $table
      * @return void
      */

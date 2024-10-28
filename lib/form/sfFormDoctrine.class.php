@@ -60,31 +60,6 @@ abstract class sfFormDoctrine extends sfFormObject
     }
 
     /**
-     * Embeds i18n objects into the current form.
-     *
-     * @param array   $cultures   An array of cultures
-     * @param string  $decorator  A HTML decorator for the embedded form
-     */
-    public function embedI18n($cultures, $decorator = null)
-    {
-        if (!$this->isI18n()) {
-            throw new sfException(sprintf('The model "%s" is not internationalized.', $this->getModelName()));
-        }
-
-        $class = $this->getI18nFormClass();
-        foreach ($cultures as $culture) {
-            $i18nObject = $this->getObject()->Translation[$culture];
-            $i18n = new $class($i18nObject);
-
-            if (false === $i18nObject->exists()) {
-                unset($i18n[$this->getI18nModelPrimaryKeyName()], $i18n[$this->getI18nModelI18nField()]);
-            }
-
-            $this->embedForm($culture, $i18n, $decorator);
-        }
-    }
-
-    /**
      * Embed a Doctrine_Collection relationship in to a form
      *
      *     [php]
@@ -170,62 +145,6 @@ abstract class sfFormDoctrine extends sfFormObject
         }
 
         return $values;
-    }
-
-    /**
-     * Returns true if the current form has some associated i18n objects.
-     *
-     * @return bool true if the current form has some associated i18n objects, false otherwise
-     */
-    public function isI18n()
-    {
-        return $this->getObject()->getTable()->hasTemplate('Doctrine_Template_I18n');
-    }
-
-    /**
-     * Returns the name of the i18n model.
-     *
-     * @return string The name of the i18n model
-     */
-    public function getI18nModelName()
-    {
-        return $this->getObject()->getTable()->getTemplate('Doctrine_Template_I18n')->getI18n()->getOption('className');
-    }
-
-    /**
-     * Returns the name of the i18n form class.
-     *
-     * @return string The name of the i18n form class
-     */
-    public function getI18nFormClass()
-    {
-        return $this->getI18nModelName() . 'Form';
-    }
-
-    /**
-     * Returns the primary key name of the i18n model.
-     *
-     * @return string The primary key name of the i18n model
-     */
-    public function getI18nModelPrimaryKeyName()
-    {
-        $primaryKey = $this->getObject()->getTable()->getIdentifier();
-
-        if (is_array($primaryKey)) {
-            throw new sfException(sprintf('The model "%s" has composite primary keys and cannot be used with i18n..', $this->getModelName()));
-        }
-
-        return $primaryKey;
-    }
-
-    /**
-     * Returns the i18nField name of the i18n model.
-     *
-     * @return string The i18nField name of the i18n model
-     */
-    public function getI18nModelI18nField()
-    {
-        return $this->getObject()->getTable()->getTemplate('Doctrine_Template_I18n')->getI18n()->getOption('i18nField');
     }
 
     /**

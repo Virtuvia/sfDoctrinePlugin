@@ -102,40 +102,6 @@ class AdminGenBrowser extends sfTestBrowser
         ;
     }
 
-    protected function _testArticleI18nEmbedded()
-    {
-        $this->info('Testing "articles" module embeds I18n');
-
-        $info = ['author_id' => 1, 'is_on_homepage' => false, 'en' => ['title' => 'Test English title', 'body' => 'Test English body'], 'fr' => ['title' => 'Test French title', 'body' => 'Test French body'], 'created_at' => ['month' => '1', 'day' => '12', 'year' => '2009', 'hour' => '10', 'minute' => '03'], 'updated_at' => ['month' => '1', 'day' => '12', 'year' => '2009', 'hour' => '10', 'minute' => '03']];
-
-        $this->
-          get('/articles/new')->
-            with('response')->begin()->
-              matches('/En/')->
-              matches('/Fr/')->
-              matches('/Title/')->
-              matches('/Body/')->
-              matches('/Slug/')->
-              matches('/Jonathan H. Wage/')->
-              matches('/Fabien POTENCIER/')->
-            end()->
-            with('request')->begin()->
-              isParameter('module', 'articles')->
-              isParameter('action', 'new')->
-            end()->
-          click('Save', ['article' => $info])->
-            with('response')->begin()->
-              isRedirected()->
-              followRedirect()->
-            end()->
-            with('doctrine')->begin()->
-              check('Article', ['is_on_homepage' => $info['is_on_homepage']])->
-              check('ArticleTranslation', ['lang' => 'fr', 'title' => 'Test French title'])->
-              check('ArticleTranslation', ['lang' => 'en', 'title' => 'Test English title'])->
-            end()
-        ;
-    }
-
     protected function _testEnumDropdown()
     {
         $this->info('Test enum column type uses a dropdown as the widget');

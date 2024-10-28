@@ -3,7 +3,7 @@
 $app = 'frontend';
 include dirname(__FILE__) . '/../../bootstrap/functional.php';
 
-$t = new lime_test(9);
+$t = new lime_test(7);
 
 // ->__construct()
 $t->diag('->__construct()');

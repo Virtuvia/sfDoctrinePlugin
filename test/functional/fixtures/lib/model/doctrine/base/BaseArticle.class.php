@@ -95,28 +95,18 @@ abstract class BaseArticle extends myDoctrineRecord
              'local' => 'id',
              'foreign' => 'article_id']);
 
-        $i18n0 = new Doctrine_Template_I18n(array(
-             'fields' =>
-             array(
-              0 => 'title',
-              1 => 'body',
-              2 => 'test_column',
-             ),
-             ));
-        $sluggable1 = new Doctrine_Template_Sluggable(array(
+        $sluggable0 = new Doctrine_Template_Sluggable(array(
              'fields' =>
              array(
               0 => 'title',
              ),
              'uniqueBy' =>
              array(
-              0 => 'lang',
-              1 => 'title',
+              0 => 'title',
              ),
              ));
-        $i18n0->addChild($sluggable1);
         $timestampable0 = new Doctrine_Template_Timestampable();
-        $this->actAs($i18n0);
+        $this->actAs($sluggable0);
         $this->actAs($timestampable0);
     }
 
