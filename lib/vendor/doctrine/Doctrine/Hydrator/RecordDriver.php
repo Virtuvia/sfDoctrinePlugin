@@ -34,6 +34,8 @@
  */
 class Doctrine_Hydrator_RecordDriver extends Doctrine_Hydrator_Graph
 {
+    use Doctrine_NullInjectable;
+
     protected $_collections = [];
     private $_initializedRelations = [];
 

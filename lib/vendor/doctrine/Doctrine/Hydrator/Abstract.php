@@ -30,7 +30,7 @@
  * @version     $Revision: 3192 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
-abstract class Doctrine_Hydrator_Abstract extends Doctrine_Locator_Injectable
+abstract class Doctrine_Hydrator_Abstract
 {
     protected $_queryComponents = [];
     protected $_tableAliases = [];

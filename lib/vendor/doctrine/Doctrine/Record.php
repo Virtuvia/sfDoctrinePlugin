@@ -33,6 +33,8 @@
  */
 abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Countable, IteratorAggregate
 {
+    use Doctrine_NullInjectable;
+
     /**
      * STATE CONSTANTS
      */

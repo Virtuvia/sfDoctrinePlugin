@@ -105,7 +105,9 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
     private function __construct()
     {
         $null = new Doctrine_Null();
-        Doctrine_Locator_Injectable::initNullObject($null);
+        Doctrine_Record::initNullObject($null);
+        Doctrine_Table::initNullObject($null);
+        Doctrine_Hydrator_RecordDriver::initNullObject($null);
         Doctrine_Record_Iterator::initNullObject($null);
     }
 

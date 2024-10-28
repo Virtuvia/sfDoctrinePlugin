@@ -69,11 +69,6 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
     protected $keyColumn;
 
     /**
-     * @var Doctrine_Null $null             used for extremely fast null value testing
-     */
-    protected static $null;
-
-    /**
      * constructor
      *
      * @param Doctrine_Table|string $table
@@ -97,16 +92,6 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
         if ($keyColumn !== null) {
             $this->keyColumn = $keyColumn;
         }
-    }
-
-    /**
-     * Initializes the null object for this collection
-     *
-     * @return void
-     */
-    public static function initNullObject(Doctrine_Null $null)
-    {
-        self::$null = $null;
     }
 
     public static function create($table, $keyColumn = null, $class = null)
