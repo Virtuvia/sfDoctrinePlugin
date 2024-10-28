@@ -33,18 +33,6 @@
 class Doctrine_Connection_Profiler implements Doctrine_Overloadable, IteratorAggregate, Countable
 {
     /**
-     * @param array $listeners      an array containing all availible listeners
-     */
-    private $listeners  = ['query',
-        'prepare',
-        'commit',
-        'rollback',
-        'connect',
-        'begintransaction',
-        'exec',
-        'execute'];
-
-    /**
      * @param array $events         an array containing all listened events
      */
     private $events     = [];
@@ -54,22 +42,6 @@ class Doctrine_Connection_Profiler implements Doctrine_Overloadable, IteratorAgg
      */
     private $eventSequences = [];
 
-    /**
-     * constructor
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * setFilterQueryType
-     *
-     * @param int $filter
-     * @return bool
-     */
-    public function setFilterQueryType()
-    {
-    }
     /**
      * method overloader
      * this method is used for invoking different listeners, for the full
@@ -160,21 +132,5 @@ class Doctrine_Connection_Profiler implements Doctrine_Overloadable, IteratorAgg
             unset($this->eventSequences[$event->getSequence()]);
         }
         return $event;
-    }
-
-    /**
-     * Get the Doctrine_Event object for the last query that was run, regardless if it has
-     * ended or not. If the event has not ended, it's end time will be Null.
-     *
-     * @return Doctrine_Event
-     */
-    public function lastEvent()
-    {
-        if (empty($this->events)) {
-            return false;
-        }
-
-        end($this->events);
-        return current($this->events);
     }
 }
