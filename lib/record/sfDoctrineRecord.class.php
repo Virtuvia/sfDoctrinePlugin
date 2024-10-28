@@ -21,60 +21,6 @@
  */
 abstract class sfDoctrineRecord extends Doctrine_Record
 {
-    protected static $_defaultCulture = 'en';
-
-    /**
-     * Initializes internationalization.
-     *
-     * @see Doctrine_Record
-     */
-    public function construct()
-    {
-        if ($this->getTable()->hasRelation('Translation')) {
-            // only add filter to each table once
-            if (!$this->getTable()->getOption('has_symfony_i18n_filter')) {
-                $this->getTable()
-                  ->unshiftFilter(new sfDoctrineRecordI18nFilter())
-                  ->setOption('has_symfony_i18n_filter', true)
-                ;
-            }
-        }
-    }
-
-    /**
-     * Listens to the user.change_culture event.
-     *
-     * @param sfEvent An sfEvent instance
-     */
-    public static function listenToChangeCultureEvent(sfEvent $event)
-    {
-        self::$_defaultCulture = $event['culture'];
-    }
-
-    /**
-     * Sets the default culture
-     *
-     * @param string $culture
-     */
-    public static function setDefaultCulture($culture)
-    {
-        self::$_defaultCulture = $culture;
-    }
-
-    /**
-     * Return the default culture
-     *
-     * @return string the default culture
-     */
-    public static function getDefaultCulture()
-    {
-        if (!self::$_defaultCulture) {
-            throw new sfException('The default culture has not been set');
-        }
-
-        return self::$_defaultCulture;
-    }
-
     /**
      * Returns the current record's primary key.
      *

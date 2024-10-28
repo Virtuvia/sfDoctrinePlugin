@@ -821,7 +821,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         }
         unset($vars['_table']);
         unset($vars['_errorStack']);
-        unset($vars['_filter']);
         unset($vars['_node']);
 
         $data = $this->_data;
@@ -1265,19 +1264,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
 
             return $this->_references[$fieldName];
         } catch (Doctrine_Table_Exception $e) {
-            $success = false;
-            foreach ($this->_table->getFilters() as $filter) {
-                try {
-                    $value = $filter->filterGet($this, $fieldName);
-                    $success = true;
-                } catch (Doctrine_Exception $e) {
-                }
-            }
-            if ($success) {
-                return $value;
-            } else {
-                throw $e;
-            }
+            throw new Doctrine_Record_UnknownPropertyException(sprintf('Unknown record property / related component "%s" on "%s"', $fieldName, static::class));
         }
     }
 
@@ -1370,17 +1357,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
             try {
                 $this->coreSetRelated($fieldName, $value);
             } catch (Doctrine_Table_Exception $e) {
-                $success = false;
-                foreach ($this->_table->getFilters() as $filter) {
-                    try {
-                        $value = $filter->filterSet($this, $fieldName, $value);
-                        $success = true;
-                    } catch (Doctrine_Exception $e) {
-                    }
-                }
-                if (!$success) {
-                    throw $e;
-                }
+                throw new Doctrine_Record_UnknownPropertyException(sprintf('Unknown record property / related component "%s" on "%s"', $fieldName, static::class));
             }
         }
 
@@ -2294,11 +2271,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         }
 
         return $this->_node;
-    }
-
-    public function unshiftFilter(Doctrine_Record_Filter $filter)
-    {
-        return $this->_table->unshiftFilter($filter);
     }
 
     /**

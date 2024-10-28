@@ -8,17 +8,6 @@ $t = new lime_test(9);
 // ->__construct()
 $t->diag('->__construct()');
 
-function is_symfony_i18n_filter($filter)
-{
-    return $filter instanceof sfDoctrineRecordI18nFilter;
-}
-
-$table = Doctrine_Core::getTable('Article');
-new Article();
-$t->is(count(array_filter($table->getFilters(), 'is_symfony_i18n_filter')), 1, '->__construct() adds i18n filter');
-new Article();
-$t->is(count(array_filter($table->getFilters(), 'is_symfony_i18n_filter')), 1, '->__construct() adds i18n filter once');
-
 // ->serialize() ->unserialize()
 $t->diag('->serialize() ->unserialize()');
 

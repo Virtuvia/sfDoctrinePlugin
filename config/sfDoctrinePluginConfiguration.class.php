@@ -49,9 +49,6 @@ class sfDoctrinePluginConfiguration extends sfPluginConfiguration
         }
 
         $this->dispatcher->notify(new sfEvent($manager, 'doctrine.configure'));
-
-        // make sure the culture is intercepted
-        $this->dispatcher->connect('user.change_culture', ['sfDoctrineRecord', 'listenToChangeCultureEvent']);
     }
 
     /**

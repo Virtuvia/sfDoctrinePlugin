@@ -198,12 +198,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     protected $_templates   = [];
 
     /**
-     * @see Doctrine_Record_Filter
-     * @var Doctrine_Record_Filter[] $_filters                     an array containing all record filters attached to this table
-     */
-    protected $_filters     = [];
-
-    /**
      * @see Doctrine_Record_Generator
      * @var array $_generators                  an array containing all generators attached to this table
      */
@@ -269,7 +263,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
             }
         }
 
-        $this->_filters[]  = new Doctrine_Record_Filter_Standard();
         $this->_repository = new Doctrine_Table_Repository($this);
 
         $this->construct();
@@ -2704,33 +2697,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
         }
 
         return $this->_options['queryParts'][$queryPart];
-    }
-
-    /**
-     * unshiftFilter
-     *
-     * @param  Doctrine_Record_Filter $filter
-     * @return Doctrine_Table                           this object (provides a fluent interface)
-     */
-    public function unshiftFilter(Doctrine_Record_Filter $filter)
-    {
-        $filter->setTable($this);
-
-        $filter->init();
-
-        array_unshift($this->_filters, $filter);
-
-        return $this;
-    }
-
-    /**
-     * getFilters
-     *
-     * @return Doctrine_Record_Filter[] $filters
-     */
-    public function getFilters()
-    {
-        return $this->_filters;
     }
 
     /**
