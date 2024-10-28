@@ -180,10 +180,6 @@ class Doctrine_Core
     public const ATTR_CREATE_TABLES                = 122;
     public const ATTR_COLL_LIMIT                   = 123;
 
-    public const ATTR_CACHE                        = 150;
-    public const ATTR_RESULT_CACHE                 = 150;
-    public const ATTR_CACHE_LIFESPAN               = 151;
-    public const ATTR_RESULT_CACHE_LIFESPAN        = 151;
     public const ATTR_LOAD_REFERENCES              = 153;
     public const ATTR_RECORD_LISTENER              = 154;
     public const ATTR_THROW_EXCEPTIONS             = 155;

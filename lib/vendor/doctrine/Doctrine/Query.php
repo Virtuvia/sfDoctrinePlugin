@@ -2103,22 +2103,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
         $sqlParams = $this->getCountQueryParams($executeParams);
         $sqlParams = $this->_conn->convertBooleans($sqlParams);
 
-        if ($this->_resultCache) {
-            $conn = $this->getConnection();
-            $cacheDriver = $this->getResultCacheDriver();
-            $hash = $this->getResultCacheHash($sqlParams) . '_count';
-            $cached = ($this->_expireResultCache) ? false : $cacheDriver->fetch($hash);
-
-            if ($cached === false) {
-                // cache miss
-                $results = $this->getConnection()->fetchAll($q, $sqlParams);
-                $cacheDriver->save($hash, serialize($results), $this->getResultCacheLifeSpan());
-            } else {
-                $results = unserialize($cached);
-            }
-        } else {
-            $results = $this->getConnection()->fetchAll($q, $sqlParams);
-        }
+        $results = $this->getConnection()->fetchAll($q, $sqlParams);
 
         if (count($results) > 1) {
             $count = count($results);

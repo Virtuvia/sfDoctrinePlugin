@@ -84,8 +84,6 @@ abstract class Doctrine_Configurable extends Doctrine_Locator_Injectable
                     throw new Doctrine_Exception("Couldn't set collection key attribute. No such field '$value'.");
                 }
                 break;
-            case Doctrine_Core::ATTR_CACHE:
-            case Doctrine_Core::ATTR_RESULT_CACHE:
             case Doctrine_Core::ATTR_QUERY_CACHE:
                 if ($value !== null) {
                     if (! ($value instanceof Doctrine_Cache_Interface)) {
