@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  *  $Id: Tree.php 7490 2010-03-29 19:53:27Z jwage $
  *
@@ -30,7 +33,7 @@
  * @version     $Revision: 7490 $
  * @author      Joe Simms <joe.simms@websites4.com>
  */
-class Doctrine_Tree
+abstract class Doctrine_Tree
 {
     /**
      * @param object $table   reference to associated Doctrine_Table instance

@@ -31,7 +31,7 @@
  * @author      Joe Simms <joe.simms@websites4.com>
  * @author      Roman Borschel <roman@code-factory.org>
  */
-class Doctrine_Tree_NestedSet extends Doctrine_Tree implements Doctrine_Tree_Interface
+final class Doctrine_Tree_NestedSet extends Doctrine_Tree implements Doctrine_Tree_Interface
 {
     private $_baseQuery;
     private $_baseAlias = "base";
@@ -152,7 +152,7 @@ class Doctrine_Tree_NestedSet extends Doctrine_Tree implements Doctrine_Tree_Int
      * Fetches a tree.
      *
      * @param array $options  Options
-     * @param int $fetchmode  One of the Doctrine_Core::HYDRATE_* constants.
+     * @param int $hydrationMode  One of the Doctrine_Core::HYDRATE_* constants.
      * @return mixed          The tree or FALSE if the tree could not be found.
      */
     public function fetchTree($options = [], $hydrationMode = null)
@@ -193,7 +193,7 @@ class Doctrine_Tree_NestedSet extends Doctrine_Tree implements Doctrine_Tree_Int
      *
      * @param mixed $pk              primary key as used by table::find() to locate node to traverse tree from
      * @param array $options         Options.
-     * @param int $fetchmode  One of the Doctrine_Core::HYDRATE_* constants.
+     * @param int $hydrationMode  One of the Doctrine_Core::HYDRATE_* constants.
      * @return mixed                 The branch or FALSE if the branch could not be found.
      * @todo Only fetch the lft and rgt values of the initial record. more is not needed.
      */

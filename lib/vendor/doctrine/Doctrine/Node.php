@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  *  $Id: Node.php 7490 2010-03-29 19:53:27Z jwage $
  *
@@ -45,7 +48,7 @@ abstract class Doctrine_Node
     /**
      * The tree to which the node belongs.
      *
-     * @var unknown_type
+     * @var Doctrine_Tree_Interface
      */
     protected $_tree;
 
@@ -88,16 +91,6 @@ abstract class Doctrine_Node
         } else {
             $this->_tree = $thisTable->getTree();
         }
-    }
-
-    /**
-     * setter for record attribute
-     *
-     * @param object $record                    instance of Doctrine_Record
-     */
-    public function setRecord(Doctrine_Record $record)
-    {
-        $this->record = $record;
     }
 
     /**
