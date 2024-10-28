@@ -33,21 +33,6 @@
 abstract class Doctrine_Access implements ArrayAccess
 {
     /**
-     * Set an entire aray to the data
-     *
-     * @param   array $array An array of key => value pairs
-     * @return  Doctrine_Access
-     */
-    public function setArray(array $array)
-    {
-        foreach ($array as $k => $v) {
-            $this->set($k, $v);
-        }
-
-        return $this;
-    }
-
-    /**
      * Set key and value to data
      *
      * @see     set, offsetSet
