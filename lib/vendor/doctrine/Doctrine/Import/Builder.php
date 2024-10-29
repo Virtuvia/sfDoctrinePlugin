@@ -350,11 +350,6 @@ EOF;
             $i++;
         }
 
-        if (isset($definition['checks']) && is_array($definition['checks']) && !empty($definition['checks'])) {
-            $ret[$i] = $this->buildChecks($definition['checks']);
-            $i++;
-        }
-
         $fixConcreteTableName = '';
         if (isset($definition['inheritance']['subclasses']) && ! empty($definition['inheritance']['subclasses'])) {
             $subClasses = [];
@@ -489,21 +484,6 @@ EOF;
         if ($code) {
             return '    public function setUp()' . PHP_EOL . '    {' . PHP_EOL . '        ' . $code . PHP_EOL . '    }';
         }
-    }
-
-    /**
-     * Build php code for record checks
-     *
-     * @param array $checks
-     * @return string $build
-     */
-    public function buildChecks($checks)
-    {
-        $build = '';
-        foreach ($checks as $check) {
-            $build .= "        \$this->check('" . $check . "');" . PHP_EOL;
-        }
-        return $build;
     }
 
     /**

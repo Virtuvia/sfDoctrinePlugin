@@ -219,10 +219,6 @@ class Doctrine_Export_Sqlite extends Doctrine_Export
             $sql .= ', ' . $check;
         }
 
-        if (isset($options['checks']) && $check = $this->getCheckDeclaration($options['checks'])) {
-            $sql .= ', ' . $check;
-        }
-
         $sql .= ')';
 
         $query[] = $sql;

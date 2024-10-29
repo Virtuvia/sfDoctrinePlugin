@@ -103,7 +103,6 @@ class Doctrine_Import_Schema
         'inheritance',
         'detect_relations',
         'listeners',
-        'checks',
         'comment',
         'concrete_accessors'],
 
@@ -489,7 +488,7 @@ class Doctrine_Import_Schema
             'indexes' => [],
             'attributes' => [],
             'options' => [],
-            'checks' => []];
+        ];
 
         foreach ($array as $className => $definition) {
             // Move any definitions on the schema to the parent

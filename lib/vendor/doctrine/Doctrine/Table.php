@@ -146,8 +146,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      *
      *      -- foreignKeys                  the foreign keys of this table
      *
-     *      -- checks                       the check constraints of this table, eg. 'price > dicounted_price'
-     *
      *      -- collate                      collate attribute
      *
      *      -- indexes                      the index definitions of this table
@@ -844,30 +842,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     {
         $this->_options['foreignKeys'][] = $definition;
     }
-
-    /**
-     * Adds a check constraint to the table in-memory definition.
-     *
-     * This method adds a CHECK constraint to the schema definition.
-     * It does not add the constraint to the physical table in the
-     * db; @see export().
-     *
-     * @param $definition
-     * @param mixed $name   if string used as name for the constraint.
-     *                      Otherwise it is indexed numerically.
-     * @return void
-     */
-    public function addCheckConstraint($definition, $name)
-    {
-        if (is_string($name)) {
-            $this->_options['checks'][$name] = $definition;
-        } else {
-            $this->_options['checks'][] = $definition;
-        }
-
-        return $this;
-    }
-
     /**
      * Adds an index to this table in-memory definition.
      *

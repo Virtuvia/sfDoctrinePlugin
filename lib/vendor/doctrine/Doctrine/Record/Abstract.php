@@ -373,25 +373,4 @@ abstract class Doctrine_Record_Abstract extends Doctrine_Access
 
         return $this;
     }
-
-    /**
-     * Adds a check constraint.
-     *
-     * This method will add a CHECK constraint to the record table.
-     *
-     * @param mixed $constraint     either a SQL constraint portion or an array of CHECK constraints. If array, all values will be added as constraint
-     * @param string $name          optional constraint name. Not used if $constraint is an array.
-     * @return Doctrine_Record      this object
-     */
-    public function check($constraint, $name = null)
-    {
-        if (is_array($constraint)) {
-            foreach ($constraint as $name => $def) {
-                $this->_table->addCheckConstraint($def, $name);
-            }
-        } else {
-            $this->_table->addCheckConstraint($constraint, $name);
-        }
-        return $this;
-    }
 }
