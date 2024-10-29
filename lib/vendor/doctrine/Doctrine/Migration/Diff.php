@@ -318,17 +318,22 @@ class Doctrine_Migration_Diff
                 $info[$key] = $this->_cleanModelInformation($value);
             }
             return $info;
-        } else {
-            $find = [
-                self::$_toPrefix,
-                self::$_fromPrefix,
-                Doctrine_Inflector::tableize(self::$_toPrefix) . '_',
-                Doctrine_Inflector::tableize(self::$_fromPrefix) . '_',
-                Doctrine_Inflector::tableize(self::$_toPrefix),
-                Doctrine_Inflector::tableize(self::$_fromPrefix),
-            ];
-            return str_replace($find, '', (string) $info);
         }
+
+        if (!is_string($info)) {
+            return $info;
+        }
+
+        $find = [
+            self::$_toPrefix,
+            self::$_fromPrefix,
+            Doctrine_Inflector::tableize(self::$_toPrefix) . '_',
+            Doctrine_Inflector::tableize(self::$_fromPrefix) . '_',
+            Doctrine_Inflector::tableize(self::$_toPrefix),
+            Doctrine_Inflector::tableize(self::$_fromPrefix),
+        ];
+
+        return str_replace($find, '', $info);
     }
 
     /**
