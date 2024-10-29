@@ -972,7 +972,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * @param string $query     sql query
      * @param array $params     query parameters
      *
-     * @return PDOStatement|Doctrine_Adapter_Statement
+     * @return PDOStatement|Doctrine_Adapter_Statement_Interface
      */
     public function standaloneQuery($query, $params = [])
     {
@@ -984,7 +984,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * @param string $query     sql query
      * @param array $params     query parameters
      *
-     * @return PDOStatement|Doctrine_Adapter_Statement
+     * @return PDOStatement|Doctrine_Adapter_Statement_Interface
      */
     public function execute($query, array $params = [])
     {
