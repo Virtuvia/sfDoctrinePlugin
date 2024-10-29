@@ -466,117 +466,6 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
     }
 
     /**
-     * Load all relationships or the named relationship passed
-     *
-     * @param mixed $name
-     * @return bool
-     */
-    public function loadRelated($name = null)
-    {
-        $list = [];
-        $query = $this->_table->createQuery();
-
-        if (! isset($name)) {
-            foreach ($this->data as $record) {
-                $value = $record->getIncremented();
-                if ($value !== null) {
-                    $list[] = $value;
-                }
-            }
-            $query->where($this->_table->getComponentName() . '.id IN (' . substr(str_repeat("?, ", count($list)), 0, -2) . ')');
-            if (! $list) {
-                $query->where($this->_table->getComponentName() . '.id IN (' . substr(str_repeat("?, ", count($list)), 0, -2) . ')', $list);
-            }
-
-            return $query;
-        }
-
-        $rel     = $this->_table->getRelation($name);
-
-        if ($rel instanceof Doctrine_Relation_LocalKey || $rel instanceof Doctrine_Relation_ForeignKey) {
-            foreach ($this->data as $record) {
-                $list[] = $record[$rel->getLocal()];
-            }
-        } else {
-            foreach ($this->data as $record) {
-                $value = $record->getIncremented();
-                if ($value !== null) {
-                    $list[] = $value;
-                }
-            }
-        }
-
-        if (! $list) {
-            return;
-        }
-
-        $dql     = $rel->getRelationDql(count($list), 'collection');
-
-        $coll    = $query->query($dql, $list);
-
-        $this->populateRelated($name, $coll);
-    }
-
-    /**
-     * Populate the relationship $name for all records in the passed collection
-     *
-     * @param string $name
-     * @param Doctrine_Collection $coll
-     * @return void
-     */
-    public function populateRelated($name, Doctrine_Collection $coll)
-    {
-        $rel     = $this->_table->getRelation($name);
-        $table   = $rel->getTable();
-        $foreign = $rel->getForeign();
-        $local   = $rel->getLocal();
-
-        if ($rel instanceof Doctrine_Relation_LocalKey) {
-            foreach ($this->data as $key => $record) {
-                foreach ($coll as $k => $related) {
-                    if ($related[$foreign] == $record[$local]) {
-                        $this->data[$key]->setRelated($name, $related);
-                    }
-                }
-            }
-        } elseif ($rel instanceof Doctrine_Relation_ForeignKey) {
-            foreach ($this->data as $key => $record) {
-                if (! $record->exists()) {
-                    continue;
-                }
-                $sub = Doctrine_Collection::create($table);
-
-                foreach ($coll as $k => $related) {
-                    if ($related[$foreign] == $record[$local]) {
-                        $sub->add($related);
-                        $coll->remove($k);
-                    }
-                }
-
-                $this->data[$key]->setRelated($name, $sub);
-            }
-        } elseif ($rel instanceof Doctrine_Relation_Association) {
-            $identifier = $this->_table->getIdentifier();
-            $asf        = $rel->getAssociationFactory();
-            $name       = $table->getComponentName();
-
-            foreach ($this->data as $key => $record) {
-                if (! $record->exists()) {
-                    continue;
-                }
-                $sub = Doctrine_Collection::create($table);
-                foreach ($coll as $k => $related) {
-                    if ($related->get($local) == $record[$identifier]) {
-                        $sub->add($related->get($name));
-                    }
-                }
-                $this->data[$key]->setRelated($name, $sub);
-
-            }
-        }
-    }
-
-    /**
      * Takes a snapshot from this collection
      *
      * snapshots are used for diff processing, for example
@@ -593,16 +482,6 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
         $this->_snapshot = $this->data;
 
         return $this;
-    }
-
-    /**
-     * Gets the data of the last snapshot
-     *
-     * @return array    returns the data in last snapshot
-     */
-    public function getSnapshot()
-    {
-        return $this->_snapshot;
     }
 
     /**
@@ -641,22 +520,6 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
         }
 
         return $data;
-    }
-
-    /**
-     * Build an array made up of the values from the 2 specified columns
-     *
-     * @param string $key
-     * @param string $value
-     * @return array $result
-     */
-    public function toKeyValueArray($key, $value)
-    {
-        $result = [];
-        foreach ($this as $record) {
-            $result[$record->$key] = $record->$value;
-        }
-        return $result;
     }
 
     public function toHierarchy()
@@ -718,69 +581,6 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
         $data = [];
         foreach ($array as $rowKey => $row) {
             $this[$rowKey]->fromArray($row, $deep);
-        }
-    }
-
-    /**
-     * synchronizes a Doctrine_Collection with data from an array
-     *
-     * it expects an array representation of a Doctrine_Collection similar to the return
-     * value of the toArray() method. It will create Dectrine_Records that don't exist
-     * on the collection, update the ones that do and remove the ones missing in the $array
-     *
-     * @param array $array representation of a Doctrine_Collection
-     */
-    public function synchronizeWithArray(array $array)
-    {
-        foreach ($this as $key => $record) {
-            if (isset($array[$key])) {
-                $record->synchronizeWithArray($array[$key]);
-                unset($array[$key]);
-            } else {
-                // remove records that don't exist in the array
-                $this->remove($key);
-            }
-        }
-        // create new records for each new row in the array
-        foreach ($array as $rowKey => $row) {
-            $this[$rowKey]->fromArray($row);
-        }
-    }
-
-    public function synchronizeFromArray(array $array)
-    {
-        return $this->synchronizeWithArray($array);
-    }
-
-    /**
-     * Export a Doctrine_Collection to one of the supported Doctrine_Parser formats
-     *
-     * @param string $type
-     * @param string $deep
-     * @return void
-     */
-    public function exportTo($type, $deep = true)
-    {
-        if ($type == 'array') {
-            return $this->toArray($deep);
-        } else {
-            return Doctrine_Parser::dump($this->toArray($deep, true), $type);
-        }
-    }
-
-    /**
-     * Import data to a Doctrine_Collection from one of the supported Doctrine_Parser formats
-     *
-     * @param string $type
-     * @param string $data
-     * @return void
-     */
-    public function importFrom($type, $data)
-    {
-        if ($type == 'array') {
-            return $this->fromArray($data);
-        } else {
-            return $this->fromArray(Doctrine_Parser::load($data, $type));
         }
     }
 

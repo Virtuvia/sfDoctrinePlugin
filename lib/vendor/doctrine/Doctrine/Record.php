@@ -249,16 +249,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     }
 
     /**
-     * the current instance counter used to generate unique ids for php objects. Contains the next identifier.
-     *
-     * @return int
-     */
-    public static function _index()
-    {
-        return self::$_index;
-    }
-
-    /**
      * setUp
      * this method is used for setting up relations and attributes
      * it should be implemented by child classes
@@ -289,11 +279,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         return $this->_oid;
     }
 
-    public function oid()
-    {
-        return $this->_oid;
-    }
-
     /**
      * calls a subclass hook. Idempotent until @see clearInvokedSaveHooks() is called.
      *
@@ -312,7 +297,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
 
         if (is_null($event)) {
             $constant = constant('Doctrine_Event::RECORD_' . strtoupper($type));
-            //echo $func . " - " . 'Doctrine_Event::RECORD_' . strtoupper($type) . "\n";
             $event = new Doctrine_Event($this, $constant);
         }
 
@@ -595,24 +579,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         }
 
         return $this->_errorStack;
-    }
-
-    /**
-     * assigns the ErrorStack or returns it if called without parameters
-     *
-     * @param Doctrine_Validator_ErrorStack          errorStack to be assigned for this record
-     * @return void|Doctrine_Validator_ErrorStack    returns the errorStack associated with this record
-     */
-    public function errorStack($stack = null)
-    {
-        if ($stack !== null) {
-            if (! ($stack instanceof Doctrine_Validator_ErrorStack)) {
-                throw new Doctrine_Record_Exception('Argument should be an instance of Doctrine_Validator_ErrorStack.');
-            }
-            $this->_errorStack = $stack;
-        } else {
-            return $this->getErrorStack();
-        }
     }
 
     /**
@@ -1720,93 +1686,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     }
 
     /**
-     * synchronizes a Doctrine_Record instance and its relations with data from an array
-     *
-     * it expects an array representation of a Doctrine_Record similar to the return
-     * value of the toArray() method. If the array contains relations it will create
-     * those that don't exist, update the ones that do, and delete the ones missing
-     * on the array but available on the Doctrine_Record (unlike @see fromArray() that
-     * does not touch what it is not in $array)
-     *
-     * @param array $array representation of a Doctrine_Record
-     * @param bool   $deep   whether or not to act on relations
-     */
-    public function synchronizeWithArray(array $array, $deep = true)
-    {
-        $refresh = false;
-        foreach ($array as $key => $value) {
-            if ($key == '_identifier') {
-                $refresh = true;
-                $this->assignIdentifier($value);
-                continue;
-            }
-
-            if ($deep && $this->getTable()->hasRelation($key)) {
-                if (! $this->$key) {
-                    $this->refreshRelated($key);
-                }
-
-                if (is_array($value)) {
-                    if (isset($value[0]) && ! is_array($value[0])) {
-                        $this->unlink($key, [], false);
-                        $this->link($key, $value, false);
-                    } else {
-                        $this->$key->synchronizeWithArray($value);
-                        $this->$key = $this->$key;
-                    }
-                }
-            } elseif ($this->getTable()->hasField($key) || array_key_exists($key, $this->_values)) {
-                $this->set($key, $value);
-            }
-        }
-
-        // Eliminate relationships missing in the $array
-        foreach ($this->_references as $name => $relation) {
-            $rel = $this->getTable()->getRelation($name);
-
-            if (! $rel->isRefClass() && ! isset($array[$name]) && (! $rel->isOneToOne() || ! isset($array[$rel->getLocalFieldName()]))) {
-                unset($this->$name);
-            }
-        }
-
-        if ($refresh) {
-            $this->refresh();
-        }
-    }
-
-    /**
-     * exports instance to a chosen format
-     *
-     * @param string $type  format type: array, xml, yml, json
-     * @param string $deep  whether or not to export all relationships
-     * @return string       representation as $type format. Array is $type is array
-     */
-    public function exportTo($type, $deep = true)
-    {
-        if ($type == 'array') {
-            return $this->toArray($deep);
-        } else {
-            return Doctrine_Parser::dump($this->toArray($deep, true), $type);
-        }
-    }
-
-    /**
-     * imports data from a chosen format in the current instance
-     *
-     * @param string $type  Format type: xml, yml, json
-     * @param string $data  Data to be parsed and imported
-     * @return void
-     */
-    public function importFrom($type, $data, $deep = true)
-    {
-        if ($type == 'array') {
-            return $this->fromArray($data, $deep);
-        } else {
-            return $this->fromArray(Doctrine_Parser::load($data, $type), $deep);
-        }
-    }
-
-    /**
      * returns true if this record is saved in the database, otherwise false (it is transient)
      *
      * @return bool
@@ -2016,19 +1895,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     }
 
     /**
-     * gets a related component
-     *
-     * @param string $name
-     * @return Doctrine_Record|Doctrine_Collection
-     */
-    public function reference($name)
-    {
-        if (isset($this->_references[$name])) {
-            return $this->_references[$name];
-        }
-    }
-
-    /**
      * gets a related component and fails if it does not exist
      *
      * @param string $name
@@ -2052,17 +1918,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     }
 
     /**
-     * set a related component
-     *
-     * @param string $alias
-     * @param Doctrine_Access $coll
-     */
-    final public function setRelated($alias, Doctrine_Access $coll)
-    {
-        $this->_references[$alias] = $coll;
-    }
-
-    /**
      * loadReference
      * loads a related component
      *
@@ -2074,30 +1929,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     {
         $rel = $this->_table->getRelation($name);
         $this->_references[$name] = $rel->fetchRelatedFor($this);
-    }
-
-    /**
-     * call
-     *
-     * @param string|array $callback    valid callback
-     * @param string $column            column name
-     * @param mixed arg1 ... argN       optional callback arguments
-     * @return Doctrine_Record provides a fluent interface
-     */
-    public function call($callback, $column)
-    {
-        $args = func_get_args();
-        array_shift($args);
-
-        if (isset($args[0])) {
-            $fieldName = $args[0];
-            $args[0] = $this->get($fieldName);
-
-            $newvalue = call_user_func_array($callback, $args);
-
-            $this->_data[$fieldName] = $newvalue;
-        }
-        return $this;
     }
 
     /**

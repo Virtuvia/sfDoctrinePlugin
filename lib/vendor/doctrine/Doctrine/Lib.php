@@ -193,25 +193,6 @@ class Doctrine_Lib
     }
 
     /**
-     * Checks for a valid class name for Doctrine coding standards.
-     *
-     * This methods tests if $className is a valid class name for php syntax
-     * and for Doctrine coding standards. $className must use camel case naming
-     * and underscores for directory separation.
-     *
-     * @param string $classname
-     * @return bool
-     */
-    public static function isValidClassName($className)
-    {
-        if (preg_match('~(^[a-z])|(_[a-z])|([\W])|(_{2})~', $className)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * Converts a Doctrine Type to a PHP Type
      *
      * This method was built to be used for phpDoc generation

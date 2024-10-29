@@ -141,24 +141,6 @@ abstract class Doctrine_Configurable
     }
 
     /**
-     * setListener
-     *
-     * @param Doctrine_EventListener_Interface|Doctrine_Overloadable $listener
-     * @return Doctrine_Configurable        this object
-     */
-    public function setRecordListener($listener)
-    {
-        if (! ($listener instanceof Doctrine_Record_Listener_Interface)
-            && ! ($listener instanceof Doctrine_Overloadable)
-        ) {
-            throw new Doctrine_Exception("Couldn't set eventlistener. Record listeners should implement either Doctrine_Record_Listener_Interface or Doctrine_Overloadable");
-        }
-        $this->attributes[Doctrine_Core::ATTR_RECORD_LISTENER] = $listener;
-
-        return $this;
-    }
-
-    /**
      * addListener
      *
      * @param Doctrine_EventListener_Interface|Doctrine_Overloadable $listener
@@ -229,30 +211,6 @@ abstract class Doctrine_Configurable
     }
 
     /**
-     * Unset an attribute from this levels attributes
-     *
-     * @param int $attribute
-     * @return void
-     */
-    public function unsetAttribute($attribute)
-    {
-        if (isset($this->attributes[$attribute])) {
-            unset($this->attributes[$attribute]);
-        }
-    }
-
-    /**
-     * getAttributes
-     * returns all attributes as an array
-     *
-     * @return array
-     */
-    public function getAttributes()
-    {
-        return $this->attributes;
-    }
-
-    /**
      * Set the charset
      *
      * @param string $charset
@@ -263,16 +221,6 @@ abstract class Doctrine_Configurable
     }
 
     /**
-     * Get the charset
-     *
-     * @return mixed
-     */
-    public function getCharset()
-    {
-        return $this->getAttribute(Doctrine_Core::ATTR_DEFAULT_TABLE_CHARSET);
-    }
-
-    /**
      * Set the collate
      *
      * @param string $collate
@@ -280,16 +228,6 @@ abstract class Doctrine_Configurable
     public function setCollate($collate)
     {
         $this->setAttribute(Doctrine_Core::ATTR_DEFAULT_TABLE_COLLATE, $collate);
-    }
-
-    /**
-     * Get the collate
-     *
-     * @return mixed $collate
-     */
-    public function getCollate()
-    {
-        return $this->getAttribute(Doctrine_Core::ATTR_DEFAULT_TABLE_COLLATE);
     }
 
     /**

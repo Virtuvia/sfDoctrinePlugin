@@ -543,17 +543,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     }
 
     /**
-     * Checks whether a column is inherited from a component further up in the hierarchy.
-     *
-     * @param string $columnName  The column name
-     * @return bool            TRUE if column is inherited, FALSE otherwise.
-     */
-    public function isInheritedColumn($columnName)
-    {
-        return (isset($this->_columns[$columnName]['owner']));
-    }
-
-    /**
      * Checks whether a field is in the primary key.
      *
      * Checks if $fieldName is part of the table identifier, which defines
@@ -566,20 +555,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     {
         return ($fieldName === $this->getIdentifier() ||
                 in_array($fieldName, (array) $this->getIdentifier()));
-    }
-
-    /**
-     * Checks whether a field identifier is of type autoincrement.
-     *
-     * This method checks if the primary key is a AUTOINCREMENT column or
-     * if the table uses a natural key.
-     *
-     * @return bool TRUE  if the identifier is autoincrement
-     *                 FALSE otherwise
-     */
-    public function isIdentifierAutoincrement()
-    {
-        return $this->getIdentifierType() === Doctrine_Core::IDENTIFIER_AUTOINC;
     }
 
     /**
@@ -829,19 +804,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
         }
     }
 
-    /**
-     * Adds a foreignKey to the table in-memory definition.
-     *
-     * This method adds a foreign key to the schema definition.
-     * It does not add the key to the physical table in the db; @see export().
-     *
-     * @param array $definition     definition of the foreign key
-     * @return void
-     */
-    public function addForeignKey(array $definition)
-    {
-        $this->_options['foreignKeys'][] = $definition;
-    }
     /**
      * Adds an index to this table in-memory definition.
      *
@@ -1181,64 +1143,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     }
 
     /**
-     * Customize the array of options for a column or multiple columns. First
-     * argument can be a single field/column name or an array of them. The second
-     * argument is an array of options.
-     *
-     *     [php]
-     *     public function setTableDefinition()
-     *     {
-     *         parent::setTableDefinition();
-     *         $this->setColumnOptions('username', array(
-     *             'unique' => true
-     *         ));
-     *     }
-     *
-     * @param string $columnName
-     * @param array $validators
-     * @return void
-     */
-    public function setColumnOptions($columnName, array $options)
-    {
-        if (is_array($columnName)) {
-            foreach ($columnName as $name) {
-                $this->setColumnOptions($name, $options);
-            }
-        } else {
-            foreach ($options as $option => $value) {
-                $this->setColumnOption($columnName, $option, $value);
-            }
-        }
-    }
-
-    /**
-     * Set an individual column option
-     *
-     * @param string $columnName
-     * @param string $option
-     * @param string $value
-     * @return void
-     */
-    public function setColumnOption($columnName, $option, $value)
-    {
-        if ($option == 'primary') {
-            if (isset($this->_identifier)) {
-                $this->_identifier = (array) $this->_identifier;
-            }
-
-            if ($value &&  ! in_array($columnName, $this->_identifier)) {
-                $this->_identifier[] = $columnName;
-            } elseif (!$value && in_array($columnName, $this->_identifier)) {
-                $key = array_search($columnName, $this->_identifier);
-                unset($this->_identifier[$key]);
-            }
-        }
-
-        $columnName = $this->getColumnName($columnName);
-        $this->_columns[$columnName][$option] = $value;
-    }
-
-    /**
      * Set multiple column definitions at once
      *
      * @param array $definitions
@@ -1463,24 +1367,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     }
 
     /**
-     * Sets the default connection for this table.
-     *
-     * This method assign the connection which this table will use
-     * to create queries.
-     *
-     * @params Doctrine_Connection      a connection object
-     * @return Doctrine_Table           this object; fluent interface
-     */
-    public function setConnection(Doctrine_Connection $conn)
-    {
-        $this->_conn = $conn;
-
-        $this->setParent($this->_conn);
-
-        return $this;
-    }
-
-    /**
      * Returns the connection associated with this table (if any).
      *
      * @return Doctrine_Connection|null     the connection object
@@ -1635,39 +1521,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     }
 
     /**
-     * Finds records in this table with a given SQL where clause.
-     *
-     * @param string $dql               DQL WHERE clause to use
-     * @param array $params             query parameters (a la PDO)
-     * @param int $hydrationMode        Doctrine_Core::HYDRATE_ARRAY or Doctrine_Core::HYDRATE_RECORD
-     * @return Doctrine_Collection|array
-     *
-     * @todo This actually takes DQL, not SQL, but it requires column names
-     *       instead of field names. This should be fixed to use raw SQL instead.
-     */
-    public function findBySql($dql, $params = [], $hydrationMode = null)
-    {
-        return $this->createQuery('dctrn_find')
-            ->where($dql)->execute($params, $hydrationMode);
-    }
-
-    /**
-     * Finds records in this table with a given DQL where clause.
-     *
-     * @param string $dql               DQL WHERE clause
-     * @param array $params             preparated statement parameters
-     * @param int $hydrationMode        Doctrine_Core::HYDRATE_ARRAY or Doctrine_Core::HYDRATE_RECORD
-     * @return Doctrine_Collection|array
-     */
-    public function findByDql($dql, $params = [], $hydrationMode = null)
-    {
-        $parser = $this->createQuery();
-        $query = 'FROM ' . $this->getComponentName() . ' dctrn_find WHERE ' . $dql;
-
-        return $parser->query($query, $params, $hydrationMode);
-    }
-
-    /**
      * Find records basing on a field.
      *
      * @param string $column            field for the WHERE clause
@@ -1713,23 +1566,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     public function execute($queryKey, $params = [], $hydrationMode = Doctrine_Core::HYDRATE_RECORD)
     {
         return $this->createNamedQuery($queryKey)->execute($params, $hydrationMode);
-    }
-
-    /**
-     * Fetches one record with a named query.
-     *
-     * This method uses the provided $queryKey to clone and execute
-     * the associated named query in the query registry.
-     *
-     * @param string $queryKey      the query key
-     * @param array $params         prepared statement params (if any)
-     * @param int $hydrationMode    Doctrine_Core::HYDRATE_ARRAY or Doctrine_Core::HYDRATE_RECORD
-     * @throws Doctrine_Query_Registry if no query for given queryKey is found
-     * @return Doctrine_Record|array
-     */
-    public function executeOne($queryKey, $params = [], $hydrationMode = Doctrine_Core::HYDRATE_RECORD)
-    {
-        return $this->createNamedQuery($queryKey)->fetchOne($params, $hydrationMode);
     }
 
     /**
@@ -1939,16 +1775,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     public function count(): int
     {
         return $this->createQuery()->count();
-    }
-
-    /**
-     * @return Doctrine_Query  a Doctrine_Query object
-     */
-    public function getQueryObject()
-    {
-        $graph = $this->createQuery();
-        $graph->load($this->getComponentName());
-        return $graph;
     }
 
     /**
@@ -2190,17 +2016,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     public function getIdentifierColumnNames()
     {
         return $this->getColumnNames((array) $this->getIdentifier());
-    }
-
-    /**
-     * Gets the array of unique fields sets.
-     * @see $_uniques;
-     *
-     * @return array numeric array
-     */
-    public function getUniques()
-    {
-        return $this->_uniques;
     }
 
     /**
@@ -2546,20 +2361,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     public function getParentGenerator()
     {
         return $this->_generator;
-    }
-
-    /**
-     * Binds query parts to this component.
-     * @see bindQueryPart()
-     *
-     * @param array $queryParts         an array of pre-bound query parts
-     * @return Doctrine_Table           this object
-     */
-    public function bindQueryParts(array $queryParts)
-    {
-        $this->_options['queryParts'] = $queryParts;
-
-        return $this;
     }
 
     /**
