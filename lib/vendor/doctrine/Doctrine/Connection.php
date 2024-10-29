@@ -133,7 +133,6 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
         'import'      => false,
         'unitOfWork'  => false,
         'formatter'   => false,
-        'util'        => false,
     ];
 
     /**
