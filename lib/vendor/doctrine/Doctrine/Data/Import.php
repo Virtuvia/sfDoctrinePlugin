@@ -215,6 +215,7 @@ class Doctrine_Data_Import extends Doctrine_Data
     protected function _processRow($rowKey, $row)
     {
         $obj = $this->_importedObjects[$rowKey];
+        assert($obj instanceof Doctrine_Record);
 
         foreach ((array) $row as $key => $value) {
             if ($obj->getTable()->hasRelation($key)) {

@@ -31,7 +31,7 @@
  * @version     $Revision: 7686 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
-class Doctrine_Collection extends Doctrine_Access implements Countable, IteratorAggregate
+final class Doctrine_Collection extends Doctrine_Access implements Countable, IteratorAggregate
 {
     /**
      * @var array $data                     an array containing the records of this collection
@@ -276,8 +276,8 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
     /**
      * Search a Doctrine_Record instance
      *
-     * @param string $Doctrine_Record
-     * @return void
+     * @param Doctrine_Record $record
+     * @return false|int|string
      */
     public function search(Doctrine_Record $record)
     {

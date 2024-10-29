@@ -129,12 +129,12 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
     protected $_pendingAggregates = [];
 
     /**
-     * @param bool $needsSubquery
+     * @var bool $needsSubquery
      */
     protected $_needsSubquery = false;
 
     /**
-     * @param bool $isSubquery           whether or not this query object is a subquery of another
+     * @var bool $isSubquery           whether or not this query object is a subquery of another
      *                                      query object
      */
     protected $_isSubquery;
@@ -443,6 +443,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
     {
         $tableAlias = $this->getSqlTableAlias($componentAlias);
         $table = $this->_queryComponents[$componentAlias]['table'];
+        assert($table instanceof Doctrine_Table);
 
         if (! isset($this->_pendingFields[$componentAlias])) {
             if ($this->_hydrator->getHydrationMode() != Doctrine_Core::HYDRATE_NONE) {

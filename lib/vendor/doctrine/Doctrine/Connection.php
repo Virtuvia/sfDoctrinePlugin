@@ -743,11 +743,8 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * when using DQL API
      *
      * This method takes care of that conversion
-     *
-     * @param array $item
-     * @return void
      */
-    public function convertBooleans($item)
+    public function convertBooleans(mixed $item): mixed
     {
         return $this->formatter->convertBooleans($item);
     }

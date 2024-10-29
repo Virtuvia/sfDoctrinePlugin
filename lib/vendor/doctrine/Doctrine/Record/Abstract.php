@@ -33,7 +33,7 @@
 abstract class Doctrine_Record_Abstract extends Doctrine_Access
 {
     /**
-     * @param Doctrine_Table $_table     reference to associated Doctrine_Table instance
+     * @var Doctrine_Table reference to associated Doctrine_Table instance
      */
     protected $_table;
 

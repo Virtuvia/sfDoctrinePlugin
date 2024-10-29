@@ -67,11 +67,8 @@ class Doctrine_Formatter extends Doctrine_Connection_Module
      * when using DQL API
      *
      * This method takes care of that conversion
-     *
-     * @param array $item
-     * @return void
      */
-    public function convertBooleans($item)
+    public function convertBooleans(mixed $item): mixed
     {
         if (is_array($item)) {
             foreach ($item as $k => $value) {

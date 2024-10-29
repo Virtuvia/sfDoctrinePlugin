@@ -1622,7 +1622,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * @link http://www.doctrine-project.org/documentation/manual/1_1/en/working-with-models
      * @param string $array  array of data to merge, see link for documentation
      * @param bool   $deep   whether or not to merge relations
-     * @return void
      */
     public function merge($data, $deep = true)
     {

@@ -1060,19 +1060,17 @@ abstract class Doctrine_Query_Abstract
     /**
      * Constructs the query from the cached form.
      *
-     * @param string  The cached query, in a serialized form.
-     * @return array  The custom component that was cached together with the essential
-     *                query data. This can be either a result set (result caching)
-     *                or an SQL query string (query caching).
+     * @param string $cached The cached query, in a serialized form.
+     * @return string The SQL query string that was cached.
      */
-    protected function _constructQueryFromCache($cached)
+    private function _constructQueryFromCache(string $cached): string
     {
         $cached = unserialize($cached);
         $this->_tableAliasMap = $cached[2];
         $this->_rootAlias = $cached[3];
         $this->_sqlParts = $cached[4];
         $this->_dqlParts = $cached[5];
-        $customComponent = $cached[0];
+        $sqlQuery = $cached[0];
 
         $queryComponents = [];
         $cachedComponents = $cached[1];
@@ -1098,17 +1096,16 @@ abstract class Doctrine_Query_Abstract
         }
         $this->_queryComponents = $queryComponents;
 
-        return $customComponent;
+        return $sqlQuery;
     }
 
     /**
      * getCachedForm
      * returns the cached form of this query for given resultSet
      *
-     * @param array $resultSet
      * @return string           serialized string representation of this query
      */
-    private function getCachedForm($customComponent = null)
+    private function getCachedForm(string $sqlQuery): string
     {
         $componentInfo = [];
 
@@ -1126,7 +1123,7 @@ abstract class Doctrine_Query_Abstract
             }
         }
 
-        return serialize([$customComponent, $componentInfo, $this->getTableAliasMap(), $this->_rootAlias, $this->_sqlParts, $this->_dqlParts]);
+        return serialize([$sqlQuery, $componentInfo, $this->getTableAliasMap(), $this->_rootAlias, $this->_sqlParts, $this->_dqlParts]);
     }
 
     /**

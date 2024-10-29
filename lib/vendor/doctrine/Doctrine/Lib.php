@@ -30,7 +30,7 @@
  * @version     $Revision: 7490 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
-class Doctrine_Lib
+final class Doctrine_Lib
 {
     // Code from symfony sfToolkit class. See LICENSE
     // code from php at moechofe dot com (array_merge comment on php.net)

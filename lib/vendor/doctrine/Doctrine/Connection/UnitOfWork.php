@@ -441,6 +441,8 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
             $rel = $record->getTable()->getRelation($k);
 
             if ($rel instanceof Doctrine_Relation_Association) {
+                assert($v instanceof Doctrine_Collection);
+
                 if ($this->conn->getAttribute(Doctrine_Core::ATTR_CASCADE_SAVES) || $v->isModified()) {
                     $v->save($this->conn, false);
                 }

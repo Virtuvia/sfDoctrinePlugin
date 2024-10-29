@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  *  $Id: Iterator.php 7490 2010-03-29 19:53:27Z jwage $
  *
@@ -30,7 +33,7 @@
  * @since       1.0
  * @version     $Revision: 7490 $
  */
-class Doctrine_Record_Iterator extends ArrayIterator
+final class Doctrine_Record_Iterator extends ArrayIterator
 {
     use Doctrine_NullInjectable;
 
@@ -55,8 +58,7 @@ class Doctrine_Record_Iterator extends ArrayIterator
      *
      * @return mixed
      */
-    #[\ReturnTypeWillChange]
-    public function current()
+    public function current(): mixed
     {
         $value = parent::current();
 
