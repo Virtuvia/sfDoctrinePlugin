@@ -82,7 +82,6 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
         'mysql'    => 'Doctrine_Connection_Mysql',
         'mysqli'   => 'Doctrine_Connection_Mysql',
         'sqlite'   => 'Doctrine_Connection_Sqlite',
-        'pgsql'    => 'Doctrine_Connection_Pgsql',
         'mock'     => 'Doctrine_Connection_Mock',
     ];
 
@@ -444,8 +443,6 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
                 break;
 
             case 'mysql':
-            case 'pgsql':
-            case 'odbc':
             case 'mock':
                 if (! isset($parts['path']) || $parts['path'] == '/') {
                     throw new Doctrine_Manager_Exception('No database available in data source name');

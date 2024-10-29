@@ -105,7 +105,6 @@ class Doctrine_Formatter extends Doctrine_Connection_Module
      * the following drivers:
      *   + mysql
      *   + mysqli
-     *   + pgsql
      *   + sqlite
      *
      * InterBase doesn't seem to be able to use delimited identifiers

@@ -1290,15 +1290,6 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
                     $subquery = implode(', ', array_map([$this->_conn, 'quote'], $list));
 
                     break;
-
-                case 'pgsql':
-                    $subqueryAlias = $this->_conn->quoteIdentifier('doctrine_subquery_alias');
-
-                    // pgsql needs special nested LIMIT subquery
-                    $subquery = 'SELECT ' . $subqueryAlias . '.' . $this->_conn->quoteIdentifier($idColumnName)
-                            . ' FROM (' . $subquery . ') AS ' . $subqueryAlias;
-
-                    break;
             }
 
             $field = $this->getSqlTableAlias($rootAlias) . '.' . $idColumnName;
@@ -1424,38 +1415,9 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
         // initialize the base of the subquery
         $subquery = 'SELECT DISTINCT ' . $this->_conn->quoteIdentifier($primaryKey);
 
-        // pgsql needs the order by fields to be preserved in select clause
-        if ($driverName == 'pgsql' || $driverName == 'odbc') {
-            foreach ($this->_sqlParts['orderby'] as $part) {
-                // Remove identifier quoting if it exists
-                $e = $this->_tokenizer->bracketExplode($part, ' ');
-                foreach ($e as $f) {
-                    if ($f == 0 || $f % 2 == 0) {
-                        $partOriginal = str_replace(',', '', trim($f));
-                        $callback = function ($e) { return trim($e, '[]`"'); };
-                        $part = trim(implode('.', array_map($callback, explode('.', $partOriginal))));
-
-                        if (strpos($part, '.') === false) {
-                            continue;
-                        }
-
-                        // don't add functions
-                        if (strpos($part, '(') !== false) {
-                            continue;
-                        }
-
-                        // don't add primarykey column (its already in the select clause)
-                        if ($part !== $primaryKey) {
-                            $subquery .= ', ' . $partOriginal;
-                        }
-                    }
-                }
-            }
-        }
-
         $orderby = $this->_sqlParts['orderby'];
         $having = $this->_sqlParts['having'];
-        if ($driverName == 'mysql' || $driverName == 'pgsql') {
+        if ($driverName == 'mysql') {
             foreach ($this->_expressionMap as $dqlAlias => $expr) {
                 if (isset($expr[1])) {
                     $subquery .= ', ' . $expr[0] . ' AS ' . $this->_aggregateAliasMap[$dqlAlias];
@@ -1555,7 +1517,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
             }
         }
 
-        if ($driverName == 'mysql' || $driverName == 'pgsql') {
+        if ($driverName == 'mysql') {
             foreach ($parts as $k => $part) {
                 if (strpos($part, "'") !== false) {
                     continue;

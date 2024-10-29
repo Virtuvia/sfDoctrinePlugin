@@ -168,7 +168,6 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      */
     private static $supportedDrivers    = [
         'Mysql',
-        'Pgsql',
         'Sqlite',
     ];
     protected $_count = 0;
@@ -703,7 +702,6 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * the following drivers:
      *   + mysql
      *   + mysqli
-     *   + pgsql
      *   + sqlite
      *
      * InterBase doesn't seem to be able to use delimited identifiers

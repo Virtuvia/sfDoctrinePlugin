@@ -20,7 +20,7 @@
  */
 
 /**
- * standard connection, the parent of pgsql, mysql and sqlite
+ * standard connection, the parent of mysql and sqlite
  *
  * @package     Doctrine
  * @subpackage  Connection
