@@ -1775,9 +1775,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * generates a copy of this object. Returns an instance of the same class of $this.
      *
      * @param bool $deep     whether to duplicates the objects targeted by the relations
-     * @return Doctrine_Record
      */
-    public function copy($deep = false)
+    public function copy($deep = false): static
     {
         $data = $this->_data;
         $idtype = $this->_table->getIdentifierType();
@@ -1788,9 +1787,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         }
 
         $ret = $this->_table->create($data);
-        $modified = [];
+        $ret->_modified = [];
 
-        foreach ($data as $key => $val) {
+        foreach ($ret->_data as $key => $val) {
             if (! ($val instanceof Doctrine_Null)) {
                 $ret->_modified[] = $key;
             }
