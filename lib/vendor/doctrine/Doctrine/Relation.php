@@ -439,22 +439,4 @@ abstract class Doctrine_Relation implements ArrayAccess
 
         return $this->_isRefClass;
     }
-
-    /**
-     * __toString
-     *
-     * @return string
-     */
-    public function __toString(): string
-    {
-        $r[] = "<pre>";
-        foreach ($this->definition as $k => $v) {
-            if (is_object($v)) {
-                $v = 'Object(' . get_class($v) . ')';
-            }
-            $r[] = $k . ' : ' . $v;
-        }
-        $r[] = "</pre>";
-        return implode("\n", $r);
-    }
 }

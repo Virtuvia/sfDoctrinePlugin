@@ -2679,19 +2679,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     }
 
     /**
-     * Generates a string representation of this object.
-     *
-     * This method is useful for debugging purposes, or it can be overriden in
-     * Doctrine_Record to provide a value when Record is casted to (string).
-     *
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return Doctrine_Lib::getTableAsString($this);
-    }
-
-    /**
      * Helper method for buildFindByWhere to decide if a string is greater than another
      *
      * @param string $a

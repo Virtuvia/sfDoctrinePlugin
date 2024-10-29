@@ -676,20 +676,6 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
     }
 
     /**
-     * Returns a string representation of this object
-     *
-     * @return string
-     */
-    public function __toString(): string
-    {
-        $r[] = "<pre>";
-        $r[] = "Doctrine_Manager";
-        $r[] = "Connections : " . count($this->_connections);
-        $r[] = "</pre>";
-        return implode("\n", $r);
-    }
-
-    /**
      * Get available doctrine validators
      *
      * @return array $validators

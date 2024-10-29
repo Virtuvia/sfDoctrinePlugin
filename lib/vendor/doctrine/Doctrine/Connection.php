@@ -1525,15 +1525,6 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
     }
 
     /**
-     * returns a string representation of this object
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return Doctrine_Lib::getConnectionAsString($this);
-    }
-
-    /**
      * Serialize. Remove database connection(pdo) since it cannot be serialized
      */
     public function __serialize(): array

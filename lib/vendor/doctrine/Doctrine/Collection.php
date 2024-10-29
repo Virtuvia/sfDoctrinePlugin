@@ -966,16 +966,6 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
     }
 
     /**
-     * Returns a string representation of this object
-     *
-     * @return string $string
-     */
-    public function __toString(): string
-    {
-        return Doctrine_Lib::getCollectionAsString($this);
-    }
-
-    /**
      * Returns the relation object
      *
      * @return Doctrine_Relation
