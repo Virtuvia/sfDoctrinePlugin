@@ -281,20 +281,6 @@ class Doctrine_Core
     public const PORTABILITY_ALL           = 63;
 
     /**
-     * LOCKMODE CONSTANTS
-     */
-
-    /**
-     * mode for optimistic locking
-     */
-    public const LOCK_OPTIMISTIC       = 0;
-
-    /**
-     * mode for pessimistic locking
-     */
-    public const LOCK_PESSIMISTIC      = 1;
-
-    /**
      * EXPORT CONSTANTS
      */
 
