@@ -254,31 +254,6 @@ class Doctrine_Relation_Parser
     }
 
     /**
-     * getImpl
-     * returns the table class of the concrete implementation for given template
-     * if the given template is not a template then this method just returns the
-     * table class for the given record
-     *
-     * @param string $template
-     */
-    public function getImpl($template)
-    {
-        $conn = $this->_table->getConnection();
-
-        if (class_exists($template) && in_array('Doctrine_Template', class_parents($template))) {
-            $impl = $this->_table->getImpl($template);
-
-            if ($impl === null) {
-                throw new Doctrine_Relation_Parser_Exception("Couldn't find concrete implementation for template " . $template);
-            }
-        } else {
-            $impl = $template;
-        }
-
-        return $conn->getTable($impl);
-    }
-
-    /**
      * Completes the given association definition
      *
      * @param array $def    definition array to be completed
@@ -287,10 +262,10 @@ class Doctrine_Relation_Parser
     public function completeAssocDefinition($def)
     {
         $conn = $this->_table->getConnection();
-        $def['table'] = $this->getImpl($def['class']);
+        $def['table'] = $conn->getTable($def['class']);
         $def['localTable'] = $this->_table;
         $def['class'] = $def['table']->getComponentName();
-        $def['refTable'] = $this->getImpl($def['refClass']);
+        $def['refTable'] = $conn->getTable($def['refClass']);
 
         $id = $def['refTable']->getIdentifierColumnNames();
 
@@ -401,7 +376,7 @@ class Doctrine_Relation_Parser
     public function completeDefinition($def)
     {
         $conn = $this->_table->getConnection();
-        $def['table'] = $this->getImpl($def['class']);
+        $def['table'] = $conn->getTable($def['class']);
         $def['localTable'] = $this->_table;
         $def['class'] = $def['table']->getComponentName();
 

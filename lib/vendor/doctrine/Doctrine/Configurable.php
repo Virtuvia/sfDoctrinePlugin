@@ -44,18 +44,6 @@ abstract class Doctrine_Configurable
     protected $parent;
 
     /**
-     * @var array $_impl                    an array containing concrete implementations for class templates
-     *                                      keys as template names and values as names of the concrete
-     *                                      implementation classes
-     */
-    protected $_impl = [];
-
-    /**
-     * @var array $_params                  an array of user defined parameters
-     */
-    protected $_params = [];
-
-    /**
      * setAttribute
      * sets a given attribute
      *
@@ -107,96 +95,6 @@ abstract class Doctrine_Configurable
         }
 
         $this->attributes[$attribute] = $value;
-    }
-
-    public function getParams($namespace = null)
-    {
-        if ($namespace == null) {
-            $namespace = $this->getAttribute(Doctrine_Core::ATTR_DEFAULT_PARAM_NAMESPACE);
-        }
-
-        if (! isset($this->_params[$namespace])) {
-            return null;
-        }
-
-        return $this->_params[$namespace];
-    }
-
-    public function getParamNamespaces()
-    {
-        return array_keys($this->_params);
-    }
-
-    public function setParam($name, $value, $namespace = null)
-    {
-        if ($namespace == null) {
-            $namespace = $this->getAttribute(Doctrine_Core::ATTR_DEFAULT_PARAM_NAMESPACE);
-        }
-
-        $this->_params[$namespace][$name] = $value;
-
-        return $this;
-    }
-
-    public function getParam($name, $namespace = null)
-    {
-        if ($namespace == null) {
-            $namespace = $this->getAttribute(Doctrine_Core::ATTR_DEFAULT_PARAM_NAMESPACE);
-        }
-
-        if (! isset($this->_params[$namespace][$name])) {
-            if (isset($this->parent)) {
-                return $this->parent->getParam($name, $namespace);
-            }
-            return null;
-        }
-
-        return $this->_params[$namespace][$name];
-    }
-
-    /**
-     * setImpl
-     * binds given class to given template name
-     *
-     * this method is the base of Doctrine dependency injection
-     *
-     * @param string $template      name of the class template
-     * @param string $class         name of the class to be bound
-     * @return Doctrine_Configurable    this object
-     */
-    public function setImpl($template, $class)
-    {
-        $this->_impl[$template] = $class;
-
-        return $this;
-    }
-
-    /**
-     * getImpl
-     * returns the implementation for given class
-     *
-     * @return string   name of the concrete implementation
-     */
-    public function getImpl($template)
-    {
-        if (! isset($this->_impl[$template])) {
-            if (isset($this->parent)) {
-                return $this->parent->getImpl($template);
-            }
-            return null;
-        }
-        return $this->_impl[$template];
-    }
-
-    public function hasImpl($template)
-    {
-        if (! isset($this->_impl[$template])) {
-            if (isset($this->parent)) {
-                return $this->parent->hasImpl($template);
-            }
-            return false;
-        }
-        return true;
     }
 
     /**
