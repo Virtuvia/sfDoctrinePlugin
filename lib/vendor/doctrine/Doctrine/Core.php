@@ -173,7 +173,6 @@ class Doctrine_Core
     public const ATTR_DEF_TABLESPACE       = 115;
     public const ATTR_EMULATE_DATABASE     = 116;
     public const ATTR_USE_NATIVE_ENUM      = 117;
-    public const ATTR_DEFAULT_SEQUENCE     = 133;
 
     public const ATTR_FETCHMODE                    = 118;
     public const ATTR_NAME_PREFIX                  = 121;
@@ -404,13 +403,6 @@ class Doctrine_Core
      * constant for auto_increment identifier
      */
     public const IDENTIFIER_AUTOINC        = 1;
-
-    /**
-     * IDENTIFIER_SEQUENCE
-     *
-     * constant for sequence identifier
-     */
-    public const IDENTIFIER_SEQUENCE       = 2;
 
     /**
      * IDENTIFIER_NATURAL

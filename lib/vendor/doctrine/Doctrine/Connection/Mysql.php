@@ -48,7 +48,6 @@ class Doctrine_Connection_Mysql extends Doctrine_Connection_Common
     {
         $this->setAttribute(Doctrine_Core::ATTR_DEFAULT_TABLE_TYPE, 'INNODB');
         $this->supported = [
-            'sequences'            => 'emulated',
             'indexes'              => true,
             'affected_rows'        => true,
             'transactions'         => true,

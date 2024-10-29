@@ -40,7 +40,7 @@
  *    Doctrine_Connection provides many convenience methods such as fetchAll(), fetchOne() etc.
  *
  * 4. Modular structure
- *    Higher level functionality such as schema importing, exporting, sequence handling etc.
+ *    Higher level functionality such as schema importing, exporting etc.
  *    is divided into modules. For a full list of connection modules see
  *    Doctrine_Connection::$_modules
  *
@@ -113,8 +113,6 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      *                                          methods such as alterTable, createConstraint etc.)
      *              import                      Doctrine_Import driver, handles db schema reading
      *
-     *              sequence                    Doctrine_Sequence driver, handles sequential id generation and retrieval
-     *
      *              unitOfWork                  Doctrine_Connection_UnitOfWork handles many orm functionalities such as object
      *                                          deletion and saving
      *
@@ -125,7 +123,6 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      * @see Doctrine_Expression_Driver
      * @see Doctrine_Export
      * @see Doctrine_Transaction
-     * @see Doctrine_Sequence
      * @see Doctrine_Connection_UnitOfWork
      * @see Doctrine_Formatter
      */
@@ -134,7 +131,6 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
         'dataDict'    => false,
         'export'      => false,
         'import'      => false,
-        'sequence'    => false,
         'unitOfWork'  => false,
         'formatter'   => false,
         'util'        => false,
@@ -1329,18 +1325,15 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
     /**
      * lastInsertId
      *
-     * Returns the ID of the last inserted row, or the last value from a sequence object,
+     * Returns the ID of the last inserted row
      * depending on the underlying driver.
      *
      * Note: This method may not return a meaningful or consistent result across different drivers,
-     * because the underlying database may not even support the notion of auto-increment fields or sequences.
-     *
-     * @param string $table     name of the table into which a new row was inserted
-     * @param string $field     name of the field into which a new row was inserted
+     * because the underlying database may not even support the notion of auto-increment fields.
      */
-    public function lastInsertId($table = null, $field = null)
+    public function lastInsertId()
     {
-        return $this->sequence->lastInsertId($table, $field);
+        return $this->getDbh()->lastInsertId();
     }
 
     /**

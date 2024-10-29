@@ -60,29 +60,6 @@ class Doctrine_Import_Sqlite extends Doctrine_Import
     }
 
     /**
-     * lists all database sequences
-     *
-     * @param string|null $database
-     * @return array
-     */
-    public function listSequences($database = null)
-    {
-        $query      = "SELECT name FROM sqlite_master WHERE type='table' AND sql NOT NULL ORDER BY name";
-        $tableNames = $this->conn->fetchColumn($query);
-
-        $result = [];
-        foreach ($tableNames as $tableName) {
-            if ($sqn = $this->conn->fixSequenceName($tableName, true)) {
-                $result[] = $sqn;
-            }
-        }
-        if ($this->conn->getAttribute(Doctrine_Core::ATTR_FIELD_CASE) && ($this->conn->getAttribute(Doctrine_Core::ATTR_PORTABILITY) & Doctrine_Core::PORTABILITY_FIX_CASE)) {
-            $result = array_map(($this->conn->getAttribute(Doctrine_Core::ATTR_FIELD_CASE) == CASE_LOWER ? 'strtolower' : 'strtoupper'), $result);
-        }
-        return $result;
-    }
-
-    /**
      * lists table constraints
      *
      * @param string $table     database table name

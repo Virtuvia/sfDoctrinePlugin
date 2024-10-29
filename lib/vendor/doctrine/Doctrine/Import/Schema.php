@@ -119,7 +119,6 @@ class Doctrine_Import_Schema
             'scale',
             'values',
             'comment',
-            'sequence',
             'protected',
             'zerofill',
             'owner',
@@ -402,16 +401,6 @@ class Doctrine_Import_Schema
                     $colDesc['primary'] = isset($field['primary']) ? (bool) (isset($field['primary']) && $field['primary']) : null;
                     $colDesc['default'] = isset($field['default']) ? $field['default'] : null;
                     $colDesc['autoincrement'] = isset($field['autoincrement']) ? (bool) (isset($field['autoincrement']) && $field['autoincrement']) : null;
-
-                    if (isset($field['sequence'])) {
-                        if (true === $field['sequence']) {
-                            $colDesc['sequence'] = $tableName;
-                        } else {
-                            $colDesc['sequence'] = (string) $field['sequence'];
-                        }
-                    } else {
-                        $colDesc['sequence'] = null;
-                    }
 
                     $colDesc['values'] = isset($field['values']) ? (array) $field['values'] : null;
 

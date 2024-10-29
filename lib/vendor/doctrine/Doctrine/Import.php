@@ -78,21 +78,6 @@ class Doctrine_Import extends Doctrine_Connection_Module
     }
 
     /**
-     * lists all database sequences
-     *
-     * @param string|null $database
-     * @return array
-     */
-    public function listSequences($database = null)
-    {
-        if (! isset($this->sql['listSequences'])) {
-            throw new Doctrine_Import_Exception(__FUNCTION__ . ' not supported by this driver.');
-        }
-
-        return $this->conn->fetchColumn($this->sql['listSequences']);
-    }
-
-    /**
      * lists table constraints
      *
      * @param string $table     database table name
@@ -243,18 +228,6 @@ class Doctrine_Import extends Doctrine_Connection_Module
     public function triggerExists($trigger, $database = null)
     {
         return in_array($trigger, $this->listTriggers($database));
-    }
-
-    /**
-     * checks if a sequence exists
-     *
-     * @param string $sequence
-     * @param string|null $database
-     * @return bool
-     */
-    public function sequenceExists($sequence, $database = null)
-    {
-        return in_array($sequence, $this->listSequences($database));
     }
 
     /**

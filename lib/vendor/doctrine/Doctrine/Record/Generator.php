@@ -285,7 +285,6 @@ abstract class Doctrine_Record_Generator extends Doctrine_Record_Abstract
             $def = $table->getDefinitionOf($field);
 
             unset($def['autoincrement']);
-            unset($def['sequence']);
             unset($def['primary']);
 
             $col = $table->hasColumn($field) ? $field : $table->getColumnName($field) . ' as ' . $field;

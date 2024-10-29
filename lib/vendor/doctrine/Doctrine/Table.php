@@ -135,10 +135,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      *      -- tableName                    database table name, in most cases this is the same as component name but in some cases
      *                                      where one-table-multi-class inheritance is used this will be the name of the inherited table
      *
-     *      -- sequenceName                 Some databases need sequences instead of auto incrementation primary keys,
-     *                                      you can set specific sequence for your table by calling setOption('sequenceName', $seqName)
-     *                                      where $seqName is the name of the desired sequence
-     *
      *      -- enumMap                      enum value arrays
      *
      *      -- inheritanceMap               inheritanceMap is used for inheritance mapping, keys representing columns and values
@@ -166,7 +162,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     protected $_options      = ['name'           => null,
         'tableName'      => null,
-        'sequenceName'   => null,
         'inheritanceMap' => [],
         'enumMap'        => [],
         'type'           => null,
@@ -447,9 +442,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                         $definition = $table->getDefinitionOf($id);
 
                         // inherited primary keys shouldn't contain autoinc
-                        // and sequence definitions
                         unset($definition['autoincrement']);
-                        unset($definition['sequence']);
 
                         // add the inherited primary key column
                         $fullName = $id . ' as ' . $table->getFieldName($id);
@@ -498,21 +491,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                                 if ($value !== false) {
                                     $this->_identifierType = Doctrine_Core::IDENTIFIER_AUTOINC;
                                     $found = true;
-                                }
-                                break;
-                            case 'seq':
-                            case 'sequence':
-                                $this->_identifierType = Doctrine_Core::IDENTIFIER_SEQUENCE;
-                                $found = true;
-
-                                if (is_string($value)) {
-                                    $this->_options['sequenceName'] = $value;
-                                } else {
-                                    if (($sequence = $this->getAttribute(Doctrine_Core::ATTR_DEFAULT_SEQUENCE)) !== null) {
-                                        $this->_options['sequenceName'] = $sequence;
-                                    } else {
-                                        $this->_options['sequenceName'] = $this->_conn->formatter->getSequenceName($this->_options['tableName']);
-                                    }
                                 }
                                 break;
                         }
@@ -2646,7 +2624,6 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                    || $name == 'autoincrement'
                    || $name == 'default'
                    || $name == 'values'
-                   || $name == 'sequence'
                    || $name == 'zerofill'
                    || $name == 'owner'
                    || $name == 'scale'

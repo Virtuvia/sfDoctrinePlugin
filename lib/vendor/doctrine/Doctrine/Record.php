@@ -724,7 +724,6 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     {
         switch ($this->_table->getIdentifierType()) {
             case Doctrine_Core::IDENTIFIER_AUTOINC:
-            case Doctrine_Core::IDENTIFIER_SEQUENCE:
             case Doctrine_Core::IDENTIFIER_NATURAL:
                 $name = $this->_table->getIdentifier();
                 if (is_array($name)) {
@@ -1904,7 +1903,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     {
         $data = $this->_data;
         $idtype = $this->_table->getIdentifierType();
-        if ($idtype === Doctrine_Core::IDENTIFIER_AUTOINC || $idtype === Doctrine_Core::IDENTIFIER_SEQUENCE) {
+        if ($idtype === Doctrine_Core::IDENTIFIER_AUTOINC) {
             $id = $this->_table->getIdentifier();
 
             unset($data[$id]);

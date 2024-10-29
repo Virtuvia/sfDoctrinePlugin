@@ -46,7 +46,7 @@ class Doctrine_Connection_Sqlite extends Doctrine_Connection_Common
      */
     public function __construct(Doctrine_Manager $manager, $adapter)
     {
-        $this->supported = ['sequences'            => 'emulated',
+        $this->supported = [
             'indexes'              => true,
             'affected_rows'        => true,
             'summary_functions'    => true,

@@ -91,22 +91,16 @@ abstract class Doctrine_Configurable
                     }
                 }
                 break;
-            case Doctrine_Core::ATTR_SEQCOL_NAME:
-                if (! is_string($value)) {
-                    throw new Doctrine_Exception('Sequence column name attribute only accepts string values');
-                }
-                break;
             case Doctrine_Core::ATTR_FIELD_CASE:
                 if ($value != 0 && $value != CASE_LOWER && $value != CASE_UPPER) {
                     throw new Doctrine_Exception('Field case attribute should be either 0, CASE_LOWER or CASE_UPPER constant.');
                 }
                 break;
-            case Doctrine_Core::ATTR_SEQNAME_FORMAT:
             case Doctrine_Core::ATTR_IDXNAME_FORMAT:
             case Doctrine_Core::ATTR_TBLNAME_FORMAT:
             case Doctrine_Core::ATTR_FKNAME_FORMAT:
                 if ($this instanceof Doctrine_Table) {
-                    throw new Doctrine_Exception('Sequence / index name format attributes cannot be set'
+                    throw new Doctrine_Exception('Index name format attributes cannot be set'
                                                . 'at table level (only at connection or global level).');
                 }
                 break;

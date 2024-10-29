@@ -594,8 +594,6 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
             return $this->update($record);
         } else {
             if ($record->isValid()) {
-                $this->_assignSequence($record);
-
                 $saveEvent = $record->invokeSaveHooks('pre', 'save');
                 $insertEvent = $record->invokeSaveHooks('pre', 'insert');
 
@@ -644,7 +642,6 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
             }
         }
 
-        $this->_assignSequence($record, $fields);
         $this->conn->insert($table, $fields);
         $this->_assignIdentifier($record);
     }
@@ -910,35 +907,16 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
         return $dataSet;
     }
 
-    protected function _assignSequence(Doctrine_Record $record, &$fields = null)
-    {
-        $table = $record->getTable();
-        $seq = $table->sequenceName;
-
-        if (! empty($seq)) {
-            $id = $this->conn->sequence->nextId($seq);
-            $seqName = $table->getIdentifier();
-            if ($fields) {
-                $fields[$seqName] = $id;
-            }
-
-            $record->assignIdentifier($id);
-
-            return $id;
-        }
-    }
-
     protected function _assignIdentifier(Doctrine_Record $record)
     {
         $table = $record->getTable();
         $identifier = $table->getIdentifier();
-        $seq = $table->sequenceName;
 
-        if (empty($seq) && !is_array($identifier) &&
+        if (!is_array($identifier) &&
             $table->getIdentifierType() != Doctrine_Core::IDENTIFIER_NATURAL) {
             $id = false;
             if ($record->$identifier == null) {
-                $id = $this->conn->sequence->lastInsertId($seq);
+                $id = $this->conn->lastInsertId();
             } else {
                 $id = $record->$identifier;
             }
@@ -946,6 +924,7 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
             if (! $id) {
                 throw new Doctrine_Connection_Exception("Couldn't get last insert identifier.");
             }
+
             $record->assignIdentifier($id);
         } else {
             $record->assignIdentifier(true);

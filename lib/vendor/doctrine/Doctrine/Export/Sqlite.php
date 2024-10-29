@@ -270,59 +270,6 @@ class Doctrine_Export_Sqlite extends Doctrine_Export
         return $query;
     }
 
-    /**
-     * create sequence
-     *
-     * @param string    $seqName        name of the sequence to be created
-     * @param string    $start          start value of the sequence; default is 1
-     * @param array     $options  An associative array of table options:
-     *                          array(
-     *                              'comment' => 'Foo',
-     *                              'charset' => 'utf8',
-     *                              'collate' => 'utf8_unicode_ci',
-     *                          );
-     * @return bool
-     */
-    public function createSequence($seqName, $start = 1, array $options = [])
-    {
-        $sequenceName   = $this->conn->quoteIdentifier($this->conn->formatter->getSequenceName($seqName), true);
-        $seqcolName     = $this->conn->quoteIdentifier($this->conn->getAttribute(Doctrine_Core::ATTR_SEQCOL_NAME), true);
-        $query          = 'CREATE TABLE ' . $sequenceName . ' (' . $seqcolName . ' INTEGER PRIMARY KEY DEFAULT 0 NOT NULL)';
-
-        $this->conn->exec($query);
-
-        if ($start == 1) {
-            return true;
-        }
-
-        try {
-            $this->conn->exec('INSERT INTO ' . $sequenceName . ' (' . $seqcolName . ') VALUES (' . ($start - 1) . ')');
-            return true;
-        } catch (Doctrine_Connection_Exception $e) {
-            // Handle error
-
-            try {
-                $result = $db->exec('DROP TABLE ' . $sequenceName);
-            } catch (Doctrine_Connection_Exception $e) {
-                throw new Doctrine_Export_Exception('could not drop inconsistent sequence table');
-            }
-        }
-        throw new Doctrine_Export_Exception('could not create sequence table');
-    }
-
-    /**
-     * drop existing sequence
-     *
-     * @param string $sequenceName      name of the sequence to be dropped
-     * @return string
-     */
-    public function dropSequenceSql($sequenceName)
-    {
-        $sequenceName = $this->conn->quoteIdentifier($this->conn->formatter->getSequenceName($sequenceName), true);
-
-        return 'DROP TABLE ' . $sequenceName;
-    }
-
     public function alterTableSql($name, array $changes, $check = false)
     {
         if (! $name) {

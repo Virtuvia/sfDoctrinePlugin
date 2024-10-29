@@ -189,23 +189,6 @@ class Doctrine_Formatter extends Doctrine_Connection_Module
     }
 
     /**
-     * Removes any formatting in an sequence name using the 'seqname_format' option
-     *
-     * @param string $sqn string that containts name of a potential sequence
-     * @return string name of the sequence with possible formatting removed
-     */
-    public function fixSequenceName($sqn)
-    {
-        $seqPattern = '/^' . preg_replace('/%s/', '([a-z0-9_]+)', $this->conn->getAttribute(Doctrine_Core::ATTR_SEQNAME_FORMAT)) . '$/i';
-        $seqName    = preg_replace($seqPattern, '\\1', $sqn);
-
-        if ($seqName && ! strcasecmp($sqn, $this->getSequenceName($seqName))) {
-            return $seqName;
-        }
-        return $sqn;
-    }
-
-    /**
      * Removes any formatting in an index name using the 'idxname_format' option
      *
      * @param string $idx string that containts name of anl index
@@ -219,18 +202,6 @@ class Doctrine_Formatter extends Doctrine_Connection_Module
             return $indexName;
         }
         return $idx;
-    }
-
-    /**
-     * adds sequence name formatting to a sequence name
-     *
-     * @param string    name of the sequence
-     * @return string   formatted sequence name
-     */
-    public function getSequenceName($sqn)
-    {
-        return sprintf($this->conn->getAttribute(Doctrine_Core::ATTR_SEQNAME_FORMAT),
-            preg_replace('/[^a-z0-9_\$.]/i', '_', $sqn));
     }
 
     /**

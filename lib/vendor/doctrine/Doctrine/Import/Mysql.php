@@ -34,28 +34,10 @@ class Doctrine_Import_Mysql extends Doctrine_Import
     protected $sql  = [
         'listDatabases'   => 'SHOW DATABASES',
         'listTableFields' => 'DESCRIBE %s',
-        'listSequences'   => 'SHOW TABLES',
         'listTables'      => 'SHOW TABLES',
         'listUsers'       => 'SELECT DISTINCT USER FROM USER',
         'listViews'       => "SHOW FULL TABLES %s WHERE Table_type = 'VIEW'",
     ];
-
-    /**
-     * lists all database sequences
-     *
-     * @param string|null $database
-     * @return array
-     */
-    public function listSequences($database = null)
-    {
-        $query = 'SHOW TABLES';
-        if (! is_null($database)) {
-            $query .= ' FROM ' . $database;
-        }
-        $tableNames = $this->conn->fetchColumn($query);
-
-        return array_map([$this->conn->formatter, 'fixSequenceName'], $tableNames);
-    }
 
     /**
      * lists table constraints

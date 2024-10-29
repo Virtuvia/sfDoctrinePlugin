@@ -86,13 +86,12 @@ class Doctrine_AuditLog extends Doctrine_Record_Generator
         // Building columns
         $columns = $this->_options['table']->getColumns();
 
-        // remove all sequence, autoincrement and unique constraint definitions and add to the behavior model
+        // remove all autoincrement and unique constraint definitions and add to the behavior model
         foreach ($columns as $column => $definition) {
             if (in_array($column, $this->_options['excludeFields'])) {
                 continue;
             }
             unset($definition['autoincrement']);
-            unset($definition['sequence']);
             unset($definition['unique']);
 
             $fieldName = $this->_options['table']->getFieldName($column);

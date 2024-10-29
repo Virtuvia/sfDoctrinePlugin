@@ -152,33 +152,6 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
     }
 
     /**
-     * dropSequenceSql
-     * drop existing sequence
-     * (this method is implemented by the drivers)
-     *
-     * @throws Doctrine_Connection_Exception     if something fails at database level
-     * @param string $sequenceName      name of the sequence to be dropped
-     * @return void
-     */
-    public function dropSequence($sequenceName)
-    {
-        $this->conn->exec($this->dropSequenceSql($sequenceName));
-    }
-
-    /**
-     * dropSequenceSql
-     * drop existing sequence
-     *
-     * @throws Doctrine_Connection_Exception     if something fails at database level
-     * @param string $sequenceName name of the sequence to be dropped
-     * @return void
-     */
-    public function dropSequenceSql($sequenceName)
-    {
-        throw new Doctrine_Export_Exception('Drop sequence not supported by this driver.');
-    }
-
-    /**
      * create a new database
      * (this method is implemented by the drivers)
      *
@@ -310,45 +283,6 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
         foreach ($sql as $query) {
             $this->conn->execute($query);
         }
-    }
-
-    /**
-     * create sequence
-     *
-     * @throws Doctrine_Connection_Exception     if something fails at database level
-     * @param string    $seqName        name of the sequence to be created
-     * @param string    $start          start value of the sequence; default is 1
-     * @param array     $options  An associative array of table options:
-     *                          array(
-     *                              'comment' => 'Foo',
-     *                              'charset' => 'utf8',
-     *                              'collate' => 'utf8_unicode_ci',
-     *                          );
-     * @return void
-     */
-    public function createSequence($seqName, $start = 1, array $options = [])
-    {
-        return $this->conn->execute($this->createSequenceSql($seqName, $start = 1, $options));
-    }
-
-    /**
-     * return RDBMS specific create sequence statement
-     * (this method is implemented by the drivers)
-     *
-     * @throws Doctrine_Connection_Exception     if something fails at database level
-     * @param string    $seqName        name of the sequence to be created
-     * @param string    $start          start value of the sequence; default is 1
-     * @param array     $options  An associative array of table options:
-     *                          array(
-     *                              'comment' => 'Foo',
-     *                              'charset' => 'utf8',
-     *                              'collate' => 'utf8_unicode_ci',
-     *                          );
-     * @return string
-     */
-    public function createSequenceSql($seqName, $start = 1, array $options = [])
-    {
-        throw new Doctrine_Export_Exception('Create sequence not supported by this driver.');
     }
 
     /**
@@ -1107,7 +1041,6 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
             if (! isset($connections[$connectionName])) {
                 $connections[$connectionName] = [
                     'create_tables'    => [],
-                    'create_sequences' => [],
                     'create_indexes'   => [],
                     'alters'           => [],
                     'create_triggers'  => [],
@@ -1122,14 +1055,6 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
                 // If create table statement
                 if (substr($query, 0, strlen('CREATE TABLE')) == 'CREATE TABLE') {
                     $connections[$connectionName]['create_tables'][] = $query;
-
-                    unset($sql[$key]);
-                    continue;
-                }
-
-                // If create sequence statement
-                if (substr($query, 0, strlen('CREATE SEQUENCE')) == 'CREATE SEQUENCE') {
-                    $connections[$connectionName]['create_sequences'][] = $query;
 
                     unset($sql[$key]);
                     continue;
@@ -1172,7 +1097,7 @@ abstract class Doctrine_Export extends Doctrine_Connection_Module
         // Loop over all the sql again to merge everything together so it is in the correct order
         $build = [];
         foreach ($connections as $connectionName => $sql) {
-            $build[$connectionName] = array_unique(array_merge($sql['create_tables'], $sql['create_sequences'], $sql['create_indexes'], $sql['alters'], $sql['create_triggers']));
+            $build[$connectionName] = array_unique(array_merge($sql['create_tables'], $sql['create_indexes'], $sql['alters'], $sql['create_triggers']));
         }
 
         if (! $groupByConnection) {
