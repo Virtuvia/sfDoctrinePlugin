@@ -124,15 +124,6 @@ interface Doctrine_Node_Interface
     public function getAncestors();
 
     /**
-     * gets path to node from root, uses record::toString() method to get node names
-     *
-     * @param string $seperator                 path seperator
-     * @param bool $includeNode                 whether or not to include node at end of path
-     * @return string                           string representation of path
-     */
-    public function getPath($seperator = ' > ', $includeNode = false);
-
-    /**
      * gets level (depth) of node in the tree
      *
      * @return int
